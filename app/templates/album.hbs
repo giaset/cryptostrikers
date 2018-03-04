@@ -1,1 +1,10 @@
 <p>Grid of all cards and their rarity (cards you don't own are at 30% opacity - see <a href="https://rarepepewallet.com" target="_blank">Rare Pepe</a>)</p>
+<div class="row">
+  {{#each model as |player|}}
+    <div class="col-md-6 col-lg-4">
+      <div class="card mb-4 mx-auto box-shadow" style="width:300px; height:420px;">
+        <h5>{{player.name}}</h5>
+      </div>
+    </div>
+  {{/each}}
+</div>
