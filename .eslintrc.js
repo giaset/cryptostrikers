@@ -34,5 +34,8 @@ module.exports = {
         node: true
       }
     }
-  ]
+  ],
+  globals: {
+    Web3: false
+  }
 };

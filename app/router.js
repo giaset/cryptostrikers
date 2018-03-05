@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('album');
   this.route('trade');
   this.route('duel');
+  this.route('start');
 });
 
 export default Router;
