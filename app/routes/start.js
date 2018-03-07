@@ -5,6 +5,6 @@ export default Route.extend({
   web3: service(),
 
   model() {
-    return this.get('web3').createAccount().privateKey;
+    return this.get('web3').createAccount();
   }
 });

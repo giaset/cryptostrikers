@@ -10,5 +10,9 @@ export default Service.extend({
 
   createAccount() {
     return this._instance.eth.accounts.create();
+  },
+
+  encryptAccount(privateKey, password) {
+    return this._instance.eth.accounts.encrypt(privateKey, password);
   }
 });
