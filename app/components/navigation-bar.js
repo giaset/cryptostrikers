@@ -1,6 +1,13 @@
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
+  session: service(),
+  classNames: ['navbar', 'navbar-expand-sm', 'navbar-light'],
   tagName: 'header',
-  classNames: ['navbar', 'navbar-expand-sm', 'navbar-light']
+  actions: {
+    invalidateSession() {
+      this.get('session').invalidate();
+    }
+  }
 });

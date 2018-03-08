@@ -1,23 +1,30 @@
 {{link-to "CryptoStrikers" "index" class="navbar-brand" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
-  <span class="navbar-toggler-icon"></span>
-</button>
-<nav class="collapse navbar-collapse" id="navContent">
-  <ul class='navbar-nav ml-auto'>
-    <li class='nav-item'>
-      {{link-to "Home" "index" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-    </li>
-    <li class='nav-item'>
-      {{link-to "Buy Cards" "crowdsale" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-    </li>
-    <li class='nav-item'>
-      {{link-to "My Album" "album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-    </li>
-    <li class='nav-item'>
-      {{link-to "Trade" "trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-    </li>
-    <li class='nav-item'>
-      {{link-to "Duel" "duel" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-    </li>
-  </ul>
-</nav>
+{{#if session.isAuthenticated}}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <nav class="collapse navbar-collapse" id="navContent">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          {{link-to "Home" "index" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item">
+          {{link-to "Buy Cards" "crowdsale" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item">
+          {{link-to "My Album" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item">
+          {{link-to "Trade" "trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item">
+          {{link-to "Duel" "duel" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" {{action "invalidateSession"}}>Logout</a>
+        </li>
+    </ul>
+  </nav>
+{{else}}
+  {{link-to "Get Started" "start" class="btn btn-outline-primary ml-auto"}}
+{{/if}}
