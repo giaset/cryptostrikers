@@ -1,20 +1,8 @@
 <div class="card">
-  {{#unless encryptedAccount}}
-    <h2 class="card-header">Seriously, please fucking read this.</h2>
-    <div class="card-body">
-      <p class="card-text">Enter a password here to create your secure account.</p>
-      <form class="form-inline">
-        {{input type="password" class="form-control mr-sm-3 mb-2 mb-sm-0" placeholder="Password" value=password}}
-        <button type="submit" class="btn btn-primary" {{action "createAccount"}}>Create Account</button>
-      </form>
-    </div>
-  {{else}}
-    <h2 class="card-header">Ok, here's your account.</h2>
-    <div class="card-body">
-      <p class="card-text">We've created an account for you.</p>
-      <p class="card-text">The address is <code>{{model.address}}</code>.</p>
-      <p class="card-text">Here is the account in encrypted form:</p>
-      <p class="card-text"><code>{{encryptedAccount}}</code></p>
-    </div>
-  {{/unless}}
+  <h2 class="card-header">Seriously, please fucking read this.</h2>
+  <div class="card-body">
+    <p class="card-text">Here are your 12 seed words. Please fucking write them down.</p>
+    <div class="alert alert-danger font-weight-bold" role="alert">{{model}}</div>
+    <button type="button" class="btn btn-primary" {{action "createAccount"}}>I wrote them down</button>
+  </div>
 </div>
