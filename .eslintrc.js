@@ -15,6 +15,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    semi: 2
   },
   overrides: [
     // node files
