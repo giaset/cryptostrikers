@@ -8,3 +8,31 @@
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+.cover-container {
+  max-width: 42em;
+  position: relative;
+}
+
+html, body, body > .ember-view {
+  height: 100%;
+}
+
+body {
+  color: white;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .5);
+  background-image: linear-gradient(to bottom right, #180cac, #d054e4);
+}
+
+.wallpaper {
+  height: 100%;
+  width: 100%;
+  background-image: url("../assets/images/stadium.jpeg");
+  background-size: cover;
+  background-position: center;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.2;
+}
