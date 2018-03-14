@@ -6,13 +6,10 @@
   <nav class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          {{link-to "Home" "index" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          {{link-to "Home" "index" class="nav-link d-block d-sm-none" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
-          {{link-to "Buy Cards" "crowdsale" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "My Album" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          {{link-to "Buy Packs" "crowdsale" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
           {{link-to "Trade" "trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
@@ -21,10 +18,23 @@
           {{link-to "Duel" "duel" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link" {{action "invalidateSession"}}>Logout</a>
+          {{link-to "My Album" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" {{action "invalidateSession"}}>Logout</a>
+          </div>
         </li>
     </ul>
+    {{#link-to "deposit" class="btn btn-outline-success"}}0.0000 ETH{{/link-to}}
   </nav>
 {{else}}
-  {{link-to "Get Started" "start" class="btn btn-outline-primary ml-auto"}}
+  <nav class="ml-auto">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        {{link-to "Play Now" "login" class="nav-link"}}
+      </li>
+    </ul>
+  </nav>
 {{/if}}
