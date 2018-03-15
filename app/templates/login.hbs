@@ -1,8 +1,31 @@
-<div class="card">
-  <h2 class="card-header">Seriously, please fucking read this.</h2>
-  <div class="card-body">
-    <p class="card-text">Here are your 12 seed words. Please fucking write them down.</p>
-    <div class="alert alert-danger font-weight-bold" role="alert">{{model}}</div>
-    <button type="button" class="btn btn-success" {{action "createAccount"}}>I wrote them down</button>
+{{#if currentlyLoading}}
+  {{spinkit-cube-grid}}
+{{else}}
+  <div class="card">
+    <h2 class="card-header">{{headerForCurrentStep}}</h2>
+    <div class="card-body">
+      {{#if session.data.encryptedAccount}}
+        {{#if errorMessage}}
+          <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+          </div>
+        {{/if}}
+        <p class="card-text">Please enter your password to unlock your account and use the site.</p>
+        <form class="form-inline">
+          {{input type="password" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Password" value=password}}
+          <button type="submit" class="btn btn-success" {{action "login"}}>Submit</button>
+        </form>
+      {{else if (eq currentStep seedWordStep)}}
+        <p class="card-text">Here are your 12 seed words. Please fucking write them down.</p>
+        <div class="alert alert-danger font-weight-bold" role="alert">{{model}}</div>
+        <button type="button" class="btn btn-success" {{action "goToNextStep"}}>I wrote them down</button>
+      {{else if (eq currentStep passwordStep)}}
+        <p class="card-text">We encrypt your account and save it to your browser's storage. This password is needed to unlock your account and use the site.</p>
+        <form class="form-inline">
+          {{input type="password" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Password" value=password}}
+          <button type="submit" class="btn btn-success" {{action "createAccount"}}>Submit</button>
+        </form>
+      {{/if}}
+    </div>
   </div>
-</div>
+{{/if}}

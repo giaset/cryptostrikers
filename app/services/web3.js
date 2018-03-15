@@ -3,18 +3,39 @@ import Service from '@ember/service';
 
 export default Service.extend({
   _instance: null,
+  currentAccount: null,
 
   init() {
     this._super(...arguments);
     this._instance = new Web3('http://127.0.0.1:8545');
   },
 
-  createAccount() {
-    return this._instance.eth.accounts.create();
+  _accounts() {
+    return this._instance.eth.accounts;
+  },
+
+  setCurrentAccount(account) {
+    this.set('currentAccount', account);
   },
 
   encryptAccount(privateKey, password = '') {
-    return this._instance.eth.accounts.encrypt(privateKey, password);
+    return new RSVP.Promise(resolve => {
+      resolve(this._accounts().encrypt(privateKey, password));
+    });
+  },
+
+  decryptAccount(account, password = '') {
+    return new RSVP.Promise(resolve => {
+      resolve(this._accounts().decrypt(account, password));
+    });
+  },
+
+  _wallet() {
+    return this._accounts().wallet;
+  },
+
+  addAccountToWallet(account) {
+    this._wallet().add(account);
   },
 
   generateSeedPhrase() {
@@ -43,7 +64,7 @@ export default Service.extend({
           ks.generateNewAddress(pwDerivedKey);
           const address = ks.getAddresses()[0];
           const privKey = ks.exportPrivateKey(address, pwDerivedKey);
-          const account = this._instance.eth.accounts.privateKeyToAccount('0x'+privKey);
+          const account = this._accounts().privateKeyToAccount('0x'+privKey);
           resolve(account);
         });
       });

@@ -8,5 +8,10 @@ export default Route.extend(UnauthenticatedRouteMixin, {
 
   model() {
     return this.get('web3').generateSeedPhrase();
+  },
+
+  resetController(controller) {
+    controller.set('currentStep', 0);
+    controller.set('password', '');
   }
 });
