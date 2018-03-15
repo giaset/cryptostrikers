@@ -3,7 +3,6 @@ import Service from '@ember/service';
 
 export default Service.extend({
   _instance: null,
-  currentAccount: null,
 
   init() {
     this._super(...arguments);
@@ -14,8 +13,8 @@ export default Service.extend({
     return this._instance.eth.accounts;
   },
 
-  setCurrentAccount(account) {
-    this.set('currentAccount', account);
+  getBalance(address) {
+    return this._instance.eth.getBalance(address);
   },
 
   encryptAccount(privateKey, password = '') {
@@ -69,5 +68,9 @@ export default Service.extend({
         });
       });
     });
+  },
+
+  weiToEther(wei) {
+    return this._instance.utils.fromWei(wei);
   }
 });
