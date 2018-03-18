@@ -17,11 +17,14 @@
           <button type="submit" class="btn btn-success" {{action "login"}}>Submit</button>
         </form>
       {{else if (eq currentStep seedWordStep)}}
+        <p class="card-text">CryptoStrikers doesn't store any of your information. In fact, we don't even have a backend server.</p>
+        <p class="card-text">Instead, we will give you 12 seed words that contain all the information needed to recreate your account from any device. That means that anybody who has theses words has full access to your funds and to all your CryptoStrikers cards, so please write them down somewhere safe.</p>
         <p class="card-text">Here are your 12 seed words. Please fucking write them down.</p>
         <div class="alert alert-danger font-weight-bold" role="alert">{{model}}</div>
         <button type="button" class="btn btn-success" {{action "goToNextStep"}}>I wrote them down</button>
       {{else if (eq currentStep passwordStep)}}
-        <p class="card-text">We encrypt your account and save it to your browser's storage. This password is needed to unlock your account and use the site.</p>
+        <p class="card-text">To keep your account safe, we encrypt it before saving it to your browser's storage.</p>
+        <p class="card=text">Please choose the password you would like to use to lock/unlock your account.</p>
         <form class="form-inline">
           {{input type="password" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Password" value=password}}
           <button type="submit" class="btn btn-success" {{action "createAccount"}}>Submit</button>
