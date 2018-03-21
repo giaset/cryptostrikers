@@ -75,8 +75,8 @@ export default Service.extend({
     return this._instance.utils.fromWei(wei);
   },
 
-  packSaleContract() {
-    return $.getJSON('contracts/PackSale.json')
+  saleContract() {
+    return $.getJSON('contracts/StrikersSale.json')
     .then(json => new this._instance.eth.Contract(json.abi, '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'));
   }
 });
