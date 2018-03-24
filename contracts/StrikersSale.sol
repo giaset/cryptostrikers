@@ -1,8 +1,8 @@
 pragma solidity ^0.4.19;
 
-import "./StrikersFactory.sol";
+import "./StrikersPackFactory.sol";
 
-contract StrikersSale is StrikersFactory {
+contract StrikersSale is StrikersPackFactory {
   uint public ethPriceUSD;
   uint public packPriceUSD;
 

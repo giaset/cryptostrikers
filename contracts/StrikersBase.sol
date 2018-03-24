@@ -35,7 +35,7 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
   }
 
   /// @dev All the cards that have been minted, indexed by cardId.
-  Card[] cards;
+  Card[] public cards;
 
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a Birth and a Transfer event.
@@ -50,13 +50,14 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
     uint16 _mintNumber
   )
     internal
+    returns (uint)
   {
     Card memory newCard = Card(_playerId, _seriesId, _runId, _mintNumber, now);
     uint256 newCardId = cards.push(newCard) - 1;
     CardMinted(newCardId);
-    // todo: use transfer function instead
     tokenOwner[newCardId] = this;
     ownedTokensCount[this]++;
     Transfer(0, this, newCardId);
+    return newCardId;
   }
 }

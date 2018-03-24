@@ -1,7 +1,19 @@
-const StrikersSale = artifacts.require("./StrikersSale.sol");
-const WorldCupInfo = artifacts.require('./WorldCupInfo.sol');
+const StrikersPackFactory = artifacts.require("./StrikersPackFactory.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(StrikersSale, 475, 10);
-  deployer.deploy(WorldCupInfo);
+  const packs = [];
+  for (let i = 0; i < 10; i++) {
+    const pack = [];
+    for (let j = 0; j < 5; j++) {
+      const playerId = Math.floor((Math.random() * 24) + 1);
+      pack.push(playerId);
+    }
+    packs.push(pack);
+  }
+
+  deployer.deploy(StrikersPackFactory)
+  .then(() => StrikersPackFactory.deployed())
+  .then(packFactory => {
+    packFactory.mintRun(0, packs);
+  });
 };
