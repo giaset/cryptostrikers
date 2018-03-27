@@ -7,10 +7,14 @@ export default Controller.extend({
 
   actions: {
     buyPack() {
-      const myAddress = this.get('currentUser.user.id');
-      this.get('web3.saleContract').methods.buyPack().send({from: myAddress})
+      const web3 = this.get('web3');
+      web3._instance.eth.getAccounts()
+      .then(accounts => {
+        const account = accounts[0];
+        return web3.get('saleContract').methods.buyPack().send({from: account});
+      })
       .then(receipt => {
-        debugger;
+        return receipt.transactionHash;
       });
     }
   }

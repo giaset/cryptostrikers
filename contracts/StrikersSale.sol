@@ -3,6 +3,8 @@ pragma solidity ^0.4.19;
 import "./StrikersPackFactory.sol";
 
 contract StrikersSale is StrikersPackFactory {
+  event PackBought(address indexed _buyer, uint32 _pack);
+
   uint public ethPriceUSD;
   uint public packPriceUSD;
 
@@ -29,11 +31,11 @@ contract StrikersSale is StrikersPackFactory {
     buyPack();
   }
 
-  function buyPack() public returns (uint32) {
+  function buyPack() public {
     // require proper ether amount
     require(shuffledPacks.length > 0);
     uint32 pack = _removePackAtIndex(0);
-    return pack;
+    PackBought(msg.sender, pack);
   }
 
   function _removePackAtIndex(uint256 _index) internal returns (uint32) {
