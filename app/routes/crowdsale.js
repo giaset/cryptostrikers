@@ -7,12 +7,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
   web3: service(),
 
   model() {
-    const saleContract = this.get('web3').saleContract();
-    const ethPriceUSD = saleContract.then(contract => contract.methods.ethPriceUSD().call());
-    const packPriceUSD = saleContract.then(contract => contract.methods.packPriceUSD().call());
+    const saleContract = this.get('web3.saleContract');
     return RSVP.hash({
-      ethPriceUSD: ethPriceUSD,
-      packPriceUSD: packPriceUSD
+      ethPriceUSD: saleContract.methods.ethPriceUSD().call(),
+      packPriceUSD: saleContract.methods.packPriceUSD().call()
     });
   }
 });

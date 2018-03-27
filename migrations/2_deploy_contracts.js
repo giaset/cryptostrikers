@@ -1,4 +1,4 @@
-const StrikersPackFactory = artifacts.require("./StrikersPackFactory.sol");
+const StrikersSale = artifacts.require("./StrikersSale.sol");
 
 module.exports = function(deployer) {
   const packs = [];
@@ -13,9 +13,9 @@ module.exports = function(deployer) {
     packs.push(parseInt(pack, 2));
   }
 
-  deployer.deploy(StrikersPackFactory)
-  .then(() => StrikersPackFactory.deployed())
-  .then(packFactory => {
-    packFactory.loadShuffledPacks(packs);
+  deployer.deploy(StrikersSale, 475, 10)
+  .then(() => StrikersSale.deployed())
+  .then(contract => {
+    contract.loadShuffledPacks(packs);
   });
 };

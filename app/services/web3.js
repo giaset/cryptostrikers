@@ -75,8 +75,13 @@ export default Service.extend({
     return this._instance.utils.fromWei(wei);
   },
 
-  saleContract() {
-    return $.getJSON('contracts/StrikersSale.json')
-    .then(json => new this._instance.eth.Contract(json.abi, '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'));
+  loadAllContracts() {
+    const saleContractPromise = $.getJSON('contracts/StrikersSale.json')
+    .then(json => {
+      const saleContract = new this._instance.eth.Contract(json.abi, '0x9414329bf6837db915b4d5e0e22ecc27a33129c5');
+      this.set('saleContract', saleContract);
+    });
+
+    return saleContractPromise;
   }
 });

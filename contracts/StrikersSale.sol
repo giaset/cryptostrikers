@@ -25,15 +25,23 @@ contract StrikersSale is StrikersPackFactory {
     packPriceUSD = _packPriceUSD;
   }
 
-  /*decide which pack is purchased by the hash of the block hash,
-  the sender, and a per-sender nonce, modulo the number of packs left.
-  Then give them the pack at that index, move the last pack to that index,
-  and then decrement the total number of packs. Makes it much harder
-  to influence which pack you get, since previously it was just a timing attack.
-  Now they also have to influence the block hash as well as deal with other users
-  re-shuffling the array every time a purchase is made. Basically impossible
-  in a short time frame imo*/
   function() external payable {
+    buyPack();
+  }
 
+  function buyPack() public returns (uint32) {
+    // require proper ether amount
+    require(shuffledPacks.length > 0);
+    uint32 pack = _removePackAtIndex(0);
+    return pack;
+  }
+
+  function _removePackAtIndex(uint256 _index) internal returns (uint32) {
+    uint256 lastIndex = shuffledPacks.length - 1;
+    require(_index <= lastIndex);
+    uint32 pack = shuffledPacks[_index];
+    shuffledPacks[_index] = shuffledPacks[lastIndex];
+    shuffledPacks.length--;
+    return pack;
   }
 }
