@@ -1,12 +1,31 @@
 import RSVP from 'rsvp';
 import Service from '@ember/service';
-import $ from 'jquery';
 import { computed } from '@ember/object';
 
 export default Service.extend({
   _instance: null,
 
+  waitingForSetup: computed.none('metaMaskDetected'),
+
   setup() {
+    if (!this.get('waitingForSetup')) {
+      return RSVP.reject();
+    }
+
+    if (document.readyState === 'complete') {
+      this._setup();
+      return RSVP.resolve();
+    } else {
+      return new RSVP.Promise(resolve => {
+        window.addEventListener('load', () => {
+          this._setup();
+          resolve();
+        });
+      });
+    }
+  },
+
+  _setup() {
     if (typeof web3 !== 'undefined') {
       this._instance = new Web3(web3.currentProvider);
       this.set('metaMaskDetected', true);
@@ -14,8 +33,6 @@ export default Service.extend({
       this.set('metaMaskDetected', false);
     }
   },
-
-  waitingForSetup: computed.none('metaMaskDetected'),
 
   _accounts() {
     return this._instance.eth.accounts;
@@ -82,16 +99,7 @@ export default Service.extend({
     return this._instance.utils.fromWei(wei);
   },
 
-  _contract(abi, address) {
+  contract(abi, address) {
     return new this._instance.eth.Contract(abi, address);
-  },
-
-  loadAllContracts() {
-    const saleContractPromise = $.getJSON('contracts/StrikersSale.json')
-    .then(json => {
-      this.saleContract = this._contract(json.abi, '0x9414329bf6837db915b4d5e0e22ecc27a33129c5');
-    });
-
-    return saleContractPromise;
   }
 });

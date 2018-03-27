@@ -4,10 +4,10 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
 export default Route.extend(AuthenticatedRouteMixin, {
-  web3: service(),
+  strikersContracts: service(),
 
   model() {
-    const saleContract = this.get('web3.saleContract');
+    const saleContract = this.get('strikersContracts.saleContract');
     return RSVP.hash({
       ethPriceUSD: saleContract.methods.ethPriceUSD().call(),
       packPriceUSD: saleContract.methods.packPriceUSD().call()
