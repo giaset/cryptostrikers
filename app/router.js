@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('duel');
   this.route('login');
   this.route('deposit');
+  this.route('activity');
 });
 
 export default Router;

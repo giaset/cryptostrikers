@@ -20,6 +20,15 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    firebase: {
+      apiKey: 'AIzaSyA_T_2eOMBwC34Uj7CkVHxkUAWgjNsf4BA',
+      authDomain: 'cryptostrikers-api.firebaseapp.com',
+      databaseURL: 'https://cryptostrikers-api.firebaseio.com',
+      projectId: 'cryptostrikers-api',
+      storageBucket: 'cryptostrikers-api.appspot.com',
+      messagingSenderId: '138250042052'
     }
   };
 
