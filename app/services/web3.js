@@ -101,5 +101,13 @@ export default Service.extend({
 
   contract(abi, address) {
     return new this._instance.eth.Contract(abi, address);
+  },
+
+  getAccounts() {
+    return this._instance.eth.getAccounts();
+  },
+
+  personalSign(dataToSign, from) {
+    return this._instance.eth.personal.sign(dataToSign, from);
   }
 });

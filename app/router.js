@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('login');
   this.route('deposit');
   this.route('activity');
+  this.route('sign-in');
 });
 
 export default Router;

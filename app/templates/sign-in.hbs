@@ -1,0 +1,19 @@
+<div class="text-center">
+  <h2>Welcome to CryptoStrikers</h2>
+  <p>To get started, please select your flag, enter your email address, and choose a nickname.</p>
+  <form>
+    <div class="form-group text-left">
+      <label for="walletAddressInput">Wallet address</label>
+      <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
+    </div>
+    <div class="form-group text-left">
+      <label for="emailAddressInput">Email address</label>
+      <input class="form-control form-control-lg" type="email" placeholder="example@cryptostrikers.com" id="emailAddressInput">
+    </div>
+    <div class="form-group text-left">
+      <label for="nicknameAddressInput">Nickname</label>
+      <input class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput">
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary" {{action "submit"}}>Submit</button>
+  </form>
+</div>
