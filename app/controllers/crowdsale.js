@@ -15,7 +15,10 @@ export default Controller.extend({
           txnHash: receipt.transactionHash,
           user: currentUser
         });
-        activity.save();
+        currentUser.get('activities').addObject(activity);
+        activity.save().then(() => {
+          currentUser.save();
+        });
       });
     }
   }
