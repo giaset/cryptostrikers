@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  currentUser: service(),
   metamaskWatcher: service(),
   strikersContracts: service(),
   web3: service(),
@@ -22,5 +23,9 @@ export default Route.extend({
       });
       return true;
     }
+  },
+
+  model() {
+    return this.get('currentUser').load();
   }
 });
