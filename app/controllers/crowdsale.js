@@ -3,18 +3,19 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   currentUser: service(),
-  web3: service(),
+  strikersContracts: service(),
 
   actions: {
     buyPack() {
-      const web3 = this.get('web3');
-      web3._instance.eth.getAccounts()
-      .then(accounts => {
-        const account = accounts[0];
-        return web3.get('saleContract').methods.buyPack().send({from: account});
-      })
+      const currentUser = this.get('currentUser.user');
+      const saleContract = this.get('strikersContracts.saleContract.methods');
+      saleContract.buyPack().send({from: currentUser.get('id')})
       .then(receipt => {
-        return receipt.transactionHash;
+        const activity = this.store.createRecord('activity', {
+          txnHash: receipt.transactionHash,
+          user: currentUser
+        });
+        activity.save();
       });
     }
   }
