@@ -5,10 +5,5 @@ export default Component.extend({
   currentUser: service(),
   session: service(),
   classNames: ['navbar', 'navbar-expand-sm', 'navbar-light'],
-  tagName: 'header',
-  actions: {
-    invalidateSession() {
-      this.get('session').close();
-    }
-  }
+  tagName: 'header'
 });
