@@ -1,9 +1,7 @@
 import Route from '@ember/routing/route';
-import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(UnauthenticatedRouteMixin, {
-  routeIfAlreadyAuthenticated: 'my-album',
+export default Route.extend({
   web3: service(),
 
   model() {

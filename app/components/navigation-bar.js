@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: 'header',
   actions: {
     invalidateSession() {
-      this.get('session').invalidate();
+      this.get('session').close();
     }
   }
 });

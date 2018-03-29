@@ -1,13 +1,15 @@
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(ApplicationRouteMixin, {
-  routeAfterAuthentication: 'my-album',
+export default Route.extend({
   metamaskWatcher: service(),
   strikersContracts: service(),
   web3: service(),
   actions: {
+    accessDenied() {
+      this.transitionTo('sign-in');
+    },
+
     didTransition() {
       this.get('web3').setup()
       .then(() => this.get('strikersContracts').loadAll())

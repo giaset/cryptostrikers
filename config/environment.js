@@ -29,6 +29,10 @@ module.exports = function(environment) {
       projectId: 'cryptostrikers-api',
       storageBucket: 'cryptostrikers-api.appspot.com',
       messagingSenderId: '138250042052'
+    },
+
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 

@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
   ajax: service(),
   metamaskWatcher: service(),
+  session: service(),
   web3: service(),
   actions: {
     submit() {
@@ -18,7 +19,14 @@ export default Controller.extend({
           });
         })
         .then(res => {
-          this.set('token', res.token);
+          const options = {
+            provider: 'custom',
+            token: res.token
+          };
+          return this.get('session').open('firebase', options);
+        })
+        .then(() => {
+          this.transitionToRoute('my-album');
         });
     }
   }
