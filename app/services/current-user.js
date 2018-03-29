@@ -21,6 +21,10 @@ export default Service.extend({
     }
   },
 
+  unload() {
+    this.set('user', undefined);
+  },
+
   setUser(account) {
     if (account === null) {
       this.set('user', null);

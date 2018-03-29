@@ -7,7 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('crowdsale');
+  this.authenticatedRoute('crowdsale');
   this.authenticatedRoute('my-album');
   this.route('trade');
   this.route('duel');

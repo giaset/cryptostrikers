@@ -9,20 +9,15 @@ export default Route.extend({
   actions: {
     accessDenied() {
       this.transitionTo('sign-in');
-    },
-
-    didTransition() {
-      this.get('web3').setup()
-      .then(() => this.get('strikersContracts').loadAll())
-      .then(() => {
-        this.get('metamaskWatcher').start();
-      })
-      .finally(() => {
-        // maybe delay this a little (and center the loading spinner)
-        this.controller.set('loadingWeb3', false);
-      });
-      return true;
     }
+  },
+
+  beforeModel() {
+    return this.get('web3').setup()
+    .then(() => this.get('strikersContracts').loadAll())
+    .then(() => {
+      this.get('metamaskWatcher').start();
+    });
   },
 
   model() {

@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   ajax: service(),
+  currentUser: service(),
   metamaskWatcher: service(),
   session: service(),
   web3: service(),
@@ -31,6 +32,7 @@ export default Controller.extend({
             email: this.get('emailAddress'),
             nickname: this.get('nickname')
           });
+          this.get('currentUser').set('user', user);
           return user.save();
         })
         .then(() => {

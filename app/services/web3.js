@@ -1,17 +1,10 @@
 import RSVP from 'rsvp';
 import Service from '@ember/service';
-import { computed } from '@ember/object';
 
 export default Service.extend({
   _instance: null,
 
-  waitingForSetup: computed.none('metamaskDetected'),
-
   setup() {
-    if (!this.get('waitingForSetup')) {
-      return RSVP.reject();
-    }
-
     if (document.readyState === 'complete') {
       const success = this._setup();
       return success ? RSVP.resolve() : RSVP.reject();

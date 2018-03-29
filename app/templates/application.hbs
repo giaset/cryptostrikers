@@ -1,10 +1,6 @@
-{{#unless loadingWeb3}}
-  {{navigation-bar closeSession=(action "closeSession")}}
-  <main role="main">
-    <div class="container py-4">
-      {{outlet}}
-    </div>
-  </main>
-{{else}}
-  {{spinkit-cube-grid}}
-{{/unless}}
+{{navigation-bar closeSession=(action "closeSession")}}
+<main role="main">
+  <div class="container py-4">
+    {{outlet}}
+  </div>
+</main>
