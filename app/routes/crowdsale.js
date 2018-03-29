@@ -6,10 +6,10 @@ export default Route.extend({
   strikersContracts: service(),
 
   model() {
-    const saleContract = this.get('strikersContracts.saleContract');
+    const saleContract = this.get('strikersContracts.StrikersSale');
     return RSVP.hash({
-      ethPriceUSD: saleContract.methods.ethPriceUSD().call(),
-      packPriceUSD: saleContract.methods.packPriceUSD().call()
+      ethPriceUSD: saleContract.ethPriceUSD(),
+      packPriceUSD: saleContract.packPriceUSD()
     });
   }
 });

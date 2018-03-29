@@ -38,6 +38,7 @@ module.exports = {
   ],
   globals: {
     lightwallet: false,
+    TruffleContract: false,
     web3: false,
     Web3: false
   }

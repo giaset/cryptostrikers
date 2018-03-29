@@ -8,11 +8,11 @@ export default Controller.extend({
   actions: {
     buyPack() {
       const currentUser = this.get('currentUser.user');
-      const saleContract = this.get('strikersContracts.saleContract.methods');
-      saleContract.buyPack().send({from: currentUser.get('id')})
-      .then(receipt => {
+      const saleContract = this.get('strikersContracts.StrikersSale');
+      saleContract.buyPack()
+      .then(result => {
         const activity = this.store.createRecord('activity', {
-          txnHash: receipt.transactionHash,
+          txnHash: result.tx,
           user: currentUser
         });
         currentUser.get('activities').addObject(activity);

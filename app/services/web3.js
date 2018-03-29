@@ -37,6 +37,10 @@ export default Service.extend({
     return this._instance.eth.accounts;
   },
 
+  currentProvider() {
+    return this._instance.currentProvider;
+  },
+
   getBalance(address) {
     return this._instance.eth.getBalance(address);
   },
