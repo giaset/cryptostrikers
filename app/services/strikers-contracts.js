@@ -17,16 +17,16 @@ export default Service.extend({
   _loadContract(contractName, address) {
     const provider = this.get('web3').currentProvider();
     return $.getJSON(`contracts/${contractName}.json`)
-      .then(json => {
-        let contract;
-        run(() => {
-          contract = TruffleContract(json);
-          contract.setProvider(provider);
-        });
-        return contract.at(address);
-      })
-      .then(instance => {
-        this.set(contractName, instance);
+    .then(json => {
+      let contract;
+      run(() => {
+        contract = TruffleContract(json);
+        contract.setProvider(provider);
       });
+      return contract.at(address);
+    })
+    .then(instance => {
+      this.set(contractName, instance);
+    });
   }
 });

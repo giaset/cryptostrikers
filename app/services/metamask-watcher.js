@@ -12,10 +12,10 @@ export default Service.extend({
 
   _tick() {
     this.get('web3').getAccounts()
-      .then(accounts => {
-        this.set('currentAccount', accounts[0]);
-        this.set('nextRefresh', later(this, this._tick, this.interval));
-      });
+    .then(accounts => {
+      this.set('currentAccount', accounts[0]);
+      this.set('nextRefresh', later(this, this._tick, this.interval));
+    });
   },
 
   willDestroy() {
