@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default Service.extend({
   _instance: null,
 
-  waitingForSetup: computed.none('metaMaskDetected'),
+  waitingForSetup: computed.none('metamaskDetected'),
 
   setup() {
     if (!this.get('waitingForSetup')) {
@@ -13,25 +13,31 @@ export default Service.extend({
     }
 
     if (document.readyState === 'complete') {
-      this._setup();
-      return RSVP.resolve();
+      const success = this._setup();
+      return success ? RSVP.resolve() : RSVP.reject();
     } else {
-      return new RSVP.Promise(resolve => {
+      return new RSVP.Promise((resolve, reject) => {
         window.addEventListener('load', () => {
-          this._setup();
-          resolve();
+          const success = this._setup();
+          if (success) {
+            resolve();
+          } else {
+            reject();
+          }
         });
       });
     }
   },
 
   _setup() {
-    if (typeof web3 !== 'undefined') {
-      this._instance = new Web3(web3.currentProvider);
-      this.set('metaMaskDetected', true);
-    } else {
-      this.set('metaMaskDetected', false);
+    if (typeof web3 === 'undefined') {
+      this.set('metamaskDetected', false);
+      return false;
     }
+
+    this._instance = new Web3(web3.currentProvider);
+    this.set('metamaskDetected', true);
+    return true;
   },
 
   _accounts() {

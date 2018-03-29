@@ -13,6 +13,8 @@ export default Route.extend(ApplicationRouteMixin, {
       .then(() => this.get('strikersContracts').loadAll())
       .then(() => {
         this.get('metamaskWatcher').start();
+      })
+      .finally(() => {
         // maybe delay this a little (and center the loading spinner)
         this.controller.set('loadingWeb3', false);
       });
