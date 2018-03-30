@@ -14,6 +14,14 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
 
   /// @dev The struct representing the game's main object, a sports trading card.
   struct Card {
+    // The timestamp at which this card was minted.
+    uint64 mintTime;
+
+    // For each run, cards for a given player have their mintNumber
+    // incremented in sequence. If we mint 1000 Messis, the third one
+    // to be minted has mintNumber = 3 (out of 1000).
+    uint16 mintNumber;
+
     // The ID of the player on this card. See the players array in WorldCupInfo
     uint8 playerId;
 
@@ -24,14 +32,6 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
     // We reserve the right to mint multiple runs of each series.
     // See xxxxx.sol for more info
     uint8 runId;
-
-    // For each run, cards for a given player have their mintNumber
-    // incremented in sequence. If we mint 1000 Messis, the third one
-    // to be minted has mintNumber = 3 (out of 1000).
-    uint16 mintNumber;
-
-    // The timestamp at which this card was minted.
-    uint256 mintTime;
   }
 
   /// @dev All the cards that have been minted, indexed by cardId.
@@ -47,17 +47,24 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
     uint8 _playerId,
     uint8 _seriesId,
     uint8 _runId,
-    uint16 _mintNumber
+    uint16 _mintNumber,
+    address _owner
   )
     internal
     returns (uint)
   {
-    Card memory newCard = Card(_playerId, _seriesId, _runId, _mintNumber, now);
+    Card memory newCard = Card({
+      mintTime: uint64(now),
+      mintNumber: _mintNumber,
+      playerId: _playerId,
+      seriesId: _seriesId,
+      runId: _runId
+    });
     uint256 newCardId = cards.push(newCard) - 1;
     CardMinted(newCardId);
-    tokenOwner[newCardId] = this;
-    ownedTokensCount[this]++;
-    Transfer(0, this, newCardId);
+    tokenOwner[newCardId] = _owner;
+    ownedTokensCount[_owner]++;
+    Transfer(0, _owner, newCardId);
     return newCardId;
   }
 }
