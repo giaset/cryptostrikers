@@ -31,6 +31,10 @@ module.exports = function(environment) {
       messagingSenderId: '138250042052'
     },
 
+    moment: {
+      outputFormat: 'dddd, MMMM Do YYYY, h:mm:ss a'
+    },
+
     torii: {
       sessionServiceName: 'session'
     }
