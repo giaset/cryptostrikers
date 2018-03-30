@@ -1,5 +1,11 @@
+<h1>Activity</h1>
 {{#each model as |activity|}}
-  {{activity}}
+  <div class="my-3 p-3 bg-white rounded border box-shadow">
+    {{#if (eq activity.type "buy_pack")}}
+      <p>You bought a pack on {{activity.createdAt}}</p>
+      <p>Transaction: {{activity.txnHash}}</p>
+    {{/if}}
+  </div>
 {{else}}
   <div class="text-center">
     <p>You have no activity yet.</p>

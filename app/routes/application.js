@@ -38,6 +38,9 @@ export default Route.extend({
       });
     });
     const userPromise = this.get('currentUser').load();
-    return RSVP.all[playersPromise, userPromise];
+    return RSVP.hash({
+      players: playersPromise,
+      user: userPromise
+    });
   }
 });
