@@ -1,1 +1,9 @@
-{{model}}
+<div class="row">
+  {{#each model as |card|}}
+    <div class="col">
+      <div class="card">
+        {{card.player.name}}
+      </div>
+    </div>
+  {{/each}}
+</div>

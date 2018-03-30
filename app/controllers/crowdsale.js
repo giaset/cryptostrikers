@@ -10,17 +10,17 @@ export default Controller.extend({
     buyPack() {
       const currentUser = this.get('currentUser.user');
       const saleContract = this.get('strikersContracts.StrikersSale');
+      let activityId;
       saleContract.buyPack()
       .then(result => {
-        const logs = result.logs.map(log => {
-          return {
-            event: log.event,
-            args: log.args
-          };
-        });
+        const lastLog = result.logs.get('lastObject');
+        const event = {
+          name: lastLog.event,
+          args: lastLog.args._pack.map(bn => bn.toNumber())
+        };
 
         const activity = this.store.createRecord('activity', {
-          logs: logs,
+          event: event,
           txnHash: result.tx,
           type: 'buy_pack',
           user: currentUser
@@ -29,16 +29,17 @@ export default Controller.extend({
         return activity.save();
       })
       .then(activity => {
+        activityId = activity.get('id');
         //https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
         activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
         return activity.save();
       })
       .then(() => {
         currentUser.save();
+      })
+      .then(() => {
+        this.transitionToRoute('activity.show', activityId);
       });
-      /*.then(() => {
-        this.transitionToRoute('my-album');
-      });*/
     }
   }
 });

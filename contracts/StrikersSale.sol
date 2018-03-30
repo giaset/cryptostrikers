@@ -32,14 +32,14 @@ contract StrikersSale is StrikersPackFactory {
     require(shuffledPacks.length > 0);
     uint32 pack = _removePackAtIndex(0);
     uint8 mask = 255;
-    uint256[] memory cards = new uint256[](PACK_SIZE);
+    uint256[] memory newCards = new uint256[](PACK_SIZE);
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
       uint8 playerId = uint8((pack >> shift) & mask);
       uint256 cardId = _mintCard(playerId, 1, currentRunNumber, 0, msg.sender);
-      cards[i-1] = cardId;
+      newCards[i-1] = cardId;
     }
-    PackBought(msg.sender, cards);
+    PackBought(msg.sender, newCards);
   }
 
   function _removePackAtIndex(uint256 _index) internal returns (uint32) {

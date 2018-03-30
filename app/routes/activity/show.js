@@ -8,7 +8,7 @@ export default Route.extend({
   model(params) {
     let cardIds;
     return this.get('store').findRecord('activity', params.activity_id).then(activity => {
-      cardIds = activity.get('logs.lastObject.args._pack');
+      cardIds = activity.get('event.args');
       const contract = this.get('strikersContracts.StrikersSale');
       const promises = cardIds.map(cardId => contract.cards(cardId));
       return RSVP.all(promises);

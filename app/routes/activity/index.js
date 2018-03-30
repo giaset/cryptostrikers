@@ -5,6 +5,6 @@ export default Route.extend({
   currentUser: service(),
 
   model() {
-    return this.get('currentUser.user.activities');
+    return this.get('currentUser.user.activities').reverseObjects();
   }
 });
