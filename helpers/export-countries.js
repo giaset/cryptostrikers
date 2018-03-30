@@ -10,8 +10,8 @@ WorldCupInfo.setProvider(provider);
 WorldCupInfo.at('0x9414329bf6837db915b4d5e0e22ecc27a33129c5')
 .then(instance => {
   const promises = [];
-  for (let i = 0; i < 25; i++) {
-    promises.push(instance.players(i));
+  for (let i = 0; i < 32; i++) {
+    promises.push(instance.countries(i));
   }
   return Promise.all(promises);
 })
@@ -19,9 +19,8 @@ WorldCupInfo.at('0x9414329bf6837db915b4d5e0e22ecc27a33129c5')
   const final = results.map((result, index) => {
     return {
       id: index,
-      name: result[0],
-      country: result[1].toNumber()
+      name: result
     };
   });
-  return fs.writeFileSync('public/players.json', JSON.stringify({players: final}, null, 2));
+  return fs.writeFileSync('public/countries.json', JSON.stringify({countries: final}, null, 2));
 });

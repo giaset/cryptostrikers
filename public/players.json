@@ -1,0 +1,129 @@
+{
+  "players": [
+    {
+      "id": 0,
+      "name": "Lionel Messi",
+      "country": 0
+    },
+    {
+      "id": 1,
+      "name": "Sergio Agüero",
+      "country": 0
+    },
+    {
+      "id": 2,
+      "name": "Eden Hazard",
+      "country": 2
+    },
+    {
+      "id": 3,
+      "name": "Kevin De Bruyne",
+      "country": 2
+    },
+    {
+      "id": 4,
+      "name": "Thibaut Courtois",
+      "country": 2
+    },
+    {
+      "id": 5,
+      "name": "Neymar",
+      "country": 3
+    },
+    {
+      "id": 6,
+      "name": "Dani Alves",
+      "country": 3
+    },
+    {
+      "id": 7,
+      "name": "Marcelo",
+      "country": 3
+    },
+    {
+      "id": 8,
+      "name": "Luka Modrić",
+      "country": 6
+    },
+    {
+      "id": 9,
+      "name": "Christian Eriksen",
+      "country": 7
+    },
+    {
+      "id": 10,
+      "name": "Mohamed Salah",
+      "country": 8
+    },
+    {
+      "id": 11,
+      "name": "Harry Kane",
+      "country": 9
+    },
+    {
+      "id": 12,
+      "name": "Paul Pogba",
+      "country": 10
+    },
+    {
+      "id": 13,
+      "name": "N'Golo Kanté",
+      "country": 10
+    },
+    {
+      "id": 14,
+      "name": "Antoine Griezmann",
+      "country": 10
+    },
+    {
+      "id": 15,
+      "name": "Toni Kroos",
+      "country": 11
+    },
+    {
+      "id": 16,
+      "name": "Mats Hummels",
+      "country": 11
+    },
+    {
+      "id": 17,
+      "name": "Mesut Özil",
+      "country": 11
+    },
+    {
+      "id": 18,
+      "name": "Robert Lewandowski",
+      "country": 20
+    },
+    {
+      "id": 19,
+      "name": "Cristiano Ronaldo",
+      "country": 21
+    },
+    {
+      "id": 20,
+      "name": "Thiago",
+      "country": 27
+    },
+    {
+      "id": 21,
+      "name": "Sergio Ramos",
+      "country": 27
+    },
+    {
+      "id": 22,
+      "name": "David De Gea",
+      "country": 27
+    },
+    {
+      "id": 23,
+      "name": "Edinson Cavani",
+      "country": 31
+    },
+    {
+      "id": 24,
+      "name": "Luis Suárez",
+      "country": 31
+    }
+  ]
+}
