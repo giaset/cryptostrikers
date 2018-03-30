@@ -16,7 +16,7 @@ export default Service.extend({
 
   _loadContract(contractName, address) {
     const provider = this.get('web3').currentProvider();
-    return $.getJSON(`contracts/${contractName}.json`)
+    return $.getJSON(`http://localhost:4200/contracts/${contractName}.json`)
     .then(json => {
       let contract;
       run(() => {

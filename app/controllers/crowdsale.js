@@ -12,7 +12,15 @@ export default Controller.extend({
       const saleContract = this.get('strikersContracts.StrikersSale');
       saleContract.buyPack()
       .then(result => {
+        const logs = result.logs.map(log => {
+          return {
+            event: log.event,
+            args: log.args
+          };
+        });
+
         const activity = this.store.createRecord('activity', {
+          logs: logs,
           txnHash: result.tx,
           type: 'buy_pack',
           user: currentUser

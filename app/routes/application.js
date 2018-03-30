@@ -25,13 +25,13 @@ export default Route.extend({
 
   model() {
     const store = this.get('store');
-    const countriesPromise = $.getJSON('countries.json')
+    const countriesPromise = $.getJSON('http://localhost:4200/countries.json')
     .then(json => {
       run(() => {
         store.pushPayload('country', json);
       });
     });
-    const playersPromise = countriesPromise.then(() => $.getJSON('players.json'))
+    const playersPromise = countriesPromise.then(() => $.getJSON('http://localhost:4200/players.json'))
     .then(json => {
       run(() => {
         store.pushPayload('player', json);

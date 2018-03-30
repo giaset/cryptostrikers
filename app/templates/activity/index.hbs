@@ -1,7 +1,7 @@
 <h1>Activity</h1>
 {{#each model as |activity|}}
   <div class="my-3 p-3 bg-white rounded border box-shadow">
-    {{#link-to "activity.show" activity}}
+    {{#link-to "activity.show" activity.id}}
       {{#if (eq activity.type "buy_pack")}}
         <p>You bought a pack on {{moment-format activity.createdAt}}</p>
         <p>Transaction: {{activity.txnHash}}</p>
