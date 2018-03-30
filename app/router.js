@@ -13,7 +13,9 @@ Router.map(function() {
   this.route('duel');
   this.route('login');
   this.route('deposit');
-  this.route('activity');
+  this.route('activity', function() {
+    this.route('show', { path: '/:activity_id' });
+  });
   this.route('sign-in');
 });
 
