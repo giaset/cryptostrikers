@@ -25,13 +25,13 @@ export default Route.extend({
 
   model() {
     const store = this.get('store');
-    const countriesPromise = $.getJSON('http://localhost:4200/countries.json')
+    const countriesPromise = $.getJSON('http://staging.cryptostrikers.com/countries.json')
     .then(json => {
       run(() => {
         store.pushPayload('country', json);
       });
     });
-    const playersPromise = countriesPromise.then(() => $.getJSON('http://localhost:4200/players.json'))
+    const playersPromise = countriesPromise.then(() => $.getJSON('http://staging.cryptostrikers.com/players.json'))
     .then(json => {
       run(() => {
         store.pushPayload('player', json);

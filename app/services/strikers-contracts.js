@@ -8,7 +8,7 @@ export default Service.extend({
 
   loadAll() {
     const saleContractPromise = this._loadContract(
-      'StrikersSale', '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'
+      'StrikersSale', '0x0CA7B877Fe199f907736cb9B32511c94B50Db973'
     );
 
     return saleContractPromise;
@@ -16,7 +16,7 @@ export default Service.extend({
 
   _loadContract(contractName, address) {
     const provider = this.get('web3').currentProvider();
-    return $.getJSON(`http://localhost:4200/contracts/${contractName}.json`)
+    return $.getJSON(`http://staging.cryptostrikers.com/contracts/${contractName}.json`)
     .then(json => {
       let contract;
       run(() => {
