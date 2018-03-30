@@ -11,9 +11,15 @@ export default Service.extend({
   },
 
   _tick() {
-    this.get('web3').getAccounts()
+    const web3 = this.get('web3');
+    web3.getAccounts()
     .then(accounts => {
-      this.set('currentAccount', accounts[0]);
+      const currentAccount = accounts[0];
+      this.set('currentAccount', currentAccount);
+      return web3.getBalance(currentAccount);
+    })
+    .then(balance => {
+      this.set('currentBalance', balance);
       this.set('nextRefresh', later(this, this._tick, this.interval));
     });
   },
