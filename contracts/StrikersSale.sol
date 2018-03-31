@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./StrikersPackFactory.sol";
 
@@ -39,7 +39,7 @@ contract StrikersSale is StrikersPackFactory {
       uint256 cardId = _mintCard(playerId, 1, currentRunNumber, 0, msg.sender);
       newCards[i-1] = cardId;
     }
-    PackBought(msg.sender, newCards);
+    emit PackBought(msg.sender, newCards);
   }
 
   function _removePackAtIndex(uint256 _index) internal returns (uint32) {

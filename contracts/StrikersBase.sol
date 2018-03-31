@@ -1,6 +1,6 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
-import "./ERC721BasicToken.sol";
+import "zeppelin-solidity/contracts/token/ERC721/ERC721BasicToken.sol";
 import "./WorldCupInfo.sol";
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
@@ -61,10 +61,10 @@ contract StrikersBase is ERC721BasicToken, WorldCupInfo {
       runId: _runId
     });
     uint256 newCardId = cards.push(newCard) - 1;
-    CardMinted(newCardId);
+    emit CardMinted(newCardId);
     tokenOwner[newCardId] = _owner;
     ownedTokensCount[_owner]++;
-    Transfer(0, _owner, newCardId);
+    emit Transfer(0, _owner, newCardId);
     return newCardId;
   }
 }

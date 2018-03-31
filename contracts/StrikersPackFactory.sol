@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.21;
 
 import "./StrikersBase.sol";
 
@@ -43,6 +43,6 @@ contract StrikersPackFactory is StrikersBase {
     uint8 runNumber = currentRunNumber++;
     runNumberToRunSize[runNumber] = runSize;
     shuffledPacks = _shuffledPacks;
-    RunMinted(runNumber);
+    emit RunMinted(runNumber);
   }
 }
