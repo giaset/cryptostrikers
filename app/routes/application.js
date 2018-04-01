@@ -15,23 +15,25 @@ export default Route.extend({
     }
   },
 
-  beforeModel() {
+  beforeModel(transition) {
+    const jsonPrefix = this._jsonPrefix(transition);
     return this.get('web3').setup()
-    .then(() => this.get('strikersContracts').loadAll())
+    .then(() => this.get('strikersContracts').loadAll(jsonPrefix))
     .then(() => {
       this.get('metamaskWatcher').start();
     });
   },
 
-  model() {
+  model(_, transition) {
+    const jsonPrefix = this._jsonPrefix(transition);
     const store = this.get('store');
-    const countriesPromise = $.getJSON('http://staging.cryptostrikers.com/countries.json')
+    const countriesPromise = $.getJSON(`${jsonPrefix}countries.json`)
     .then(json => {
       run(() => {
         store.pushPayload('country', json);
       });
     });
-    const playersPromise = countriesPromise.then(() => $.getJSON('http://staging.cryptostrikers.com/players.json'))
+    const playersPromise = countriesPromise.then(() => $.getJSON(`${jsonPrefix}players.json`))
     .then(json => {
       run(() => {
         store.pushPayload('player', json);
@@ -42,5 +44,10 @@ export default Route.extend({
       players: playersPromise,
       user: userPromise
     });
+  },
+
+  _jsonPrefix(transition) {
+    const isNestedRoute = transition.targetName === 'activity.index' || transition.targetName === 'activity.show';
+    return isNestedRoute ? '../' : '';
   }
 });
