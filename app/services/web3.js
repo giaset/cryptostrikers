@@ -106,8 +106,16 @@ export default Service.extend({
     return new this._instance.eth.Contract(abi, address);
   },
 
+  decodeLog(inputs, data, topics) {
+    return this._instance.eth.abi.decodeLog(inputs, data, topics);
+  },
+
   getAccounts() {
     return this._instance.eth.getAccounts();
+  },
+
+  getTransactionReceipt(hash) {
+    return this._instance.eth.getTransactionReceipt(hash);
   },
 
   personalSign(dataToSign, from) {

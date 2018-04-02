@@ -5,8 +5,17 @@ export default Route.extend({
   strikersContracts: service(),
 
   model(params) {
-    const store = this.get('store');
-    return store.findRecord('activity', params.activity_id)
-    .then(activity => activity.get('txnHash'));
+    return this.get('store').findRecord('activity', params.activity_id);
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.startRefreshing();
+  },
+
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      controller.stopRefreshing();
+    }
   }
 });
