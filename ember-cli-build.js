@@ -12,7 +12,6 @@ module.exports = function(defaults) {
   });
 
   app.import('vendor/lightwallet.min.js');
-  app.import('vendor/truffle-contract.min.js');
   app.import('vendor/web3.min.js');
 
   return app.toTree();

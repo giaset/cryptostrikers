@@ -9,37 +9,34 @@ export default Controller.extend({
   actions: {
     buyPack() {
       const currentUser = this.get('currentUser.user');
-      const saleContract = this.get('strikersContracts.StrikersSale');
-      let activityId;
-      saleContract.buyPack()
-      .then(result => {
-        const lastLog = result.logs.get('lastObject');
-        const event = {
-          name: lastLog.event,
-          args: lastLog.args._pack.map(bn => bn.toNumber())
-        };
-
-        const activity = this.store.createRecord('activity', {
-          event: event,
-          txnHash: result.tx,
-          type: 'buy_pack',
-          user: currentUser
-        });
-        currentUser.get('activities').addObject(activity);
-        return activity.save();
+      const saleContract = this.get('strikersContracts.StrikersSale.methods');
+      saleContract.buyPack().send({from: currentUser.get('id')})
+      .on('transactionHash', hash => {
+        this._handleTransactionHash(hash, currentUser);
       })
-      .then(activity => {
-        activityId = activity.get('id');
-        //https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
-        activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
-        return activity.save();
-      })
-      .then(() => {
-        currentUser.save();
-      })
-      .then(() => {
-        this.transitionToRoute('activity.show', activityId);
+      .on('error', () => {
+        // TO-DO: handle error
       });
     }
+  },
+
+  _handleTransactionHash(hash, currentUser) {
+    const activity = this.store.createRecord('activity', {
+      txnHash: hash,
+      type: 'buy_pack',
+      user: currentUser
+    });
+    currentUser.get('activities').addObject(activity);
+    let activityId;
+    activity.save().then(activity => {
+      activityId = activity.get('id');
+      // https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
+      activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
+      return activity.save();
+    })
+    .then(() => currentUser.save())
+    .then(() => {
+      this.transitionToRoute('activity.show', activityId);
+    });
   }
 });

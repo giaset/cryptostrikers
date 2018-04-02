@@ -8,25 +8,19 @@ export default Service.extend({
 
   loadAll(jsonPrefix) {
     const saleContractPromise = this._loadContract(
-      'StrikersSale', '0x0CA7B877Fe199f907736cb9B32511c94B50Db973', jsonPrefix
+      'StrikersSale', '0x9414329bf6837db915b4d5e0e22ecc27a33129c5', jsonPrefix
     );
 
     return saleContractPromise;
   },
 
   _loadContract(contractName, address, jsonPrefix) {
-    const provider = this.get('web3').currentProvider();
+    const web3 = this.get('web3');
     return $.getJSON(`${jsonPrefix}contracts/${contractName}.json`)
     .then(json => {
-      let contract;
       run(() => {
-        contract = TruffleContract(json);
-        contract.setProvider(provider);
+        this.set(contractName, web3.contract(json.abi, address));
       });
-      return contract.at(address);
-    })
-    .then(instance => {
-      this.set(contractName, instance);
     });
   }
 });
