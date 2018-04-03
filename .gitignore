@@ -24,3 +24,4 @@ bower.json.ember-try
 package.json.ember-try
 
 .mnemonic.json
+/functions/node_modules
