@@ -21,7 +21,8 @@ export default Route.extend({
     .then(() => this.get('strikersContracts').loadAll(jsonPrefix))
     .then(() => {
       this.get('metamaskWatcher').start();
-    });
+    })
+    .catch(() => {});
   },
 
   model(_, transition) {
