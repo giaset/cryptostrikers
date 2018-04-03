@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { cancel, later } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Controller.extend({
   strikersContracts: service(),
@@ -22,10 +23,32 @@ export default Controller.extend({
     this.get('web3').getTransactionReceipt(hash).then(receipt => {
       if (receipt) {
         const cardIds = this.get('strikersContracts').getCardIdsFromPackBoughtReceipt(receipt);
-        this.set('cardIds', cardIds);
+        return this._loadCards(cardIds);
       } else {
         this.set('nextRefresh', later(this, this._tick, this.interval));
       }
+    });
+  },
+
+  _loadCards(cardIds) {
+    const contract = this.get('strikersContracts.StrikersSale.methods');
+    const store = this.get('store');
+    const promises = cardIds.map(cardId => contract.cards(cardId).call());
+    return RSVP.all(promises).then(cards => {
+      const cardObjects =  cards.map((card, index) => {
+        const cardId = cardIds[index];
+        const payload = {
+          id: cardId,
+          mintNumber: card.mintNumber,
+          mintTime: parseInt(card.mintTime) * 1000,
+          player: card.playerId,
+          runId: card.runId,
+          seriesId: card.seriesId
+        };
+        store.pushPayload('card', {card: payload});
+        return store.peekRecord('card', cardId);
+      });
+      this.set('cards', cardObjects);
     });
   }
 });

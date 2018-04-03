@@ -16,6 +16,7 @@ export default Route.extend({
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.stopRefreshing();
+      controller.set('cards', null);
     }
   }
 });
