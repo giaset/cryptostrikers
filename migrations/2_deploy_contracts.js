@@ -13,9 +13,9 @@ module.exports = function(deployer) {
     packs.push(parseInt(pack, 2));
   }
 
-  deployer.deploy(StrikersSale, 475, 10)
+  deployer.deploy(StrikersSale)
   .then(() => StrikersSale.deployed())
   .then(contract => {
-    contract.loadShuffledPacks(packs);
+    //contract.loadShuffledPacks(packs);
   });
 };

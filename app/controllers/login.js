@@ -26,7 +26,7 @@ export default Controller.extend({
   }),
 
   actions: {
-    // TO-DO: PASSWORD VALIDATION
+    // TODO: PASSWORD VALIDATION
     createAccount() {
       const seedPhrase = this.get('model');
       const password = this.get('password') || '';

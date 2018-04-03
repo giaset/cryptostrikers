@@ -2,18 +2,54 @@ pragma solidity ^0.4.21;
 
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
+/// @title The contract that manages all player, game, and country info for the 2018 World Cup
+/// @author The CryptoStrikers Team
 contract WorldCupInfo is Ownable {
+  // Explain the data structures, deployment, what is mutable
+  //
+  //  - The 32 countries are just strings of the country name, indexed by id
+  //    (see countries array). This doesn't need to be mutable?
+  //
+  //  - Players mutable?
+  //
+  //  - Games/GameDays need to be modifiable in case of re-scheduling!
 
-  struct MatchDay {
+  /*** DATA TYPES ***/
+
+  /// @dev Regardless of series or run, a CryptoStrikers card
+  ///  always represents one (and only one) soccer player.
+  struct Player {
+    // Turns out soccer players can get pretty wild with their names,
+    // so it's easier to just have one field for their most commonly
+    // used name. We wanted to avoid something like:
+    // commonName: "Cristiano Ronaldo"
+    // firstName: "C. Ronaldo"
+    // lastName: "dos Santos Aveiro"
+    // name: "Cristiano Ronaldo"
+    // see: https://www.easports.com/fifa/ultimate-team/api/fut/item
+    string fullName;
+
+    // Index into the countries array, which only has 32 values,
+    // so uint8 (0-255) is fine here...
+    uint8 countryId;
+  }
+
+  // game belongs to gameday? or gameday has game? both?
+  struct Game {
+    uint8 homeCountryId;
+    uint8 awayCountryId;
+  }
+
+  struct GameDay {
     uint date;
     Game[] games;
   }
 
-  struct Game {
-    uint homeCountry;
-    uint awayCountry;
-  }
+  /*** STORAGE ***/
 
+  /// @dev The 32 countries participating in the World Cup,
+  ///  ordered alphabetically. A country's ID corresponds
+  ///  to its index in this array.
   string[] public countries = [
     "Argentina", "Australia", "Belgium", "Brazil",
     "Colombia", "Costa Rica", "Croatia", "Denmark",
@@ -25,13 +61,12 @@ contract WorldCupInfo is Ownable {
     "Sweden", "Switzerland", "Tunisia", "Uruguay"
   ];
 
-  struct Player {
-    string fullName;
-    uint8 countryId;
-  }
-
+  /// @dev Array containing all 100 players for which we will issue cards.
+  ///  Each player's ID corresponds to their index in the array
   Player[] public players;
 
+  /// @dev why we chose to initialize here?
+  ///  Ordered by country ID (see countries array)
   function WorldCupInfo() public {
     players.push(Player("Lionel Messi", 0));
     players.push(Player("Sergio Agüero", 0));

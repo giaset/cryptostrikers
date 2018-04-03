@@ -15,6 +15,7 @@ export default Service.extend({
     web3.getAccounts()
     .then(accounts => {
       const currentAccount = accounts[0];
+      // TODO: detect account change and logout
       this.set('currentAccount', currentAccount);
       return web3.getBalance(currentAccount);
     })

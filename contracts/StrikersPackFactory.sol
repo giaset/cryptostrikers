@@ -28,21 +28,34 @@ contract StrikersPackFactory is StrikersBase {
 
   uint8 public currentRunNumber;
 
-  mapping (uint8 => uint32) public runNumberToRunSize;
+  mapping (uint8 => uint32) public runSizeForRun;
 
   //mapping (uint8 => mapping (uint8 => uint16)) public playerCountForRun;
 
   // Maybe this shouldn't be public
   uint32[] public shuffledPacks;
 
-  // Series 1 only
+  // All below is for Series 1 only
+  function startNewRun() external onlyOwner {
+    currentRunNumber++;
+    // state = minting
+  }
+
   function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner {
     uint32 runSize = uint32(_shuffledPacks.length) * PACK_SIZE;
     require(packsMinted + runSize <= PACKS_MINTED_LIMIT);
     packsMinted += runSize;
-    uint8 runNumber = currentRunNumber++;
-    runNumberToRunSize[runNumber] = runSize;
+    runSizeForRun[currentRunNumber] = runSize;
     shuffledPacks = _shuffledPacks;
-    emit RunMinted(runNumber);
   }
+
+  function finishRun() external onlyOwner {
+    // state complete
+    emit RunMinted(currentRunNumber);
+  }
+
+  // TODO: only to be called off-chain
+  /*function playerCountForRun(uint8 _runId, uint8 _playerId) external view returns (uint) {
+    playerCardsSoldForRun[_runId][_playerId] + left to be sold
+  }*/
 }

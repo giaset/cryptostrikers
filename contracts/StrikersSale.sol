@@ -5,22 +5,14 @@ import "./StrikersPackFactory.sol";
 contract StrikersSale is StrikersPackFactory {
   event PackBought(address indexed _buyer, uint256[] _pack);
 
-  uint public ethPriceUSD;
-  uint public packPriceUSD;
+  // Can be adjusted as needed
+  uint public packPrice = 0.03 ether;
 
-  uint packsSold;
+  mapping (uint8 => uint32) packsSoldForRun;
+  mapping (uint8 => mapping (uint8 => uint16)) playerCardsSoldForRun;
 
-  function StrikersSale(uint _ethPriceUSD, uint _packPriceUSD) public {
-    ethPriceUSD = _ethPriceUSD;
-    packPriceUSD = _packPriceUSD;
-  }
-
-  function setEthPriceUSD(uint _ethPriceUSD) public onlyOwner {
-    ethPriceUSD = _ethPriceUSD;
-  }
-
-  function setPackPriceUSD(uint _packPriceUSD) public onlyOwner {
-    packPriceUSD = _packPriceUSD;
+  function setPackPrice(uint _packPrice) public onlyOwner {
+    packPrice = _packPrice;
   }
 
   function() external payable {
@@ -28,7 +20,8 @@ contract StrikersSale is StrikersPackFactory {
   }
 
   function buyPack() public {
-    // require proper ether amount
+    // TODO: require proper ether amount
+    // TODO: require shuffledPacks.length > 0
     require(shuffledPacks.length > 0);
     uint32 pack = _removePackAtIndex(0);
     uint8 mask = 255;

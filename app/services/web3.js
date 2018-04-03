@@ -4,6 +4,7 @@ import Service from '@ember/service';
 export default Service.extend({
   _instance: null,
 
+  // TODO: do network check on launch
   setup() {
     if (document.readyState === 'complete') {
       const success = this._setup();

@@ -15,7 +15,7 @@ export default Controller.extend({
         this._handleTransactionHash(hash, currentUser);
       })
       .on('error', () => {
-        // TO-DO: handle error
+        // TODO: handle error
       });
     }
   },
