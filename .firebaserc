@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "cryptostrikers-api"
+    "default": "cryptostrikers-api",
+    "prod": "cryptostrikers-prod",
+    "staging": "cryptostrikers-api"
   }
 }
