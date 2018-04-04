@@ -25,3 +25,5 @@ package.json.ember-try
 
 .mnemonic.json
 /functions/node_modules
+/functions/service-account-staging.json
+/functions/service-account-prod.json
