@@ -7,6 +7,7 @@ export default Service.extend({
   web3: service(),
 
   loadAll(jsonPrefix) {
+    // TODO: rinkeby = '0x27cb4d119429c464c7138a57b6a8d36ab7b4e2ca'
     const saleContractPromise = this._loadContract(
       'StrikersSale', '0x9414329bf6837db915b4d5e0e22ecc27a33129c5', jsonPrefix
     );
