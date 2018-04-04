@@ -7,7 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.authenticatedRoute('crowdsale');
+  /*this.authenticatedRoute('crowdsale');
   this.authenticatedRoute('my-album');
   this.route('trade');
   this.route('duel');
@@ -16,7 +16,7 @@ Router.map(function() {
   this.route('activity', function() {
     this.route('show', { path: '/:activity_id' });
   });
-  this.route('sign-in');
+  this.route('sign-in');*/
 });
 
 export default Router;
