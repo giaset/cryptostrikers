@@ -13,9 +13,14 @@ module.exports = function(deployer) {
     packs.push(parseInt(pack, 2));
   }
 
+  let contract;
   deployer.deploy(StrikersSale)
-  .then(() => StrikersSale.deployed())
-  .then(contract => {
-    //contract.loadShuffledPacks(packs);
-  });
+   .then(() => StrikersSale.deployed())
+   .then(deployed => {
+     contract = deployed;
+     return contract.startNewRun();
+   })
+   .then(() => contract.loadShuffledPacks(packs))
+   .then(() => contract.finishRun())
+   .then(() => contract.startSale());
 };

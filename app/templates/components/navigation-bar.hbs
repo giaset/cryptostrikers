@@ -24,7 +24,7 @@
           {{link-to "Activity" "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.nickname}} <span class="badge badge-pill badge-success">Ξ {{balance}}</span></a>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.nickname}} <span class="badge badge-pill badge-success">{{balance}} ETH</span></a>
           <div class="dropdown-menu">
             {{link-to "Deposit" "deposit" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
             <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>

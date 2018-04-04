@@ -15,7 +15,8 @@ contract StrikersPackFactory is StrikersBase {
   // Card 3 = 00000010 = playerId 2
   // Card 4 = 00010010 = playerId 18
 
-  event RunMinted(uint8 runNumber);
+  event StartedMinting(uint8 runNumber);
+  event FinishedMinting(uint8 runNumber);
 
   // The number of cards in a pack
   uint8 public constant PACK_SIZE = 4;
@@ -24,34 +25,35 @@ contract StrikersPackFactory is StrikersBase {
   uint32 public constant PACKS_MINTED_LIMIT = 200000;
 
   // Keeps track of the packs minted to make sure we don't go over the limit
-  uint32 public packsMinted;
+  uint32 public totalPacksMinted;
 
   uint8 public currentRunNumber;
 
-  mapping (uint8 => uint32) public runSizeForRun;
+  mapping (uint8 => uint32) public packsMintedForRun;
 
   //mapping (uint8 => mapping (uint8 => uint16)) public playerCountForRun;
 
-  // Maybe this shouldn't be public
-  uint32[] public shuffledPacks;
+  // NOT public, but verifiable with an off-chain call
+  uint32[] shuffledPacks;
 
   // All below is for Series 1 only
-  function startNewRun() external onlyOwner {
+  function startNewRun() external onlyOwner requireState(State.WaitingForNextMint) {
     currentRunNumber++;
-    // state = minting
+    emit StartedMinting(currentRunNumber);
+    changeState(State.Minting);
   }
 
-  function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner {
-    uint32 runSize = uint32(_shuffledPacks.length) * PACK_SIZE;
-    require(packsMinted + runSize <= PACKS_MINTED_LIMIT);
-    packsMinted += runSize;
-    runSizeForRun[currentRunNumber] = runSize;
+  function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner requireState(State.Minting) {
+    uint32 newPackCount = uint32(_shuffledPacks.length);
+    require(totalPacksMinted + newPackCount <= PACKS_MINTED_LIMIT);
     shuffledPacks = _shuffledPacks;
+    totalPacksMinted += newPackCount;
+    packsMintedForRun[currentRunNumber] += newPackCount;
   }
 
-  function finishRun() external onlyOwner {
-    // state complete
-    emit RunMinted(currentRunNumber);
+  function finishRun() external onlyOwner requireState(State.Minting) {
+    emit FinishedMinting(currentRunNumber);
+    changeState(State.DoneMinting);
   }
 
   // TODO: only to be called off-chain

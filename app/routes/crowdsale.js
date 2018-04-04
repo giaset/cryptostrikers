@@ -7,9 +7,15 @@ export default Route.extend({
 
   model() {
     const saleContract = this.get('strikersContracts.StrikersSale.methods');
+    const currentRunNumber = saleContract.currentRunNumber().call();
     return RSVP.hash({
-      ethPriceUSD: saleContract.ethPriceUSD().call(),
-      packPriceUSD: saleContract.packPriceUSD().call()
+      contractState: saleContract.state().call(),
+      currentRunNumber: currentRunNumber,
+      packPrice: saleContract.packPrice().call(),
+      packsMintedForRun: currentRunNumber.then(n => saleContract.packsMintedForRun(n).call()),
+      packsMintedLimit: saleContract.PACKS_MINTED_LIMIT().call(),
+      packsSoldForRun: currentRunNumber.then(n => saleContract.packsSoldForRun(n).call()),
+      totalPacksMinted: saleContract.totalPacksMinted().call()
     });
   }
 });

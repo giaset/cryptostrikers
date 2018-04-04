@@ -1,10 +1,12 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import firebase from 'firebase';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   currentUser: service(),
   strikersContracts: service(),
+  web3: service(),
 
   actions: {
     buyPack() {
@@ -38,5 +40,9 @@ export default Controller.extend({
     .then(() => {
       this.transitionToRoute('activity.show', activityId);
     });
-  }
+  },
+
+  packPrice: computed('model.packPrice', function() {
+    return this.get('web3').weiToEther(this.get('model.packPrice'));
+  })
 });

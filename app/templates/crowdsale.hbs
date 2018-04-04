@@ -12,6 +12,12 @@
     <p>Each pack contains 4 cards.</p>
     <p>Cards must be bought with Ethereum. To fund your account, send ETH to your {{link-to "wallet address" "deposit" class="card-link"}} or buy ETH here.</p>
     <p>Cards will be on sale until the final whistle blows for the June 15th final.</p>
-    <button class="btn btn-success" {{action 'buyPack'}}>Buy Pack</button>
+    <span class="font-weight-bold">
+      <p>Current run number = {{model.currentRunNumber}}</p>
+      <p>Sale state [WaitingForNextMint, Minting, DoneMinting, Selling, SalePaused, SaleComplete] = {{model.contractState}}</p>
+      <p>Packs sold for run (maybe have a progress bar here) = {{model.packsSoldForRun}}/{{model.packsMintedForRun}}</p>
+      <p>Total packs minted (vs hard cap) = {{model.totalPacksMinted}}/{{model.packsMintedLimit}}</p>
+    </span>
+    <button class="btn btn-success" {{action 'buyPack'}}><span class="font-weight-bold">BUY</span> {{packPrice}} ETH</button>
   </div>
 </div>

@@ -1,12 +1,11 @@
 pragma solidity ^0.4.21;
 
 import "zeppelin-solidity/contracts/token/ERC721/ERC721BasicToken.sol";
-import "./WorldCupInfo.sol";
+import "./StrikersState.sol";
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
-contract StrikersBase is ERC721BasicToken, WorldCupInfo {
-
+contract StrikersBase is ERC721BasicToken, StrikersState {
   /// @dev Emit this event whenever we mint a new card
   ///  For Series 1 cards, this occurs during the minting of packs.
   ///  For Series 2 cards, we mint and award them as a prize for the daily challenge.

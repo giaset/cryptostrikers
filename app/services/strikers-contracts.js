@@ -29,12 +29,12 @@ export default Service.extend({
     const inputs = [
       {
         indexed: true,
-        name: '_buyer',
+        name: 'buyer',
         type: 'address'
       },
       {
         indexed: false,
-        name: '_pack',
+        name: 'pack',
         type: 'uint256[]'
       }
     ];
@@ -46,7 +46,7 @@ export default Service.extend({
       }
 
       const decoded = this.get('web3').decodeLog(inputs, log.data, log.topics.slice(1));
-      cardIds = cardIds.concat(decoded._pack);
+      cardIds = cardIds.concat(decoded.pack);
     });
 
     return cardIds;
