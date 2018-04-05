@@ -17,6 +17,7 @@ Router.map(function() {
     this.route('show', { path: '/:activity_id' });
   });
   this.route('sign-in');
+  this.route('404', { path: '/*path' });
 });
 
 export default Router;
