@@ -78,6 +78,14 @@ module.exports = function(environment) {
   if (deployTarget === 'production') {
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
     ENV.strikers.onlyShowLanding = true;
+    ENV.firebase = {
+      apiKey: 'AIzaSyACrJK0KFti25MdwB400Rz-SuuTuzzG9r0',
+      authDomain: 'cryptostrikers-prod.firebaseapp.com',
+      databaseURL: 'https://cryptostrikers-prod.firebaseio.com',
+      projectId: 'cryptostrikers-prod',
+      storageBucket: 'cryptostrikers-prod.appspot.com',
+      messagingSenderId: '381934574607'
+    };
   }
 
   return ENV;
