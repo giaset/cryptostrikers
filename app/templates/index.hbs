@@ -6,7 +6,14 @@
     <h1 class="font-weight-900">The Beautiful (Card) Game.</h1>
     <p>Buy packs of cards to start building your collection. Use the marketplace to trade for the players you're missing, or to sell your rarest cards for crypto. Go head-to-head in fantasy matchups to win prizes!</p>
     {{#if onlyShowLanding}}
-      <button class="btn btn-secondary btn-lg" disabled>Coming Soon</button>
+      <form {{action "submitEmail" on="submit"}}>
+        <div class="input-group">
+          {{input value=emailAddress type="email" class="form-control" placeholder="Enter your email..." required=true}}
+          <div class="input-group-append">
+            {{strikers-button type="submit" class="btn-success" text="Keep me posted" loadingText="Sending..." loading=emailButtonLoading}}
+          </div>
+        </div>
+      </form>
     {{else}}
       {{link-to "Play Now" "sign-in" class="btn btn-success btn-lg"}}
     {{/if}}
