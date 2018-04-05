@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(environment) {
+  const deployTarget = process.env.DEPLOY_TARGET;
   let ENV = {
     modulePrefix: 'cryptostrikers',
     environment,
@@ -35,6 +36,11 @@ module.exports = function(environment) {
       outputFormat: 'dddd, MMMM Do YYYY, h:mm:ss a'
     },
 
+    strikers: {
+      apiHost: 'https://us-central1-cryptostrikers-api.cloudfunctions.net',
+      saleContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'
+    },
+
     torii: {
       sessionServiceName: 'session'
     }
@@ -62,6 +68,14 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+  }
+
+  if (deployTarget === 'staging') {
+    ENV.strikers.saleContractAddress = '0x27cb4d119429c464c7138a57b6a8d36ab7b4e2ca';
+  }
+
+  if (deployTarget === 'production') {
+    ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
   }
 
   return ENV;

@@ -1,6 +1,6 @@
 import AjaxService from 'ember-ajax/services/ajax';
+import ENV from 'cryptostrikers/config/environment';
 
 export default AjaxService.extend({
-  // TODO: support https://us-central1-cryptostrikers-prod.cloudfunctions.net/sign
-  host: 'https://us-central1-cryptostrikers-api.cloudfunctions.net'
+  host: ENV.strikers.apiHost
 });

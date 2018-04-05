@@ -2,14 +2,14 @@ import Service from '@ember/service';
 import $ from 'jquery';
 import { inject as service } from '@ember/service';
 import { run } from '@ember/runloop';
+import ENV from 'cryptostrikers/config/environment';
 
 export default Service.extend({
   web3: service(),
 
   loadAll(jsonPrefix) {
-    // TODO: rinkeby = '0x27cb4d119429c464c7138a57b6a8d36ab7b4e2ca'
     const saleContractPromise = this._loadContract(
-      'StrikersSale', '0x9414329bf6837db915b4d5e0e22ecc27a33129c5', jsonPrefix
+      'StrikersSale', ENV.strikers.saleContractAddress, jsonPrefix
     );
 
     return saleContractPromise;
@@ -26,6 +26,7 @@ export default Service.extend({
   },
 
   getCardIdsFromPackBoughtReceipt(receipt) {
+    // TODO: maybe there's a way to get this straight from the JSON
     const topic = '0x1947a407fc738aebf73559f82e681274d64efa878ea80c083c5c081d4e9833a0';
     const inputs = [
       {
