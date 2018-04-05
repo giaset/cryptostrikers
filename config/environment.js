@@ -38,6 +38,7 @@ module.exports = function(environment) {
 
     strikers: {
       apiHost: 'https://us-central1-cryptostrikers-api.cloudfunctions.net',
+      onlyShowLanding: false,
       saleContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'
     },
 
@@ -76,6 +77,7 @@ module.exports = function(environment) {
 
   if (deployTarget === 'production') {
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
+    ENV.strikers.onlyShowLanding = true;
   }
 
   return ENV;

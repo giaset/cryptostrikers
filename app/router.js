@@ -7,16 +7,18 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.authenticatedRoute('crowdsale');
-  this.authenticatedRoute('my-album');
-  this.route('trade');
-  this.route('duel');
-  this.route('login');
-  this.route('deposit');
-  this.route('activity', function() {
-    this.route('show', { path: '/:activity_id' });
-  });
-  this.route('sign-in');
+  if (!config.strikers.onlyShowLanding) {
+    this.authenticatedRoute('crowdsale');
+    this.authenticatedRoute('my-album');
+    this.route('trade');
+    this.route('duel');
+    this.route('login');
+    this.route('deposit');
+    this.route('activity', function() {
+      this.route('show', { path: '/:activity_id' });
+    });
+    this.route('sign-in');
+  }
   this.route('404', { path: '/*path' });
 });
 
