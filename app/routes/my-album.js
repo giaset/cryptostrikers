@@ -11,6 +11,8 @@ export default Route.extend({
   },
 
   model() {
-    return this.get('store').peekAll('player');
+    return this.get('store').peekAll('player').filter(player => {
+      return !['15', '16', '17', '18', '20', '21', '22', '23', '24'].includes(player.get('id'));
+    });
   }
 });
