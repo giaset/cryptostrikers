@@ -10,10 +10,10 @@ Router.map(function() {
   if (!config.strikers.onlyShowLanding) {
     this.authenticatedRoute('crowdsale');
     this.authenticatedRoute('my-album');
-    this.route('trade');
-    this.route('duel');
+    this.route('marketplace');
+    this.route('challenge');
     this.route('login');
-    this.route('deposit');
+    this.authenticatedRoute('profile');
     this.route('activity', function() {
       this.route('show', { path: '/:activity_id' });
     });

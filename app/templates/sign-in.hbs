@@ -20,10 +20,14 @@
     </form>
     {{if token token}}
   {{else if web3.wrongNetwork}}
+    <!-- TODO: proper wrong network page -->
     <h2>You're on the wrong network!</h2>
+    <h2>Please switch to Rinkeby.</h2>
   {{else if web3.metamaskDetected}}
+    <!-- TODO: proper locked MetaMask page -->
     <h2>Please log in to your MetaMask account</h2>
   {{else}}
+    <!-- TODO: proper install MetaMask page -->
     <h2>Please install MetaMask</h2>
   {{/if}}
 </div>

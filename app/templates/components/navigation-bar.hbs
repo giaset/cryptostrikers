@@ -12,10 +12,10 @@
           {{link-to "Buy Packs" "crowdsale" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
-          {{link-to "Trade" "trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          {{link-to "Marketplace" "marketplace" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
-          {{link-to "Duel" "duel" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          {{link-to "Daily Challenge" "challenge" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
           {{link-to "My Album" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
@@ -26,7 +26,7 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.nickname}}{{#if balance}}<span class="badge badge-pill badge-success ml-1">{{balance}} ETH</span>{{/if}}</a>
           <div class="dropdown-menu dropdown-menu-right">
-            {{link-to "Deposit" "deposit" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+            {{link-to "Profile" "profile" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
             <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
           </div>
         </li>
