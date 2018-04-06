@@ -1,10 +1,10 @@
 import RSVP from 'rsvp';
 import Service from '@ember/service';
+import ENV from 'cryptostrikers/config/environment';
 
 export default Service.extend({
   _instance: null,
 
-  // TODO: do network check on launch
   setup() {
     if (document.readyState === 'complete') {
       const success = this._setup();
@@ -32,6 +32,16 @@ export default Service.extend({
     this._instance = new Web3(web3.currentProvider);
     this.set('metamaskDetected', true);
     return true;
+  },
+
+  checkNetwork() {
+    const correctNetworkId = ENV.strikers.networkId;
+    return this._instance.eth.net.getId().then(id => {
+      if (id !== correctNetworkId) {
+        this.set('wrongNetwork', true);
+        throw new Error('Wrong Network!');
+      }
+    });
   },
 
   _accounts() {

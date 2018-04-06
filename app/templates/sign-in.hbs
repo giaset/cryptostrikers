@@ -19,6 +19,8 @@
       <button type="submit" class="btn btn-lg btn-primary">Submit</button>
     </form>
     {{if token token}}
+  {{else if web3.wrongNetwork}}
+    <h2>You're on the wrong network!</h2>
   {{else if web3.metamaskDetected}}
     <h2>Please log in to your MetaMask account</h2>
   {{else}}

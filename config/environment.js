@@ -38,6 +38,7 @@ module.exports = function(environment) {
 
     strikers: {
       apiHost: 'https://us-central1-cryptostrikers-api.cloudfunctions.net',
+      networkId: 5777, // localhost
       onlyShowLanding: false,
       saleContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'
     },
@@ -72,11 +73,13 @@ module.exports = function(environment) {
   }
 
   if (deployTarget === 'staging') {
+    ENV.strikers.networkId = 4; // rinkeby
     ENV.strikers.saleContractAddress = '0x27cb4d119429c464c7138a57b6a8d36ab7b4e2ca';
   }
 
   if (deployTarget === 'production') {
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
+    ENV.strikers.networkId = 1; // mainnet
     ENV.strikers.onlyShowLanding = true;
     ENV.firebase = {
       apiKey: 'AIzaSyACrJK0KFti25MdwB400Rz-SuuTuzzG9r0',

@@ -17,7 +17,9 @@ export default Route.extend({
 
   beforeModel(transition) {
     const jsonPrefix = this._jsonPrefix(transition);
-    return this.get('web3').setup()
+    const web3 = this.get('web3');
+    return web3.setup()
+    .then(() => web3.checkNetwork())
     .then(() => this.get('strikersContracts').loadAll(jsonPrefix))
     .then(() => {
       this.get('metamaskWatcher').start();
