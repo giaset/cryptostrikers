@@ -9,6 +9,7 @@ export default Controller.extend({
   web3: service(),
   actions: {
     submit() {
+      // TODO: loading state for submit button
       const currentAccount = this.get('metamaskWatcher.currentAccount');
       this.get('web3').personalSign('CryptoStrikers', currentAccount)
       .then(signature => {

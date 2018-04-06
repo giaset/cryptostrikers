@@ -8,7 +8,7 @@ export default Component.extend({
   metamaskWatcher: service(),
   session: service(),
   web3: service(),
-  classNames: ['navbar', 'navbar-expand-sm', 'navbar-light'],
+  classNames: ['navbar', 'navbar-expand-md', 'navbar-light'],
   tagName: 'header',
   showSignIn: !ENV.strikers.onlyShowLanding,
 

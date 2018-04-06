@@ -1,1 +1,9 @@
-<img class="card-img" src="/assets/cards/s1/{{safePlayer.id}}.png">
+{{#if hasImage}}
+  <img class="card-img" src="/assets/cards/s1/{{safePlayer.id}}.png">
+{{else}}
+  <img class="card-img" src="http://via.placeholder.com/300x420">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{safePlayer.name}}</h5>
+    <p class="card-text">{{safePlayer.country.name}}</p>
+  </div>
+{{/if}}
