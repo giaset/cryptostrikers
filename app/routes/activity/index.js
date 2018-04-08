@@ -12,6 +12,6 @@ export default Route.extend({
   },
 
   model() {
-    return this.get('currentUser.user.activities').reverseObjects();
+    return this.get('currentUser.user.activities');
   }
 });
