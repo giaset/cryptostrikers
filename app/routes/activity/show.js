@@ -24,6 +24,8 @@ export default Route.extend({
     if (isExiting) {
       controller.stopRefreshing();
       controller.set('cards', null);
+      controller.set('isLoading', false);
+      controller.set('message', null);
     }
   }
 });

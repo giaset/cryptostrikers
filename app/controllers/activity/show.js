@@ -10,6 +10,7 @@ export default Controller.extend({
   nextRefresh: null,
 
   startRefreshing() {
+    this.set('isLoading', true);
     this._tick();
   },
 
@@ -25,6 +26,7 @@ export default Controller.extend({
         const cardIds = this.get('strikersContracts').getCardIdsFromPackBoughtReceipt(receipt);
         return this._loadCards(cardIds);
       } else {
+        this.set('message', 'Hang tight, this transaction hasn\'t been mined yet...');
         this.set('nextRefresh', later(this, this._tick, this.interval));
       }
     });
@@ -48,6 +50,8 @@ export default Controller.extend({
         store.pushPayload('card', {card: payload});
         return store.peekRecord('card', cardId);
       });
+      this.set('isLoading', false);
+      this.set('message', null);
       this.set('cards', cardObjects);
     });
   }
