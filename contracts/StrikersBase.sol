@@ -1,11 +1,14 @@
 pragma solidity ^0.4.21;
 
-import "zeppelin-solidity/contracts/token/ERC721/ERC721BasicToken.sol";
+import "zeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
+import "./OraclizeStringUtils.sol";
 import "./StrikersState.sol";
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
-contract StrikersBase is ERC721BasicToken, StrikersState {
+contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUtils, StrikersState {
+  string constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
+
   /// @dev Emit this event whenever we mint a new card
   ///  For Series 1 cards, this occurs during the minting of packs.
   ///  For Series 2 cards, we mint and award them as a prize for the daily challenge.
@@ -36,6 +39,16 @@ contract StrikersBase is ERC721BasicToken, StrikersState {
   /// @dev All the cards that have been minted, indexed by cardId.
   Card[] public cards;
 
+  /// @dev Returns the API URL for each card
+  ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
+  ///   The API will then return a JSON blob according to OpenSea's spec
+  ///   see: https://developers.opensea.io/getting-started.html
+  function tokenURI(uint256 _tokenId) public view returns (string) {
+    require(exists(_tokenId));
+    string memory _id = uint2str(_tokenId);
+    return strConcat(API_URL, _id);
+  }
+
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a Birth and a Transfer event.
   /// @param _playerId The ID of the player on the card (see WorldCupInfo)
@@ -50,7 +63,7 @@ contract StrikersBase is ERC721BasicToken, StrikersState {
     address _owner
   )
     internal
-    returns (uint)
+    returns (uint256)
   {
     Card memory newCard = Card({
       mintTime: uint64(now),
@@ -61,9 +74,7 @@ contract StrikersBase is ERC721BasicToken, StrikersState {
     });
     uint256 newCardId = cards.push(newCard) - 1;
     emit CardMinted(newCardId);
-    tokenOwner[newCardId] = _owner;
-    ownedTokensCount[_owner]++;
-    emit Transfer(0, _owner, newCardId);
+    _mint(_owner, newCardId);
     return newCardId;
   }
 }
