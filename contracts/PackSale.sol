@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
 import "./PackFactory.sol";
-import "./StrikersBase.sol";
+import "./StrikersMinting.sol";
 
 contract PackSale is PackFactory {
   event PackBought(address indexed buyer, uint256[] pack);
@@ -19,10 +19,10 @@ contract PackSale is PackFactory {
   // actually maybe we don't want to expose this...
   mapping (uint8 => mapping (uint8 => uint16)) playerCardsSoldForRun;
 
-  StrikersBase public strikersBase;
+  StrikersMinting public strikersMinting;
 
-  function PackSale(address _strikersBaseAddress) public {
-    strikersBase = StrikersBase(_strikersBaseAddress);
+  function PackSale(address _strikersMintingAddress) public {
+    strikersMinting = StrikersMinting(_strikersMintingAddress);
   }
 
   function setPackPrice(uint _packPrice) public onlyOwner requireNotState(SaleState.Selling) {
@@ -44,6 +44,7 @@ contract PackSale is PackFactory {
     changeState(SaleState.SalePaused);
   }
 
+  // TODO: buyPack for someone else (giftPack?)
   function buyPack() public requireState(SaleState.Selling) {
     // TODO: require proper ether amount
     require(shuffledPacks.length > 0);
@@ -53,7 +54,8 @@ contract PackSale is PackFactory {
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
       uint8 playerId = uint8((pack >> shift) & mask);
-      uint256 cardId = strikersBase._mintCard(playerId, 1, currentRunNumber, 0, msg.sender);
+      // TODO: mintNumber
+      uint256 cardId = strikersMinting.mintSeries1Card(playerId, currentRunNumber, 0, msg.sender);
       newCards[i-1] = cardId;
     }
     packsSoldForRun[currentRunNumber]++;
