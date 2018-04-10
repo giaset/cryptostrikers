@@ -17,10 +17,18 @@ export default Service.extend({
       const currentAccount = accounts[0];
       // TODO: detect account change and logout
       this.set('currentAccount', currentAccount);
+
+      if (!currentAccount) {
+        throw new Error('MetaMask Locked!');
+      }
+
       return web3.getBalance(currentAccount);
     })
     .then(balance => {
       this.set('currentBalance', balance);
+    })
+    .catch(() => {})
+    .finally(() => {
       this.set('nextRefresh', later(this, this._tick, this.interval));
     });
   },
