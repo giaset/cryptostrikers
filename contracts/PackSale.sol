@@ -1,7 +1,12 @@
 pragma solidity ^0.4.21;
 
 import "./PackFactory.sol";
-import "./StrikersMinting.sol";
+
+/// @dev We use the interface here (instead of importing StrikersMinting) to avoid circular imports
+///   (StrikersMinting already imports PackSale to make sure only it can call mintSeries1Card)
+contract StrikersMintingInterface {
+  function mintSeries1Card(uint8 _playerId, uint8 _runId, uint16 _mintNumber, address _owner) external returns (uint256);
+}
 
 contract PackSale is PackFactory {
   event PackBought(address indexed buyer, uint256[] pack);
@@ -19,10 +24,10 @@ contract PackSale is PackFactory {
   // actually maybe we don't want to expose this...
   mapping (uint8 => mapping (uint8 => uint16)) playerCardsSoldForRun;
 
-  StrikersMinting public strikersMinting;
+  StrikersMintingInterface public strikersMinting;
 
   function PackSale(address _strikersMintingAddress) public {
-    strikersMinting = StrikersMinting(_strikersMintingAddress);
+    strikersMinting = StrikersMintingInterface(_strikersMintingAddress);
   }
 
   function setPackPrice(uint _packPrice) public onlyOwner requireNotState(SaleState.Selling) {

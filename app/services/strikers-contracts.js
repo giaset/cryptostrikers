@@ -9,15 +9,15 @@ export default Service.extend({
   web3: service(),
 
   loadAll(jsonPrefix) {
-    const baseContractPromise = this._loadContract(
-      'StrikersBase', ENV.strikers.baseContractAddress, jsonPrefix
+    const mintingContractPromise = this._loadContract(
+      'StrikersMinting', ENV.strikers.mintingContractAddress, jsonPrefix
     );
 
     const saleContractPromise = this._loadContract(
       'PackSale', ENV.strikers.saleContractAddress, jsonPrefix
     );
 
-    return RSVP.all([baseContractPromise, saleContractPromise]);
+    return RSVP.all([mintingContractPromise, saleContractPromise]);
   },
 
   _loadContract(contractName, address, jsonPrefix) {

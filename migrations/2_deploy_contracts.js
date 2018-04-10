@@ -1,4 +1,4 @@
-const StrikersBase = artifacts.require("./StrikersBase.sol");
+const StrikersMinting = artifacts.require("./StrikersMinting.sol");
 const PackSale = artifacts.require("./PackSale.sol");
 
 module.exports = function(deployer) {
@@ -14,18 +14,18 @@ module.exports = function(deployer) {
     packs.push(parseInt(pack, 2));
   }
 
-  let strikersBase;
+  let strikersMinting;
   let packSale;
-  deployer.deploy(StrikersBase)
-    .then(() => StrikersBase.deployed())
+  deployer.deploy(StrikersMinting)
+    .then(() => StrikersMinting.deployed())
     .then(deployed => {
-      strikersBase = deployed;
-      return deployer.deploy(PackSale, strikersBase.address);
+      strikersMinting = deployed;
+      return deployer.deploy(PackSale, strikersMinting.address);
     })
     .then(() => PackSale.deployed())
     .then(deployed => {
       packSale = deployed;
-      return strikersBase.setPackSaleAddress(packSale.address);
+      return strikersMinting.setPackSaleAddress(packSale.address);
     })
     .then(() => packSale.startNewRun())
     .then(() => packSale.loadShuffledPacks(packs))
