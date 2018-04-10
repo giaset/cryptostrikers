@@ -1,8 +1,9 @@
 pragma solidity ^0.4.21;
 
-import "./StrikersPackFactory.sol";
+import "./PackFactory.sol";
+import "./StrikersBase.sol";
 
-contract StrikersSale is StrikersPackFactory {
+contract PackSale is PackFactory {
   event PackBought(address indexed buyer, uint256[] pack);
   event PackPriceChanged(uint256 packPrice);
 
@@ -18,7 +19,13 @@ contract StrikersSale is StrikersPackFactory {
   // actually maybe we don't want to expose this...
   mapping (uint8 => mapping (uint8 => uint16)) playerCardsSoldForRun;
 
-  function setPackPrice(uint _packPrice) public onlyOwner requireNotState(State.Selling) {
+  StrikersBase public strikersBase;
+
+  function PackSale(address _strikersBaseAddress) public {
+    strikersBase = StrikersBase(_strikersBaseAddress);
+  }
+
+  function setPackPrice(uint _packPrice) public onlyOwner requireNotState(SaleState.Selling) {
     packPrice = _packPrice;
     emit PackPriceChanged(packPrice);
   }
@@ -27,17 +34,17 @@ contract StrikersSale is StrikersPackFactory {
     buyPack();
   }
 
-  function startSale() external onlyOwner requireState(State.DoneMinting) {
+  function startSale() external onlyOwner requireState(SaleState.DoneLoadingPacks) {
     emit SaleStarted(currentRunNumber);
-    changeState(State.Selling);
+    changeState(SaleState.Selling);
   }
 
-  function pauseSale() external onlyOwner requireState(State.Selling) {
+  function pauseSale() external onlyOwner requireState(SaleState.Selling) {
     emit SalePaused(currentRunNumber);
-    changeState(State.SalePaused);
+    changeState(SaleState.SalePaused);
   }
 
-  function buyPack() public requireState(State.Selling) {
+  function buyPack() public requireState(SaleState.Selling) {
     // TODO: require proper ether amount
     require(shuffledPacks.length > 0);
     uint32 pack = _removePackAtIndex(0);
@@ -46,7 +53,7 @@ contract StrikersSale is StrikersPackFactory {
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
       uint8 playerId = uint8((pack >> shift) & mask);
-      uint256 cardId = _mintCard(playerId, 1, currentRunNumber, 0, msg.sender);
+      uint256 cardId = strikersBase._mintCard(playerId, 1, currentRunNumber, 0, msg.sender);
       newCards[i-1] = cardId;
     }
     packsSoldForRun[currentRunNumber]++;

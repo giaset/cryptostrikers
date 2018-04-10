@@ -2,11 +2,12 @@ pragma solidity ^0.4.21;
 
 import "zeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
 import "./OraclizeStringUtils.sol";
-import "./StrikersState.sol";
+import "./PackSale.sol";
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
-contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUtils, StrikersState {
+contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUtils, Ownable {
   string constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
 
   /// @dev Emit this event whenever we mint a new card
@@ -39,6 +40,18 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
   /// @dev All the cards that have been minted, indexed by cardId.
   Card[] public cards;
 
+  /// @dev The address of the contract that manages the pack sale.
+  PackSale public packSale;
+
+  /// @dev Only the owner can update the address of the pack sale contract.
+  /// @param _address The address of the new PackSale contract.
+  function setPackSaleAddress(address _address) external onlyOwner {
+    PackSale candidateContract = PackSale(_address);
+    // Sanity check to make sure we're actually setting a PackSale contract...
+    require(candidateContract.isPackSale());
+    packSale = candidateContract;
+  }
+
   /// @dev Returns the API URL for each card
   ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
   ///   The API will then return a JSON blob according to OpenSea's spec
@@ -62,9 +75,11 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     uint16 _mintNumber,
     address _owner
   )
-    internal
+    external
     returns (uint256)
   {
+    // Only the PackSale contract can mint Series 1 cards!!!
+    require(msg.sender == address(packSale));
     Card memory newCard = Card({
       mintTime: uint64(now),
       mintNumber: _mintNumber,

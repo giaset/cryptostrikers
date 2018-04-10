@@ -1,9 +1,9 @@
 pragma solidity ^0.4.21;
 
-import "./StrikersBase.sol";
+import './PackSaleState.sol';
 
 /// @dev The contract that allows the contract owner to load shuffled packs of cards
-contract StrikersPackFactory is StrikersBase {
+contract PackFactory is PackSaleState {
 
   // The only way to buy Series 1 cards is in packs of 4.
   // NB: we generate and store the shuffled packs in advance but only actually mint the cards when a pack is sold (see PackSale contract).
@@ -37,13 +37,13 @@ contract StrikersPackFactory is StrikersBase {
   uint32[] shuffledPacks;
 
   // All below is for Series 1 only
-  function startNewRun() external onlyOwner requireState(State.WaitingForNextMint) {
+  function startNewRun() external onlyOwner requireState(SaleState.WaitingForNextRun) {
     currentRunNumber++;
     emit StartedMinting(currentRunNumber);
-    changeState(State.Minting);
+    changeState(SaleState.LoadingPacks);
   }
 
-  function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner requireState(State.Minting) {
+  function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner requireState(SaleState.LoadingPacks) {
     uint32 newPackCount = uint32(_shuffledPacks.length);
     require(totalPacksMinted + newPackCount <= PACKS_MINTED_LIMIT);
     shuffledPacks = _shuffledPacks;
@@ -51,9 +51,9 @@ contract StrikersPackFactory is StrikersBase {
     packsMintedForRun[currentRunNumber] += newPackCount;
   }
 
-  function finishRun() external onlyOwner requireState(State.Minting) {
+  function finishRun() external onlyOwner requireState(SaleState.LoadingPacks) {
     emit FinishedMinting(currentRunNumber);
-    changeState(State.DoneMinting);
+    changeState(SaleState.DoneLoadingPacks);
   }
 
   // TODO: only to be called off-chain

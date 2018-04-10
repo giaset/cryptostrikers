@@ -3,16 +3,21 @@ import $ from 'jquery';
 import { inject as service } from '@ember/service';
 import { run } from '@ember/runloop';
 import ENV from 'cryptostrikers/config/environment';
+import RSVP from 'rsvp';
 
 export default Service.extend({
   web3: service(),
 
   loadAll(jsonPrefix) {
-    const saleContractPromise = this._loadContract(
-      'StrikersSale', ENV.strikers.saleContractAddress, jsonPrefix
+    const baseContractPromise = this._loadContract(
+      'StrikersBase', ENV.strikers.baseContractAddress, jsonPrefix
     );
 
-    return saleContractPromise;
+    const saleContractPromise = this._loadContract(
+      'PackSale', ENV.strikers.saleContractAddress, jsonPrefix
+    );
+
+    return RSVP.all([baseContractPromise, saleContractPromise]);
   },
 
   _loadContract(contractName, address, jsonPrefix) {

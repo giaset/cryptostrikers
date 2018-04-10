@@ -33,7 +33,7 @@ export default Controller.extend({
   },
 
   _loadCards(cardIds) {
-    const contract = this.get('strikersContracts.StrikersSale.methods');
+    const contract = this.get('strikersContracts.StrikersBase.methods');
     const store = this.get('store');
     const promises = cardIds.map(cardId => contract.cards(cardId).call());
     return RSVP.all(promises).then(cards => {

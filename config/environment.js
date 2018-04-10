@@ -40,7 +40,8 @@ module.exports = function(environment) {
       apiHost: 'https://us-central1-cryptostrikers-api.cloudfunctions.net',
       networkId: 5777, // localhost
       onlyShowLanding: false,
-      saleContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5'
+      baseContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
+      saleContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097'
     },
 
     torii: {

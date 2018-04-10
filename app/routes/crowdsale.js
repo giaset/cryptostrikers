@@ -13,7 +13,7 @@ export default Route.extend({
   },
 
   model() {
-    const saleContract = this.get('strikersContracts.StrikersSale.methods');
+    const saleContract = this.get('strikersContracts.PackSale.methods');
     const currentRunNumber = saleContract.currentRunNumber().call();
     return RSVP.hash({
       contractState: saleContract.state().call(),

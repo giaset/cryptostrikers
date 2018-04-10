@@ -11,7 +11,7 @@ export default Controller.extend({
   actions: {
     buyPack() {
       const currentUser = this.get('currentUser.user');
-      const saleContract = this.get('strikersContracts.StrikersSale.methods');
+      const saleContract = this.get('strikersContracts.PackSale.methods');
       saleContract.buyPack().send({from: currentUser.get('id')})
       .on('transactionHash', hash => {
         this._handleTransactionHash(hash, currentUser);
