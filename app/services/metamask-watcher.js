@@ -1,7 +1,10 @@
 import Service, { inject as service } from '@ember/service';
 import { cancel, later } from '@ember/runloop';
 
+const ACCOUNT_MISMATCH_ERROR = 'Account mismatch';
+
 export default Service.extend({
+  session: service(),
   web3: service(),
   interval: 1000,
   nextRefresh: null,
@@ -15,11 +18,15 @@ export default Service.extend({
     web3.getAccounts()
     .then(accounts => {
       const currentAccount = accounts[0];
-      // TODO: detect account change and logout
       this.set('currentAccount', currentAccount);
 
       if (!currentAccount) {
         throw new Error('MetaMask Locked!');
+      }
+
+      const userAccount = this.get('session.currentUser.uid');
+      if (userAccount && userAccount != currentAccount) {
+        throw new Error(ACCOUNT_MISMATCH_ERROR);
       }
 
       return web3.getBalance(currentAccount);
@@ -27,7 +34,13 @@ export default Service.extend({
     .then(balance => {
       this.set('currentBalance', balance);
     })
-    .catch(() => {})
+    .catch(error => {
+      if (error.message === ACCOUNT_MISMATCH_ERROR) {
+        return this.get('session').close().then(() => {
+          window.location.replace('/');
+        });
+      }
+    })
     .finally(() => {
       this.set('nextRefresh', later(this, this._tick, this.interval));
     });
