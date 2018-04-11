@@ -6,9 +6,7 @@ export default Controller.extend({
   actions: {
     closeSession() {
       this.get('session').close().then(() => {
-        this.get('currentUser').unload();
-        this.store.unloadAll();
-        this.transitionToRoute('index');
+        window.location.replace('/');
       });
     }
   }
