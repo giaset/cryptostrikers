@@ -1,0 +1,27 @@
+{
+  "rules": {
+    ".read": "auth !== null",
+    "activities": {
+      "$activityId": {
+        ".write": "auth !== null && (!data.exists() || auth.uid === data.child('user').val()) && newData.exists()"
+      }
+    },
+    "countries": {
+      ".read": true
+    },
+    "leads": {
+      "$leadId": {
+        ".read": true,
+        ".write": "!data.exists()"
+      }
+    },
+    "players": {
+      ".read": true
+    },
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid"
+      }
+    }
+  }
+}
