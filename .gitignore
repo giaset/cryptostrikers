@@ -29,3 +29,5 @@ package.json.ember-try
 /functions/service-account-prod.json
 cloud-functions-emulator.log
 /functions/.runtimeconfig.json
+
+firebase-debug.log

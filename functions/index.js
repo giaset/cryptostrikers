@@ -21,12 +21,42 @@ const strikersContract = new web3.eth.Contract(contractJson.abi, address);
 app.use(cors);
 app.get('/:id', (req, res) => {
   const cardId = req.params.id;
-  strikersContract.methods.cards(cardId).call().then(card => {
-    return res.json(card);
+  let card;
+  let playerId;
+  let player;
+  strikersContract.methods.cards(cardId).call().then(_card => {
+    card = _card;
+    playerId = card.playerId;
+    return admin.database().ref(`/players/${playerId}`).once('value');
   })
-  .catch(error => {
-    res.status(404).send('Card not found');
-  });
+  .then(snapshot => {
+    player = snapshot.val();
+    return admin.database().ref(`/countries/${player.country}`).once('value');
+  })
+  .then(snapshot => {
+    const country = snapshot.val();
+    const mintNumber = parseInt(card.mintNumber);
+    const runId = parseInt(card.runId);
+    const seriesId = parseInt(card.seriesId);
+    const seriesName = `Series ${seriesId}`;
+    const payload = {
+      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${seriesId}/${playerId}.png`,
+      externalUrl: 'https://www.cryptostrikers.com/',
+      description: `${seriesName}, Run ${runId}, #${mintNumber}`,
+      name: player.name,
+      properties: {
+        country: country.name,
+        group: `Group ${country.group}`,
+        mintNumber: mintNumber,
+        player: player.name,
+        run: runId,
+        series: seriesId,
+        seriesName: seriesName
+      }
+    };
+    return res.json(payload);
+  })
+  .catch(error => res.status(500).json({error: error.toString()}));
 });
 exports.cards = functions.https.onRequest(app);
 
@@ -40,7 +70,7 @@ exports.sign = functions.https.onRequest((req, res) => {
       if (recovered === sigUtil.normalize(address)) {
         admin.auth().createCustomToken(address)
           .then(customToken => res.json({token: customToken}))
-          .catch(error => res.json({error: error}));
+          .catch(error => res.status(500).json({error: error.toString()}));
       } else {
         res.status(401).send('Wrong signature for address.');
       }
