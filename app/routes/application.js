@@ -1,8 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import $ from 'jquery';
 import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
 
 export default Route.extend({
   currentUser: service(),
@@ -27,25 +25,13 @@ export default Route.extend({
     .catch(() => {});
   },
 
-  model(_, transition) {
-    const jsonPrefix = this._jsonPrefix(transition);
+  model() {
     const store = this.get('store');
-    const countriesPromise = $.getJSON(`${jsonPrefix}countries.json`)
-    .then(json => {
-      run(() => {
-        store.pushPayload('country', json);
-      });
-    });
-    const playersPromise = countriesPromise.then(() => $.getJSON(`${jsonPrefix}players.json`))
-    .then(json => {
-      run(() => {
-        store.pushPayload('player', json);
-      });
-    });
-    const userPromise = this.get('currentUser').load();
     return RSVP.hash({
-      players: playersPromise,
-      user: userPromise
+      countries: store.findAll('country'),
+      players: store.findAll('player'),
+      // This has to be done after auth, which happens in beforeModel.
+      user: this.get('currentUser').load()
     });
   },
 
