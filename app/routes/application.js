@@ -7,6 +7,7 @@ export default Route.extend({
   metamaskWatcher: service(),
   strikersContracts: service(),
   web3: service(),
+  worldCupInfo: service(),
   actions: {
     accessDenied() {
       this.transitionTo('sign-in');
@@ -26,13 +27,11 @@ export default Route.extend({
   },
 
   model() {
-    const store = this.get('store');
-    return RSVP.hash({
-      countries: store.findAll('country'),
-      players: store.findAll('player'),
-      // This has to be done after auth, which happens in beforeModel.
-      user: this.get('currentUser').load()
-    });
+    // currentUser.load() has to be done after auth, which happens in beforeModel.
+    return RSVP.all([
+      this.get('currentUser').load(),
+      this.get('worldCupInfo').setup()
+    ]);
   },
 
   _jsonPrefix(transition) {
