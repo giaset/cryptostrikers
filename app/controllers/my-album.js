@@ -13,10 +13,15 @@ export default Controller.extend({
     return allPlayers;
   }),
 
-  ownedPlayers: computed('model.myCards', function() {
+  playerToOwnedCount: computed('model.myCards', function() {
     const ownedMap = {};
     this.get('model.myCards').forEach(card => {
-      ownedMap[card.get('player.id')] = true;
+      const playerId = card.get('player.id');
+      if (ownedMap[playerId]) {
+        ownedMap[playerId]++;
+      } else {
+        ownedMap[playerId] = 1;
+      }
     });
     return ownedMap;
   })
