@@ -18,9 +18,7 @@ body {
 }
 
 .player-card {
-  opacity: 0.3;
-
-  &:hover {
-    opacity: 1;
+  &.inactive {
+    opacity: 0.3;
   }
 }
