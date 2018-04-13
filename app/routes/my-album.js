@@ -18,5 +18,11 @@ export default Route.extend({
       allPlayers: store.peekAll('player'),
       myCards: store.query('card', {owner: this.get('currentUser.user.id')})
     });
+  },
+
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      controller.set('selectedFilter', null);
+    }
   }
 });

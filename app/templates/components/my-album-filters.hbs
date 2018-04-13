@@ -1,0 +1,10 @@
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="albumFilterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{if selectedFilter selectedFilter.name "Filter"}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="albumFilterButton">
+    {{#each filters as |filter|}}
+      <button class="dropdown-item" type="button" {{action 'filterClicked' filter}}>{{filter.name}} <span class="badge badge-pill badge-primary">{{filter.owned}}/{{filter.total}}</span></button>
+    {{/each}}
+  </div>
+</div>

@@ -1,6 +1,6 @@
-<p>TODO: organize "collections" in left sidebar like CryptoKitties Codex</p>
+{{my-album-filters allPlayers=model.allPlayers myCards=model.myCards selectedFilter=selectedFilter class="mb-2"}}
 <div class="row">
-  {{#each model.allPlayers as |player|}}
+  {{#each filteredPlayers as |player|}}
     <div class="col-6 col-sm-4 col-lg-3">
       {{player-card player=player ownedPlayers=ownedPlayers}}
     </div>
