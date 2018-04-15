@@ -32,6 +32,20 @@ module.exports = function(environment) {
       messagingSenderId: '138250042052'
     },
 
+    metricsAdapters: [
+      {
+        name: 'GoogleAnalytics',
+        environments: ['development', 'production'],
+        config: {
+          // TODO: different ID for production
+          id: 'UA-117502203-1',
+          debug: environment === 'development',
+          trace: environment === 'development',
+          sendHitTask: environment !== 'development'
+        }
+      }
+    ],
+
     moment: {
       outputFormat: 'dddd, MMMM Do YYYY, h:mm:ss a'
     },

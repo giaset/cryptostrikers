@@ -33,7 +33,7 @@ export default Controller.extend({
           email: this.get('emailAddress'),
           nickname: this.get('nickname')
         });
-        this.get('currentUser').set('user', user);
+        this.get('currentUser').setUser(user);
         return user.save();
       })
       .then(() => {
