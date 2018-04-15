@@ -12,7 +12,7 @@ export default Controller.extend({
     buyPack() {
       const currentUser = this.get('currentUser.user');
       const saleContract = this.get('strikersContracts.PackSale.methods');
-      saleContract.buyPack().send({from: currentUser.get('id')})
+      saleContract.buyPack().send({from: currentUser.get('id'), gas: 750000})
       .on('transactionHash', hash => {
         this._handleTransactionHash(hash, currentUser);
       })
