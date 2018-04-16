@@ -24,7 +24,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   if (!config.strikers.onlyShowLanding) {
-    this.authenticatedRoute('crowdsale');
+    this.authenticatedRoute('buy-packs');
     this.authenticatedRoute('my-album');
     this.route('marketplace');
     this.route('challenge');
