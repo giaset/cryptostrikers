@@ -19,8 +19,6 @@
       <p>Total packs minted (vs hard cap) = {{model.totalPacksMinted}}/{{model.packsMintedLimit}}</p>
     </span>
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#buyPackModal"><span class="font-weight-bold">BUY</span> {{packPrice}} ETH</button>
-    {{#strikers-modal id="buyPackModal" modalTitle="Buy pack?" confirmActionTitle="Buy ittt" confirmAction=(action "buyPack")}}
-      Are you sure you want to buy this pack?
-    {{/strikers-modal}}
+    {{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}
   </div>
 </div>

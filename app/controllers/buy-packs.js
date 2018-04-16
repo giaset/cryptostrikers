@@ -9,10 +9,11 @@ export default Controller.extend({
   web3: service(),
 
   actions: {
-    buyPack() {
+    buyPack(gasPrice) {
       const currentUser = this.get('currentUser.user');
       const saleContract = this.get('strikersContracts.PackSale.methods');
-      saleContract.buyPack().send({from: currentUser.get('id'), gas: 750000})
+      const gasPriceInWei = this.get('web3').toWei(gasPrice.toString(), 'Gwei');
+      saleContract.buyPack().send({from: currentUser.get('id'), gas: 750000, gasPrice: gasPriceInWei})
       .on('transactionHash', hash => {
         this._handleTransactionHash(hash, currentUser);
       })

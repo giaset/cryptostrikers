@@ -109,6 +109,10 @@ export default Service.extend({
     });
   },
 
+  toWei(number, unit = 'ether') {
+    return this._instance.utils.toWei(number, unit);
+  },
+
   weiToEther(wei) {
     return this._instance.utils.fromWei(wei);
   },
