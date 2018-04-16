@@ -79,3 +79,7 @@ exports.sign = functions.https.onRequest((req, res) => {
     }
   });
 });
+
+exports.updateUserCount = functions.database.ref('users/{userId}').onCreate(() => {
+  return admin.database().ref('stats/stats/userCount').transaction(userCount => (userCount || 0) + 1);
+});

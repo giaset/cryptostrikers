@@ -18,9 +18,13 @@
     "players": {
       ".read": true
     },
+    "stats": {
+      ".read": true
+    },
     "users": {
       "$uid": {
         ".write": "$uid === auth.uid"
+        // TODO: protect email when not me
       }
     }
   }

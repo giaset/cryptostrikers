@@ -27,11 +27,12 @@ export default Route.extend({
   },
 
   model() {
-    // currentUser.load() has to be done after auth, which happens in beforeModel.
-    return RSVP.all([
-      this.get('currentUser').load(),
-      this.get('worldCupInfo').setup()
-    ]);
+    return RSVP.hash({
+      stats: this.get('store').findRecord('stats', 'stats'),
+      // user load has to be done after auth, which happens in beforeModel
+      user: this.get('currentUser').load(),
+      worldCupInfo: this.get('worldCupInfo').setup()
+    });
   },
 
   _jsonPrefix(transition) {

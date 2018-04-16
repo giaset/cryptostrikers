@@ -1,4 +1,5 @@
 {{link-to "CryptoStrikers" "index" class="navbar-brand font-weight-900" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+Total users: {{stats.userCount}}
 {{#if session.isAuthenticated}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
     <span class="navbar-toggler-icon"></span>
@@ -12,7 +13,7 @@
           {{link-to "Buy Packs" "buy-packs" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item">
-          <a href="https://rinkeby.opensea.io/assets/cryptostrikers" target="_blank" class="nav-link">Marketplace</a>
+          <a href="https://rinkeby.opensea.io/category/cryptostrikers" target="_blank" class="nav-link">Marketplace</a>
         </li>
         <li class="nav-item">
           {{link-to "Daily Challenge" "challenge" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
