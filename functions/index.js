@@ -40,7 +40,7 @@ app.get('/:id', (req, res) => {
     const seriesId = parseInt(card.seriesId);
     const seriesName = `Series ${seriesId}`;
     const payload = {
-      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${seriesId}/${playerId}.png`,
+      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${seriesId}/${playerId}.svg`,
       externalUrl: 'https://www.cryptostrikers.com/',
       description: `${seriesName}, Run ${runId}, #${mintNumber}`,
       name: player.name,
