@@ -1,6 +1,5 @@
-<div class="card">
-  <img class="card-img" src="/assets/cards/s1/{{safePlayer.id}}.svg">
-</div>
+<img class="blank-card-img img-fluid {{if isRevealed "opacity-0"}}" src="/assets/images/blank-card.png">
+<img class="player-card-img img-fluid" src="/assets/cards/s1/{{safePlayer.id}}.svg">
 {{#if (gt ownedCount 1)}}
   <h5><span class="badge badge-pill badge-primary">{{ownedCount}}</span></h5>
 {{/if}}

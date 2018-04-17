@@ -25,9 +25,23 @@ body {
 
 .player-card {
   position: relative;
+  transition: transform .3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   &.inactive {
     opacity: 0.3;
+  }
+
+  .blank-card-img {
+    position: absolute;
+    transition: opacity 1s ease-in-out;
+
+    &.opacity-0 {
+      opacity: 0;
+    }
   }
 
   .badge {

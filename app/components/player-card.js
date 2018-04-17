@@ -3,7 +3,12 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   classNameBindings: ['inactive'],
-  classNames: ['player-card', 'mb-4', 'box-shadow'],
+  classNames: ['player-card', 'mb-4'],
+  isRevealed: true,
+
+  click() {
+    this.set('isRevealed', true);
+  },
 
   inactive: computed('ownedCount', function() {
     return this.get('ownedCount') <= 0;

@@ -4,10 +4,13 @@
     {{spinkit-cube-grid}}
   </div>
 {{else}}
+  <div class="text-center">
+    <p>Click the cards to reveal your new players</p>
+  </div>
   <div class="row">
     {{#each cards as |card|}}
       <div class="col-6 col-sm-4 col-lg-3">
-        {{player-card card=card}}
+        {{player-card card=card isRevealed=false}}
       </div>
     {{/each}}
   </div>
