@@ -11,6 +11,7 @@ export default Route.extend({
     }
   },
 
+  // TODO: doesn't work after log back in?
   model() {
     return this.get('currentUser.user.activities');
   }

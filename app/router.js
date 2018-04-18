@@ -17,7 +17,7 @@ const Router = EmberRouter.extend({
     scheduleOnce('afterRender', this, () => {
       const page = this.get('url');
       const title = this.getWithDefault('currentRouteName', 'unknown');
-      this.get('metrics').trackPage({page, title});
+      this.get('metrics').trackPage({ page, title });
     });
   }
 });
@@ -36,6 +36,7 @@ Router.map(function() {
     this.route('sign-in');
   }
   this.route('404', { path: '/*path' });
+  this.route('cards', { path: '/cards/:card_id' });
 });
 
 export default Router;

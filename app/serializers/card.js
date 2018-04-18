@@ -11,6 +11,14 @@ export default DS.RESTSerializer.extend({
     return this._super(key);
   },
 
+  normalizeFindRecordResponse(store, primaryModelClass, payload, id, requestType) {
+    const fixedPayload = { card: payload };
+    fixedPayload.card.id = id;
+    fixedPayload.card.mintTime = parseInt(payload.mintTime) * 1000;
+    fixedPayload.card.player = payload.playerId;
+    return this._super(store, primaryModelClass, fixedPayload, id, requestType);
+  },
+
   normalizeQueryResponse(store, primaryModelClass, payload) {
     delete payload.count;
     return this._super(...arguments);

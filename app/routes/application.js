@@ -35,8 +35,10 @@ export default Route.extend({
     });
   },
 
+  // TODO: this is really ugly...
   _jsonPrefix(transition) {
-    const isNestedRoute = transition.targetName === 'activity.index' || transition.targetName === 'activity.show';
+    const nestedRoutes = ['activity.index', 'activity.show', 'cards'];
+    const isNestedRoute = nestedRoutes.includes(transition.targetName);
     return isNestedRoute ? '../' : '';
   }
 });

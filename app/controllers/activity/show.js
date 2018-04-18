@@ -33,26 +33,12 @@ export default Controller.extend({
   },
 
   _loadCards(cardIds) {
-    const contract = this.get('strikersContracts.StrikersMinting.methods');
     const store = this.get('store');
-    const promises = cardIds.map(cardId => contract.cards(cardId).call());
+    const promises = cardIds.map(cardId => store.findRecord('card', cardId));
     return RSVP.all(promises).then(cards => {
-      const cardObjects =  cards.map((card, index) => {
-        const cardId = cardIds[index];
-        const payload = {
-          id: cardId,
-          mintNumber: card.mintNumber,
-          mintTime: parseInt(card.mintTime) * 1000,
-          player: card.playerId,
-          runId: card.runId,
-          seriesId: card.seriesId
-        };
-        store.pushPayload('card', {card: payload});
-        return store.peekRecord('card', cardId);
-      });
       this.set('isLoading', false);
       this.set('message', null);
-      this.set('cards', cardObjects);
+      this.set('cards', cards);
     });
   }
 });
