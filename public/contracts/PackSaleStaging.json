@@ -644,7 +644,7 @@
         "contractDependencies": [
           334,
           670,
-          1318
+          1305
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -654,7 +654,7 @@
           608,
           334,
           670,
-          1318
+          1305
         ],
         "name": "PackSale",
         "nodeType": "ContractDefinition",
@@ -1353,7 +1353,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1155:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1678,7 +1678,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1357:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1906,7 +1906,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1523:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2075,7 +2075,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2492,
+                      "referencedDeclaration": 2479,
                       "src": "1805:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2762,7 +2762,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2489,
+                                "referencedDeclaration": 2476,
                                 "src": "2206:3:3",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -3169,7 +3169,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2489,
+                          "referencedDeclaration": 2476,
                           "src": "2316:3:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3492,7 +3492,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2492,
+                      "referencedDeclaration": 2479,
                       "src": "2472:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -4089,7 +4089,7 @@
         "contractDependencies": [
           334,
           670,
-          1318
+          1305
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -4099,7 +4099,7 @@
           608,
           334,
           670,
-          1318
+          1305
         ],
         "name": "PackSale",
         "nodeType": "ContractDefinition",
@@ -4798,7 +4798,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1155:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5123,7 +5123,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1357:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5351,7 +5351,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1292,
+                  "referencedDeclaration": 1279,
                   "src": "1523:9:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5520,7 +5520,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2492,
+                      "referencedDeclaration": 2479,
                       "src": "1805:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -6207,7 +6207,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2489,
+                                "referencedDeclaration": 2476,
                                 "src": "2206:3:3",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -6614,7 +6614,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2489,
+                          "referencedDeclaration": 2476,
                           "src": "2316:3:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -6937,7 +6937,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2492,
+                      "referencedDeclaration": 2479,
                       "src": "2472:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -7429,5 +7429,5 @@
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-04-19T11:58:49.524Z"
+  "updatedAt": "2018-04-10T15:58:35.765Z"
 }

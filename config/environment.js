@@ -55,7 +55,9 @@ module.exports = function(environment) {
       networkId: 5777, // localhost
       onlyShowLanding: false,
       mintingContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
-      saleContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097'
+      mintingContractJSON: 'StrikersMinting',
+      saleContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
+      saleContractJSON: 'PackSale'
     },
 
     torii: {
@@ -87,12 +89,14 @@ module.exports = function(environment) {
     // here you can enable a production-specific feature
   }
 
-  //if (deployTarget === 'staging') {
+  if (deployTarget === 'staging') {
     ENV.strikers.networkId = 4; // rinkeby
     ENV.strikers.mintingContractAddress = '0xAfA2D5AdB646DD90424f522BA8EE8cc118534c48',
+    ENV.strikers.mintingContractJSON = 'StrikersMintingStaging',
     ENV.strikers.saleContractAddress = '0xa9f4c98Bee45Bf80Af617BAA2cc0c7341dc179AE';
+    ENV.strikers.saleContractJSON = 'PackSaleStaging';
     ENV.strikers.openSeaApi = `https://etherbay-api-1.herokuapp.com/assets/?asset_contract_address=${ENV.strikers.mintingContractAddress}`;
-  //}
+  }
 
   if (deployTarget === 'production') {
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';

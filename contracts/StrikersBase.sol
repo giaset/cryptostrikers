@@ -49,6 +49,10 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     return strConcat(API_URL, _id);
   }
 
+  function cardIdsForOwner(address _owner) external view returns (uint256[]) {
+    return ownedTokens[_owner];
+  }
+
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a Birth and a Transfer event.
   /// @param _playerId The ID of the player on the card (see WorldCupInfo)
