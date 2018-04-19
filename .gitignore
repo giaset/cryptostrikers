@@ -31,3 +31,7 @@ cloud-functions-emulator.log
 /functions/.runtimeconfig.json
 
 firebase-debug.log
+
+public/contracts/StrikersMinting.json
+
+public/contracts/PackSale.json
