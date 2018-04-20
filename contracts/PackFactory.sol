@@ -16,6 +16,7 @@ contract PackFactory is PackSaleState {
   // Card 4 = 00010010 = playerId 18
 
   event StartedMinting(uint8 runNumber);
+  event PacksLoaded(uint8 indexed runNumber, uint32[] packs);
   event FinishedMinting(uint8 runNumber);
 
   // The number of cards in a pack
@@ -31,10 +32,14 @@ contract PackFactory is PackSaleState {
 
   mapping (uint8 => uint32) public packsMintedForRun;
 
-  //mapping (uint8 => mapping (uint8 => uint16)) public playerCountForRun;
-
-  // NOT public, but verifiable with an off-chain call
-  uint32[] shuffledPacks;
+  /// @dev We are only able to load about 500 packs at a time (as an array of 500 uint32s),
+  ///   so for a run of 20,000 packs we will end up loading 40 arrays of 500 packs.
+  ///   This is why we need a 2d array here, because it saves a lot of gas pushing each
+  ///   new array of 500 packs to this 2d array versus looping on the 500 packs and pushing
+  ///   each one into a 20,000 element array. To make it slightly more annoying to see upcoming packs,
+  ///   we mark this mapping as "internal", but people can still verify that we are respecting
+  ///   our declared player rarities by analyzing all the PacksLoaded events for a given run.
+  mapping (uint8 => uint32[][]) internal shuffledPacksForRun;
 
   // All below is for Series 1 only
   function startNewRun() external onlyOwner requireState(SaleState.WaitingForNextRun) {
@@ -46,18 +51,14 @@ contract PackFactory is PackSaleState {
   function loadShuffledPacks(uint32[] _shuffledPacks) external onlyOwner requireState(SaleState.LoadingPacks) {
     uint32 newPackCount = uint32(_shuffledPacks.length);
     require(totalPacksMinted + newPackCount <= PACKS_MINTED_LIMIT);
-    shuffledPacks = _shuffledPacks;
+    shuffledPacksForRun[currentRunNumber].push(_shuffledPacks);
     totalPacksMinted += newPackCount;
     packsMintedForRun[currentRunNumber] += newPackCount;
+    emit PacksLoaded(currentRunNumber, _shuffledPacks);
   }
 
   function finishRun() external onlyOwner requireState(SaleState.LoadingPacks) {
     emit FinishedMinting(currentRunNumber);
     changeState(SaleState.DoneLoadingPacks);
   }
-
-  // TODO: only to be called off-chain
-  /*function playerCountForRun(uint8 _runId, uint8 _playerId) external view returns (uint) {
-    playerCardsSoldForRun[_runId][_playerId] + left to be sold
-  }*/
 }

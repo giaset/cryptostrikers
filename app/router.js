@@ -37,6 +37,7 @@ Router.map(function() {
   }
   this.route('404', { path: '/*path' });
   this.route('cards', { path: '/cards/:card_id' });
+  this.route('events');
 });
 
 export default Router;
