@@ -7,11 +7,12 @@ import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
 contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUtils, Ownable {
+  // TODO: make sure to switch to prod API before mainnet deploy!!!
   string constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
 
   /// @dev Emit this event whenever we mint a new card
-  ///  For Series 1 cards, this occurs during the minting of packs.
-  ///  For Series 2 cards, we mint and award them as a prize for the daily challenge.
+  ///  For Base Set cards, this occurs when a pack is purchased.
+  ///  For Daily Challenge cards, this occurs when you claim your prize for a correct response.
   event CardMinted(uint256 cardId);
 
   /// @dev The struct representing the game's main object, a sports trading card.
@@ -19,25 +20,30 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     // The timestamp at which this card was minted.
     uint64 mintTime;
 
-    // For each run, cards for a given player have their mintNumber
-    // incremented in sequence. If we mint 1000 Messis, the third one
-    // to be minted has mintNumber = 3 (out of 1000).
-    uint16 mintNumber;
-
     // The ID of the player on this card. See the players array in WorldCupInfo
     uint8 playerId;
 
-    // We will be issuing 2 series of cards, each by a different illustrator.
-    // See xxxxx.sol for more info
-    uint8 seriesId;
+    // The sale in which this card was sold
+    uint8 saleId;
 
-    // We reserve the right to mint multiple runs of each series.
-    // See xxxxx.sol for more info
-    uint8 runId;
+    // Cards for a given player have a serial number, which gets
+    // incremented in sequence. If we mint 1000 Messis, the third one
+    // to be minted has serialNumber = 3 (out of 1000, for example).
+    uint16 serialNumber;
+
+    // Set ID 1 = Base Set
+    // Set ID 2 = Daily Challenge Set
+    uint8 setId;
   }
+
+  /*** STORAGE ***/
 
   /// @dev All the cards that have been minted, indexed by cardId.
   Card[] public cards;
+
+  mapping (uint8 => mapping (uint8 => uint16)) playerCountForSet;
+
+  /*** FUNCTIONS ***/
 
   /// @dev Returns the API URL for each card
   ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
@@ -56,25 +62,25 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a Birth and a Transfer event.
   /// @param _playerId The ID of the player on the card (see WorldCupInfo)
-  /// @param _seriesId Series 1 or Series 2
-  /// @param _runId The number of the run within the series
-  /// @param _mintNumber The number of the card within the run
+  /// @param _saleId The sale in which this card was sold
+  /// @param _setId 1 for Base Set and 2 for Daily Challenge
+  /// @param _owner The card's first owner!
   function _mintCard(
     uint8 _playerId,
-    uint8 _seriesId,
-    uint8 _runId,
-    uint16 _mintNumber,
+    uint8 _saleId,
+    uint8 _setId,
     address _owner
   )
     internal
     returns (uint256)
   {
+    uint16 serialNumber = playerCountForSet[_setId][_playerId]++;
     Card memory newCard = Card({
       mintTime: uint64(now),
-      mintNumber: _mintNumber,
       playerId: _playerId,
-      seriesId: _seriesId,
-      runId: _runId
+      saleId: _saleId,
+      serialNumber: serialNumber,
+      setId: _setId
     });
     uint256 newCardId = cards.push(newCard) - 1;
     emit CardMinted(newCardId);
