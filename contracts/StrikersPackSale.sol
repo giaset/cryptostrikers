@@ -18,8 +18,6 @@ contract StrikersPackSale is PackSaleFactory {
   /// @dev The price, in wei, for 1 pack of cards.
   uint256 public packPrice = 0.03 ether;
 
-  mapping (uint8 => uint32) public packsSoldForSale;
-
   /// @dev A reference to the contract where the cards are actually minted
   StrikersMintingInterface public strikersMinting;
 
@@ -36,25 +34,63 @@ contract StrikersPackSale is PackSaleFactory {
   }
 
   // TODO: buyPack for someone else (giftPack?)
-  function buyPack(uint8 _saleId) public {
-    require(saleInProgress(_saleId));
-    // TODO: require proper ether amount
-    uint32[] storage  nextPacks = shuffledPacksForSale[_saleId][0];
-    require(nextPacks.length > 0);
+
+  function buyPacksWithETH(uint8 _saleId) external payable {
+    uint256 balanceLeft = msg.value;
+
+    while (balanceLeft >= packPrice) {
+      bool success = _buyPack(_saleId);
+      if (success) {
+        balanceLeft -= packPrice;
+      } else {
+        break;
+      }
+    }
+
+    msg.sender.transfer(balanceLeft);
+  }
+
+
+  function _buyPack(uint8 _saleId) internal returns (bool) {
+    if (!saleInProgress(_saleId) || shuffledPacksForSale[_saleId].length <= 0) {
+      return false;
+    }
+
+    uint32[] storage nextPacks = _getNextPacks(_saleId);
+    if (nextPacks.length <= 0) {
+      return false;
+    }
+
     uint32 pack = _removePackAtIndex(0, nextPacks);
+    uint256[] memory cards = _mintCards(pack, _saleId);
+    sales[_saleId].packsSold++;
+    emit PackBought(msg.sender, cards);
+    return true;
+  }
 
-    // TODO: if (nextPacks.length == 0 && shuffledPacksForRun[currentRunNumber].length > 0)
-
+  function _mintCards(uint32 _pack, uint8 _saleId) internal returns (uint256[]) {
     uint8 mask = 255;
     uint256[] memory newCards = new uint256[](PACK_SIZE);
+
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
-      uint8 playerId = uint8((pack >> shift) & mask);
+      uint8 playerId = uint8((_pack >> shift) & mask);
       uint256 cardId = strikersMinting.mintBaseCard(playerId, _saleId, msg.sender);
       newCards[i-1] = cardId;
     }
-    packsSoldForSale[_saleId]++;
-    emit PackBought(msg.sender, newCards);
+
+    return newCards;
+  }
+
+  function _getNextPacks(uint8 _saleId) internal returns (uint32[] storage) {
+    uint32[][] storage packsForSale = shuffledPacksForSale[_saleId];
+
+    if (packsForSale[0].length <= 0 && packsForSale.length > 1) {
+      packsForSale[0] = packsForSale[packsForSale.length - 1];
+      packsForSale.length--;
+    }
+
+    return packsForSale[0];
   }
 
   function _removePackAtIndex(uint256 _index, uint32[] storage _packs) internal returns (uint32) {

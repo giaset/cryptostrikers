@@ -1,0 +1,21 @@
+<div>
+  <h4>Sale #{{sale.id}}</h4>
+  <p class="m-0">{{if sale.isFlashSale "Flash Sale" "Normal Sale"}}</p>
+  <p class="m-0">Price: {{packPrice}} ETH</p>
+  <p class="m-0">Packs remaining: {{sub sale.packsOffered sale.packsSold}}/{{sale.packsOffered}}</p>
+  <div class="progress mt-2">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={{sale.completionPercentage}} aria-valuemin="0" aria-valuemax="100" style="width: {{sale.completionPercentage}}%"></div>
+  </div>
+</div>
+<div class="ml-auto my-auto text-center">
+  Qty: <select onchange={{action "quantitySelected"}}>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+  </select>
+  <br>
+  <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#buyPackModal" {{action action sale.id selectedQuantity}}>{{buttonText}}</button>
+  <p><small>{{link-to "Card distribution" "my-album"}}</small></p>
+</div>

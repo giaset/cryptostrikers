@@ -13,16 +13,10 @@ export default Route.extend({
   },
 
   model() {
-    const saleContract = this.get('strikersContracts.PackSale.methods');
-    const currentRunNumber = saleContract.currentRunNumber().call();
+    const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
     return RSVP.hash({
-      contractState: saleContract.state().call(),
-      currentRunNumber: currentRunNumber,
       packPrice: saleContract.packPrice().call(),
-      packsMintedForRun: currentRunNumber.then(n => saleContract.packsMintedForRun(n).call()),
-      packsMintedLimit: saleContract.PACKS_MINTED_LIMIT().call(),
-      packsSoldForRun: currentRunNumber.then(n => saleContract.packsSoldForRun(n).call()),
-      totalPacksMinted: saleContract.totalPacksMinted().call()
+      sales: this.get('store').findAll('sale')
     });
   }
 });

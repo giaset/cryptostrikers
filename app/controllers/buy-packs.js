@@ -9,11 +9,24 @@ export default Controller.extend({
   web3: service(),
 
   actions: {
+    buyPackButtonClicked(saleId, qty) {
+      this.set('selectedSale', saleId);
+      this.set('selectedQuantity', qty);
+    },
+
     buyPack(gasPrice) {
       const currentUser = this.get('currentUser.user');
-      const saleContract = this.get('strikersContracts.PackSale.methods');
+      const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
       const gasPriceInWei = this.get('web3').toWei(gasPrice.toString(), 'Gwei');
-      saleContract.buyPack().send({from: currentUser.get('id'), gas: 750000, gasPrice: gasPriceInWei})
+      const saleId = this.get('selectedSale');
+      const packPrice = this.get('model.packPrice');
+      const packQuantity = this.get('selectedQuantity');
+      saleContract.buyPacksWithETH(saleId).send({
+        from: currentUser.get('id'),
+        /*gas: 750000,*/
+        gasPrice: gasPriceInWei,
+        value: packPrice * packQuantity
+      })
       .on('transactionHash', hash => {
         this._handleTransactionHash(hash, currentUser);
       })

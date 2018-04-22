@@ -1,24 +1,13 @@
 <div class="row text-center mb-3">
   <div class="col">
-    <h1>Packs are free for now! Just pay gas.</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 text-center">
-    <img class="img-fluid mb-4 mb-md-0" src="http://via.placeholder.com/300x420">
-  </div>
-  <div class="col-md-8">
+    <h1>Card Packs</h1>
     <p>Build your collection by buying packs of cards.</p>
-    <p>Each pack contains 4 cards.</p>
+    <p>Each pack contains 4 cards; limit of 5 packs per transaction.</p>
     <p>Cards must be bought with Ethereum. Click here (TODO: ETH buying guide) to learn how to fund your account.</p>
-    <p>Cards will be on sale until the final whistle blows for the June 15th final.</p>
-    <span class="font-weight-bold">
-      <p>Current run number = {{model.currentRunNumber}}</p>
-      <p>Sale state [WaitingForNextRun, LoadingPacks, DoneLoadingPacks, Selling, SalePaused, SaleComplete] = {{model.contractState}}</p>
-      <p>Packs sold for run (TODO: progress bar here) = {{model.packsSoldForRun}}/{{model.packsMintedForRun}}</p>
-      <p>Total packs minted (vs hard cap) = {{model.totalPacksMinted}}/{{model.packsMintedLimit}}</p>
-    </span>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#buyPackModal"><span class="font-weight-bold">BUY</span> {{packPrice}} ETH</button>
-    {{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}
+    <p>Cards will be on sale until the final whistle blows for the July 15th final.</p>
   </div>
 </div>
+{{#each model.sales as |sale|}}
+  {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked") packPrice=packPrice}}
+{{/each}}
+{{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}

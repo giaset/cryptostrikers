@@ -5,7 +5,7 @@ export default Route.extend({
   strikersContracts: service(),
 
   model() {
-    const contract = this.get('strikersContracts.PackSale');
+    const contract = this.get('strikersContracts.StrikersPackSale');
     const filter = { runNumber: 1 };
     return contract.getPastEvents('PacksLoaded', { filter, fromBlock: 0, toBlock: 'latest' }).then(events => {
       const playerToCount = {};

@@ -57,7 +57,7 @@ module.exports = function(environment) {
       mintingContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
       mintingContractJSON: 'StrikersMinting',
       saleContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
-      saleContractJSON: 'PackSale'
+      saleContractJSON: 'StrikersPackSale'
     },
 
     torii: {

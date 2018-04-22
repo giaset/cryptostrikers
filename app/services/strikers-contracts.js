@@ -14,7 +14,7 @@ export default Service.extend({
     );
 
     const saleContractPromise = this._loadContract(
-      'PackSale', ENV.strikers.saleContractJSON, ENV.strikers.saleContractAddress, jsonPrefix
+      'StrikersPackSale', ENV.strikers.saleContractJSON, ENV.strikers.saleContractAddress, jsonPrefix
     );
 
     return RSVP.all([mintingContractPromise, saleContractPromise]);

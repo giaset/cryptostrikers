@@ -39,12 +39,16 @@ contract PackSaleBase is Ownable {
     // The time at which the PackSale started
     uint64 startTime;
 
+    // Sale duration (in seconds). Unsold packs are burned.
     // If the PackSale has a duration, it is a Flash Sale.
     // If not, it's just a Normal Sale.
     uint64 duration;
 
-    // The number of packs offered in this sale
-    uint16 packCount;
+    // The total number of packs offered in this sale
+    uint16 packsOffered;
+
+    // The number of packs sold so far in this sale
+    uint16 packsSold;
 
     // The PackSale's current state (see above)
     SaleState state;
@@ -69,13 +73,18 @@ contract PackSaleBase is Ownable {
 
   /*** FUNCTIONS ***/
 
+  function salesCount() external view returns (uint256) {
+    return sales.length;
+  }
+
   /// @dev Allows the contract owner to create a new pack sale
   /// @param _duration The duration of the pack sale (leave 0 for a Normal Sale, which are untimed)
   function createSale(uint64 _duration) external onlyOwner {
     PackSale memory sale = PackSale({
       startTime: 0,
       duration: _duration,
-      packCount: 0,
+      packsOffered: 0,
+      packsSold: 0,
       state: SaleState.WaitingForPacks
     });
     uint256 saleId = sales.push(sale) - 1;

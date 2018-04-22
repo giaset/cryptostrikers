@@ -61,7 +61,7 @@ contract PackSaleFactory is PackSaleBase {
     }
 
     shuffledPacksForSale[_saleId].push(_shuffledPacks);
-    sale.packCount += newPackCount;
+    sale.packsOffered += newPackCount;
     emit PacksLoaded(_saleId, _shuffledPacks);
   }
 }

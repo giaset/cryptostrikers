@@ -8,8 +8,16 @@ export default Component.extend({
   alwaysDisabled: false,
   loading: false,
   loadingText: 'Loading...',
+  type: 'button',
 
   disabled: computed('alwaysDisabled', 'loading', function() {
     return this.get('alwaysDisabled') || this.get('loading');
-  })
+  }),
+
+  click() {
+    const action = this.get('action');
+    if (action) {
+      action();
+    }
+  }
 });
