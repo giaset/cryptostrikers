@@ -2,9 +2,9 @@ const StrikersMinting = artifacts.require("./StrikersMinting.sol");
 const StrikersPackSale = artifacts.require("./StrikersPackSale.sol");
 
 const CARDS_PER_PACK = 4;
-const PACKS_PER_LOAD = 1;
-const BASE_SALE_PACK_COUNT = 10; // 20,000
-const FLASH_SALE_PACK_COUNT = 5; // 1000
+const PACKS_PER_LOAD = 500;
+const BASE_SALE_PACK_COUNT = 20000;
+const FLASH_SALE_PACK_COUNT = 1000;
 const TOTAL_PLAYERS = 25;
 
 function generatePacks(numberOfPacks) {
