@@ -18,16 +18,11 @@ export default Route.extend({
     const owner = this.get('currentUser.user.id');
     const store = this.get('store');
 
-    let myCards;
-    if (ENV.environment === 'development') {
-      const contract = this.get('strikersContracts.StrikersMinting.methods');
-      myCards = contract.cardIdsForOwner(owner).call().then(cardIds => {
-        const promises = cardIds.map(cardId => store.findRecord('card', cardId));
-        return RSVP.all(promises);
-      });
-    } else {
-      myCards = store.query('card', { owner });
-    }
+    const contract = this.get('strikersContracts.StrikersMinting.methods');
+    const myCards = contract.cardIdsForOwner(owner).call().then(cardIds => {
+      const promises = cardIds.map(cardId => store.findRecord('card', cardId));
+      return RSVP.all(promises);
+    });
 
     return RSVP.hash({
       allPlayers: store.peekAll('player'),

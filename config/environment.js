@@ -91,10 +91,10 @@ module.exports = function(environment) {
 
   if (deployTarget === 'staging') {
     ENV.strikers.networkId = 4; // rinkeby
-    ENV.strikers.mintingContractAddress = '0xAfA2D5AdB646DD90424f522BA8EE8cc118534c48',
+    ENV.strikers.mintingContractAddress = '0xb10a195f6ecb29f8c1897390c54145c8c4f8aeb8',
     ENV.strikers.mintingContractJSON = 'StrikersMintingStaging',
-    ENV.strikers.saleContractAddress = '0xa9f4c98Bee45Bf80Af617BAA2cc0c7341dc179AE';
-    ENV.strikers.saleContractJSON = 'PackSaleStaging';
+    ENV.strikers.saleContractAddress = '0x87836850db4e086645c44ac880275f67af076b59';
+    ENV.strikers.saleContractJSON = 'StrikersPackSaleStaging';
     ENV.strikers.openSeaApi = `https://etherbay-api-1.herokuapp.com/assets/?asset_contract_address=${ENV.strikers.mintingContractAddress}`;
   }
 
