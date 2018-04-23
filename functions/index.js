@@ -15,7 +15,7 @@ admin.initializeApp({
 // TODO: use config for mainnet infura and contract address
 // mainnet: https://mainnet.infura.io/b9XMoJFDxpzhBpEGzVaW
 const web3 = new Web3('https://rinkeby.infura.io/b9XMoJFDxpzhBpEGzVaW');
-const address = '0xAfA2D5AdB646DD90424f522BA8EE8cc118534c48';
+const address = '0xb10a195f6ecb29f8c1897390c54145c8c4f8aeb8';
 const strikersContract = new web3.eth.Contract(contractJson.abi, address);
 
 app.use(cors);
@@ -35,25 +35,22 @@ app.get('/:id', (req, res) => {
   })
   .then(snapshot => {
     const country = snapshot.val();
-    const mintNumber = parseInt(card.mintNumber);
-    const runId = parseInt(card.runId);
-    const seriesId = parseInt(card.seriesId);
-    const seriesName = `Series ${seriesId}`;
+    const serialNumber = parseInt(card.serialNumber);
+    const setId = parseInt(card.setId);
+    const setName = (setId === 1) ? 'Base Set' : 'Daily Challenge Set';
     const payload = {
-      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${seriesId}/${playerId}.svg`,
+      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${setId}/${playerId}.svg`,
       externalUrl: 'https://www.cryptostrikers.com/',
-      description: `${seriesName}, Run ${runId}, #${mintNumber}`,
+      description: `${setName} - #${serialNumber}/TODO`,
       name: player.name,
       properties: {
         country: country.name,
         group: `Group ${country.group}`,
-        mintNumber: mintNumber,
         player: player.name,
-        run: runId,
-        series: seriesId,
-        seriesName: seriesName
+        setName
       }
     };
+    payload.properties['Serial Number'] = serialNumber;
     return res.json(payload);
   })
   .catch(error => res.status(500).json({error: error.toString()}));
