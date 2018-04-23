@@ -74,7 +74,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     internal
     returns (uint256)
   {
-    uint16 serialNumber = playerCountForSet[_setId][_playerId]++;
+    uint16 serialNumber = ++playerCountForSet[_setId][_playerId];
     Card memory newCard = Card({
       mintTime: uint64(now),
       playerId: _playerId,
