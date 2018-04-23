@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
@@ -67,7 +67,7 @@ contract WorldCupInfo is Ownable {
 
   /// @dev why we chose to initialize here?
   ///  Ordered by country ID (see countries array)
-  function WorldCupInfo() public {
+  constructor() public {
     players.push(Player("Lionel Messi", 0));
     players.push(Player("Sergio Agüero", 0));
     players.push(Player("Eden Hazard", 2));

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 import "./PackSaleFactory.sol";
 
@@ -23,7 +23,7 @@ contract StrikersPackSale is PackSaleFactory {
 
 
   /// @dev Constructor. Can't change strikersMinting address once it's been initialized
-  function StrikersPackSale(address _strikersMintingAddress) public {
+  constructor(address _strikersMintingAddress) public {
     strikersMinting = StrikersMintingInterface(_strikersMintingAddress);
   }
 

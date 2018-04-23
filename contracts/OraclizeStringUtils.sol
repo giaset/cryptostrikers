@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 contract OraclizeStringUtils {
   function strConcat(string _a, string _b) internal pure returns (string) {
