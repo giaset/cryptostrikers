@@ -24,6 +24,8 @@ contract PackSaleFactory is PackSaleBase {
   // The number of cards in a pack
   uint8 public constant PACK_SIZE = 4;
 
+  // TODO: these limits should be set on the Base/Core contracts, because if they are here,
+  // we can just swap PackSale contracts and keep minting
   // Sets a hard cap on the number of normal packs that will ever be offered for sale
   uint32 public constant NORMAL_SALE_PACK_LIMIT = 160000;
 

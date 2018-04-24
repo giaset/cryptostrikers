@@ -8,8 +8,11 @@ contract PackSaleBase is Ownable {
 
   /*** EVENTS ***/
 
+  /// @dev Emit this event when the owner changes a sale's packPrice.
+  event PackPriceChanged(uint8 saleId, uint256 packPrice);
+
   /// @dev Emit this event when the owner creates a sale.
-  event SaleCreated(uint8 saleId, uint64 duration);
+  event SaleCreated(uint8 saleId, uint64 duration, uint256 packPrice);
 
   /// @dev Emit this event when the owner starts a sale.
   event SaleStarted(uint8 saleId);
@@ -43,6 +46,9 @@ contract PackSaleBase is Ownable {
     // If the PackSale has a duration, it is a Flash Sale.
     // If not, it's just a Normal Sale.
     uint64 duration;
+
+    // The price, in wei, for 1 pack of cards.
+    uint256 packPrice;
 
     // The total number of packs offered in this sale
     uint16 packsOffered;
@@ -79,16 +85,22 @@ contract PackSaleBase is Ownable {
 
   /// @dev Allows the contract owner to create a new pack sale
   /// @param _duration The duration of the pack sale (leave 0 for a Normal Sale, which are untimed)
-  function createSale(uint64 _duration) external onlyOwner {
+  function createSale(uint64 _duration, uint256 _packPrice) external onlyOwner {
     PackSale memory sale = PackSale({
       startTime: 0,
       duration: _duration,
+      packPrice: _packPrice,
       packsOffered: 0,
       packsSold: 0,
       state: SaleState.WaitingForPacks
     });
     uint256 saleId = sales.push(sale) - 1;
-    emit SaleCreated(uint8(saleId), _duration);
+    emit SaleCreated(uint8(saleId), _duration, _packPrice);
+  }
+
+  function setPackPriceForSale(uint8 _saleId, uint256 _packPrice) external onlyOwner {
+    sales[_saleId].packPrice = _packPrice;
+    emit PackPriceChanged(_saleId, _packPrice);
   }
 
   function startSale(uint8 _saleId) external onlyOwner requireStateForSale(_saleId, SaleState.WaitingForPacks) {

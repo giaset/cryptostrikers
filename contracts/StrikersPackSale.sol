@@ -10,13 +10,10 @@ contract StrikersMintingInterface {
 
 contract StrikersPackSale is PackSaleFactory {
   /*** EVENTS ***/
+  // TODO: maybe track packID with a counter?
   event PackBought(address indexed buyer, uint256[] pack);
-  event PackPriceChanged(uint256 packPrice);
 
   /*** STORAGE ***/
-
-  /// @dev The price, in wei, for 1 pack of cards.
-  uint256 public packPrice = 0.03 ether;
 
   /// @dev A reference to the contract where the cards are actually minted
   StrikersMintingInterface public strikersMinting;
@@ -27,26 +24,23 @@ contract StrikersPackSale is PackSaleFactory {
     strikersMinting = StrikersMintingInterface(_strikersMintingAddress);
   }
 
-  // TODO: maybe don't allow this while a sale is in progress?
-  function setPackPrice(uint _packPrice) external onlyOwner {
-    packPrice = _packPrice;
-    emit PackPriceChanged(packPrice);
-  }
-
   // TODO: buyPack for someone else (giftPack?)
 
   function buyPacksWithETH(uint8 _saleId) external payable {
     uint256 balanceLeft = msg.value;
+    uint256 packPrice = sales[_saleId].packPrice;
 
     while (balanceLeft >= packPrice) {
-      bool success = _buyPack(_saleId);
-      if (success) {
-        balanceLeft -= packPrice;
-      } else {
+      if (!_buyPack(_saleId)) {
         break;
       }
+
+      // NOTE: impossible for this to underflow because
+      // we only enter the while loop if balanceLeft >= packPrice
+      balanceLeft -= packPrice;
     }
 
+    // Return excess funds
     msg.sender.transfer(balanceLeft);
   }
 
