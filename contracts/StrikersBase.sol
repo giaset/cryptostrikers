@@ -55,7 +55,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
   ///   The API will then return a JSON blob according to OpenSea's spec
   ///   see: https://developers.opensea.io/getting-started.html
   function tokenURI(uint256 _tokenId) public view returns (string) {
-    require(exists(_tokenId));
+    require(exists(_tokenId), "Card does not exist.");
     string memory _id = uint2str(_tokenId);
     return strConcat(API_URL, _id);
   }

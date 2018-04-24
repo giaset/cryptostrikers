@@ -11,8 +11,7 @@ contract StrikersMinting is StrikersBase {
   /// @param _address The address of the new StrikersPackSale contract.
   function setPackSaleAddress(address _address) external onlyOwner {
     StrikersPackSale candidateContract = StrikersPackSale(_address);
-    // Sanity check to make sure we're actually setting the right contract...
-    require(candidateContract.isPackSaleContract());
+    require(candidateContract.isPackSaleContract(), "This is not a Strikers pack sale contract.");
     packSaleContract = candidateContract;
   }
 
@@ -24,8 +23,7 @@ contract StrikersMinting is StrikersBase {
     external
     returns (uint256)
   {
-    // Only the pack sale contract can mint Base Set cards!!!
-    require(msg.sender == address(packSaleContract));
+    require(msg.sender == address(packSaleContract), "Only the pack sale contract can mint Base Set cards.");
     return _mintCard(_playerId, _saleId, 1, _owner);
   }
 }

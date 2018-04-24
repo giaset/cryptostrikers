@@ -6,7 +6,7 @@ export default DS.Model.extend({
   web3: service(),
 
   duration: DS.attr('number'),
-  packPrice: DS.attr('string'),
+  packPrice: DS.attr('number'),
   packsOffered: DS.attr('number'),
   packsSold: DS.attr('number'),
   startTime: DS.attr('date'),
@@ -20,8 +20,14 @@ export default DS.Model.extend({
     return this.get('duration') > 0;
   }),
 
+  isKittySale: computed('packPrice', function() {
+    return this.get('packPrice') === 0;
+  }),
+
   packPriceInEth: computed('packPrice', function() {
-    return this.get('web3').weiToEther(this.get('packPrice'));
+    const packPriceInWei = this.get('packPrice').toString();
+    const packPriceInEth = this.get('web3').weiToEther(packPriceInWei);
+    return `${packPriceInEth} ETH`;
   }),
 
   stateString: computed('state', function() {
@@ -34,5 +40,13 @@ export default DS.Model.extend({
       case 2:
         return 'Paused';
     }
+  }),
+
+  type: computed('isFlashSale', 'isKittySale', function() {
+    if (this.get('isKittySale')) {
+      return 'Kitty Sale';
+    }
+
+    return this.get('isFlashSale') ? 'Flash Sale' : 'Normal Sale';
   })
 });

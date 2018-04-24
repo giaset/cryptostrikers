@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-  classNames: ['pack-sale-tile', 'my-3', 'p-3', 'bg-white', 'rounded', 'border', 'box-shadow', 'd-flex'],
+  classNames: ['pack-sale-tile', 'my-3', 'p-3', 'rounded', 'border', 'box-shadow', 'd-flex'],
   selectedQuantity: 1,
 
   actions: {

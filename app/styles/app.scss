@@ -4,6 +4,7 @@
 
 // Bootstrap and its default variables
 @import "vendor/bootstrap/scss/bootstrap";
+@import "app/styles/components/pack-sale-tile";
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);

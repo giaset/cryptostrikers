@@ -48,6 +48,8 @@ contract PackSaleBase is Ownable {
     uint64 duration;
 
     // The price, in wei, for 1 pack of cards.
+    // If 0, it means this is a Kitty Sale, which
+    // accepts 1 CryptoKitty in exchange for 1 pack.
     uint256 packPrice;
 
     // The total number of packs offered in this sale
@@ -73,7 +75,7 @@ contract PackSaleBase is Ownable {
 
   /// @dev Modifier to make a function callable only when the sale is in a given state.
   modifier requireStateForSale(uint8 _saleId, SaleState _state) {
-    require(sales[_saleId].state == _state);
+    require(sales[_saleId].state == _state, "This sale is not in the correct state.");
     _;
   }
 
@@ -85,6 +87,7 @@ contract PackSaleBase is Ownable {
 
   /// @dev Allows the contract owner to create a new pack sale
   /// @param _duration The duration of the pack sale (leave 0 for a Normal Sale, which are untimed)
+  /// @param _packPrice The price in wei for 1 pack of cards (leave 0 for a Kitty Sale, which accepts CryptoKitties)
   function createSale(uint64 _duration, uint256 _packPrice) external onlyOwner {
     PackSale memory sale = PackSale({
       startTime: 0,
@@ -99,7 +102,10 @@ contract PackSaleBase is Ownable {
   }
 
   function setPackPriceForSale(uint8 _saleId, uint256 _packPrice) external onlyOwner {
-    sales[_saleId].packPrice = _packPrice;
+    PackSale storage sale = sales[_saleId];
+    require(sale.packPrice > 0, "You can't turn a Kitty Sale into an ETH Sale.");
+    require(_packPrice > 0, "You can't turn an ETH Sale into a Kitty Sale.");
+    sale.packPrice = _packPrice;
     emit PackPriceChanged(_saleId, _packPrice);
   }
 

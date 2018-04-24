@@ -65,5 +65,11 @@ module.exports = function(deployer) {
       const flashSalePacks = generatePacks(FLASH_SALE_PACK_COUNT);
       return loadPacks(1, flashSalePacks, strikersPackSale);
     })
-    .then(() => strikersPackSale.startSale(1));
+    .then(() => strikersPackSale.startSale(1))
+    .then(() => strikersPackSale.createSale(0, 0))
+    .then(() => {
+      const kittySalePacks = generatePacks(5);
+      return loadPacks(2, kittySalePacks, strikersPackSale);
+    })
+    .then(() => strikersPackSale.startSale(2));
 };

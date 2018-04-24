@@ -40,9 +40,10 @@ contract StrikersPackSale is PackSaleFactory {
   // TODO: buyPack for someone else (giftPack?)
 
   function buyPacksWithETH(uint8 _saleId) external payable {
-    uint256 balanceLeft = msg.value;
     uint256 packPrice = sales[_saleId].packPrice;
+    require(packPrice > 0, "You are trying to use ETH to buy from a Kitty Sale.");
 
+    uint256 balanceLeft = msg.value;
     while (balanceLeft >= packPrice) {
       if (!_buyPack(_saleId)) {
         break;
@@ -58,6 +59,8 @@ contract StrikersPackSale is PackSaleFactory {
   }
 
   function buyPackWithKitty(uint8 _saleId, uint256 _kittyId) external {
+    require(sales[_saleId].packPrice == 0, "You are trying to use a Kitty to buy from an ETH Sale.");
+
     if (_buyPack(_saleId)) {
       kittiesContract.transfer(owner, _kittyId);
     }
@@ -73,6 +76,7 @@ contract StrikersPackSale is PackSaleFactory {
       return false;
     }
 
+    // TODO: this could throw... bad?
     uint32 pack = _removePackAtIndex(0, nextPacks);
     uint256[] memory cards = _mintCards(pack, _saleId);
     sales[_saleId].packsSold++;
