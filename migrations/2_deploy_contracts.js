@@ -47,7 +47,7 @@ module.exports = function(deployer) {
     .then(() => StrikersMinting.deployed())
     .then(deployed => {
       strikersMinting = deployed;
-      return deployer.deploy(StrikersPackSale, strikersMinting.address);
+      return deployer.deploy(StrikersPackSale, strikersMinting.address, strikersMinting.address);
     })
     .then(() => StrikersPackSale.deployed())
     .then(deployed => {
