@@ -1,7 +1,7 @@
 <div>
   <h4>Sale #{{sale.id}}</h4>
   <p class="m-0">{{if sale.isFlashSale "Flash Sale" "Normal Sale"}}</p>
-  <p class="m-0">Price: {{packPrice}} ETH</p>
+  <p class="m-0">Price: {{sale.packPriceInEth}} ETH</p>
   <p class="m-0">Packs remaining: {{sub sale.packsOffered sale.packsSold}}/{{sale.packsOffered}}</p>
   <div class="progress mt-2">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={{sale.completionPercentage}} aria-valuemin="0" aria-valuemax="100" style="width: {{sale.completionPercentage}}%"></div>

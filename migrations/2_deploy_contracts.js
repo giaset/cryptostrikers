@@ -54,13 +54,13 @@ module.exports = function(deployer) {
       strikersPackSale = deployed;
       return strikersMinting.setPackSaleAddress(strikersPackSale.address);
     })
-    .then(() => strikersPackSale.createSale(0))
+    .then(() => strikersPackSale.createSale(0, 15000000000000000))
     .then(() => {
       const baseSalePacks = generatePacks(BASE_SALE_PACK_COUNT);
       return loadPacks(0, baseSalePacks, strikersPackSale);
     })
     .then(() => strikersPackSale.startSale(0))
-    .then(() => strikersPackSale.createSale(86400))
+    .then(() => strikersPackSale.createSale(86400, 30000000000000000))
     .then(() => {
       const flashSalePacks = generatePacks(FLASH_SALE_PACK_COUNT);
       return loadPacks(1, flashSalePacks, strikersPackSale);

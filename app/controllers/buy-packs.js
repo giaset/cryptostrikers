@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import firebase from 'firebase';
-import { computed } from '@ember/object';
 
 export default Controller.extend({
   currentUser: service(),
@@ -19,7 +18,7 @@ export default Controller.extend({
       const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
       const gasPriceInWei = this.get('web3').toWei(gasPrice.toString(), 'Gwei');
       const saleId = this.get('selectedSale');
-      const packPrice = this.get('model.packPrice');
+      const packPrice = this.get('store').peekRecord('sale', saleId).get('packPrice');
       const packQuantity = this.get('selectedQuantity');
       saleContract.buyPacksWithETH(saleId).send({
         from: currentUser.get('id'),
@@ -54,9 +53,5 @@ export default Controller.extend({
     .then(() => {
       this.transitionToRoute('activity.show', activityId);
     });
-  },
-
-  packPrice: computed('model.packPrice', function() {
-    return this.get('web3').weiToEther(this.get('model.packPrice'));
-  })
+  }
 });

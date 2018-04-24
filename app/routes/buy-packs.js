@@ -1,9 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import RSVP from 'rsvp';
 
 export default Route.extend({
-  strikersContracts: service(),
   web3: service(),
 
   beforeModel() {
@@ -13,10 +11,6 @@ export default Route.extend({
   },
 
   model() {
-    const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
-    return RSVP.hash({
-      packPrice: saleContract.packPrice().call(),
-      sales: this.get('store').findAll('sale')
-    });
+    return this.get('store').findAll('sale');
   }
 });

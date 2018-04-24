@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import ENV from 'cryptostrikers/config/environment';
 import RSVP from 'rsvp';
 
 export default Route.extend({

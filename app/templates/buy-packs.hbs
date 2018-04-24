@@ -7,7 +7,7 @@
     <p>Cards will be on sale until the final whistle blows for the July 15th final.</p>
   </div>
 </div>
-{{#each model.sales as |sale|}}
-  {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked") packPrice=packPrice}}
+{{#each model as |sale|}}
+  {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked")}}
 {{/each}}
 {{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}
