@@ -1,7 +1,7 @@
 <div>
   <h4>{{sale.type}}</h4>
   {{#if sale.isFlashSale}}
-    <p class="m-0">{{sale.duration}}</p>
+    <p class="m-0 text-danger">Ends in {{countdownString}}</p>
   {{/if}}
   <p class="m-0">Price: {{if sale.isKittySale "1 CryptoKitty" sale.packPriceInEth}}</p>
   <p class="m-0">Packs remaining: {{sub sale.packsOffered sale.packsSold}}/{{sale.packsOffered}}</p>

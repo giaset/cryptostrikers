@@ -16,6 +16,16 @@ export default DS.Model.extend({
     return (this.get('packsSold') / this.get('packsOffered')) * 100;
   }),
 
+  endTime: computed('duration', 'startTime', function() {
+    if (!this.get('isFlashSale')) {
+      return null;
+    }
+
+    const startTime = this.get('startTime').getTime();
+    const endTime = startTime + this.get('duration');
+    return new Date(endTime);
+  }),
+
   isFlashSale: computed('duration', function() {
     return this.get('duration') > 0;
   }),

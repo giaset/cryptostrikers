@@ -17,6 +17,8 @@ export default DS.Adapter.extend({
     .then(sales => {
       sales.forEach((sale, index) => {
         sale.id = index;
+        // Ember uses milliseconds while Solidity uses seconds...
+        sale.duration = sale.duration * 1000;
         sale.startTime = sale.startTime * 1000;
       });
       return { sales };
