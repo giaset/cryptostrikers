@@ -6,6 +6,10 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | strikers-button', function(hooks) {
   setupRenderingTest(hooks);
 
+  hooks.beforeEach(function() {
+    this.owner.lookup('service:clock').stop();
+  });
+
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
