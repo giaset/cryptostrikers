@@ -5,7 +5,6 @@
 // Bootstrap and its default variables
 @import "vendor/bootstrap/scss/bootstrap";
 @import "app/styles/components/pack-sale-tile";
-@import "app/styles/components/strikers-modal-component";
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
@@ -73,5 +72,23 @@ body {
       width: 120px;
       height: auto;
     }
+  }
+}
+
+.strikers-modal-overlay {
+  background-color: rgba(128, 128, 128, .77);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+
+  .strikers-modal-dialog {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
   }
 }

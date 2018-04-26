@@ -8,6 +8,7 @@ import "./PackSaleFactory.sol";
 ///   be approved for the given kitty, even if it's already the kitty's owner,
 ///   and we don't want to deal with that extra step...
 contract CryptoKittiesInterface {
+  function ownerOf(uint256 _tokenId) external view returns (address owner);
   function transfer(address _to, uint256 _tokenId) external;
 }
 
@@ -64,6 +65,10 @@ contract StrikersPackSale is PackSaleFactory {
     if (_buyPack(_saleId)) {
       kittiesContract.transfer(owner, _kittyId);
     }
+  }
+
+  function ownerOfKitty(uint256 _kittyId) external view returns (address) {
+    return kittiesContract.ownerOf(_kittyId);
   }
 
   function _buyPack(uint8 _saleId) internal returns (bool) {

@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | strikers-modal-component', function(hooks) {
+module('Integration | Component | modal-kitty', function(hooks) {
   setupRenderingTest(hooks);
 
   skip('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{strikers-modal-component}}`);
+    await render(hbs`{{modal-kitty}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#strikers-modal-component}}
+      {{#modal-kitty}}
         template block text
-      {{/strikers-modal-component}}
+      {{/modal-kitty}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

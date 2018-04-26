@@ -1,0 +1,10 @@
+<div class="strikers-modal-overlay" onclick={{action (ignore-children (action "clickedOverlay"))}}>
+  <div class="strikers-modal-dialog">
+    <p>Enter the ID of a CryptoKitty you own. To see all your cats, <a href="https://www.cryptokitties.co/my-kitties" target="_blank">go here</a>, click into the cat you want to sell, and grab its ID from the URL.</p>
+    <form {{action "submitKitty" on="submit"}}>
+      {{input value=kittyId type="text" placeholder="Kitty ID"}}
+    <button type="submit" class="mr-1">Submit</button>
+    <span class="text-danger">{{errorMessage}}</span>
+  </form>
+</div>
+</div>

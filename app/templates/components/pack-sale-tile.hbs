@@ -21,7 +21,7 @@
     <br>
     <button type="button" class="btn btn-success mt-2" data-toggle="modal" data-target="#buyPackModal" {{action action sale.id selectedQuantity}}>{{buttonText}}</button>
   {{else}}
-    <button type="button" class="btn btn-dark kitties-button"><span class="kitties-button-text">Buy</span><img src="/assets/images/ck-logo.svg"></button>
+    <button type="button" class="btn btn-dark kitties-button" {{action "kittiesButtonClicked"}}><span class="kitties-button-text">Buy</span><img src="/assets/images/ck-logo.svg"></button>
   {{/unless}}
   <p><small>{{link-to "Card distribution" "sales" sale.id}}</small></p>
 </div>
