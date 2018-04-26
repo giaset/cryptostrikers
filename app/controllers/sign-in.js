@@ -27,18 +27,32 @@ export default Controller.extend({
         };
         return this.get('session').open('firebase', options);
       })
-      .then(data => {
-        const user = this.store.createRecord('user', {
-          id: data.uid,
-          email: this.get('emailAddress'),
-          nickname: this.get('nickname')
-        });
-        this.get('currentUser').setUser(user);
-        return user.save();
+      .then(sessionData => {
+        return this._createUser(sessionData, this.get('emailAddress'), this.get('nickname'));
       })
       .then(() => {
         this.transitionToRoute('my-album');
       });
     }
+  },
+
+  _createUser(sessionData, email, nickname) {
+    const id = sessionData.uid;
+    const store = this.get('store');
+
+    const metadata = store.createRecord('user-metadata', {
+      id,
+      nickname
+    });
+
+    const user = store.createRecord('user', {
+      id,
+      email,
+      metadata
+    });
+
+    this.get('currentUser').setUser(user);
+
+    return metadata.save().then(() => user.save());
   }
 });

@@ -1,6 +1,5 @@
 {
   "rules": {
-    ".read": "auth !== null",
     "activities": {
       "$activityId": {
         ".write": "auth !== null && (!data.exists() || auth.uid === data.child('user').val()) && newData.exists()"
@@ -21,10 +20,16 @@
     "stats": {
       ".read": true
     },
+    "userMetadata": {
+      "$uid": {
+        ".read": "auth !== null",
+        ".write": "auth.uid === $uid"
+      }
+    },
     "users": {
       "$uid": {
-        ".write": "$uid === auth.uid"
-        // TODO: protect email when not me
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid"
       }
     }
   }
