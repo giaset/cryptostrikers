@@ -23,7 +23,7 @@
     },
     "userMetadata": {
       "$uid": {
-        ".read": "auth !== null",
+        ".read": true,
         ".write": "auth.uid === $uid"
       }
     },

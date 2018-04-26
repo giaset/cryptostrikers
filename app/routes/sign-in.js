@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  metamaskWatcher: service(),
   web3: service(),
 
   beforeModel() {
@@ -10,5 +11,14 @@ export default Route.extend({
     } else {
       return this._super(...arguments);
     }
+  },
+
+  model() {
+    const currentAccount = this.get('metamaskWatcher.currentAccount');
+    if (!currentAccount) {
+      return null;
+    }
+
+    return this.get('store').findRecord('user-metadata', currentAccount).catch(() => {});
   }
 });

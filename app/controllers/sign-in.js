@@ -28,7 +28,14 @@ export default Controller.extend({
         return this.get('session').open('firebase', options);
       })
       .then(sessionData => {
-        return this._createUser(sessionData, this.get('emailAddress'), this.get('nickname'));
+        const email = this.get('emailAddress');
+        const nickname = this.get('nickname');
+
+        if (!email && !nickname) {
+          return Promise.resolve();
+        }
+
+        return this._createUser(sessionData, email, nickname);
       })
       .then(() => {
         this.transitionToRoute('my-album');
