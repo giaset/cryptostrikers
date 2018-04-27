@@ -9,18 +9,34 @@ export default Service.extend({
   web3: service(),
 
   loadAll(jsonPrefix) {
+    this.set('jsonPrefix', jsonPrefix);
+    const kittiesContractPromise = this._loadContract(
+      'KittiesContract',
+      'ERC721Basic',
+      ENV.strikers.kittiesContractAddress
+    );
+
     const mintingContractPromise = this._loadContract(
-      'StrikersMinting', ENV.strikers.mintingContractJSON, ENV.strikers.mintingContractAddress, jsonPrefix
+      'StrikersMinting',
+      ENV.strikers.mintingContractJSON,
+      ENV.strikers.mintingContractAddress
     );
 
     const saleContractPromise = this._loadContract(
-      'StrikersPackSale', ENV.strikers.saleContractJSON, ENV.strikers.saleContractAddress, jsonPrefix
+      'StrikersPackSale',
+      ENV.strikers.saleContractJSON,
+      ENV.strikers.saleContractAddress
     );
 
-    return RSVP.all([mintingContractPromise, saleContractPromise]);
+    return RSVP.all([
+      kittiesContractPromise,
+      mintingContractPromise,
+      saleContractPromise
+    ]);
   },
 
-  _loadContract(contractName, fileName, address, jsonPrefix) {
+  _loadContract(contractName, fileName, address) {
+    const jsonPrefix = this.get('jsonPrefix');
     const web3 = this.get('web3');
     return $.getJSON(`${jsonPrefix}contracts/${fileName}.json`)
     .then(json => {

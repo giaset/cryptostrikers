@@ -9,10 +9,6 @@ export default Component.extend({
   selectedQuantity: 1,
 
   actions: {
-    kittiesButtonClicked() {
-      this.get('modal').open('kitty', { saleId: this.get('sale.id') });
-    },
-
     quantitySelected(event) {
       const qty = event.target.value;
       this.set('selectedQuantity', qty);

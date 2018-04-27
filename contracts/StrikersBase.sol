@@ -45,11 +45,6 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
 
   /*** FUNCTIONS ***/
 
-  // TODO: DON'T SHIP WITH THIS, THIS IS JUST FOR DEBUG PURPOSES
-  function transfer(address _to, uint256 _tokenId) external {
-    transferFrom(msg.sender, _to, _tokenId);
-  }
-
   /// @dev Returns the API URL for each card
   ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
   ///   The API will then return a JSON blob according to OpenSea's spec

@@ -5,6 +5,9 @@
       {{#if (eq activity.type "buy_pack")}}
         <p>You bought a pack on {{moment-format activity.createdAt}}</p>
         <p>Transaction: {{activity.txnHash}}</p>
+      {{else if (eq activity.type "buy_pack_with_kitty")}}
+        <p>You traded in Kitty #{{activity.kittyId}} on {{moment-format activity.createdAt}}</p>
+        <p>Transaction: {{activity.txnHash}}</p>
       {{/if}}
     {{/link-to}}
   </div>

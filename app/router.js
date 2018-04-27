@@ -38,6 +38,7 @@ Router.map(function() {
   this.route('404', { path: '/*path' });
   this.route('cards', { path: '/cards/:card_id' });
   this.route('sales', { path: '/sales/:sale_id' });
+  this.route('kitty-sale');
 });
 
 export default Router;
