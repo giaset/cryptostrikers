@@ -8,8 +8,6 @@ export default Controller.extend({
   web3: service(),
 
   getCardsFromTransaction: task(function * () {
-    this.set('cards', null);
-    this.set('openPackClicked', false);
     const hash = this.get('model.activity.txnHash');
     const receipt = yield this.get('web3').getTransactionReceipt(hash);
     if (receipt) {

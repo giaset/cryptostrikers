@@ -26,6 +26,9 @@ export default Route.extend({
 
   setupController(controller, model) {
     this._super(controller, model);
+    controller.set('cards', null);
+    controller.set('firstCheckDone', false);
+    controller.set('openPackClicked', false);
     controller.get('getCardsFromTransaction').perform();
   }
 });
