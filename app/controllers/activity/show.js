@@ -1,44 +1,31 @@
 import Controller from '@ember/controller';
-import { cancel, later } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
+import { task, timeout } from 'ember-concurrency';
 
 export default Controller.extend({
   strikersContracts: service(),
   web3: service(),
-  interval: 1000,
-  nextRefresh: null,
 
-  startRefreshing() {
-    this.set('isLoading', true);
-    this._tick();
-  },
-
-  stopRefreshing() {
-    cancel(this.get('nextRefresh'));
-    this.set('nextRefresh', null);
-  },
-
-  _tick() {
-    const hash = this.get('model.txnHash');
-    this.get('web3').getTransactionReceipt(hash).then(receipt => {
-      if (receipt) {
-        const cardIds = this.get('strikersContracts').getCardIdsFromPackBoughtReceipt(receipt);
-        return this._loadCards(cardIds);
-      } else {
-        this.set('message', 'Hang tight, this transaction hasn\'t been mined yet...');
-        this.set('nextRefresh', later(this, this._tick, this.interval));
-      }
-    });
-  },
+  getCardsFromTransaction: task(function * () {
+    this.set('cards', null);
+    this.set('openPackClicked', false);
+    const hash = this.get('model.activity.txnHash');
+    const receipt = yield this.get('web3').getTransactionReceipt(hash);
+    if (receipt) {
+      const cardIds = this.get('strikersContracts').getCardIdsFromPackBoughtReceipt(receipt);
+      const cards = yield this._loadCards(cardIds);
+      this.set('cards', cards);
+    } else {
+      this.set('firstCheckDone', true);
+      yield timeout(1000);
+      this.get('getCardsFromTransaction').perform();
+    }
+  }),
 
   _loadCards(cardIds) {
     const store = this.get('store');
     const promises = cardIds.map(cardId => store.findRecord('card', cardId));
-    return RSVP.all(promises).then(cards => {
-      this.set('isLoading', false);
-      this.set('message', null);
-      this.set('cards', cards);
-    });
+    return RSVP.all(promises);
   }
 });

@@ -1,17 +1,30 @@
-{{#if isLoading}}
+{{#if firstCheckDone}}
+  <div class='text-center'>
+    <p>Hang tight, this transaction hasn't been mined yet...</p>
+    <p>While you wait, why don't you watch {{model.video.description}}.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{model.video.videoId}}?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+  </div>
+{{else if getCardsFromTransaction.isRunning}}
   <div class="text-center">
-    <p>{{message}}</p>
     {{spinkit-cube-grid}}
   </div>
-{{else}}
-  <div class="text-center">
-    <p>Click the cards to reveal your new players</p>
-  </div>
-  <div class="row">
-    {{#each cards as |card|}}
-      <div class="col-6 col-sm-4 col-lg-3">
-        {{player-card card=card isRevealed=false}}
-      </div>
-    {{/each}}
-  </div>
+{{/if}}
+{{#if cards}}
+  {{#unless openPackClicked}}
+    <div class="text-center">
+      <p>Click the button below to open your pack</p>
+      <button type="button" class="btn btn-success" {{action (mut openPackClicked) true}}>Open Pack</button>
+    </div>
+  {{else}}
+    <div class="text-center">
+      <p>Click the cards to reveal your new players</p>
+    </div>
+    <div class="row">
+      {{#each cards as |card|}}
+        <div class="col-6 col-sm-4 col-lg-3">
+          {{player-card card=card isRevealed=false}}
+        </div>
+      {{/each}}
+    </div>
+  {{/unless}}
 {{/if}}
