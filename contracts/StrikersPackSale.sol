@@ -16,6 +16,9 @@ contract StrikersPackSale is PackSaleFactory {
 
   /*** STORAGE ***/
 
+  /// @dev We use/increment this nonce when grabbing a random pack in _removeRandomPack()
+  uint256 randNonce = 0;
+
   /// @dev A reference to the CryptoKitties contract so we can transfer cats
   ERC721Basic public kittiesContract;
 
@@ -70,8 +73,8 @@ contract StrikersPackSale is PackSaleFactory {
       return false;
     }
 
-    // TODO: this could throw... bad?
-    uint32 pack = _removePackAtIndex(0, nextPacks);
+    // TODO: this could throw and we need to return true/false for our external buy functions... bad?
+    uint32 pack = _removeRandomPack(nextPacks);
     uint256[] memory cards = _mintCards(pack, _saleId);
     sales[_saleId].packsSold++;
     emit PackBought(msg.sender, cards);
@@ -101,6 +104,12 @@ contract StrikersPackSale is PackSaleFactory {
     }
 
     return packsForSale[0];
+  }
+
+  function _removeRandomPack(uint32[] storage _packs) internal returns (uint32) {
+    randNonce++;
+    uint256 randomIndex = uint256(keccak256(now, msg.sender, randNonce)) % _packs.length;
+    return _removePackAtIndex(randomIndex, _packs);
   }
 
   function _removePackAtIndex(uint256 _index, uint32[] storage _packs) internal returns (uint32) {

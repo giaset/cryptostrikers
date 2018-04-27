@@ -40,14 +40,15 @@ function loadPacks(saleId, packs, strikersPackSale) {
   return promise;
 }
 
-module.exports = function(deployer) {
+module.exports = function(deployer, network) {
   let strikersMinting;
   let strikersPackSale;
-  let promise = deployer.deploy(StrikersMinting)
+  deployer.deploy(StrikersMinting)
     .then(() => StrikersMinting.deployed())
     .then(deployed => {
       strikersMinting = deployed;
-      return deployer.deploy(StrikersPackSale, strikersMinting.address, strikersMinting.address);
+      const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersMinting.address;
+      return deployer.deploy(StrikersPackSale, kittiesAddress, strikersMinting.address);
     })
     .then(() => StrikersPackSale.deployed())
     .then(deployed => {
