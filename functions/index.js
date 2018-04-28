@@ -15,7 +15,7 @@ admin.initializeApp({
 // TODO: use config for mainnet infura and contract address
 // mainnet: https://mainnet.infura.io/b9XMoJFDxpzhBpEGzVaW
 const web3 = new Web3('https://rinkeby.infura.io/b9XMoJFDxpzhBpEGzVaW');
-const address = '0xb10a195f6ecb29f8c1897390c54145c8c4f8aeb8';
+const address = '0xcfd0ebf5100fdc1b3d2f460f65681d9287da467c';
 const strikersContract = new web3.eth.Contract(contractJson.abi, address);
 
 app.use(cors);
