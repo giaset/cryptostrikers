@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /// @title The contract that manages all player, game, and country info for the 2018 World Cup
 /// @author The CryptoStrikers Team

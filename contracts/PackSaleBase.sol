@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /// @title Base contract for our PackSale. Defines all the models needed to sell cards in packs.
 /// @author The CryptoStrikers Team

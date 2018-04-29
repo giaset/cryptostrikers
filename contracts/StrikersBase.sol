@@ -1,8 +1,8 @@
 pragma solidity ^0.4.23;
 
-import "zeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
 import "./OraclizeStringUtils.sol";
-import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team

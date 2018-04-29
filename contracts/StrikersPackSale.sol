@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 
 import "./PackSaleFactory.sol";
-import 'zeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol";
 
 /// @dev We use the interface here (instead of importing StrikersMinting) to avoid circular imports
 ///   (StrikersMinting already imports StrikersPackSale to make sure only it can call mintBaseCard)
