@@ -11,6 +11,14 @@ export default Route.extend({
   },
 
   model() {
-    return this.get('store').findAll('sale');
+    return this.get('store').findAll('sale').then(sales => {
+      return sales.filter(sale => {
+        const endTime = sale.get('endTime');
+        if (!endTime) { return true; }
+        const now = new Date().getTime();
+        const diff = endTime.getTime() - now;
+        return diff > 0;
+      });
+    });
   }
 });
