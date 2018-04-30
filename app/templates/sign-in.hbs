@@ -2,7 +2,7 @@
   {{#if metamaskWatcher.currentAccount}}
     <h2>Welcome to CryptoStrikers</h2>
     <p>To get started, please select your flag, enter your email address, and choose a nickname.</p>
-    <form {{action "submit" on="submit"}}>
+    <form {{action (perform signIn) on="submit"}}>
       <div class="form-group text-left">
         <label for="walletAddressInput">Wallet address</label>
         <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
@@ -20,7 +20,19 @@
           {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" required=true}}
         </div>
       {{/if}}
-      <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+      <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
+        {{#if getSignature.isRunning}}
+          Waiting for signature...
+        {{else if verifySignature.isRunning}}
+          Verifying signature...
+        {{else if openSession.isRunning}}
+          Signing in...
+        {{else if model}}
+          Log In
+        {{else}}
+          Submit
+        {{/if}}
+      </button>
     </form>
     {{if token token}}
   {{else if web3.wrongNetwork}}

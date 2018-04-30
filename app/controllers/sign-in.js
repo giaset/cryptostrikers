@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   ajax: service(),
@@ -7,41 +8,36 @@ export default Controller.extend({
   metamaskWatcher: service(),
   session: service(),
   web3: service(),
-  actions: {
-    submit() {
-      // TODO: loading state for submit button
-      const currentAccount = this.get('metamaskWatcher.currentAccount');
-      this.get('web3').personalSign('CryptoStrikers', currentAccount)
-      .then(signature => {
-        return this.get('ajax').post('sign', {
-          data: {
-            address: currentAccount,
-            signature: signature
-          }
-        });
-      })
-      .then(res => {
-        const options = {
-          provider: 'custom',
-          token: res.token
-        };
-        return this.get('session').open('firebase', options);
-      })
-      .then(sessionData => {
-        const email = this.get('emailAddress');
-        const nickname = this.get('nickname');
 
-        if (!email && !nickname) {
-          return Promise.resolve();
-        }
+  signIn: task(function * () {
+    const address = this.get('metamaskWatcher.currentAccount');
+    const signature = yield this.get('getSignature').perform(address);
+    const token = yield this.get('verifySignature').perform(address, signature);
+    yield this.get('openSession').perform(token);
+    this.transitionToRoute('my-album');
+  }).drop(),
 
-        return this._createUser(sessionData, email, nickname);
-      })
-      .then(() => {
-        this.transitionToRoute('my-album');
-      });
+
+  getSignature: task(function * (address) {
+    return yield this.get('web3').personalSign('CryptoStrikers', address);
+  }),
+
+  verifySignature: task(function * (address, signature) {
+    const data = { address, signature };
+    const response = yield this.get('ajax').post('sign', { data });
+    return response.token;
+  }),
+
+  openSession: task(function * (token) {
+    const options = { provider: 'custom', token };
+    const sessionData = yield this.get('session').open('firebase', options);
+    const email = this.get('emailAddress');
+    const nickname = this.get('nickname');
+
+    if (email && nickname) {
+      yield this._createUser(sessionData, email, nickname);
     }
-  },
+  }),
 
   _createUser(sessionData, email, nickname) {
     const id = sessionData.uid;
