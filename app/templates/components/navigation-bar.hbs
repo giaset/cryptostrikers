@@ -1,5 +1,5 @@
 {{link-to "CryptoStrikers" "index" class="navbar-brand font-weight-900" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-Total users: {{stats.userCount}}
+{{#if showSignIn}}Total users: {{stats.userCount}}{{/if}}
 {{#if session.isAuthenticated}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
     <span class="navbar-toggler-icon"></span>
