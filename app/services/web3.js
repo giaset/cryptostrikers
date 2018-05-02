@@ -39,9 +39,20 @@ export default Service.extend({
     return this._instance.eth.net.getId().then(id => {
       if (id !== correctNetworkId) {
         this.set('wrongNetwork', true);
+        this.set('networkToSwitchTo', this._networkNameForId(correctNetworkId));
         throw new Error('Wrong Network!');
       }
     });
+  },
+
+  _networkNameForId(id) {
+    if (id === 1) {
+      return 'Main Ethereum Network';
+    } else if (id === 4) {
+      return 'Rinkeby Test Network';
+    } else if (id === 5777) {
+      return 'local network';
+    }
   },
 
   _accounts() {

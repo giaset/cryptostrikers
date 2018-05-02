@@ -38,7 +38,7 @@
   {{else if web3.wrongNetwork}}
     <!-- TODO: proper wrong network page -->
     <h2>You're on the wrong network!</h2>
-    <h2>Please switch to Rinkeby.</h2>
+    <h2>Please switch to the {{web3.networkToSwitchTo}}.</h2>
   {{else if web3.metamaskDetected}}
     <!-- TODO: proper locked MetaMask page -->
     <h2>Please log in to your MetaMask account</h2>
