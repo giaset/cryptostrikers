@@ -37,8 +37,7 @@ module.exports = function(environment) {
         name: 'GoogleAnalytics',
         environments: ['development', 'production'],
         config: {
-          // TODO: different ID for production
-          id: 'UA-117502203-1',
+          id: (deployTarget === 'production') ? 'UA-117502203-2' : 'UA-117502203-1',
           debug: environment === 'development',
           trace: environment === 'development',
           sendHitTask: environment !== 'development'
