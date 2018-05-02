@@ -23,7 +23,7 @@ export default Route.extend({
     .then(() => web3.checkNetwork())
     .then(() => this.get('strikersContracts').loadAll(jsonPrefix))
     .then(() => {
-      this.get('metamaskWatcher').start();
+      this.get('metamaskWatcher.startWatching').perform();
     })
     .catch(() => {});
   },
