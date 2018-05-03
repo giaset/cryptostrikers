@@ -32,5 +32,5 @@ cloud-functions-emulator.log
 
 firebase-debug.log
 
-public/contracts/StrikersMinting.json
+public/contracts/StrikersCore.json
 public/contracts/StrikersPackSale.json

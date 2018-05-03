@@ -10,16 +10,17 @@ export default Service.extend({
 
   loadAll(jsonPrefix) {
     this.set('jsonPrefix', jsonPrefix);
+
+    const coreContractPromise = this._loadContract(
+      'StrikersCore',
+      ENV.strikers.coreContractJSON,
+      ENV.strikers.coreContractAddress
+    );
+
     const kittiesContractPromise = this._loadContract(
       'KittiesContract',
       'ERC721Basic',
       ENV.strikers.kittiesContractAddress
-    );
-
-    const mintingContractPromise = this._loadContract(
-      'StrikersMinting',
-      ENV.strikers.mintingContractJSON,
-      ENV.strikers.mintingContractAddress
     );
 
     const saleContractPromise = this._loadContract(
@@ -29,8 +30,8 @@ export default Service.extend({
     );
 
     return RSVP.all([
+      coreContractPromise,
       kittiesContractPromise,
-      mintingContractPromise,
       saleContractPromise
     ]);
   },

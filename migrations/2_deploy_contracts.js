@@ -1,4 +1,5 @@
-const StrikersMinting = artifacts.require("./StrikersMinting.sol");
+const SaleClockAuction = artifacts.require("./OpenSea/SaleClockAuction.sol");
+const StrikersCore = artifacts.require("./StrikersCore.sol");
 const StrikersPackSale = artifacts.require("./StrikersPackSale.sol");
 
 const CARDS_PER_PACK = 4;
@@ -41,36 +42,54 @@ function loadPacks(saleId, packs, strikersPackSale) {
 }
 
 module.exports = function(deployer, network) {
-  let strikersMinting;
+  // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
+  // opensea rinkeby: 0xed6cfc67429e8eb9b4562ea6d7d54ffcc4b726bd
+  // kitties mainnet:
+  // kitties rinkeby:
+  let strikersCore;
   let strikersPackSale;
-  deployer.deploy(StrikersMinting)
-    .then(() => StrikersMinting.deployed())
+  let promise = deployer.deploy(StrikersCore)
+    .then(() => StrikersCore.deployed())
     .then(deployed => {
-      strikersMinting = deployed;
-      const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersMinting.address;
-      return deployer.deploy(StrikersPackSale, kittiesAddress, strikersMinting.address);
-    })
-    .then(() => StrikersPackSale.deployed())
+      strikersCore = deployed;
+      const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
+      return deployer.deploy(StrikersPackSale, kittiesAddress, strikersCore.address);
+  });
+
+  let saleAuctionAddress;
+  if (network === 'development') {
+    console.log('Deploying SaleClockAuction...');
+    promise = promise.then(() => deployer.deploy(SaleClockAuction, 125))
+    .then(() => SaleClockAuction.deployed())
     .then(deployed => {
-      strikersPackSale = deployed;
-      return strikersMinting.setPackSaleAddress(strikersPackSale.address);
-    })
-    .then(() => strikersPackSale.createSale(0, 15000000000000000))
-    .then(() => {
-      const baseSalePacks = generatePacks(BASE_SALE_PACK_COUNT);
-      return loadPacks(0, baseSalePacks, strikersPackSale);
-    })
-    .then(() => strikersPackSale.startSale(0))
-    .then(() => strikersPackSale.createSale(86400, 30000000000000000))
-    .then(() => {
-      const flashSalePacks = generatePacks(FLASH_SALE_PACK_COUNT);
-      return loadPacks(1, flashSalePacks, strikersPackSale);
-    })
-    .then(() => strikersPackSale.startSale(1))
-    .then(() => strikersPackSale.createSale(0, 0))
-    .then(() => {
-      const kittySalePacks = generatePacks(5);
-      return loadPacks(2, kittySalePacks, strikersPackSale);
-    })
-    .then(() => strikersPackSale.startSale(2));
+      saleAuctionAddress = deployed.address;
+    });
+  } else if (network === 'rinkeby') {
+    saleAuctionAddress = '0xed6cfc67429e8eb9b4562ea6d7d54ffcc4b726bd';
+  }
+
+  promise.then(() => strikersCore.setSaleAuctionAddress(saleAuctionAddress))
+  .then(() => StrikersPackSale.deployed())
+  .then(deployed => {
+    strikersPackSale = deployed;
+    return strikersCore.setPackSaleAddress(strikersPackSale.address);
+  })
+  .then(() => strikersPackSale.createSale(0, 15000000000000000))
+  .then(() => {
+    const baseSalePacks = generatePacks(BASE_SALE_PACK_COUNT);
+    return loadPacks(0, baseSalePacks, strikersPackSale);
+  })
+  .then(() => strikersPackSale.startSale(0))
+  .then(() => strikersPackSale.createSale(86400, 30000000000000000))
+  .then(() => {
+    const flashSalePacks = generatePacks(FLASH_SALE_PACK_COUNT);
+    return loadPacks(1, flashSalePacks, strikersPackSale);
+  })
+  .then(() => strikersPackSale.startSale(1))
+  .then(() => strikersPackSale.createSale(0, 0))
+  .then(() => {
+    const kittySalePacks = generatePacks(5);
+    return loadPacks(2, kittySalePacks, strikersPackSale);
+  })
+  .then(() => strikersPackSale.startSale(2));
 };

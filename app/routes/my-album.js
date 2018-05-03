@@ -17,7 +17,7 @@ export default Route.extend({
     const owner = this.get('currentUser.user.id');
     const store = this.get('store');
 
-    const contract = this.get('strikersContracts.StrikersMinting.methods');
+    const contract = this.get('strikersContracts.StrikersCore.methods');
     const myCards = contract.cardIdsForOwner(owner).call().then(cardIds => {
       const promises = cardIds.map(cardId => store.findRecord('card', cardId));
       return RSVP.all(promises);

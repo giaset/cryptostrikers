@@ -6,7 +6,7 @@ export default DS.RESTAdapter.extend({
   strikersContracts: service(),
 
   findRecord(store, type, id) {
-    const contract = this.get('strikersContracts.StrikersMinting.methods');
+    const contract = this.get('strikersContracts.StrikersCore.methods');
     return contract.cards(id).call();
   },
 
