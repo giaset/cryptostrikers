@@ -35,7 +35,7 @@ contract WorldCupInfo is Ownable {
   }
 
   // game belongs to gameday? or gameday has game? both?
-  struct Game {
+  /*struct Game {
     uint8 homeCountryId;
     uint8 awayCountryId;
   }
@@ -43,7 +43,7 @@ contract WorldCupInfo is Ownable {
   struct GameDay {
     uint date;
     Game[] games;
-  }
+  }*/
 
   /*** STORAGE ***/
 
@@ -65,33 +65,87 @@ contract WorldCupInfo is Ownable {
   ///  Each player's ID corresponds to their index in the array
   Player[] public players;
 
-  /// @dev why we chose to initialize here?
-  ///  Ordered by country ID (see countries array)
+  /// @dev Load the players here because otherwise it's super annoying
+  ///   to push in a bunch of structs. Players are loosely ordered by
+  ///   skill, as ranked by the CryptoStrikers team (feel free to scream
+  ///   at us on Twitter).
   constructor() public {
+    // 0
     players.push(Player("Lionel Messi", 0));
-    players.push(Player("Sergio Agüero", 0));
-    players.push(Player("Eden Hazard", 2));
-    players.push(Player("Kevin De Bruyne", 2));
-    players.push(Player("Thibaut Courtois", 2));
-    players.push(Player("Neymar", 3));
-    players.push(Player("Dani Alves", 3));
-    players.push(Player("Marcelo", 3));
-    players.push(Player("Luka Modrić", 6));
-    players.push(Player("Christian Eriksen", 7));
-    players.push(Player("Mohamed Salah", 8));
-    players.push(Player("Harry Kane", 9));
-    players.push(Player("Paul Pogba", 10));
-    players.push(Player("N'Golo Kanté", 10));
-    players.push(Player("Antoine Griezmann", 10));
-    players.push(Player("Toni Kroos", 11));
-    players.push(Player("Mats Hummels", 11));
-    players.push(Player("Mesut Özil", 11));
-    players.push(Player("Robert Lewandowski", 20));
+    // 1
     players.push(Player("Cristiano Ronaldo", 21));
-    players.push(Player("Thiago", 27));
+    // 2
+    players.push(Player("Neymar", 3));
+    // 3
+    players.push(Player("Mohamed Salah", 8));
+    // 4
+    players.push(Player("Robert Lewandowski", 20));
+    // 5
+    players.push(Player("Kevin De Bruyne", 2));
+    // 6
+    players.push(Player("Luka Modrić", 6));
+    // 7
+    players.push(Player("Eden Hazard", 2));
+    // 8
     players.push(Player("Sergio Ramos", 27));
-    players.push(Player("David De Gea", 27));
-    players.push(Player("Edinson Cavani", 31));
+    // 9
+    players.push(Player("Toni Kroos", 11));
+    // 10
     players.push(Player("Luis Suárez", 31));
+    // 11
+    players.push(Player("Harry Kane", 9));
+    // 12
+    players.push(Player("Sergio Agüero", 0));
+    // 13
+    players.push(Player("Kylian Mbappé", 10));
+    // 14
+    players.push(Player("Gonzalo Higuaín", 0));
+    // 15
+    players.push(Player("David De Gea", 27));
+    // 16
+    players.push(Player("Antoine Griezmann", 10));
+    // 17
+    players.push(Player("N'Golo Kanté", 10));
+    // 18
+    players.push(Player("Edinson Cavani", 31));
+    // 19
+    players.push(Player("Paul Pogba", 10));
+    // 20
+    players.push(Player("Isco", 27));
+    // 21
+    players.push(Player("Marcelo", 3));
+    // 22
+    players.push(Player("Manuel Neuer", 11));
+    // 23
+    players.push(Player("Dries Mertens", 2));
+    // 24
+    players.push(Player("James Rodríguez", 4));
+
+    // Unranked
+    players.push(Player("Thiago Silva", 3));
+    players.push(Player("David Silva", 27));
+    players.push(Player("Thibaut Courtois", 2));
+    players.push(Player("Christian Eriksen", 7));
+    players.push(Player("Ángel Di María", 0));
+    players.push(Player("Ivan Rakitić", 6));
+    players.push(Player("Dele Alli", 9));
+    players.push(Player("Philippe Coutinho", 3));
+    players.push(Player("Thiago", 27));
+    players.push(Player("Mesut Özil", 11));
+    players.push(Player("Hugo Lloris", 10));
+    players.push(Player("Dani Alves", 3));
+    players.push(Player("Radamel Falcao", 4));
+    players.push(Player("Mats Hummels", 11));
+    players.push(Player("Andrés Iniesta", 27));
+    players.push(Player("Romelu Lukaku", 2));
+    players.push(Player("Sadio Mané", 24));
+    players.push(Player("Son Heung-min", 26));
+    players.push(Player("Javier Hernández", 15));
+    players.push(Player("Casemiro", 3));
+    players.push(Player("Diego Godín", 31));
+    players.push(Player("Kalidou Koulibaly", 24));
+    players.push(Player("Keylor Navas", 5));
+    players.push(Player("Raheem Sterling", 9));
+    players.push(Player("Gerard Piqué", 27));
   }
 }
