@@ -1,5 +1,5 @@
 const contract = require('truffle-contract');
-const contractJson = require('../build/contracts/StrikersSale');
+const contractJson = require('../build/contracts/Checklist');
 const fs = require('fs');
 const Web3 = require('web3');
 
@@ -16,12 +16,11 @@ WorldCupInfo.at('0x9414329bf6837db915b4d5e0e22ecc27a33129c5')
   return Promise.all(promises);
 })
 .then(results => {
-  const final = results.map((result, index) => {
+  const final = results.map(result => {
     return {
-      id: index,
-      name: result[0],
-      country: result[1].toNumber()
+      country: result[1].toNumber(),
+      name: result[0]
     };
   });
-  return fs.writeFileSync('public/players.json', JSON.stringify({players: final}, null, 2));
+  return fs.writeFileSync('players.json', JSON.stringify(final, null, 2));
 });

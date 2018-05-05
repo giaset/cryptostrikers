@@ -1,3 +1,4 @@
+const Checklist = artifacts.require("./Checklist.sol");
 const SaleClockAuction = artifacts.require("./OpenSea/SaleClockAuction.sol");
 const StrikersCore = artifacts.require("./StrikersCore.sol");
 const StrikersPackSale = artifacts.require("./StrikersPackSale.sol");
@@ -43,23 +44,26 @@ function loadPacks(saleId, packs, strikersPackSale) {
 
 module.exports = function(deployer, network) {
   // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
-  // opensea rinkeby: 0xed6cfc67429e8eb9b4562ea6d7d54ffcc4b726bd
   // kitties mainnet:
-  // kitties rinkeby:
+
   let strikersCore;
   let strikersPackSale;
-  let promise = deployer.deploy(StrikersCore)
-    .then(() => StrikersCore.deployed())
-    .then(deployed => {
-      strikersCore = deployed;
-      const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
-      return deployer.deploy(StrikersPackSale, kittiesAddress, strikersCore.address);
+  let promise = deployer.deploy(Checklist)
+  .then(() => Checklist.deployed())
+  .then(checklist => deployer.deploy(StrikersCore, checklist.address))
+  .then(() => StrikersCore.deployed())
+  .then(deployed => {
+    strikersCore = deployed;
+    const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
+    return deployer.deploy(StrikersPackSale, kittiesAddress, strikersCore.address);
   });
 
   let saleAuctionAddress;
   if (network === 'development') {
-    console.log('Deploying SaleClockAuction...');
-    promise = promise.then(() => deployer.deploy(SaleClockAuction, 125))
+    promise = promise.then(() => {
+      console.log('Deploying SaleClockAuction...');
+      return deployer.deploy(SaleClockAuction, 125);
+    })
     .then(() => SaleClockAuction.deployed())
     .then(deployed => {
       saleAuctionAddress = deployed.address;

@@ -11,6 +11,12 @@ export default Service.extend({
   loadAll(jsonPrefix) {
     this.set('jsonPrefix', jsonPrefix);
 
+    const checklistContractPromise = this._loadContract(
+      'Checklist',
+      ENV.strikers.checklistContractJSON,
+      ENV.strikers.checklistContractAddress
+    );
+
     const coreContractPromise = this._loadContract(
       'StrikersCore',
       ENV.strikers.coreContractJSON,
@@ -19,7 +25,7 @@ export default Service.extend({
 
     const kittiesContractPromise = this._loadContract(
       'KittiesContract',
-      'ERC721Basic',
+      ENV.strikers.kittiesContractJSON,
       ENV.strikers.kittiesContractAddress
     );
 
@@ -30,6 +36,7 @@ export default Service.extend({
     );
 
     return RSVP.all([
+      checklistContractPromise,
       coreContractPromise,
       kittiesContractPromise,
       saleContractPromise
