@@ -1,0 +1,20 @@
+{{input value=searchQuery placeholder="Search Players" class="mb-4"}}
+<ul class="nav nav-pills">
+  {{#each sets as |set|}}
+    <li class="nav-item">
+      <a class="nav-link {{if (eq set.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) set.id}}>{{set.name}}</a>
+    </li>
+  {{/each}}
+</ul>
+<h6 class="card-count my-4 opacity-30">{{filteredItems.length}} cards</h6>
+<div class="row">
+  {{#each filteredItems as |checklistItem|}}
+    <div class="col-6 col-sm-4 col-md-3">
+      <div class="mb-4 text-center">
+        <img src="/assets/images/cards/{{checklistItem.filename}}" class="img-fluid mb-2">
+        <p class="player-name font-weight-bold">{{checklistItem.player.name}}</p>
+        <p class="checklist-number opacity-30">{{checklistItem.set.descriptor}} · #{{checklistItem.id}}</p>
+      </div>
+    </div>
+  {{/each}}
+</div>
