@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-  classNameBindings: ['inactive'],
+  classNameBindings: ['inactive:opacity-30'],
   classNames: ['player-card', 'mb-4'],
   isRevealed: true,
 

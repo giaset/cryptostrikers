@@ -25,6 +25,14 @@ body {
   font-weight: 900;
 }
 
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-30 {
+  opacity: 0.3;
+}
+
 .player-card {
   position: relative;
   transition: transform .3s;
@@ -33,17 +41,9 @@ body {
     transform: scale(1.05);
   }
 
-  &.inactive {
-    opacity: 0.3;
-  }
-
   .blank-card-img {
     position: absolute;
     transition: opacity 1s ease-in-out;
-
-    &.opacity-0 {
-      opacity: 0;
-    }
   }
 
   .badge {
@@ -66,7 +66,6 @@ body {
     .powered-by-text {
       font-size: 0.75rem;
       margin-bottom: 0;
-      opacity: 0.3;
     }
 
     .ethereum-logo {
