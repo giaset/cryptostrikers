@@ -33,7 +33,7 @@ contract StrikersPackSale is PackSaleFactory {
   }
 
   // TODO: buyPack for someone else (giftPack?)
-
+  // TODO: handle return false better
   function buyPacksWithETH(uint8 _saleId) external payable {
     uint256 packPrice = sales[_saleId].packPrice;
     require(packPrice > 0, "You are trying to use ETH to buy from a Kitty Sale.");
@@ -59,7 +59,8 @@ contract StrikersPackSale is PackSaleFactory {
 
     if (_buyPack(_saleId)) {
       // Will throw/revert if this contract hasn't been approved first.
-      kittiesContract.transferFrom(msg.sender, owner, _kittyId);
+      // Transferring to "this" burns the cat!
+      kittiesContract.transferFrom(msg.sender, this, _kittyId);
     }
   }
 

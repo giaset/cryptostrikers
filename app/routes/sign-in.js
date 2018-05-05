@@ -13,6 +13,7 @@ export default Route.extend({
     }
   },
 
+  // TODO: this needs to update if user changes account
   model() {
     const currentAccount = this.get('metamaskWatcher.currentAccount');
     if (!currentAccount) {
