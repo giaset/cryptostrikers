@@ -92,3 +92,12 @@ body {
     border-radius: 8px;
   }
 }
+
+.country-selector {
+  width: 582px;
+
+  .flag-md:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
