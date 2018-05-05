@@ -42,6 +42,9 @@ Router.map(function() {
   if (config.environment === 'development') {
     this.route('admin');
   }
+  this.route('checklist', function() {
+    this.route('show', { path: '/:checklist_item_id' });
+  });
 });
 
 export default Router;
