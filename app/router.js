@@ -39,6 +39,9 @@ Router.map(function() {
   this.route('cards', { path: '/cards/:card_id' });
   this.route('sales', { path: '/sales/:sale_id' });
   this.route('kitty-sale');
+  if (config.environment === 'development') {
+    this.route('admin');
+  }
 });
 
 export default Router;

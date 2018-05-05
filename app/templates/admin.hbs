@@ -1,0 +1,8 @@
+<form {{action "createPlayer" playerName selectedCountry on="submit"}}>
+  {{input value=playerName type="text" placeholder="Player name"}}
+  {{country-selector countries=model.countries selectedCountry=selectedCountry}}
+  <button type="submit">Submit</button>
+</form>
+{{#each model.players as |player|}}
+  <p>{{player.id}} = {{player.name}} ({{player.country.name}})</p>
+{{/each}}
