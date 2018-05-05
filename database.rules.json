@@ -18,6 +18,9 @@
     "players": {
       ".read": true
     },
+    "sets": {
+      ".read": true
+    },
     "stats": {
       ".read": true
     },
