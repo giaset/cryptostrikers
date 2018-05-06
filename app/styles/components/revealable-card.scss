@@ -1,0 +1,14 @@
+.revealable-card {
+  cursor: pointer;
+  position: relative;
+  transition: transform .3s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .revealable-card-placeholder {
+    position: absolute;
+    transition: opacity 1s ease-in-out;
+  }
+}

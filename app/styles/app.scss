@@ -6,6 +6,7 @@
 @import "vendor/bootstrap/scss/bootstrap";
 @import "app/styles/components/filterable-card-grid";
 @import "app/styles/components/pack-sale-tile";
+@import "app/styles/components/revealable-card";
 @import "app/styles/flags";
 
 .box-shadow {
@@ -32,26 +33,6 @@ body {
 
 .opacity-30 {
   opacity: 0.3;
-}
-
-.player-card {
-  position: relative;
-  transition: transform .3s;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  .blank-card-img {
-    position: absolute;
-    transition: opacity 1s ease-in-out;
-  }
-
-  .badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-  }
 }
 
 .footer {
