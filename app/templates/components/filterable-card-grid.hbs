@@ -10,13 +10,7 @@
 <div class="row">
   {{#each filteredItems as |checklistItem|}}
     <div class="col-6 col-sm-4 col-md-3">
-      <div class="mb-4 text-center">
-        <div class="card-image-container mb-2">
-          <img src="/assets/images/cards/{{checklistItem.filename}}" class="card-image img-fluid">
-        </div>
-        <p class="player-name font-weight-bold">{{checklistItem.player.name}}</p>
-        <p class="checklist-number opacity-30">{{checklistItem.set.descriptor}} · #{{checklistItem.id}}</p>
-      </div>
+      {{card-tile checklistItem=checklistItem class="mb-4"}}
     </div>
   {{/each}}
 </div>
