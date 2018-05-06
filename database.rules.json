@@ -6,6 +6,9 @@
         ".write": "auth !== null && (!data.exists() || auth.uid === data.child('user').val()) && newData.exists()"
       }
     },
+    "checklistItems": {
+      ".read": true
+    },
     "countries": {
       ".read": true
     },

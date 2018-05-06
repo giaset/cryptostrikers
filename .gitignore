@@ -33,3 +33,5 @@ cloud-functions-emulator.log
 firebase-debug.log
 
 players.json
+
+checklist.json
