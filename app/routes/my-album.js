@@ -24,8 +24,9 @@ export default Route.extend({
     });
 
     return RSVP.hash({
-      allPlayers: store.peekAll('player'),
-      myCards
+      checklistItems: store.findAll('checklistItem'),
+      myCards,
+      sets: store.findAll('set')
     });
   },
 
