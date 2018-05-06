@@ -7,7 +7,7 @@ const CARDS_PER_PACK = 4;
 const PACKS_PER_LOAD = 500;
 const BASE_SALE_PACK_COUNT = 20000;
 const FLASH_SALE_PACK_COUNT = 1000;
-const TOTAL_PLAYERS = 25;
+const BASE_SET_COUNT = 25;
 
 function generatePacks(numberOfPacks) {
   const packs = [];
@@ -15,10 +15,10 @@ function generatePacks(numberOfPacks) {
   for (let i = 0; i < numberOfPacks; i++) {
     let pack = '';
     for (let j = 0; j < CARDS_PER_PACK; j++) {
-      const playerId = Math.floor(Math.random() * TOTAL_PLAYERS);
-      const binaryPlayerId = playerId.toString(2);
-      const paddedBinaryPlayerId = '00000000'.substr(binaryPlayerId.length) + binaryPlayerId;
-      pack += paddedBinaryPlayerId;
+      const checklistId = Math.floor(Math.random() * BASE_SET_COUNT);
+      const binaryChecklistId = checklistId.toString(2);
+      const paddedBinaryChecklistId = '00000000'.substr(binaryChecklistId.length) + binaryChecklistId;
+      pack += paddedBinaryChecklistId;
     }
     packs.push(parseInt(pack, 2));
   }

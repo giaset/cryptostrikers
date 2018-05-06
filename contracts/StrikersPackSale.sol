@@ -6,7 +6,7 @@ import "openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol";
 /// @dev We use the interface here (instead of importing StrikersMinting) to avoid circular imports
 ///   (StrikersMinting already imports StrikersPackSale to make sure only it can call mintBaseCard)
 contract StrikersMintingInterface {
-  function mintBaseCard(uint8 _playerId, uint8 _saleId, address _owner) external returns (uint256);
+  function mintBaseCard(uint8 _checklistId, uint8 _saleId, address _owner) external returns (uint256);
 }
 
 contract StrikersPackSale is PackSaleFactory {
@@ -88,8 +88,8 @@ contract StrikersPackSale is PackSaleFactory {
 
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
-      uint8 playerId = uint8((_pack >> shift) & mask);
-      uint256 cardId = strikersMinting.mintBaseCard(playerId, _saleId, msg.sender);
+      uint8 checklistId = uint8((_pack >> shift) & mask);
+      uint256 cardId = strikersMinting.mintBaseCard(checklistId, _saleId, msg.sender);
       newCards[i-1] = cardId;
     }
 

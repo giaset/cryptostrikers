@@ -16,7 +16,7 @@ contract StrikersMinting is StrikersBase {
   }
 
   function mintBaseCard(
-    uint8 _playerId,
+    uint8 _checklistId,
     uint8 _saleId,
     address _owner
   )
@@ -24,6 +24,6 @@ contract StrikersMinting is StrikersBase {
     returns (uint256)
   {
     require(msg.sender == address(packSaleContract), "Only the pack sale contract can mint Base Set cards.");
-    return _mintCard(_playerId, _saleId, 1, _owner);
+    return _mintCard(_checklistId, _saleId, _owner);
   }
 }

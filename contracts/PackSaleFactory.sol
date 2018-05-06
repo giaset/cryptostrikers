@@ -7,13 +7,13 @@ contract PackSaleFactory is PackSaleBase {
 
   // The only way to buy Base Set cards is in packs of 4.
   // We generate and store the shuffled "packs" in advance but only actually mint the cards when a pack is sold (see PackSale contract).
-  // To save on storage, we use uint32 to represent a pack, with each of the 4 groups of 8 bits representing a playerId (see WorldCupInfo contract).
+  // To save on storage, we use uint32 to represent a pack, with each of the 4 groups of 8 bits representing a checklistId (see Checklist contract).
   // For example:
   // Pack = 00011000000001100000001000010010
-  // Card 1 = 00011000 = playerId 24
-  // Card 2 = 00000110 = playerId 6
-  // Card 3 = 00000010 = playerId 2
-  // Card 4 = 00010010 = playerId 18
+  // Card 1 = 00011000 = checklistId 24
+  // Card 2 = 00000110 = checklistId 6
+  // Card 3 = 00000010 = checklistId 2
+  // Card 4 = 00010010 = checklistId 18
 
   /*** EVENTS ***/
 

@@ -20,20 +20,17 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     // The timestamp at which this card was minted.
     uint64 mintTime;
 
-    // The ID of the player on this card. See the players array in WorldCupInfo
-    uint8 playerId;
+    // The checklist item represented by this card. See the Checklist contract for more info.
+    uint8 checklistId;
 
     // The sale in which this card was sold
+    // TODO: does this really matter???
     uint8 saleId;
 
     // Cards for a given player have a serial number, which gets
     // incremented in sequence. If we mint 1000 Messis, the third one
     // to be minted has serialNumber = 3 (out of 1000, for example).
     uint16 serialNumber;
-
-    // Set ID 1 = Base Set
-    // Set ID 2 = Daily Challenge Set
-    uint8 setId;
   }
 
   /*** STORAGE ***/
@@ -41,7 +38,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
   /// @dev All the cards that have been minted, indexed by cardId.
   Card[] public cards;
 
-  mapping (uint8 => mapping (uint8 => uint16)) playerCountForSet;
+  mapping (uint8 => uint16) cardCountForChecklistId;
 
   /*** FUNCTIONS ***/
 
@@ -60,27 +57,24 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
   }
 
   /// @dev An internal method that creates a new card and stores it.
-  ///  Emits both a Birth and a Transfer event.
-  /// @param _playerId The ID of the player on the card (see WorldCupInfo)
+  ///  Emits both a CardMinted and a Transfer event.
+  /// @param _checklistId The ID of the checklistItem represented by the card (see Checklist.sol)
   /// @param _saleId The sale in which this card was sold
-  /// @param _setId 1 for Base Set and 2 for Daily Challenge
   /// @param _owner The card's first owner!
   function _mintCard(
-    uint8 _playerId,
+    uint8 _checklistId,
     uint8 _saleId,
-    uint8 _setId,
     address _owner
   )
     internal
     returns (uint256)
   {
-    uint16 serialNumber = ++playerCountForSet[_setId][_playerId];
+    uint16 serialNumber = ++cardCountForChecklistId[_checklistId];
     Card memory newCard = Card({
       mintTime: uint64(now),
-      playerId: _playerId,
+      checklistId: _checklistId,
       saleId: _saleId,
-      serialNumber: serialNumber,
-      setId: _setId
+      serialNumber: serialNumber
     });
     uint256 newCardId = cards.push(newCard) - 1;
     emit CardMinted(newCardId);
