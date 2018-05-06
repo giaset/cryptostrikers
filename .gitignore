@@ -32,7 +32,4 @@ cloud-functions-emulator.log
 
 firebase-debug.log
 
-public/contracts/StrikersCore.json
-public/contracts/StrikersPackSale.json
-
 players.json
