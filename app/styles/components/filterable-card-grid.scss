@@ -1,24 +1,33 @@
 .filterable-card-grid {
-  .card-image-container {
-    background-color: rgba(0, 0, 0, 0.3);
-    padding-bottom: 140%;
+  .card-tile {
     position: relative;
 
-    .card-image {
-      position: absolute;
-      left: 0;
+    .card-image-container {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding-bottom: 140%;
+
+      .card-image {
+        position: absolute;
+        left: 0;
+      }
     }
-  }
 
-  .player-name, .checklist-number {
-    margin: 0;
-  }
+    .card-count-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+    }
 
-  .player-name {
-    font-size: 12px;
-  }
+    .player-name, .checklist-number {
+      margin: 0;
+    }
 
-  .card-count, .checklist-number {
-    font-size: 10px;
+    .player-name {
+      font-size: 12px;
+    }
+
+    .card-count, .checklist-number {
+      font-size: 10px;
+    }
   }
 }

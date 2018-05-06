@@ -14,8 +14,9 @@ export default DS.RESTSerializer.extend({
   normalizeFindRecordResponse(store, primaryModelClass, payload, id, requestType) {
     const fixedPayload = { card: payload };
     fixedPayload.card.id = id;
+    fixedPayload.card.checklistItem = payload.checklistId.padStart(3, '0');
     fixedPayload.card.mintTime = parseInt(payload.mintTime) * 1000;
-    fixedPayload.card.player = payload.playerId;
+    fixedPayload.card.sale = payload.saleId;
     return this._super(store, primaryModelClass, fixedPayload, id, requestType);
   },
 

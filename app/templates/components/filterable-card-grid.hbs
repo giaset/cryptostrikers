@@ -1,4 +1,5 @@
 {{input value=searchQuery placeholder="Search Players" class="mb-4"}}
+Only show cards I own: {{input type="checkbox" checked=onlyShowOwned}}
 <ul class="nav nav-pills">
   {{#each sets as |set|}}
     <li class="nav-item">
@@ -10,7 +11,7 @@
 <div class="row">
   {{#each filteredItems as |checklistItem|}}
     <div class="col-6 col-sm-4 col-md-3">
-      {{card-tile checklistItem=checklistItem class="mb-4"}}
+      {{card-tile checklistItem=checklistItem checklistItemToOwnedCount=checklistItemToOwnedCount class="mb-4"}}
     </div>
   {{/each}}
 </div>

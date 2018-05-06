@@ -1,9 +1,8 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
+  checklistItem: DS.belongsTo(),
   mintTime: DS.attr('date'),
-  player: DS.belongsTo(),
-  saleId: DS.attr('number'),
-  serialNumber: DS.attr('number'),
-  setId: DS.attr('number')
+  sale: DS.belongsTo(),
+  serialNumber: DS.attr('number')
 });
