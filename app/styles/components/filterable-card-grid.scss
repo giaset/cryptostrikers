@@ -1,4 +1,15 @@
 .filterable-card-grid {
+  .card-image-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-bottom: 140%;
+    position: relative;
+
+    .card-image {
+      position: absolute;
+      left: 0;
+    }
+  }
+
   .player-name, .checklist-number {
     margin: 0;
   }
