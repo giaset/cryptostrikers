@@ -1,8 +1,10 @@
-<div class="card-image-container mb-2">
-  <img src="/assets/images/cards/{{checklistItem.filename}}" class="card-image img-fluid">
-</div>
-{{#if (gt ownedCount 1)}}
-  <h5><span class="card-count-badge badge badge-pill badge-primary">{{ownedCount}}</span></h5>
-{{/if}}
-<p class="player-name font-weight-bold">{{checklistItem.player.name}}</p>
-<p class="checklist-number opacity-30">{{checklistItem.set.descriptor}} · #{{checklistItem.id}}</p>
+{{#link-to "cards" checklistItem.id}}
+  <div class="card-image-container mb-2">
+    <img src={{checklistItem.filepath}} class="card-image img-fluid">
+  </div>
+  {{#if (gt ownedCount 1)}}
+    <h5><span class="card-count-badge badge badge-pill badge-primary">{{ownedCount}}</span></h5>
+  {{/if}}
+  <p class="player-name font-weight-bold">{{checklistItem.player.name}}</p>
+  <p class="checklist-number opacity-30">{{checklistItem.set.descriptor}} · #{{checklistItem.id}}</p>
+{{/link-to}}

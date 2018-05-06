@@ -6,9 +6,11 @@ export default DS.Model.extend({
   set: DS.belongsTo(),
   totalIssuance: DS.attr('number'),
 
-  filename: computed('id', 'set.id', function() {
+  filepath: computed('id', 'set.id', function() {
+    const path = '/assets/images/cards/';
     const isGilang = this.get('set.id') === '1';
     const extension = isGilang ? 'jpg' : 'svg';
-    return `${this.get('id')}.${extension}`;
+    const filename = `${this.get('id')}.${extension}`;
+    return path + filename;
   })
 });
