@@ -36,7 +36,7 @@ Router.map(function() {
     this.route('sign-in');
   }
   this.route('404', { path: '/*path' });
-  this.route('cards', { path: '/cards/:card_id' });
+  this.route('cards', { path: '/cards/:checklist_id' });
   this.route('sales', { path: '/sales/:sale_id' });
   this.route('kitty-sale');
   if (config.environment === 'development') {

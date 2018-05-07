@@ -52,21 +52,21 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     return strConcat(API_URL, _id);
   }
 
-  function cardIdsForOwner(address _owner) external view returns (uint256[]) {
-    return ownedTokens[_owner];
-  }
-
-  function checklistIdsForOwner(address _owner) external view returns (uint8[]) {
+  /// @dev For a given owner, returns two arrays. The first contains the IDs of every card owned
+  ///   by this address. The second returns the corresponding checklist ID for each of these cards.
+  ///   There are a few places we need this info in the web app and short of being able to return an
+  ///   actual array of Cards, this is the best solution we could come up with...
+  function cardAndChecklistIdsForOwner(address _owner) external view returns (uint256[], uint8[]) {
     uint256[] memory cardIds = ownedTokens[_owner];
     uint256 cardCount = cardIds.length;
     uint8[] memory checklistIds = new uint8[](cardCount);
 
-    for (uint8 i = 0; i < cardCount; i++) {
+    for (uint256 i = 0; i < cardCount; i++) {
       uint256 cardId = cardIds[i];
       checklistIds[i] = cards[cardId].checklistId;
     }
 
-    return checklistIds;
+    return (cardIds, checklistIds);
   }
 
   /// @dev An internal method that creates a new card and stores it.

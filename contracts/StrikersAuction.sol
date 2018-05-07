@@ -12,4 +12,9 @@ contract StrikersAuction is StrikersMinting {
   function setSaleAuctionAddress(address _address) external onlyOwner {
     saleAuctionContract = SaleClockAuction(_address);
   }
+
+  function listCardForSale(uint256 _cardId, uint256 _price) external {
+    approve(saleAuctionContract, _cardId);
+    saleAuctionContract.createDutchAuction(this, _cardId, _price, _price, 1 minutes);
+  }
 }

@@ -1,8 +1,15 @@
 import Route from '@ember/routing/route';
+import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  currentUser: service(),
+  strikersContracts: service(),
+  web3: service(),
+
   actions: {
     error() {
+      // TODO: this is wonky, why can't we go to 404?
       this.replaceWith('index');
     }
   },
@@ -13,5 +20,31 @@ export default Route.extend({
     if (this.get('web3.wrongNetwork')) {
       this.transitionTo('sign-in');
     }
+  },
+
+  model(params) {
+    const checklistId = params.checklist_id;
+    const contract = this.get('strikersContracts.StrikersCore.methods');
+    const owner = this.get('currentUser.user.id');
+    const store = this.get('store');
+
+    const myCards = contract.cardAndChecklistIdsForOwner(owner).call().then(arrays => {
+      const cardIds = arrays[0];
+      const checklistIds = arrays[1];
+      const cardIdsForThisChecklistId = [];
+      checklistIds.forEach((id, index) => {
+        if (id.padStart(3, '0') === checklistId) {
+          cardIdsForThisChecklistId.push(cardIds[index]);
+        }
+      });
+      const promises = cardIdsForThisChecklistId.map(cardId => store.findRecord('card', cardId));
+      return RSVP.all(promises);
+    });
+
+
+    return RSVP.hash({
+      checklistItem: store.findRecord('checklistItem', checklistId),
+      myCards
+    });
   }
 });

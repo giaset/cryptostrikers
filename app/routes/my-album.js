@@ -20,7 +20,8 @@ export default Route.extend({
 
     return RSVP.hash({
       checklistItems: store.findAll('checklistItem'),
-      myChecklistIds: contract.checklistIdsForOwner(owner).call().then(checklistIds => {
+      myChecklistIds: contract.cardAndChecklistIdsForOwner(owner).call().then(arrays => {
+        const checklistIds = arrays[1];
         return checklistIds.map(checklistId => checklistId.padStart(3, '0'));
       }),
       sets: store.findAll('set')
