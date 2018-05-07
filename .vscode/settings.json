@@ -6,8 +6,7 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/vendor": true,
-    "**/public/contracts": true,
-    "**/functions/StrikersMinting.json": true
+    "**/public/contracts": true
   },
   "javascript.validate.enable": false
 }

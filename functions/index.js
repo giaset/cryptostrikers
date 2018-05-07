@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const app = require('express')();
-const contractJson = require('./StrikersMinting');
+const contractJson = require('./StrikersCore');
 const cors = require('cors')({origin: true});
 const functions = require('firebase-functions');
 const serviceAccount = require(functions.config().strikers.service_account);
