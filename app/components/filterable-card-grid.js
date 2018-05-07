@@ -7,13 +7,14 @@ export default Component.extend({
   onlyShowOwned: true,
   selectedSetId: '0',
 
-  filteredItems: computed('checklistItems', 'checklistItemToOwnedCount', 'onlyShowOwned', 'selectedSetId', 'searchQuery', function() {
+  filteredItems: computed('checklistItems.[]', 'checklistItemToOwnedCount', 'onlyShowOwned', 'selectedSetId', 'searchQuery', function() {
     const checklistItemToOwnedCount = this.get('checklistItemToOwnedCount');
     const onlyShowOwned = this.get('onlyShowOwned');
     const selectedSetId = this.get('selectedSetId');
     const searchQuery = this.get('searchQuery');
     const formattedQuery = isBlank(searchQuery) ? null : searchQuery.toLowerCase();
-    return this.get('checklistItems').filter(checklistItem => {
+    const sortedChecklistItems = this.get('checklistItems').sortBy('id');
+    return sortedChecklistItems.filter(checklistItem => {
       const setId = checklistItem.get('set.id');
       if (setId !== selectedSetId) {
         return false;
