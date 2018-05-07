@@ -56,6 +56,19 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
     return ownedTokens[_owner];
   }
 
+  function checklistIdsForOwner(address _owner) external view returns (uint8[]) {
+    uint256[] memory cardIds = ownedTokens[_owner];
+    uint256 cardCount = cardIds.length;
+    uint8[] memory checklistIds = new uint8[](cardCount);
+
+    for (uint8 i = 0; i < cardCount; i++) {
+      uint256 cardId = cardIds[i];
+      checklistIds[i] = cards[cardId].checklistId;
+    }
+
+    return checklistIds;
+  }
+
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a CardMinted and a Transfer event.
   /// @param _checklistId The ID of the checklistItem represented by the card (see Checklist.sol)

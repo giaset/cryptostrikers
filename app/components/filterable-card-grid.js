@@ -33,10 +33,9 @@ export default Component.extend({
     });
   }),
 
-  checklistItemToOwnedCount: computed('myCards', function() {
+  checklistItemToOwnedCount: computed('myChecklistIds', function() {
     const ownedMap = {};
-    this.get('myCards').forEach(card => {
-      const checklistId = card.get('checklistItem.id');
+    this.get('myChecklistIds').forEach(checklistId => {
       ownedMap[checklistId] = (ownedMap[checklistId] + 1) || 1;
     });
     return ownedMap;

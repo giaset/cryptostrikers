@@ -14,18 +14,15 @@ export default Route.extend({
   },
 
   model() {
+    const contract = this.get('strikersContracts.StrikersCore.methods');
     const owner = this.get('currentUser.user.id');
     const store = this.get('store');
 
-    const contract = this.get('strikersContracts.StrikersCore.methods');
-    const myCards = contract.cardIdsForOwner(owner).call().then(cardIds => {
-      const promises = cardIds.map(cardId => store.findRecord('card', cardId));
-      return RSVP.all(promises);
-    });
-
     return RSVP.hash({
       checklistItems: store.findAll('checklistItem'),
-      myCards,
+      myChecklistIds: contract.checklistIdsForOwner(owner).call().then(checklistIds => {
+        return checklistIds.map(checklistId => checklistId.padStart(3, '0'));
+      }),
       sets: store.findAll('set')
     });
   },
