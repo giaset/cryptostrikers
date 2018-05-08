@@ -36,6 +36,8 @@ export default Controller.extend({
 
     if (email && nickname) {
       yield this._createUser(sessionData, email, nickname);
+    } else {
+      yield this.get('currentUser').load();
     }
   }),
 
