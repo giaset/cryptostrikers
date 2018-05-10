@@ -1,12 +1,10 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 import moment from 'moment';
 
 export default Component.extend({
   classNameBindings: ['countdownOver:opacity-30'],
   classNames: ['pack-sale-tile', 'my-3', 'p-3', 'rounded', 'border', 'box-shadow', 'd-flex'],
-  modal: service(),
   selectedQuantity: 1,
 
   actions: {
