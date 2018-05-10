@@ -12,12 +12,9 @@ export default DS.RESTSerializer.extend({
   },
 
   normalizeFindRecordResponse(store, primaryModelClass, payload, id, requestType) {
-    const fixedPayload = { card: payload };
-    fixedPayload.card.id = id;
-    fixedPayload.card.checklistItem = payload.checklistId.padStart(3, '0');
-    fixedPayload.card.mintTime = parseInt(payload.mintTime) * 1000;
-    fixedPayload.card.sale = payload.saleId;
-    return this._super(store, primaryModelClass, fixedPayload, id, requestType);
+    const card = payload;
+    card.id = id;
+    return this._super(store, primaryModelClass, { card }, id, requestType);
   },
 
   normalizeQueryResponse(store, primaryModelClass, payload) {
@@ -35,6 +32,14 @@ export default DS.RESTSerializer.extend({
       fixedHash = {
         id: hash.token_id,
         player: playerId
+      };
+    } else if (hash[0]) { // massage data coming from smart contract
+      fixedHash = {
+        id: hash.id,
+        checklistItem: hash.checklistId.padStart(3, '0'),
+        mintTime: hash.mintTime * 1000,
+        sale: hash.sale,
+        serialNumber: hash.serialNumber
       };
     }
 
