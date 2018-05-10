@@ -142,5 +142,9 @@ export default Service.extend({
 
   personalSign(dataToSign, from) {
     return this._instance.eth.personal.sign(dataToSign, from);
+  },
+
+  isAddress(address) {
+    return this._instance.utils.isAddress(address);
   }
 });

@@ -1,0 +1,17 @@
+<div class="strikers-modal-overlay" onclick={{action (ignore-children reject)}}>
+  <div class="strikers-modal-dialog p-4">
+    {{#if loadCards.isRunning}}
+      {{spinkit-cube-grid}}
+    {{else if cards}}
+      <h5>{{user.nickname}}'s cards:</h5>
+      <div class="row">
+        {{#each cards as |card|}}
+          <div class="col-3 mb-2 text-center">
+            <img src={{card.checklistItem.filepath}} class="img-fluid clickable" {{action resolve card}}>
+            <span>#{{card.serialNumber}}/{{card.checklistItem.totalIssuance}}</span>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</div>

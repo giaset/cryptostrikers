@@ -7,6 +7,7 @@
 @import "app/styles/components/filterable-card-grid";
 @import "app/styles/components/pack-sale-tile";
 @import "app/styles/components/revealable-card";
+@import "app/styles/components/trading-container";
 @import "app/styles/flags";
 
 .box-shadow {
@@ -74,8 +75,8 @@ body {
   .strikers-modal-dialog {
     background-color: white;
     margin: auto;
-    padding: 20px;
     border-radius: 8px;
+    width: 520px;
   }
 }
 

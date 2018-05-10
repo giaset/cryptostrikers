@@ -27,7 +27,6 @@ Router.map(function() {
     this.authenticatedRoute('buy-packs');
     this.authenticatedRoute('my-album');
     this.route('marketplace');
-    this.route('challenge');
     this.route('login');
     this.authenticatedRoute('profile');
     this.route('activity', function() {
@@ -45,6 +44,7 @@ Router.map(function() {
   this.route('checklist', function() {
     this.route('show', { path: '/:checklist_item_id' });
   });
+  this.route('trade');
 });
 
 export default Router;

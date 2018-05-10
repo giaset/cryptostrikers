@@ -1,0 +1,42 @@
+<div class="row mb-4">
+  <div class="col">
+    <h4>Step 1</h4>
+    <h5>Who do you want to trade with?</h5>
+    <h5>(Leave blank for an "open-ended" trade.)</h5>
+    <h5>Benn: 0x1bCd7FC3Aa5EA863D52a54827f21f42e1AC2ef47</h5>
+    <h5>Gianni: 0x3DbCe7daFF19F3F3169A705341D513a69E3CC40a</h5>
+    {{input value=counterpartyAddress class="form-control form-control-lg" placeholder="A valid Ethereum address"}}
+    {{#if invalidCounterpartyAddress}}
+      <span class="text-danger">Either leave this empty, or enter a valid Ethereum address.</span>
+    {{/if}}
+  </div>
+</div>
+<div class="row{{if invalidCounterpartyAddress " opacity-30"}}">
+  <div class="col-12"><h4>Step 2 - Trading with {{if counterpartyUser counterpartyUser.nickname "anybody"}}</h4></div>
+  <div class="col"><h5>Card I'll Give</h5></div>
+  <div class="col"></div>
+  <div class="col"><h5>Card I'll Get</h5></div>
+</div>
+<div class="row{{if invalidCounterpartyAddress " opacity-30"}}">
+  <div class="col">
+    {{#if myCard}}
+      <img src={{myCard.checklistItem.filepath}} class="img-fluid clickable" {{action "leftPlaceholderClicked"}}>
+    {{else}}
+      <div class="trade-placeholder clickable d-flex" {{action "leftPlaceholderClicked"}}>
+        {{fa-icon "plus-circle" size="2x" class="m-auto"}}
+      </div>
+    {{/if}}
+  </div>
+  <div class="col d-flex">
+    <img class="trade-icon m-auto" src="/assets/images/trade.svg">
+  </div>
+  <div class="col">
+    {{#if counterpartyCard}}
+      <img src={{counterpartyCard.checklistItem.filepath}} class="img-fluid clickable" {{action "rightPlaceholderClicked"}}>
+    {{else}}
+      <div class="trade-placeholder clickable d-flex" {{action "rightPlaceholderClicked"}}>
+        {{fa-icon "plus-circle" size="2x" class="m-auto"}}
+      </div>
+    {{/if}}
+  </div>
+</div>

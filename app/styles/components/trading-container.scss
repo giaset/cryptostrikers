@@ -1,0 +1,16 @@
+.trading-container {
+  max-width: 570px;
+
+  .trade-placeholder {
+    height: 238px;
+    border: 5px dashed black;
+
+    .fa-plus-circle {
+      color: $green;
+    }
+  }
+
+  .trade-icon {
+    width: 100px;
+  }
+}
