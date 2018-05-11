@@ -7,6 +7,10 @@ export default Component.extend({
   onlyShowOwned: true,
   selectedSetId: '0',
 
+  ownsZeroCards: computed('checklistItemToOwnedCount', function() {
+    return Object.keys(this.get('checklistItemToOwnedCount')).length === 0;
+  }),
+
   filteredItems: computed('checklistItems.[]', 'checklistItemToOwnedCount', 'onlyShowOwned', 'selectedSetId', 'searchQuery', function() {
     const checklistItemToOwnedCount = this.get('checklistItemToOwnedCount');
     const onlyShowOwned = this.get('onlyShowOwned');

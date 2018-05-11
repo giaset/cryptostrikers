@@ -13,5 +13,16 @@ Only show cards I own: {{input type="checkbox" checked=onlyShowOwned}}
     <div class="col-6 col-sm-4 col-md-3">
       {{card-tile checklistItem=checklistItem checklistItemToOwnedCount=checklistItemToOwnedCount class="mb-4"}}
     </div>
+  {{else}}
+    <div class="col text-center">
+      <h5>
+        {{#if ownsZeroCards}}
+          <p>You have no cards yet.</p>
+          <p>You can get started by {{link-to "buying a pack" "buy-packs"}}.</p>
+        {{else}}
+          <p>No cards matching those filters.</p>
+        {{/if}}
+      </h5>
+    </div>
   {{/each}}
 </div>
