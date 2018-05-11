@@ -13,33 +13,36 @@ export default Service.extend({
 
     const coreContractPromise = this._loadContract(
       'StrikersCore',
-      ENV.strikers.coreContractJSON,
       ENV.strikers.coreContractAddress
     );
 
     const kittiesContractPromise = this._loadContract(
-      'KittiesContract',
-      ENV.strikers.kittiesContractJSON,
+      'KittiesInterface',
       ENV.strikers.kittiesContractAddress
     );
 
     const saleContractPromise = this._loadContract(
       'StrikersPackSale',
-      ENV.strikers.saleContractJSON,
       ENV.strikers.saleContractAddress
+    );
+
+    const tradingContractPromise = this._loadContract(
+      'StrikersTrading',
+      ENV.strikers.tradingContractAddress
     );
 
     return RSVP.all([
       coreContractPromise,
       kittiesContractPromise,
-      saleContractPromise
+      saleContractPromise,
+      tradingContractPromise
     ]);
   },
 
-  _loadContract(contractName, fileName, address) {
+  _loadContract(contractName, address) {
     const jsonPrefix = this.get('jsonPrefix');
     const web3 = this.get('web3');
-    return $.getJSON(`${jsonPrefix}contracts/${ENV.strikers.contractJsonPrefix}${fileName}.json`)
+    return $.getJSON(`${jsonPrefix}contracts/${ENV.strikers.contractJsonPrefix}${contractName}.json`)
     .then(json => {
       run(() => {
         this.set(contractName, web3.contract(json.abi, address));

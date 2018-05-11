@@ -1,7 +1,8 @@
-const Checklist = artifacts.require("./Checklist.sol");
-const SaleClockAuction = artifacts.require("./OpenSea/SaleClockAuction.sol");
-const StrikersCore = artifacts.require("./StrikersCore.sol");
-const StrikersPackSale = artifacts.require("./StrikersPackSale.sol");
+const Checklist = artifacts.require('./Checklist.sol');
+const SaleClockAuction = artifacts.require('./OpenSea/SaleClockAuction.sol');
+const StrikersCore = artifacts.require('./StrikersCore.sol');
+const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
+const StrikersTrading = artifacts.require('./StrikersTrading.sol');
 
 const CARDS_PER_PACK = 4;
 const PACKS_PER_LOAD = 500;
@@ -95,5 +96,6 @@ module.exports = function(deployer, network) {
     const kittySalePacks = generatePacks(5);
     return loadPacks(2, kittySalePacks, strikersPackSale);
   })
-  .then(() => strikersPackSale.startSale(2));
+  .then(() => strikersPackSale.startSale(2))
+  .then(() => deployer.deploy(StrikersTrading));
 };
