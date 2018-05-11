@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import DS from 'ember-data';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 
@@ -12,24 +12,30 @@ export default Component.extend({
   web3: service(),
 
   actions: {
-    leftPlaceholderClicked() {
-      if (this.get('invalidCounterpartyAddress')) { return; }
-      const myAddress = this.get('currentUser.user.id');
-      this.get('modal').open('trade-picker', { owner: myAddress }).then(card => {
-        this.set('myCard', card);
+    placeholderClicked(mySide) {
+      if (this.get('counterpartyAddressError')) { return; }
+      const owner = mySide ? this.get('currentUser.user.id') : this.get('counterpartyAddress');
+      this.get('modal').open('trade-picker', { owner }).then(card => {
+        const propName = mySide ? 'myCard' : 'counterpartyCard';
+        this.set(propName, card);
       })
       .catch(() => {});
-    },
-
-    rightPlaceholderClicked() {
-      if (this.get('invalidCounterpartyAddress')) { return; }
-      const counterpartyAddress = this.get('counterpartyAddress');
-      this.get('modal').open('trade-picker', { owner: counterpartyAddress }).then(card => {
-        this.set('counterpartyCard', card);
-      })
-      .catch(() => {});
-    },
+    }
   },
+
+  counterpartyAddressError: computed('counterpartyAddress', function() {
+    const address = this.get('counterpartyAddress');
+    if (isBlank(address)) { return null; }
+    if (!this.get('web3').isAddress(address)) {
+      return 'Either leave this empty, or enter a valid Ethereum address.';
+    }
+
+    if (address === this.get('currentUser.user.id')) {
+      return 'You can\'t trade cards with yourself.';
+    }
+
+    return null;
+  }),
 
   counterpartyUser: computed('counterpartyAddress', function() {
     const address = this.get('counterpartyAddress');
@@ -41,9 +47,7 @@ export default Component.extend({
     return DS.PromiseObject.create({ promise });
   }),
 
-  invalidCounterpartyAddress: computed('counterpartyAddress', function() {
-    const address = this.get('counterpartyAddress');
-    if (isBlank(address)) { return false; }
-    return !this.get('web3').isAddress(address);
+  _resetCounterPartyCard: observer('counterpartyAddress', function() {
+    this.set('counterpartyCard', null);
   })
 });
