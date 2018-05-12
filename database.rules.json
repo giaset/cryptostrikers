@@ -27,6 +27,12 @@
     "stats": {
       ".read": true
     },
+    "trades": {
+      ".read": "auth !== null",
+      "$tradeId": {
+        ".write": "auth !== null && !data.exists() && newData.exists()"
+      }
+    },
     "userMetadata": {
       "$uid": {
         ".read": true,

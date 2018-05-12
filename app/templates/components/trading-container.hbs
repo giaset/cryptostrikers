@@ -42,8 +42,6 @@
 </div>
 <div class="row mt-4">
   <div class="col text-center">
-    {{input class="form-control form-control-lg" value=tradeHash readonly=true}}
-    {{input class="form-control form-control-lg" value=solidityTradeHash.content readonly=true}}
-    <button type="button" class="btn btn-success mt-2" {{action "createTrade" tradeHash}}>Create Trade</button>
+    <button type="button" class="btn btn-success mt-2" {{action "createTrade"}} disabled={{buttonDisabled}}>Create Trade</button>
   </div>
 </div>
