@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import ENV from 'cryptostrikers/config/environment';
-import firebase from 'firebase';
 
 const WRONG_OWNER_ERROR = 'That cat is not yours.';
 
@@ -56,36 +55,17 @@ export default Controller.extend({
     },
 
     getFreePack(kittyId) {
-      const currentUser = this.get('currentUser.user');
+      const currentUser = this.get('currentUser');
       const packSaleContract = this.get('strikersContracts.StrikersPackSale.methods');
       const saleId = this.get('model.id');
-      packSaleContract.buyPackWithKitty(saleId, kittyId).send({ from: currentUser.get('id') })
-      .on('transactionHash', hash => {
-        this._handleTransactionHash(hash, currentUser, saleId, kittyId);
+      packSaleContract.buyPackWithKitty(saleId, kittyId).send({ from: currentUser.get('address') })
+      .on('transactionHash', txnHash => {
+        const type = 'buy_pack_with_kitty';
+        const activity = { kittyId, saleId, txnHash, type };
+        currentUser.addActivity(activity).then(activityId => {
+          this.transitionToRoute('activity.show', activityId);
+        });
       });
     }
-  },
-
-  // TODO: put this in a service or something
-  _handleTransactionHash(hash, currentUser, saleId, kittyId) {
-    const activity = this.store.createRecord('activity', {
-      kittyId: kittyId,
-      saleId: saleId,
-      txnHash: hash,
-      type: 'buy_pack_with_kitty',
-      user: currentUser
-    });
-    currentUser.get('activities').addObject(activity);
-    let activityId;
-    activity.save().then(activity => {
-      activityId = activity.get('id');
-      // https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
-      activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
-      return activity.save();
-    })
-    .then(() => currentUser.save())
-    .then(() => {
-      this.transitionToRoute('activity.show', activityId);
-    });
   }
 });

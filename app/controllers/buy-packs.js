@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import firebase from 'firebase';
 
 export default Controller.extend({
   currentUser: service(),
@@ -26,32 +25,16 @@ export default Controller.extend({
         gasPrice: gasPriceInWei,
         value: packPrice * packQuantity
       })
-      .on('transactionHash', hash => {
-        this._handleTransactionHash(hash, currentUser);
+      .on('transactionHash', txnHash => {
+        const type = 'buy_pack';
+        const activity = { saleId, txnHash, type };
+        currentUser.addActivity(activity).then(activityId => {
+          this.transitionToRoute('activity.show', activityId);
+        });
       })
       .on('error', () => {
         // TODO: handle error
       });
     }
-  },
-
-  _handleTransactionHash(hash, currentUser) {
-    const activity = this.store.createRecord('activity', {
-      txnHash: hash,
-      type: 'buy_pack',
-      user: currentUser
-    });
-    currentUser.get('activities').addObject(activity);
-    let activityId;
-    activity.save().then(activity => {
-      activityId = activity.get('id');
-      // https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
-      activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
-      return activity.save();
-    })
-    .then(() => currentUser.save())
-    .then(() => {
-      this.transitionToRoute('activity.show', activityId);
-    });
   }
 });
