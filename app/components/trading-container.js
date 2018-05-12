@@ -14,8 +14,7 @@ export default Component.extend({
   web3: service(),
 
   actions: {
-    createTrade() {
-      const web3 = this.get('web3');
+    createTradeClicked() {
       const tradingContractAddress = ENV.strikers.tradingContractAddress;
       const maker = this.get('currentUser.address');
       const makerCardId = this.get('myCard.id');
@@ -23,31 +22,24 @@ export default Component.extend({
       const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
       const salt = Date.now();
 
-      const address = this.get('currentUser.address');
+      const trade = {
+        tradingContractAddress,
+        maker,
+        makerCardId,
+        taker,
+        takerCardOrChecklistId,
+        salt
+      };
+
+      const web3 = this.get('web3');
       const tradeHash = web3.soliditySha3(tradingContractAddress, maker, makerCardId, taker, takerCardOrChecklistId, salt);
-      web3.personalSign(tradeHash, address).then(signedHash => {
-        const trade = this.get('store').createRecord('trade', {
-          tradingContractAddress,
-          maker,
-          makerCardId,
-          taker,
-          takerCardOrChecklistId,
-          salt,
-          signedHash
-        });
-        return trade.save();
-      });
-      /*.then(() => {
-        debugger
-      })
-      .catch(error => {
-        debugger;
-      });*/
+
+      this.createTrade(trade, tradeHash);
     },
 
     placeholderClicked(mySide) {
       if (this.get('counterpartyAddressError')) { return; }
-      const owner = mySide ? this.get('currentUser.user.id') : this.get('counterpartyAddress');
+      const owner = mySide ? this.get('currentUser.address') : this.get('counterpartyAddress');
       this.get('modal').open('trade-picker', { owner }).then(cardOrChecklistItem => {
         if (mySide) {
           this.set('myCard', cardOrChecklistItem);
@@ -76,7 +68,7 @@ export default Component.extend({
       return 'Either leave this empty, or enter a valid Ethereum address.';
     }
 
-    if (address === this.get('currentUser.user.id')) {
+    if (address === this.get('currentUser.address')) {
       return 'You can\'t trade cards with yourself.';
     }
 

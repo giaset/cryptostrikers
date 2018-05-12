@@ -34,13 +34,13 @@ export default Service.extend({
     const newActivity = this.get('store').createRecord('activity', payload);
     user.get('activities').addObject(newActivity);
     let activityId;
-    newActivity.save().then(activity => {
+    return newActivity.save().then(activity => {
       activityId = activity.get('id');
       // https://github.com/firebase/emberfire/issues/447#issuecomment-264001234
       activity.set('createdAt', firebase.database.ServerValue.TIMESTAMP);
       return activity.save();
     })
     .then(() => user.save())
-    .then(() => activityId);
+    .then(() => RSVP.resolve(activityId));
   }
 });
