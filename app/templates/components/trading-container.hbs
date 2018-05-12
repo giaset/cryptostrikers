@@ -31,10 +31,19 @@
   <div class="col">
     {{#if counterpartyCard}}
       <img src={{counterpartyCard.checklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked"}}>
+    {{else if counterpartyChecklistItem}}
+      <img src={{counterpartyChecklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked"}}>
     {{else}}
       <div class="trade-placeholder clickable d-flex" {{action "placeholderClicked"}}>
         {{fa-icon "plus-circle" size="2x" class="m-auto"}}
       </div>
     {{/if}}
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col text-center">
+    {{input class="form-control form-control-lg" value=tradeHash readonly=true}}
+    {{input class="form-control form-control-lg" value=solidityTradeHash.content readonly=true}}
+    <button type="button" class="btn btn-success mt-2" {{action "createTrade" tradeHash}}>Create Trade</button>
   </div>
 </div>

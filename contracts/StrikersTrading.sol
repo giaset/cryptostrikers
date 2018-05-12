@@ -19,7 +19,7 @@ contract StrikersTrading {
     returns (bytes32)
   {
     return keccak256(
-      address(this),
+      this,
       _maker,
       _makerCardId,
       _taker,

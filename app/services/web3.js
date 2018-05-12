@@ -146,5 +146,13 @@ export default Service.extend({
 
   isAddress(address) {
     return this._instance.utils.isAddress(address);
+  },
+
+  soliditySha3(...params) {
+    return this._instance.utils.soliditySha3(...params);
+  },
+
+  toHex(input) {
+    return this._instance.utils.toHex(input);
   }
 });

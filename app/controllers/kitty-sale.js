@@ -20,9 +20,9 @@ export default Controller.extend({
         return;
       }
 
-      const kittiesContract = this.get('strikersContracts.KittiesContract.methods');
+      const kittiesInterface = this.get('strikersContracts.KittiesInterface.methods');
       const myAddress = this.get('currentUser.user.id');
-      kittiesContract.ownerOf(kittyId).call()
+      kittiesInterface.ownerOf(kittyId).call()
       .then(owner => {
         if (owner !== myAddress) {
           throw new Error(WRONG_OWNER_ERROR);
@@ -46,10 +46,10 @@ export default Controller.extend({
     },
 
     approveKitty(kittyId) {
-      const kittiesContract = this.get('strikersContracts.KittiesContract.methods');
+      const kittiesInterface = this.get('strikersContracts.KittiesInterface.methods');
       const myAddress = this.get('currentUser.user.id');
       const packSaleAddress = ENV.strikers.saleContractAddress;
-      kittiesContract.approve(packSaleAddress, kittyId).send({ from: myAddress })
+      kittiesInterface.approve(packSaleAddress, kittyId).send({ from: myAddress })
       .on('transactionHash', hash => {
         this.set('transactionHash', hash);
       });

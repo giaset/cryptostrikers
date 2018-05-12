@@ -1,26 +1,51 @@
 import Component from '@ember/component';
 import DS from 'ember-data';
+import ENV from 'cryptostrikers/config/environment';
 import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
+import BigNumber from 'npm:bignumber.js';
+
+const MAX_DIGITS_IN_UNSIGNED_256_INT = 78;
 
 export default Component.extend({
   classNames: ['trading-container', 'mx-auto'],
   currentUser: service(),
   modal: service(),
   store: service(),
+  strikersContracts: service(),
   web3: service(),
 
   actions: {
     placeholderClicked(mySide) {
       if (this.get('counterpartyAddressError')) { return; }
       const owner = mySide ? this.get('currentUser.user.id') : this.get('counterpartyAddress');
-      this.get('modal').open('trade-picker', { owner }).then(card => {
-        const propName = mySide ? 'myCard' : 'counterpartyCard';
-        this.set(propName, card);
+      this.get('modal').open('trade-picker', { owner }).then(cardOrChecklistItem => {
+        if (mySide) {
+          this.set('myCard', cardOrChecklistItem);
+        } else {
+          const isCard = cardOrChecklistItem.constructor.modelName === 'card';
+          const counterpartyCard = isCard ? cardOrChecklistItem : null;
+          const counterpartyChecklistItem = isCard ? null : cardOrChecklistItem;
+          this.set('counterpartyCard', counterpartyCard);
+          this.set('counterpartyChecklistItem', counterpartyChecklistItem);
+        }
       })
       .catch(() => {});
     }
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.set('salt', this._generatePseudoRandomSalt());
+  },
+
+  // https://github.com/0xProject/0x-monorepo/blob/development/packages/order-utils/src/salt.ts
+  _generatePseudoRandomSalt() {
+    const randomNumber = BigNumber.random(MAX_DIGITS_IN_UNSIGNED_256_INT);
+    const factor = new BigNumber(10).pow(MAX_DIGITS_IN_UNSIGNED_256_INT - 1);
+    const salt = randomNumber.times(factor).integerValue(BigNumber.ROUND_HALF_CEIL);
+    return salt;
   },
 
   counterpartyAddressError: computed('counterpartyAddress', function() {
@@ -47,7 +72,49 @@ export default Component.extend({
     return DS.PromiseObject.create({ promise });
   }),
 
-  _resetCounterPartyCard: observer('counterpartyAddress', function() {
+  _resetCounterpartyCard: observer('counterpartyAddress', function() {
     this.set('counterpartyCard', null);
+    this.set('counterpartyChecklistItem', null);
+  }),
+
+  tradeHash: computed(
+    'currentUser.address',
+    'myCard.id',
+    'counterpartyAddress',
+    'counterpartyCard.id',
+    'counterpartyChecklistItem.id',
+    'salt',
+    function() {
+      const tradingContractAddress = ENV.strikers.tradingContractAddress;
+      const maker = this.get('currentUser.address');
+      const makerCardId = this.get('myCard.id');
+      const taker = this.get('counterpartyAddress') || '0x0000000000000000000000000000000000000000';
+      const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
+      const salt = this.get('salt');
+
+      if (!makerCardId || !takerCardOrChecklistId || !salt) { return null; }
+
+      return this.get('web3').soliditySha3(tradingContractAddress, maker, makerCardId, taker, takerCardOrChecklistId, salt);
+  }),
+
+  solidityTradeHash: computed(
+    'currentUser.address',
+    'myCard.id',
+    'counterpartyAddress',
+    'counterpartyCard.id',
+    'counterpartyChecklistItem.id',
+    'salt',
+    function() {
+      const maker = this.get('currentUser.address');
+      const makerCardId = this.get('myCard.id');
+      const taker = this.get('counterpartyAddress') || '0x0000000000000000000000000000000000000000';
+      const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
+      const salt = this.get('salt');
+
+      if (!makerCardId || !takerCardOrChecklistId || !salt) { return { content: 'Pick cards you fuck' }; }
+
+      const contract = this.get('strikersContracts.StrikersTrading.methods');
+      const promise = contract.getTradeHash(maker, makerCardId, taker, takerCardOrChecklistId, salt).call();
+      return DS.PromiseObject.create({ promise });
   })
 });

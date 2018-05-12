@@ -12,6 +12,15 @@
           </div>
         {{/each}}
       </div>
+    {{else if checklistItems}}
+      <div class="row">
+        {{#each checklistItems as |checklistItem|}}
+          <div class="col-3 mb-2 text-center">
+            <img src={{checklistItem.filepath}} class="img-fluid clickable" {{action resolve checklistItem}}>
+            <span>Any</span>
+          </div>
+        {{/each}}
+      </div>
     {{else}}
       <h5>User has no cards.</h5>
     {{/if}}
