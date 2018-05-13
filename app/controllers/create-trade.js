@@ -14,14 +14,9 @@ export default Controller.extend({
         const newTrade = this.get('store').createRecord('trade', trade);
         return newTrade.save();
       })
-      .then(() => {
+      .then(trade => {
         const type = 'create_trade';
-        const activity = {
-          makerCardId: trade.makerCardId,
-          taker: trade.taker,
-          takerCardOrChecklistId: trade.takerCardOrChecklistId,
-          type
-        };
+        const activity = { trade, type };
         return currentUser.addActivity(activity);
       })
       .then(() => {

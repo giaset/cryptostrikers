@@ -1,0 +1,13 @@
+{{#if (eq activity.type "buy_pack")}}
+  {{#link-to "activity.show" activity.id}}
+    <p>You bought a pack on {{moment-format activity.createdAt}}</p>
+    <p>Transaction: {{activity.txnHash}}</p>
+  {{/link-to}}
+{{else if (eq activity.type "buy_pack_with_kitty")}}
+  {{#link-to "activity.show" activity.id}}
+    <p>You traded in Kitty #{{activity.kittyId}} on {{moment-format activity.createdAt}}</p>
+    <p>Transaction: {{activity.txnHash}}</p>
+  {{/link-to}}
+{{else if (eq activity.type "create_trade")}}
+  <p>You created a trade: {{activity.trade.prettyString}}.</p>
+{{/if}}

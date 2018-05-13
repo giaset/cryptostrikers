@@ -17,22 +17,25 @@ export default Component.extend({
     createTradeClicked() {
       const tradingContractAddress = ENV.strikers.tradingContractAddress;
       const maker = this.get('currentUser.address');
-      const makerCardId = this.get('myCard.id');
+      const makerCard = this.get('myCard');
       const taker = this.get('counterpartyAddress') || '0x0000000000000000000000000000000000000000';
-      const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
+      const takerCard = this.get('counterpartyCard');
+      const takerChecklistItem = this.get('counterpartyChecklistItem');
+      const takerCardOrChecklistId = takerCard ? takerCard.get('id') : takerChecklistItem.get('id');
       const salt = Date.now();
 
       const trade = {
         tradingContractAddress,
         maker,
-        makerCardId,
+        makerCard,
         taker,
-        takerCardOrChecklistId,
+        takerCard,
+        takerChecklistItem,
         salt
       };
 
       const web3 = this.get('web3');
-      const tradeHash = web3.soliditySha3(tradingContractAddress, maker, makerCardId, taker, takerCardOrChecklistId, salt);
+      const tradeHash = web3.soliditySha3(tradingContractAddress, maker, makerCard.get('id'), taker, takerCardOrChecklistId, salt);
 
       this.createTrade(trade, tradeHash);
     },

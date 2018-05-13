@@ -1,16 +1,6 @@
 <h1>Activity</h1>
 {{#each sortedActivities as |activity|}}
-  <div class="my-3 p-3 bg-white rounded border box-shadow">
-    {{#link-to "activity.show" activity.id}}
-      {{#if (eq activity.type "buy_pack")}}
-        <p>You bought a pack on {{moment-format activity.createdAt}}</p>
-        <p>Transaction: {{activity.txnHash}}</p>
-      {{else if (eq activity.type "buy_pack_with_kitty")}}
-        <p>You traded in Kitty #{{activity.kittyId}} on {{moment-format activity.createdAt}}</p>
-        <p>Transaction: {{activity.txnHash}}</p>
-      {{/if}}
-    {{/link-to}}
-  </div>
+  {{activity-cell activity=activity}}
 {{else}}
   <div class="text-center">
     <p>You have no activity yet.</p>
