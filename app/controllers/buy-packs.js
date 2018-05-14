@@ -13,14 +13,14 @@ export default Controller.extend({
     },
 
     buyPack(gasPrice) {
-      const currentUser = this.get('currentUser.user');
+      const currentUser = this.get('currentUser');
       const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
       const gasPriceInWei = this.get('web3').toWei(gasPrice.toString(), 'Gwei');
       const saleId = this.get('selectedSale');
       const packPrice = this.get('store').peekRecord('sale', saleId).get('packPrice');
       const packQuantity = this.get('selectedQuantity');
       saleContract.buyPacksWithETH(saleId).send({
-        from: currentUser.get('id'),
+        from: currentUser.get('address'),
         /*gas: 750000,*/
         gasPrice: gasPriceInWei,
         value: packPrice * packQuantity

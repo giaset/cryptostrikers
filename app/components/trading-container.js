@@ -15,7 +15,7 @@ export default Component.extend({
 
   actions: {
     createTradeClicked() {
-      const tradingContractAddress = ENV.strikers.tradingContractAddress;
+      const tradingContractAddress = ENV.strikers.coreContractAddress;
       const maker = this.get('currentUser.address');
       const makerCard = this.get('myCard');
       const taker = this.get('counterpartyAddress') || '0x0000000000000000000000000000000000000000';
