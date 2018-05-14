@@ -7,9 +7,8 @@ export default Controller.extend({
   web3: service(),
 
   actions: {
-    buyPackButtonClicked(saleId, qty) {
+    buyPackButtonClicked(saleId) {
       this.set('selectedSale', saleId);
-      this.set('selectedQuantity', qty);
     },
 
     buyPack(gasPrice) {
@@ -18,12 +17,11 @@ export default Controller.extend({
       const gasPriceInWei = this.get('web3').toWei(gasPrice.toString(), 'Gwei');
       const saleId = this.get('selectedSale');
       const packPrice = this.get('store').peekRecord('sale', saleId).get('packPrice');
-      const packQuantity = this.get('selectedQuantity');
-      saleContract.buyPacksWithETH(saleId).send({
+      saleContract.buyPackWithETH(saleId).send({
         from: currentUser.get('address'),
         /*gas: 750000,*/
         gasPrice: gasPriceInWei,
-        value: packPrice * packQuantity
+        value: packPrice
       })
       .on('transactionHash', txnHash => {
         const type = 'buy_pack';

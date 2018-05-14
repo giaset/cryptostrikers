@@ -6,6 +6,7 @@ import "openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol";
 
 contract StrikersPackSale is PackSaleFactory {
   /*** EVENTS ***/
+
   // TODO: maybe track packID with a counter?
   event PackBought(address indexed buyer, uint256[] pack);
 
@@ -20,7 +21,6 @@ contract StrikersPackSale is PackSaleFactory {
   /// @dev A reference to the contract where the cards are actually minted
   StrikersMinting public mintingContract;
 
-
   /// @dev Constructor. Can't change mintingContract address once it's been initialized
   constructor(address _kittiesContractAddress, address _mintingContractAddress) public {
     kittiesContract = ERC721Basic(_kittiesContractAddress);
@@ -28,49 +28,31 @@ contract StrikersPackSale is PackSaleFactory {
   }
 
   // TODO: buyPack for someone else (giftPack?)
-  // TODO: handle return false better
-  function buyPacksWithETH(uint8 _saleId) external payable {
+  function buyPackWithETH(uint8 _saleId) external payable {
     uint256 packPrice = sales[_saleId].packPrice;
     require(packPrice > 0, "You are trying to use ETH to buy from a Kitty Sale.");
-
-    uint256 balanceLeft = msg.value;
-    while (balanceLeft >= packPrice) {
-      if (!_buyPack(_saleId)) {
-        break;
-      }
-
-      // NOTE: impossible for this to underflow because
-      // we only enter the while loop if balanceLeft >= packPrice
-      balanceLeft -= packPrice;
-    }
-
+    require(msg.value >= packPrice, "Insufficient ETH sent to buy this pack.");
+    _buyPack(_saleId);
     // Return excess funds
-    msg.sender.transfer(balanceLeft);
+    msg.sender.transfer(msg.value - packPrice);
   }
 
-  /// @dev Needs prior approval!!!
+  /// @dev Note: User needs to have given approval for this contract to transfer their cat.
   function buyPackWithKitty(uint8 _saleId, uint256 _kittyId) external {
     require(sales[_saleId].packPrice == 0, "You are trying to use a Kitty to buy from an ETH Sale.");
 
-    if (_buyPack(_saleId)) {
-      // Will throw/revert if this contract hasn't been approved first.
-      // Transferring to "this" burns the cat!
-      kittiesContract.transferFrom(msg.sender, this, _kittyId);
-    }
+    // Will throw/revert if this contract hasn't been given approval first.
+    // Also, with no way of retrieving kitties from this contract,
+    // transferring to "this" burns the cat! (desired behaviour)
+    kittiesContract.transferFrom(msg.sender, this, _kittyId);
+    _buyPack(_saleId);
   }
 
   function _buyPack(uint8 _saleId) internal returns (bool) {
-    if (!saleInProgress(_saleId) || shuffledPacksForSale[_saleId].length <= 0) {
-      return false;
-    }
+    require(saleInProgress(_saleId), "This sale is not currently in progress.");
 
-    uint32[] storage nextPacks = _getNextPacks(_saleId);
-    if (nextPacks.length <= 0) {
-      return false;
-    }
-
-    // TODO: this could throw and we need to return true/false for our external buy functions... bad?
-    uint32 pack = _removeRandomPack(nextPacks);
+    uint32[] storage nextBatch = _getNextBatch(_saleId);
+    uint32 pack = _removeRandomPack(nextBatch);
     uint256[] memory cards = _mintCards(pack, _saleId);
     sales[_saleId].packsSold++;
     emit PackBought(msg.sender, cards);
@@ -91,15 +73,18 @@ contract StrikersPackSale is PackSaleFactory {
     return newCards;
   }
 
-  function _getNextPacks(uint8 _saleId) internal returns (uint32[] storage) {
-    uint32[][] storage packsForSale = shuffledPacksForSale[_saleId];
+  function _getNextBatch(uint8 _saleId) internal returns (uint32[] storage) {
+    uint32[][] storage batches = batchesForSale[_saleId];
+    require(batches.length > 0, "Sanity check failed: there are no batches for this sale.");
 
-    if (packsForSale[0].length <= 0 && packsForSale.length > 1) {
-      packsForSale[0] = packsForSale[packsForSale.length - 1];
-      packsForSale.length--;
+    // If we've sold all the packs in the first batch, move the last batch to the front!
+    if (batches[0].length <= 0 && batches.length > 1) {
+      batches[0] = batches[batches.length - 1];
+      batches.length--;
     }
 
-    return packsForSale[0];
+    require(batches[0].length > 0, "This sale is sold out!");
+    return batches[0];
   }
 
   function _removeRandomPack(uint32[] storage _packs) internal returns (uint32) {

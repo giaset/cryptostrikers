@@ -2,18 +2,35 @@ pragma solidity ^0.4.23;
 
 import './PackSaleBase.sol';
 
-/// @dev The contract that allows the contract owner to load shuffled packs of cards
+/// @dev The contract that allows the contract owner to load packs of cards into a sale, one batch at a time.
 contract PackSaleFactory is PackSaleBase {
 
-  // The only way to buy Base Set cards is in packs of 4.
-  // We generate and store the shuffled "packs" in advance but only actually mint the cards when a pack is sold (see PackSale contract).
+  /*** IMPORTANT ***/
+  // Given the imperfect nature of on-chain "randomness", we have found that, for this game, the best tradeoff
+  // is to generate the PACKS (each containing 4 random CARDS) off-chain and push them to a SALE in the smart
+  // contract. Users can then buy a pack, which will be drawn pseudorandomly from the packs we have pre-loaded.
+  //
   // To save on storage, we use uint32 to represent a pack, with each of the 4 groups of 8 bits representing a checklistId (see Checklist contract).
+  // Given that right now we only have 132 checklist items (with the plan to *maybe* add ~10 more during the tournament),
+  // uint8 is fine (max uint8 is 255...)
+  //
   // For example:
   // Pack = 00011000000001100000001000010010
   // Card 1 = 00011000 = checklistId 24
   // Card 2 = 00000110 = checklistId 6
   // Card 3 = 00000010 = checklistId 2
   // Card 4 = 00010010 = checklistId 18
+  //
+  // Then, when a user buys a pack, he actually mints 4 NFTs, each corresponding to one of those checklistIds (see StrikersPackSale contract).
+  //
+  // In testing, we were only able to load ~500 packs (recall: each a uint32) per transaction before hititng the block gas limit,
+  // which may be less than we need for any given sale, so we introduced the concept of BATCHES. This allows us to make multiple
+  // transactions, each adding a batch of 500 packs, which allows us to run arbitrarily large sales (just in case).
+  //
+  // This is why batchesForSale returns a 2d array; it's an array of batches, each of which is itself an array of packs (uint32s).
+  // We had tried just one big packsForSale array for each sale, and then looping over incoming bactches and pushing each pack
+  // to this array, but it was way more expensive from a gas standpoint...
+
 
   /*** EVENTS ***/
 
@@ -25,7 +42,8 @@ contract PackSaleFactory is PackSaleBase {
   uint8 public constant PACK_SIZE = 4;
 
   // TODO: these limits should be set on the Base/Core contracts, because if they are here,
-  // we can just swap PackSale contracts and keep minting
+  // we can just swap PackSale contracts and keep minting!
+
   // Sets a hard cap on the number of normal packs that will ever be offered for sale
   uint32 public constant NORMAL_SALE_PACK_LIMIT = 160000;
 
@@ -40,19 +58,15 @@ contract PackSaleFactory is PackSaleBase {
   // Keeps track of the flash packs offered to make sure we don't go over the limit
   uint32 public totalFlashSalePacksOffered;
 
-  /// @dev We are only able to load about 500 packs at a time (as an array of 500 uint32s),
-  ///   so for a sale of 20,000 packs we will end up loading 40 arrays of 500 packs.
-  ///   This is why we need a 2d array here, because it saves a lot of gas pushing each
-  ///   new array of 500 packs to this 2d array versus looping on the 500 packs and pushing
-  ///   each one into a 20,000 element array. To make it slightly more annoying to see upcoming packs,
+  /// @dev To make it slightly more annoying to see upcoming packs,
   ///   we mark this mapping as "internal", but people can still verify that we are respecting
   ///   our declared player rarities by analyzing all the PacksLoaded events for a given sale.
-  mapping (uint8 => uint32[][]) internal shuffledPacksForSale;
+  mapping (uint8 => uint32[][]) internal batchesForSale;
 
-  function loadShuffledPacks(uint8 _saleId, uint32[] _shuffledPacks) external onlyOwner requireStateForSale(_saleId, SaleState.WaitingForPacks) {
+  function addBatchToSale(uint8 _saleId, uint32[] _batch) external onlyOwner requireStateForSale(_saleId, SaleState.WaitingForPacks) {
     PackSale storage sale = sales[_saleId];
     bool isFlashSale = sale.duration > 0;
-    uint16 newPackCount = uint16(_shuffledPacks.length);
+    uint16 newPackCount = uint16(_batch.length);
 
     if (isFlashSale) {
       require(totalFlashSalePacksOffered + newPackCount <= FLASH_SALE_PACK_LIMIT);
@@ -62,8 +76,8 @@ contract PackSaleFactory is PackSaleBase {
       totalNormalSalePacksOffered += newPackCount;
     }
 
-    shuffledPacksForSale[_saleId].push(_shuffledPacks);
+    batchesForSale[_saleId].push(_batch);
     sale.packsOffered += newPackCount;
-    emit PacksLoaded(_saleId, _shuffledPacks);
+    emit PacksLoaded(_saleId, _batch);
   }
 }

@@ -31,10 +31,10 @@ function loadPacks(saleId, packs, strikersPackSale) {
 
   for (let i = 0; i < numberOfTxns; i++) {
     const startIndex = i * PACKS_PER_LOAD;
-    const subArray = packs.slice(startIndex, startIndex + PACKS_PER_LOAD);
+    const batch = packs.slice(startIndex, startIndex + PACKS_PER_LOAD);
     promise = promise.then(() => {
       console.log(`Loading packs ${startIndex}-${startIndex+PACKS_PER_LOAD} (${i+1}/${numberOfTxns})`);
-      return strikersPackSale.loadShuffledPacks(saleId, subArray);
+      return strikersPackSale.addBatchToSale(saleId, batch);
     });
   }
 
