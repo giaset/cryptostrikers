@@ -64,10 +64,6 @@ contract PackSaleBase is Ownable {
 
   /*** STORAGE ***/
 
-  /// @dev Sanity check that allows us to ensure that we are pointing to the
-  ///  right contract in our setPackSaleAddress() call.
-  bool public isPackSaleContract = true;
-
   /// @dev All the pack sales we have ever created (even expired ones)
   PackSale[] public sales;
 

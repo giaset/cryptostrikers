@@ -1,8 +1,8 @@
 pragma solidity ^0.4.23;
 
-import "./StrikersAuction.sol";
+import "./StrikersTrading.sol";
 
-contract StrikersCore is StrikersAuction {
+contract StrikersCore is StrikersTrading {
   /// @dev Even though we don't actually use anything from Checklist
   /// or WorldCupInfo in the on-chain logic, we think it's nice to have
   /// a canonical source of truth for what the Player and ChecklistItem

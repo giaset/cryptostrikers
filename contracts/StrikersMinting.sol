@@ -1,18 +1,15 @@
 pragma solidity ^0.4.23;
 
 import "./StrikersBase.sol";
-import "./StrikersPackSale.sol";
 
 contract StrikersMinting is StrikersBase {
   /// @dev The address of the contract that manages the pack sale.
-  StrikersPackSale public packSaleContract;
+  address public packSaleAddress;
 
   /// @dev Only the owner can update the address of the pack sale contract.
   /// @param _address The address of the new StrikersPackSale contract.
   function setPackSaleAddress(address _address) external onlyOwner {
-    StrikersPackSale candidateContract = StrikersPackSale(_address);
-    require(candidateContract.isPackSaleContract(), "This is not a Strikers pack sale contract.");
-    packSaleContract = candidateContract;
+    packSaleAddress = _address;
   }
 
   function mintBaseCard(
@@ -23,7 +20,7 @@ contract StrikersMinting is StrikersBase {
     external
     returns (uint256)
   {
-    require(msg.sender == address(packSaleContract), "Only the pack sale contract can mint Base Set cards.");
+    require(msg.sender == packSaleAddress, "Only the pack sale contract can mint Base Set cards.");
     return _mintCard(_checklistId, _saleId, _owner);
   }
 }

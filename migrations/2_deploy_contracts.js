@@ -1,8 +1,6 @@
 const Checklist = artifacts.require('./Checklist.sol');
-const SaleClockAuction = artifacts.require('./OpenSea/SaleClockAuction.sol');
 const StrikersCore = artifacts.require('./StrikersCore.sol');
 const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
-const StrikersTrading = artifacts.require('./StrikersTrading.sol');
 
 const CARDS_PER_PACK = 4;
 const PACKS_PER_LOAD = 500;
@@ -50,33 +48,14 @@ module.exports = function(deployer, network) {
   let strikersCore;
   let strikersPackSale;
   let promise = deployer.deploy(Checklist)
-  .then(() => Checklist.deployed())
-  .then(checklist => deployer.deploy(StrikersCore, checklist.address))
-  .then(() => StrikersCore.deployed())
-  .then(deployed => {
-    strikersCore = deployed;
+  .then(checklistInstance => deployer.deploy(StrikersCore, checklistInstance.address))
+  .then(coreInstance => {
+    strikersCore = coreInstance;
     const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
     return deployer.deploy(StrikersPackSale, kittiesAddress, strikersCore.address);
-  });
-
-  let saleAuctionAddress;
-  if (network === 'development') {
-    promise = promise.then(() => {
-      console.log('Deploying SaleClockAuction...');
-      return deployer.deploy(SaleClockAuction, 125);
-    })
-    .then(() => SaleClockAuction.deployed())
-    .then(deployed => {
-      saleAuctionAddress = deployed.address;
-    });
-  } else if (network === 'rinkeby') {
-    saleAuctionAddress = '0xed6cfc67429e8eb9b4562ea6d7d54ffcc4b726bd';
-  }
-
-  promise.then(() => strikersCore.setSaleAuctionAddress(saleAuctionAddress))
-  .then(() => StrikersPackSale.deployed())
-  .then(deployed => {
-    strikersPackSale = deployed;
+  })
+  .then(packSaleInstance => {
+    strikersPackSale = packSaleInstance;
     return strikersCore.setPackSaleAddress(strikersPackSale.address);
   })
   .then(() => strikersPackSale.createSale(0, 15000000000000000))
@@ -96,6 +75,5 @@ module.exports = function(deployer, network) {
     const kittySalePacks = generatePacks(5);
     return loadPacks(2, kittySalePacks, strikersPackSale);
   })
-  .then(() => strikersPackSale.startSale(2))
-  .then(() => deployer.deploy(StrikersTrading));
+  .then(() => strikersPackSale.startSale(2));
 };

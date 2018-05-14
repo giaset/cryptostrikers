@@ -56,8 +56,7 @@ module.exports = function(environment) {
       contractJsonPrefix: '',
       coreContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
       kittiesContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
-      saleContractAddress: '0xe67d0161db73d82fae928aca628b0c2c5c4424ca',
-      tradingContractAddress: '0x7b9ac5dc41c658443d982170af8c99b7c437b0c2',
+      saleContractAddress: '0xe67d0161db73d82fae928aca628b0c2c5c4424ca'
     },
 
     torii: {

@@ -1,13 +1,8 @@
 pragma solidity ^0.4.23;
 
 import "./PackSaleFactory.sol";
+import "./StrikersMinting.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol";
-
-/// @dev We use the interface here (instead of importing StrikersMinting) to avoid circular imports
-///   (StrikersMinting already imports StrikersPackSale to make sure only it can call mintBaseCard)
-contract StrikersMintingInterface {
-  function mintBaseCard(uint8 _checklistId, uint8 _saleId, address _owner) external returns (uint256);
-}
 
 contract StrikersPackSale is PackSaleFactory {
   /*** EVENTS ***/
@@ -23,13 +18,13 @@ contract StrikersPackSale is PackSaleFactory {
   ERC721Basic public kittiesContract;
 
   /// @dev A reference to the contract where the cards are actually minted
-  StrikersMintingInterface public strikersMinting;
+  StrikersMinting public mintingContract;
 
 
-  /// @dev Constructor. Can't change strikersMinting address once it's been initialized
-  constructor(address _kittiesContractAddress, address _strikersMintingAddress) public {
+  /// @dev Constructor. Can't change mintingContract address once it's been initialized
+  constructor(address _kittiesContractAddress, address _mintingContractAddress) public {
     kittiesContract = ERC721Basic(_kittiesContractAddress);
-    strikersMinting = StrikersMintingInterface(_strikersMintingAddress);
+    mintingContract = StrikersMinting(_mintingContractAddress);
   }
 
   // TODO: buyPack for someone else (giftPack?)
@@ -89,7 +84,7 @@ contract StrikersPackSale is PackSaleFactory {
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
       uint8 checklistId = uint8((_pack >> shift) & mask);
-      uint256 cardId = strikersMinting.mintBaseCard(checklistId, _saleId, msg.sender);
+      uint256 cardId = mintingContract.mintBaseCard(checklistId, _saleId, msg.sender);
       newCards[i-1] = cardId;
     }
 

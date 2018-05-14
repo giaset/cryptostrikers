@@ -26,16 +26,10 @@ export default Service.extend({
       ENV.strikers.saleContractAddress
     );
 
-    const tradingContractPromise = this._loadContract(
-      'StrikersTrading',
-      ENV.strikers.tradingContractAddress
-    );
-
     return RSVP.all([
       coreContractPromise,
       kittiesContractPromise,
-      saleContractPromise,
-      tradingContractPromise
+      saleContractPromise
     ]);
   },
 

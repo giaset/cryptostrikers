@@ -2,7 +2,7 @@ pragma solidity ^0.4.23;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-/// @title The contract that manages all player, game, and country info for the 2018 World Cup
+/// @title The contract that manages all player and country info for the 2018 World Cup
 /// @author The CryptoStrikers Team
 contract WorldCupInfo is Ownable {
   // Explain the data structures, deployment, what is mutable
@@ -11,8 +11,6 @@ contract WorldCupInfo is Ownable {
   //    (see countries array). This doesn't need to be mutable?
   //
   //  - Players mutable?
-  //
-  //  - Games/GameDays need to be modifiable in case of re-scheduling!
 
   /*** DATA TYPES ***/
 
@@ -33,17 +31,6 @@ contract WorldCupInfo is Ownable {
     // so uint8 (0-255) is fine here...
     uint8 countryId;
   }
-
-  // game belongs to gameday? or gameday has game? both?
-  /*struct Game {
-    uint8 homeCountryId;
-    uint8 awayCountryId;
-  }
-
-  struct GameDay {
-    uint date;
-    Game[] games;
-  }*/
 
   /*** STORAGE ***/
 
