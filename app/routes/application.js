@@ -39,7 +39,7 @@ export default Route.extend({
 
   // TODO: this is really ugly...
   _jsonPrefix(transition) {
-    const nestedRoutes = ['activity.index', 'activity.show', 'cards', 'sales'];
+    const nestedRoutes = ['activity.index', 'activity.show', 'cards', 'sales', 'trades'];
     const isNestedRoute = nestedRoutes.includes(transition.targetName);
     return isNestedRoute ? '../' : '';
   }

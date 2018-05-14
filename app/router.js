@@ -45,6 +45,7 @@ Router.map(function() {
     this.route('show', { path: '/:checklist_item_id' });
   });
   this.route('create-trade');
+  this.route('trades', { path: '/trades/:trade_id' });
 });
 
 export default Router;

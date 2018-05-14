@@ -1,16 +1,23 @@
 <div class="row mb-4">
   <div class="col">
-    <h4>Step 1</h4>
-    <h5>Who do you want to trade with?</h5>
-    <h5>(Leave blank for an "open-ended" trade.)</h5>
-    <h5>Benn: 0x1bCd7FC3Aa5EA863D52a54827f21f42e1AC2ef47</h5>
-    <h5>Gianni: 0x3DbCe7daFF19F3F3169A705341D513a69E3CC40a</h5>
-    {{input value=counterpartyAddress class="form-control form-control-lg" placeholder="A valid Ethereum address"}}
-    <span class="text-danger">{{counterpartyAddressError}}</span>
+    {{#if trade}}
+      <p>Trade created by: {{trade.maker}}</p>
+      <p>Trade open to: {{trade.takerString}}</p>
+    {{else}}
+      <h4>Step 1</h4>
+      <h5>Who do you want to trade with?</h5>
+      <h5>(Leave blank for an "open-ended" trade.)</h5>
+      <h5>Benn: 0x1bCd7FC3Aa5EA863D52a54827f21f42e1AC2ef47</h5>
+      <h5>Gianni: 0x3DbCe7daFF19F3F3169A705341D513a69E3CC40a</h5>
+      {{input value=counterpartyAddress class="form-control form-control-lg" placeholder="A valid Ethereum address"}}
+      <span class="text-danger">{{counterpartyAddressError}}</span>
+    {{/if}}
   </div>
 </div>
 <div class="row{{if counterpartyAddressError " opacity-30"}}">
-  <div class="col-12"><h4>Step 2 - Trading with {{if counterpartyUser counterpartyUser.nickname "anybody"}}</h4></div>
+  {{#unless trade}}
+    <div class="col-12"><h4>Step 2 - Trading with {{if counterpartyUser counterpartyUser.nickname "anybody"}}</h4></div>
+  {{/unless}}
   <div class="col"><h5>Card I'll Give</h5></div>
   <div class="col"></div>
   <div class="col"><h5>Card I'll Get</h5></div>
@@ -42,6 +49,10 @@
 </div>
 <div class="row mt-4">
   <div class="col text-center">
-    <button type="button" class="btn btn-success mt-2" {{action "createTradeClicked"}} disabled={{buttonDisabled}}>Create Trade</button>
+    {{#if trade}}
+      <button type="button" class="btn btn-success mt-2" {{action acceptTrade myCard.id}}>Accept Trade</button>
+    {{else}}
+      <button type="button" class="btn btn-success mt-2" {{action "createTradeClicked"}} disabled={{buttonDisabled}}>Create Trade</button>
+    {{/if}}
   </div>
 </div>

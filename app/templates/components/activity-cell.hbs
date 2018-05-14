@@ -10,4 +10,11 @@
   {{/link-to}}
 {{else if (eq activity.type "create_trade")}}
   <p>You created a trade: {{activity.trade.prettyString}}.</p>
+  {{link-to activity.trade.url "trades" activity.trade.id}}
+  {{#copy-button
+    class="ml-2"
+    clipboardText=activity.trade.url
+  }}
+    {{fa-icon "copy"}}
+  {{/copy-button}}
 {{/if}}

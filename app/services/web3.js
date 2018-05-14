@@ -152,7 +152,7 @@ export default Service.extend({
     return this._instance.utils.soliditySha3(...params);
   },
 
-  toHex(input) {
-    return this._instance.utils.toHex(input);
+  hexToNumber(hex) {
+    return this._instance.utils.hexToNumber(hex);
   }
 });
