@@ -47,7 +47,7 @@ module.exports = function(deployer, network) {
 
   let strikersCore;
   let strikersPackSale;
-  let promise = deployer.deploy(Checklist)
+  deployer.deploy(Checklist)
   .then(checklistInstance => deployer.deploy(StrikersCore, checklistInstance.address))
   .then(coreInstance => {
     strikersCore = coreInstance;
