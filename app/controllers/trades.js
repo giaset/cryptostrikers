@@ -40,7 +40,27 @@ export default Controller.extend({
     },
 
     cancelTrade(trade) {
-      console.log(trade.get('id'));
+      const currentUser = this.get('currentUser');
+      const contract = this.get('strikersContracts.StrikersCore.methods');
+      const maker = trade.get('maker');
+      const makerCardId = trade.get('makerCard.id');
+      const taker = trade.get('taker');
+      const takerCardOrChecklistId = trade.get('takerCardOrChecklistId');
+      const salt = trade.get('salt');
+      contract.cancelTrade(
+        maker,
+        makerCardId,
+        taker,
+        takerCardOrChecklistId,
+        salt
+      ).send({ from: currentUser.get('address') })
+      .on('transactionHash', txnHash => {
+        const type = 'cancel_trade';
+        const activity = { trade, txnHash, type };
+        currentUser.addActivity(activity).then(() => {
+          this.transitionToRoute('activity.index');
+        });
+      });
     }
   },
 
