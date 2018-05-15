@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
+  hash: DS.attr('string'),
   tradingContractAddress: DS.attr('string'),
   maker: DS.attr('string'),
   makerCard: DS.belongsTo('card', { inverse: null }),

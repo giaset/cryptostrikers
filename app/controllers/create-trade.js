@@ -6,10 +6,10 @@ export default Controller.extend({
   web3: service(),
 
   actions: {
-    createTrade(trade, tradeHash) {
+    createTrade(trade) {
       const currentUser = this.get('currentUser');
       const address = currentUser.get('address');
-      this.get('web3').personalSign(tradeHash, address).then(signedHash => {
+      this.get('web3').personalSign(trade.hash, address).then(signedHash => {
         trade.signedHash = signedHash;
         const newTrade = this.get('store').createRecord('trade', trade);
         return newTrade.save();

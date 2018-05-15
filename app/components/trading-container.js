@@ -24,7 +24,11 @@ export default Component.extend({
       const takerCardOrChecklistId = takerCard ? takerCard.get('id') : takerChecklistItem.get('id');
       const salt = Date.now();
 
+      const web3 = this.get('web3');
+      const hash = web3.soliditySha3(tradingContractAddress, maker, makerCard.get('id'), taker, takerCardOrChecklistId, salt);
+
       const trade = {
+        hash,
         tradingContractAddress,
         maker,
         makerCard,
@@ -34,10 +38,7 @@ export default Component.extend({
         salt
       };
 
-      const web3 = this.get('web3');
-      const tradeHash = web3.soliditySha3(tradingContractAddress, maker, makerCard.get('id'), taker, takerCardOrChecklistId, salt);
-
-      this.createTrade(trade, tradeHash);
+      this.createTrade(trade);
     },
 
     placeholderClicked(mySide) {
