@@ -29,6 +29,10 @@ export default Controller.extend({
         sigParams.r,
         sigParams.s
       ).send({ from: this.get('currentUser.address') });
+    },
+
+    cancelTrade(trade) {
+      console.log(trade.get('id'));
     }
   },
 

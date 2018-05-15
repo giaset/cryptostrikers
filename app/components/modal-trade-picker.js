@@ -8,17 +8,24 @@ export default ModalComponent.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    const owner = this.get('model.options.owner');
+    const options = this.get('model.options');
+    const owner = options.owner;
+    const checklistItem = options.checklistItem;
     if (owner) {
       this.get('loadUser').perform(owner);
-      this.get('loadCards').perform(owner);
+      this.get('loadCards').perform(owner, checklistItem);
     } else {
       this.get('loadChecklistItems').perform();
     }
   },
 
-  loadCards: task(function * (owner) {
-    const cards = yield this.get('store').query('card', { owner });
+  loadCards: task(function * (owner, checklistItem) {
+    let cards = yield this.get('store').query('card', { owner });
+
+    if (checklistItem) {
+      cards = cards.filterBy('checklistItem.id', checklistItem.get('id'));
+    }
+
     this.set('cards', cards);
   }),
 

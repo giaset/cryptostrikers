@@ -22,7 +22,11 @@
         {{/each}}
       </div>
     {{else}}
-      <h5>User has no cards.</h5>
+      {{#if model.options.checklistItem}}
+        <h5>User doesn't have any {{model.options.checklistItem.player.name}}s.</h5>
+      {{else}}
+        <h5>User has no cards.</h5>
+      {{/if}}
     {{/if}}
   </div>
 </div>

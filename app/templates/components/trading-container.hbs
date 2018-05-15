@@ -1,19 +1,24 @@
 <div class="row mb-4">
   <div class="col">
     {{#if trade}}
-      <p>Trade created by: {{trade.maker}}</p>
+      <p>Trade created by: {{if isMyTrade "you" trade.maker}}</p>
       <p>Trade open to: {{trade.takerString}}</p>
     {{else}}
       <h4>Step 1</h4>
       <h5>Who do you want to trade with?</h5>
       <h5>(Leave blank for an "open-ended" trade.)</h5>
-      <h5>Benn: 0x1bCd7FC3Aa5EA863D52a54827f21f42e1AC2ef47</h5>
-      <h5>Gianni: 0x3DbCe7daFF19F3F3169A705341D513a69E3CC40a</h5>
       {{input value=counterpartyAddress class="form-control form-control-lg" placeholder="A valid Ethereum address"}}
       <span class="text-danger">{{counterpartyAddressError}}</span>
     {{/if}}
   </div>
 </div>
+{{#if makerChecklistItem}}
+  <div class="row mb-4">
+    <div class="col text-center">
+      <h5>To fill this trade, you must give a {{makerChecklistItem.player.name}}.</h5>
+    </div>
+  </div>
+{{/if}}
 <div class="row{{if counterpartyAddressError " opacity-30"}}">
   {{#unless trade}}
     <div class="col-12"><h4>Step 2 - Trading with {{if counterpartyUser counterpartyUser.nickname "anybody"}}</h4></div>
@@ -24,8 +29,12 @@
 </div>
 <div class="row{{if counterpartyAddressError " opacity-30"}}">
   <div class="col">
-    {{#if myCard}}
-      <img src={{myCard.checklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked" true}}>
+    {{#if makerCard}}
+      <img src={{makerCard.checklistItem.filepath}} class="img-fluid">
+      <p>{{makerCard.prettyString}}</p>
+    {{else if selectedCardLeft}}
+      <img src={{selectedCardLeft.checklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked" true}}>
+      <p>{{selectedCardLeft.prettyString}}</p>
     {{else}}
       <div class="trade-placeholder clickable d-flex" {{action "placeholderClicked" true}}>
         {{fa-icon "plus-circle" size="2x" class="m-auto"}}
@@ -36,10 +45,18 @@
     <img class="trade-icon m-auto" src="/assets/images/trade.svg">
   </div>
   <div class="col">
-    {{#if counterpartyCard}}
+    {{#if takerCard}}
+      <img src={{takerCard.checklistItem.filepath}} class="img-fluid">
+      <p>{{takerCard.prettyString}}</p>
+    {{else if takerChecklistItem}}
+      <img src={{takerChecklistItem.filepath}} class="img-fluid">
+      <p>Any {{takerChecklistItem.player.name}}</p>
+    {{else if counterpartyCard}}
       <img src={{counterpartyCard.checklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked"}}>
+      <p>{{counterpartyCard.prettyString}}</p>
     {{else if counterpartyChecklistItem}}
       <img src={{counterpartyChecklistItem.filepath}} class="img-fluid clickable" {{action "placeholderClicked"}}>
+      <p>Any {{counterpartyChecklistItem.player.name}}</p>
     {{else}}
       <div class="trade-placeholder clickable d-flex" {{action "placeholderClicked"}}>
         {{fa-icon "plus-circle" size="2x" class="m-auto"}}
@@ -49,10 +66,12 @@
 </div>
 <div class="row mt-4">
   <div class="col text-center">
-    {{#if trade}}
-      <button type="button" class="btn btn-success mt-2" {{action acceptTrade myCard.id}}>Accept Trade</button>
+    {{#if isMyTrade}}
+      <button type="button" class="btn btn-success mt-2" {{action cancelTrade}}>Cancel Trade</button>
+    {{else if trade}}
+      <button type="button" class="btn btn-success mt-2" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}}>Accept Trade</button>
     {{else}}
-      <button type="button" class="btn btn-success mt-2" {{action "createTradeClicked"}} disabled={{buttonDisabled}}>Create Trade</button>
+      <button type="button" class="btn btn-success mt-2" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
     {{/if}}
   </div>
 </div>

@@ -17,7 +17,7 @@ export default Component.extend({
     createTradeClicked() {
       const tradingContractAddress = ENV.strikers.coreContractAddress;
       const maker = this.get('currentUser.address');
-      const makerCard = this.get('myCard');
+      const makerCard = this.get('selectedCardLeft');
       const taker = this.get('counterpartyAddress') || '0x0000000000000000000000000000000000000000';
       const takerCard = this.get('counterpartyCard');
       const takerChecklistItem = this.get('counterpartyChecklistItem');
@@ -41,12 +41,13 @@ export default Component.extend({
       this.createTrade(trade);
     },
 
-    placeholderClicked(mySide) {
+    placeholderClicked(leftSide) {
       if (this.get('counterpartyAddressError')) { return; }
-      const owner = mySide ? this.get('currentUser.address') : this.get('counterpartyAddress');
-      this.get('modal').open('trade-picker', { owner }).then(cardOrChecklistItem => {
-        if (mySide) {
-          this.set('myCard', cardOrChecklistItem);
+      const owner = leftSide ? this.get('currentUser.address') : this.get('counterpartyAddress');
+      const modalOptions = { owner, checklistItem: this.get('makerChecklistItem') };
+      this.get('modal').open('trade-picker', modalOptions).then(cardOrChecklistItem => {
+        if (leftSide) {
+          this.set('selectedCardLeft', cardOrChecklistItem);
         } else {
           const isCard = cardOrChecklistItem.constructor.modelName === 'card';
           const counterpartyCard = isCard ? cardOrChecklistItem : null;
@@ -59,10 +60,10 @@ export default Component.extend({
     }
   },
 
-  buttonDisabled: computed('myCard.id', 'counterpartyCard.id', 'counterpartyChecklistItem.id', function() {
-    const makerCardId = this.get('myCard.id');
+  createButtonDisabled: computed('selectedCardLeft.id', 'counterpartyCard.id', 'counterpartyChecklistItem.id', function() {
+    const leftCardId = this.get('selectedCardLeft.id');
     const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
-    return !makerCardId || !takerCardOrChecklistId;
+    return !leftCardId || !takerCardOrChecklistId;
   }),
 
   counterpartyAddressError: computed('counterpartyAddress', function() {
@@ -87,6 +88,42 @@ export default Component.extend({
       return { nickname: 'unknown user' };
     });
     return DS.PromiseObject.create({ promise });
+  }),
+
+  isMyTrade: computed('currentUser.address', 'trade.maker', function() {
+    const maker = this.get('trade.maker');
+    return maker && maker === this.get('currentUser.address');
+  }),
+
+  makerCard: computed('isMyTrade', 'trade.{makerCard,takerCard}', function() {
+    const trade = this.get('trade');
+    if (this.get('isMyTrade')) {
+      return trade.get('makerCard');
+    } else if (trade && trade.get('takerCard')) {
+      return trade.get('takerCard');
+    }
+  }),
+
+  makerChecklistItem: computed('isMyTrade', function() {
+    const trade = this.get('trade');
+    if (trade && !this.get('isMyTrade')) {
+      return trade.get('takerChecklistItem');
+    }
+  }),
+
+  takerCard: computed('isMyTrade', 'trade.{makerCard,takerCard}', function() {
+    const trade = this.get('trade');
+    if (this.get('isMyTrade')) {
+      return trade.get('takerCard');
+    } else if (trade && trade.get('makerCard')) {
+      return trade.get('makerCard');
+    }
+  }),
+
+  takerChecklistItem: computed('isMyTrade', function() {
+    if (this.get('isMyTrade')) {
+      return this.get('trade.takerChecklistItem');
+    }
   }),
 
   _resetCounterpartyCard: observer('counterpartyAddress', function() {
