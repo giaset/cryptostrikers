@@ -17,4 +17,8 @@
   }}
     {{fa-icon "copy"}}
   {{/copy-button}}
+{{else if (eq activity.type "fill_trade")}}
+  <p>You accepted a trade: {{activity.trade.prettyString}}.</p>
+  <p>The transaction can take a few minutes to mine, so hope nobody beats you to it!</p>
+  <p><a href="https://rinkeby.etherscan.io/tx/{{activity.txnHash}}" target="_blank">View Transaction Here</a></p>
 {{/if}}

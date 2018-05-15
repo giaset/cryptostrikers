@@ -10,6 +10,7 @@ export default Controller.extend({
 
   actions: {
     acceptTrade(submittedCardId) {
+      const currentUser = this.get('currentUser');
       const contract = this.get('strikersContracts.StrikersCore.methods');
       const trade = this.get('trade');
       const maker = trade.get('maker');
@@ -28,7 +29,14 @@ export default Controller.extend({
         sigParams.v,
         sigParams.r,
         sigParams.s
-      ).send({ from: this.get('currentUser.address') });
+      ).send({ from: currentUser.get('address') })
+      .on('transactionHash', txnHash => {
+        const type = 'fill_trade';
+        const activity = { trade, txnHash, type };
+        currentUser.addActivity(activity).then(() => {
+          this.transitionToRoute('activity.index');
+        });
+      });
     },
 
     cancelTrade(trade) {
