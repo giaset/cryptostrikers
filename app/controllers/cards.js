@@ -1,10 +1,14 @@
 import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   currentUser: service(),
   strikersContracts: service(),
   web3: service(),
+
+  checklistItem: alias('model.checklistItem'),
+  myCards: alias('model.myCards'),
 
   actions: {
     sellClicked(card, price) {

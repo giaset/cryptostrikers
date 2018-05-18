@@ -1,15 +1,11 @@
-<div class="row">
-  <div class="col text-center">
-    <img src={{model.checklistItem.filepath}} class="img-fluid">
-  </div>
-</div>
-<div class="text-center">
-  {{#if model.myCards}}
+{{card-carousel cards=myCards checklistItem=checklistItem}}
+<section class="container text-center">
+  {{#if myCards}}
     <h5 class="my-4">You own:</h5>
-    {{#each model.myCards as |card|}}
+    {{#each myCards as |card|}}
       {{card-details-tile card=card class="my-4" sellAction=(action "sellClicked")}}
     {{/each}}
   {{else}}
     <h5>You don't own this card.</h5>
   {{/if}}
-</div>
+</section>
