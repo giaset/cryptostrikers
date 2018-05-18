@@ -6,7 +6,7 @@
   <p class="m-0">Price: {{if sale.isKittySale "1 CryptoKitty" sale.packPriceInEth}}</p>
   <p class="m-0">Packs remaining: {{sub sale.packsOffered sale.packsSold}}/{{sale.packsOffered}}</p>
   <div class="progress mt-2">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={{sale.completionPercentage}} aria-valuemin="0" aria-valuemax="100" style="width: {{sale.completionPercentage}}%"></div>
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={{sale.completionPercentage}} aria-valuemin="0" aria-valuemax="100" style={{progressBarStyle}}></div>
   </div>
 </div>
 <div class="ml-auto my-auto text-center">

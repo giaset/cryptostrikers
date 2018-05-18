@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import moment from 'moment';
 
 export default Component.extend({
@@ -25,6 +26,10 @@ export default Component.extend({
     const diff = this.get('countdownDiff');
     if (!diff) { return false; }
     return diff <= 0;
+  }),
+
+  progressBarStyle: computed('sale.completionPercentage', function() {
+    return htmlSafe(`width: ${this.get('sale.completionPercentage')}%;`);
   }),
 
   _countdownStringForDiff(diff) {
