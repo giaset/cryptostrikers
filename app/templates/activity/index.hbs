@@ -1,9 +1,11 @@
-<h1>Activity</h1>
-{{#each sortedActivities as |activity|}}
-  {{activity-cell activity=activity}}
-{{else}}
-  <div class="text-center">
-    <p>You have no activity yet.</p>
-    <p>You can get started by {{link-to "buying a pack" "buy-packs"}}.</p>
-  </div>
-{{/each}}
+<div class="container">
+  <h1>Activity</h1>
+  {{#each sortedActivities as |activity|}}
+    {{activity-cell activity=activity}}
+  {{else}}
+    <div class="text-center">
+      <p>You have no activity yet.</p>
+      <p>You can get started by {{link-to "buying a pack" "buy-packs"}}.</p>
+    </div>
+  {{/each}}
+</div>

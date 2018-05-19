@@ -1,13 +1,15 @@
-<div class="row text-center mb-3">
-  <div class="col">
-    <h1>Card Packs</h1>
-    <p>Build your collection by buying packs of cards.</p>
-    <p>Each pack contains 4 cards; limit of 5 packs per transaction.</p>
-    <p>Cards must be bought with Ethereum. Click here (TODO: ETH buying guide) to learn how to fund your account.</p>
-    <p>Cards will be on sale until the final whistle blows for the July 15th final.</p>
+<div class="container">
+  <div class="row text-center mb-3">
+    <div class="col">
+      <h1>Card Packs</h1>
+      <p>Build your collection by buying packs of cards.</p>
+      <p>Each pack contains 4 cards; limit of 5 packs per transaction.</p>
+      <p>Cards must be bought with Ethereum. Click here (TODO: ETH buying guide) to learn how to fund your account.</p>
+      <p>Cards will be on sale until the final whistle blows for the July 15th final.</p>
+    </div>
   </div>
+  {{#each model as |sale|}}
+    {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked")}}
+  {{/each}}
+  {{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}
 </div>
-{{#each model as |sale|}}
-  {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked")}}
-{{/each}}
-{{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}

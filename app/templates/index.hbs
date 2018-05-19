@@ -1,22 +1,24 @@
-<div class="row align-items-center">
-  <div class="col-lg-8 order-lg-2 text-center">
-    <img class="img-fluid" src="/assets/images/cards.png">
-  </div>
-  <div class="col-lg-4 order-lg-1 text-center text-lg-left">
-    <h1 class="font-weight-900">The Beautiful (Card) Game.</h1>
-    <p>Buy packs of cards to start building your collection. Use the marketplace to find players you're missing, or to sell your rarest cards for crypto. Play our daily challenge to win prizes!</p>
-    {{#if onlyShowLanding}}
-      <form {{action "submitEmail" on="submit"}}>
-        <div class="input-group">
-          {{input value=emailAddress type="email" class="form-control" placeholder="Enter your email..." required=true}}
-          <div class="input-group-append">
-            {{strikers-button type="submit" class="btn-success" text="Keep me posted" loadingText="Sending..." loading=emailButtonLoading}}
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-8 order-lg-2 text-center">
+      <img class="img-fluid" src="/assets/images/cards.png">
+    </div>
+    <div class="col-lg-4 order-lg-1 text-center text-lg-left">
+      <h1 class="font-weight-900">The Beautiful (Card) Game.</h1>
+      <p>Buy packs of cards to start building your collection. Use the marketplace to find players you're missing, or to sell your rarest cards for crypto. Play our daily challenge to win prizes!</p>
+      {{#if onlyShowLanding}}
+        <form {{action "submitEmail" on="submit"}}>
+          <div class="input-group">
+            {{input value=emailAddress type="email" class="form-control" placeholder="Enter your email..." required=true}}
+            <div class="input-group-append">
+              {{strikers-button type="submit" class="btn-success" text="Keep me posted" loadingText="Sending..." loading=emailButtonLoading}}
+            </div>
           </div>
-        </div>
-      </form>
-      <p class="mt-2 text-success">{{thankYouMessage}}</p>
-    {{else}}
-      {{link-to "Play Now" "sign-in" class="btn btn-success btn-lg"}}
-    {{/if}}
+        </form>
+        <p class="mt-2 text-success">{{thankYouMessage}}</p>
+      {{else}}
+        {{link-to "Play Now" "sign-in" class="btn btn-success btn-lg"}}
+      {{/if}}
+    </div>
   </div>
 </div>
