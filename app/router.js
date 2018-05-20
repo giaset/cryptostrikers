@@ -35,15 +35,12 @@ Router.map(function() {
     this.route('sign-in');
   }
   this.route('404', { path: '/*path' });
-  this.route('cards', { path: '/cards/:checklist_id' });
+  this.route('checklist', { path: '/checklist/:checklist_item_id' });
   this.route('sales', { path: '/sales/:sale_id' });
   this.route('kitty-sale');
   if (config.environment === 'development') {
     this.route('admin');
   }
-  this.route('checklist', function() {
-    this.route('show', { path: '/:checklist_item_id' });
-  });
   this.route('create-trade');
   this.route('trades', { path: '/trades/:trade_id' });
 });

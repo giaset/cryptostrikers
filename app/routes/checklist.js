@@ -8,7 +8,7 @@ export default Route.extend({
   web3: service(),
 
   actions: {
-    error() {
+    error(error) {
       // TODO: this is wonky, why can't we go to 404?
       this.replaceWith('index');
     }
@@ -23,7 +23,7 @@ export default Route.extend({
   },
 
   model(params) {
-    const checklistId = params.checklist_id;
+    const checklistId = params.checklist_item_id;
     const contract = this.get('strikersContracts.StrikersCore.methods');
     const owner = this.get('currentUser.user.id');
     const store = this.get('store');

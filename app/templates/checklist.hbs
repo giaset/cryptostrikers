@@ -1,5 +1,6 @@
 {{card-carousel cards=myCards checklistItem=checklistItem}}
 <section class="container text-center">
+  <h1>{{checklistItem.player.name}}</h1>
   {{#if myCards}}
     <h5 class="my-4">You own:</h5>
     {{#each myCards as |card|}}
