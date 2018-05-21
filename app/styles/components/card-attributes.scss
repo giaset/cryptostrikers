@@ -1,0 +1,39 @@
+.card-attributes {
+  .card-attributes-header {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 59px;
+  }
+
+  .attribute-cell {
+    display: flex;
+    text-align: left;
+    margin-bottom: 68px;
+
+    .attribute-cell-img {
+      width: 51px;
+      height: 51px;
+      background-color: #C4C4C4;
+      border-radius: 50%;
+      margin-right: 23px;
+    }
+
+    .attribute-cell-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .attribute-cell-value {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 0;
+      margin-top: auto;
+    }
+
+    .attribute-cell-title {
+      font-size: 15px;
+      color: #828282;
+      margin-bottom: auto;
+    }
+  }
+}
