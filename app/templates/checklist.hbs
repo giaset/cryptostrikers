@@ -1,15 +1,7 @@
 {{card-carousel cards=myCards checklistItem=checklistItem slideDidChange=(action 'slideDidChange')}}
 <section class="container text-center">
-  <h1>{{checklistItem.player.name}}</h1>
+  {{checklist-item-info checklistItem=checklistItem}}
   {{#if card.value}}
     {{card-attributes card=card.value}}
-  {{/if}}
-  {{#if myCards}}
-    <h5 class="my-4">You own:</h5>
-    {{#each myCards as |card|}}
-      {{card-details-tile card=card class="my-4" sellAction=(action "sellClicked")}}
-    {{/each}}
-  {{else}}
-    <h5>You don't own this card.</h5>
   {{/if}}
 </section>

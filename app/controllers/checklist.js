@@ -14,15 +14,6 @@ export default Controller.extend({
   queryParams: ['card_id'],
 
   actions: {
-    sellClicked(card, price) {
-      console.log(`Selling card #${card.get('id')} for ${price} ETH.`);
-      /*const contract = this.get('strikersContracts.StrikersCore.methods');
-      const priceInWei = this.get('web3').toWei(price.toString());
-      contract.listCardForSale(card.get('id'), priceInWei).send({
-        from: this.get('currentUser.user.id')
-      });*/
-    },
-
     slideDidChange(index) {
       const myCardIds = this.get('myCards').mapBy('id');
       this.set('card_id', myCardIds.objectAt(index));
