@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import { next } from '@ember/runloop';
 
 export default Route.extend({
   currentUser: service(),
@@ -8,7 +9,7 @@ export default Route.extend({
   web3: service(),
 
   actions: {
-    error(error) {
+    error() {
       // TODO: this is wonky, why can't we go to 404?
       this.replaceWith('index');
     }
@@ -41,10 +42,17 @@ export default Route.extend({
       return RSVP.all(promises);
     });
 
-
     return RSVP.hash({
       checklistItem: store.findRecord('checklistItem', checklistId),
       myCards
+    });
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model);
+    // https://github.com/emberjs/ember.js/issues/5465
+    next(this, () => {
+      controller.set('card_id', model.myCards.get('firstObject.id'));
     });
   }
 });

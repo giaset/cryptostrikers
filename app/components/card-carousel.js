@@ -3,20 +3,21 @@ import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 
 const BACKGROUND_APLHA = 0.4;
-const DID_SLIDE_EVENT = 'slid.bs.carousel';
+const DID_SLIDE_EVENT = 'slide.bs.carousel';
 
 export default Component.extend({
   tagName: 'section',
   attributeBindings: ['dataInterval:data-interval', 'style'],
   classNames: ['card-carousel', 'text-center', 'carousel', 'slide'],
-  currentSlide: 0,
   dataInterval: 'false',
   elementId: 'cardCarousel',
 
   didInsertElement() {
     this._super(...arguments);
     this.$().on(DID_SLIDE_EVENT, event => {
-      this.set('currentSlide', event.to);
+      if (this.slideDidChange) {
+        this.slideDidChange(event.to);
+      }
     });
   },
 
