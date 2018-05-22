@@ -10,9 +10,17 @@
   <div class="email-capture-text">
     <h1 class="email-capture-title font-weight-900">CryptoStrikers</h1>
     <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
-    <form {{action "submitEmail" on="submit"}} class="email-capture-form">
+    <form {{action "createLead" emailAddress on="submit"}} class="email-capture-form">
       {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
-      <button type="submit" class="btn btn-success btn-lg email-submit-button">GET UPDATES</button>
+      <button type="submit" class="btn btn-success btn-lg email-submit-button">
+        {{#if leadCreated}}
+          THANK YOU!
+        {{else if createLeadTask.isRunning}}
+          SUBMITTING...
+        {{else}}
+          GET UPDATES
+        {{/if}}
+      </button>
     </form>
   </div>
 </div>
