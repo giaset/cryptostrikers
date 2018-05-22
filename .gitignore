@@ -35,3 +35,5 @@ firebase-debug.log
 players.json
 
 checklist.json
+
+helpers/cryptostrikers-prod-leads-export.json
