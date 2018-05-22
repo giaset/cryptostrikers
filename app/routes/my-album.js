@@ -19,12 +19,12 @@ export default Route.extend({
     const store = this.get('store');
 
     return RSVP.hash({
-      checklistItems: store.findAll('checklistItem'),
+      checklistItems: store.findAll('checklist-item'),
+      checklistSets: store.findAll('checklist-set'),
       myChecklistIds: contract.cardAndChecklistIdsForOwner(owner).call().then(arrays => {
         const checklistIds = arrays[1];
         return checklistIds.map(checklistId => checklistId.padStart(3, '0'));
-      }),
-      sets: store.findAll('set')
+      })
     });
   },
 

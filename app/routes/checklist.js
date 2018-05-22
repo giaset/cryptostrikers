@@ -43,7 +43,7 @@ export default Route.extend({
     });
 
     return RSVP.hash({
-      checklistItem: store.findRecord('checklistItem', checklistId),
+      checklistItem: store.findRecord('checklist-item', checklistId),
       myCards
     });
   },

@@ -1,9 +1,9 @@
 {{input value=searchQuery placeholder="Search Players" class="mb-4"}}
 Only show cards I own: {{input type="checkbox" checked=onlyShowOwned}}
 <ul class="nav nav-pills">
-  {{#each sets as |set|}}
+  {{#each checklistSets as |checklistSet|}}
     <li class="nav-item">
-      <a class="nav-link {{if (eq set.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) set.id}}>{{set.name}}</a>
+      <a class="nav-link {{if (eq checklistSet.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) checklistSet.id}}>{{checklistSet.name}}</a>
     </li>
   {{/each}}
 </ul>

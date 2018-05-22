@@ -30,7 +30,7 @@ export default ModalComponent.extend({
   }),
 
   loadChecklistItems: task(function * () {
-    const checklistItems = yield this.get('store').findAll('checklistItem');
+    const checklistItems = yield this.get('store').findAll('checklist-item');
     this.set('checklistItems', checklistItems);
   }),
 

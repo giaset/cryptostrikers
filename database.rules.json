@@ -9,6 +9,9 @@
     "checklistItems": {
       ".read": true
     },
+    "checklistSets": {
+      ".read": true
+    },
     "countries": {
       ".read": true
     },
@@ -19,9 +22,6 @@
       }
     },
     "players": {
-      ".read": true
-    },
-    "sets": {
       ".read": true
     },
     "stats": {

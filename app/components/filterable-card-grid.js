@@ -19,7 +19,7 @@ export default Component.extend({
     const formattedQuery = isBlank(searchQuery) ? null : searchQuery.toLowerCase();
     const sortedChecklistItems = this.get('checklistItems').sortBy('id');
     return sortedChecklistItems.filter(checklistItem => {
-      const setId = checklistItem.get('set.id');
+      const setId = checklistItem.get('checklistSet.id');
       if (setId !== selectedSetId) {
         return false;
       }
