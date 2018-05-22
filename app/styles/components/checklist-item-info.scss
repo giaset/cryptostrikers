@@ -1,17 +1,27 @@
 .checklist-item-info {
-  margin-top: 85px;
-  margin-bottom: 85px;
-
   .checklist-info-title {
-    font-size: 45px;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 0;
   }
 
   .checklist-info-subtitle {
-    font-size: 35px;
+    font-size: 14px;
     font-weight: normal;
     color: #828282;
     margin-bottom: 0;
+  }
+
+  &.checklist-item-info-lg {
+    margin-top: 85px;
+    margin-bottom: 85px;
+
+    .checklist-info-title {
+      font-size: 45px;
+    }
+
+    .checklist-info-subtitle {
+      font-size: 35px;
+    }
   }
 }

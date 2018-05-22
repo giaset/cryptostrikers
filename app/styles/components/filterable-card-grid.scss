@@ -13,6 +13,7 @@
       .card-image {
         position: absolute;
         left: 0;
+        box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
       }
     }
 
@@ -22,15 +23,7 @@
       right: -8px;
     }
 
-    .player-name, .checklist-number {
-      margin: 0;
-    }
-
-    .player-name {
-      font-size: 12px;
-    }
-
-    .card-count, .checklist-number {
+    .card-count {
       font-size: 10px;
     }
   }
