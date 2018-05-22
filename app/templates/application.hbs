@@ -1,13 +1,17 @@
-{{navigation-bar closeSession=(action "closeSession") stats=model.stats}}
-<main role="main">
-  {{outlet}}
-</main>
-<footer class="footer p-3">
-  <div class="powered-by-ethereum text-center">
-    <h6 class="powered-by-text opacity-30">Powered by</h6>
-    <a href="https://www.ethereum.org/" target="_blank">
-      <img class="ethereum-logo" src="/assets/images/ethereum-logo.png">
-    </a>
-  </div>
-</footer>
-{{modal-container}}
+{{#if onlyShowLanding}}
+  {{email-capture-page}}
+{{else}}
+  {{navigation-bar closeSession=(action "closeSession") stats=model.stats}}
+  <main role="main">
+    {{outlet}}
+  </main>
+  <footer class="footer p-3">
+    <div class="powered-by-ethereum text-center">
+      <h6 class="powered-by-text opacity-30">Powered by</h6>
+      <a href="https://www.ethereum.org/" target="_blank">
+        <img class="ethereum-logo" src="/assets/images/ethereum-logo.png">
+      </a>
+    </div>
+  </footer>
+  {{modal-container}}
+{{/if}}

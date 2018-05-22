@@ -1,0 +1,89 @@
+.email-capture-page {
+  background: #8cc3f7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .twitter-link, .discord-link {
+    color: black;
+    font-size: 22px;
+  }
+
+  .twitter-link {
+    margin-right: auto;
+  }
+
+  .discord-link {
+    margin-left: auto;
+  }
+
+  .email-capture-body {
+    margin-top: auto;
+
+    .email-capture-player {
+      flex: 1;
+    }
+
+    .email-capture-text {
+      flex: 1;
+
+      .email-capture-title, .email-capture-subtitle {
+        color: white;
+        font-size: 75px;
+      }
+
+      .email-capture-form {
+        width: 350px;
+
+        .email-form-input {
+          height: 62px;
+          border-radius: 7px;
+          margin-top: 39px;
+        }
+
+        .email-form-input::placeholder {
+          color: #BDBDBD;
+          font-size: 20px;
+          letter-spacing: 0.1em;
+        }
+
+        .email-submit-button {
+          background: #DBB66B;
+          border: 7px solid #000000;
+          border-radius: 7px;
+          box-sizing: border-box;
+          font-weight: 900;
+          letter-spacing: 0.1em;
+          font-size: 20px;
+          width: 271px;
+          height: 84px;
+          margin: 39px 0;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .email-capture-body {
+      flex-direction: column;
+
+      .email-capture-text {
+        text-align: center;
+
+        .email-capture-form {
+          margin: 0 auto;
+        }
+      }
+
+      .email-capture-player {
+        order: 2;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .email-capture-title, .email-capture-subtitle {
+      font-size: 48px !important;
+    }
+  }
+}

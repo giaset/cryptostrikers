@@ -1,0 +1,18 @@
+<div class="container d-flex py-5">
+  <a href="https://twitter.com/CryptoStrikers" target="_blank" class="twitter-link">Twitter</a>
+  <img class="shield-logo" src="assets/images/shield-logo.svg">
+  <a href="https://discord.gg/6jE8hMV" target="_blank" class="discord-link">Discord</a>
+</div>
+<div class="email-capture-body d-flex">
+  <div class="email-capture-player">
+    <img class="big-messi img-fluid" src="assets/images/big-messi.svg">
+  </div>
+  <div class="email-capture-text">
+    <h1 class="email-capture-title font-weight-900">CryptoStrikers</h1>
+    <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
+    <form {{action "submitEmail" on="submit"}} class="email-capture-form">
+      {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
+      <button type="submit" class="btn btn-success btn-lg email-submit-button">GET UPDATES</button>
+    </form>
+  </div>
+</div>
