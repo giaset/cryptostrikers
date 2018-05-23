@@ -23,6 +23,8 @@ module.exports = function(environment) {
       // when it is created
     },
 
+    emberGtm: { deployTarget },
+
     firebase: {
       apiKey: 'AIzaSyA_T_2eOMBwC34Uj7CkVHxkUAWgjNsf4BA',
       authDomain: 'cryptostrikers-api.firebaseapp.com',
