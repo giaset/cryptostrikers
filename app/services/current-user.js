@@ -5,7 +5,6 @@ import firebase from 'firebase';
 import RSVP from 'rsvp';
 
 export default Service.extend({
-  metrics: service(),
   store: service(),
   session: service(),
 
@@ -25,7 +24,6 @@ export default Service.extend({
 
   setUser(user) {
     this.set('user', user);
-    this.set('metrics.context.userAddress', user.get('id'));
   },
 
   addActivity(payload) {
