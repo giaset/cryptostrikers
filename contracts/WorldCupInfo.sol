@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
@@ -107,32 +107,64 @@ contract WorldCupInfo is Ownable {
     players.push(Player("Dries Mertens", 2));
     // 24
     players.push(Player("James Rodríguez", 4));
+    // 25
+    players.push(Player("Paulo Dybala", 0));
+    // 26
+    players.push(Player("Christian Eriksen", 7));
+    // 27
+    players.push(Player("David Silva", 27));
+    // 28
+    players.push(Player("Gabriel Jesus", 3));
+    // 29
+    players.push(Player("Thiago", 27));
+    // 30
+    players.push(Player("Thibaut Courtois", 2));
+    // 31
+    players.push(Player("Philippe Coutinho", 3));
+    // 32
+    players.push(Player("Andrés Iniesta", 27));
+    // 33
+    players.push(Player("Casemiro", 3));
+    // 34
+    players.push(Player("Romelu Lukaku", 2));
+    // 35
+    players.push(Player("Gerard Piqué", 27));
+    // 36
+    players.push(Player("Mats Hummels", 11));
+    // 37
+    players.push(Player("Diego Godín", 31));
+    // 38
+    players.push(Player("Mesut Özil", 11));
+    // 39
+    players.push(Player("Son Heung-min", 26));
+    // 40
+    players.push(Player("Radja Nainggolan", 2));
+    // 41
+    players.push(Player("Hugo Lloris", 10));
+    // 42
+    players.push(Player("Radamel Falcao", 4));
+    // 43
+    players.push(Player("Ivan Rakitić", 6));
+    // 44
+    players.push(Player("Leroy Sané", 11));
+    // 45
+    players.push(Player("Roberto Firmino", 3));
+    // 46
+    players.push(Player("Sadio Mané", 24));
+    // 47
+    players.push(Player("Thomas Müller", 11));
+    // 48
+    players.push(Player("Dele Alli", 9));
+    // 49
+    players.push(Player("Keylor Navas", 5));
+
 
     // Unranked
     players.push(Player("Thiago Silva", 3));
-    players.push(Player("David Silva", 27));
-    players.push(Player("Thibaut Courtois", 2));
-    players.push(Player("Christian Eriksen", 7));
     players.push(Player("Ángel Di María", 0));
-    players.push(Player("Ivan Rakitić", 6));
-    players.push(Player("Dele Alli", 9));
-    players.push(Player("Philippe Coutinho", 3));
-    players.push(Player("Thiago", 27));
-    players.push(Player("Mesut Özil", 11));
-    players.push(Player("Hugo Lloris", 10));
     players.push(Player("Dani Alves", 3));
-    players.push(Player("Radamel Falcao", 4));
-    players.push(Player("Mats Hummels", 11));
-    players.push(Player("Andrés Iniesta", 27));
-    players.push(Player("Romelu Lukaku", 2));
-    players.push(Player("Sadio Mané", 24));
-    players.push(Player("Son Heung-min", 26));
     players.push(Player("Javier Hernández", 15));
-    players.push(Player("Casemiro", 3));
-    players.push(Player("Diego Godín", 31));
     players.push(Player("Kalidou Koulibaly", 24));
-    players.push(Player("Keylor Navas", 5));
     players.push(Player("Raheem Sterling", 9));
-    players.push(Player("Gerard Piqué", 27));
   }
 }
