@@ -4,6 +4,21 @@
   display: flex;
   flex-direction: column;
 
+  .top-banner {
+    background: black;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+
+    a {
+      text-decoration: underline;
+    }
+
+    .gold-text {
+      color: #DBB66B;
+    }
+  }
+
   .twitter-link, .discord-link {
     color: black;
     font-size: 22px;
