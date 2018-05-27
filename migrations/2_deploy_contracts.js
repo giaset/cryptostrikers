@@ -1,4 +1,4 @@
-const Checklist = artifacts.require('./Checklist.sol');
+const StrikersChecklist = artifacts.require('./StrikersChecklist.sol');
 const StrikersCore = artifacts.require('./StrikersCore.sol');
 const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
 
@@ -45,7 +45,16 @@ module.exports = function(deployer, network) {
   // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
   // kitties mainnet:
 
-  let strikersCore;
+  let strikersChecklist;
+  deployer.deploy(StrikersChecklist)
+  .then(checklistInstance => {
+    strikersChecklist = checklistInstance;
+    return strikersChecklist.deployStepOne();
+  })
+  .then(() => strikersChecklist.deployStepTwo())
+  .then(() => strikersChecklist.deployStepThree())
+  .then(() => strikersChecklist.deployStepFour());
+  /*let strikersCore;
   let strikersPackSale;
   deployer.deploy(Checklist)
   .then(checklistInstance => deployer.deploy(StrikersCore, checklistInstance.address))
@@ -75,5 +84,5 @@ module.exports = function(deployer, network) {
     const kittySalePacks = generatePacks(5);
     return loadPacks(2, kittySalePacks, strikersPackSale);
   })
-  .then(() => strikersPackSale.startSale(2));
+  .then(() => strikersPackSale.startSale(2));*/
 };
