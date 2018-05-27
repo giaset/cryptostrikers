@@ -1,16 +1,30 @@
 pragma solidity ^0.4.24;
 
+import "./StrikersMetadata.sol";
 import "./StrikersTrading.sol";
 
 contract StrikersCore is StrikersTrading {
-  /// @dev Even though we don't actually use anything from Checklist
-  /// or WorldCupInfo in the on-chain logic, we think it's nice to have
-  /// a canonical source of truth for what the Player and ChecklistItem
-  /// IDs refer to... It's sufficient to keep a record of the address,
-  /// we don't really need to even initialize a contract instance.
-  address public checklistAddress;
 
+  /// @dev An external metadata contract that the owner can upgrade.
+  StrikersMetadata public strikersMetadata;
+
+  /// @dev We initialize the CryptoStrikers game with a checklist that can't be changed.
   constructor(address _checklistAddress) public {
-    checklistAddress = _checklistAddress;
+    strikersChecklist = StrikersChecklist(_checklistAddress);
+  }
+
+  /// @dev Allows the contract owner to update the metadata contract.
+  function setMetadataContract(address _contractAddress) external onlyOwner {
+    strikersMetadata = StrikersMetadata(_contractAddress);
+  }
+
+  /// @dev If we've set an external metadata contract, use that.
+  function tokenURI(uint256 _tokenId) public view returns (string) {
+    if (strikersMetadata == address(0)) {
+      return super.tokenURI(_tokenId);
+    }
+
+    require(exists(_tokenId), "Card does not exist.");
+    return strikersMetadata.tokenURI(_tokenId);
   }
 }

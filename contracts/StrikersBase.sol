@@ -1,15 +1,11 @@
 pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
-import "./OraclizeStringUtils.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "./StrikersChecklist.sol";
 
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
-contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUtils, Ownable {
-  // TODO: make sure to switch to prod API before mainnet deploy!!!
-  string constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
-
+contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   /// @dev Emit this event whenever we mint a new card
   ///  For Base Set cards, this occurs when a pack is purchased.
   ///  For Daily Challenge cards, this occurs when you claim your prize for a correct response.
@@ -40,17 +36,9 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK"), OraclizeStringUt
 
   mapping (uint8 => uint16) cardCountForChecklistId;
 
-  /*** FUNCTIONS ***/
+  StrikersChecklist public strikersChecklist;
 
-  /// @dev Returns the API URL for each card
-  ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
-  ///   The API will then return a JSON blob according to OpenSea's spec
-  ///   see: https://developers.opensea.io/getting-started.html
-  function tokenURI(uint256 _tokenId) public view returns (string) {
-    require(exists(_tokenId), "Card does not exist.");
-    string memory _id = uint2str(_tokenId);
-    return strConcat(API_URL, _id);
-  }
+  /*** FUNCTIONS ***/
 
   /// @dev For a given owner, returns two arrays. The first contains the IDs of every card owned
   ///   by this address. The second returns the corresponding checklist ID for each of these cards.

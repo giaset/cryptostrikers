@@ -1,8 +1,9 @@
 pragma solidity ^0.4.24;
 
 import "./StrikersBase.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract StrikersMinting is StrikersBase {
+contract StrikersMinting is StrikersBase, Ownable {
   /// @dev The address of the contract that manages the pack sale.
   address public packSaleAddress;
 
