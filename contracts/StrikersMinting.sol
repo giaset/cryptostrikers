@@ -13,7 +13,7 @@ contract StrikersMinting is StrikersBase, Ownable {
     packSaleAddress = _address;
   }
 
-  function mintBaseCard(
+  function mintCard(
     uint8 _checklistId,
     uint8 _saleId,
     address _owner
@@ -21,7 +21,7 @@ contract StrikersMinting is StrikersBase, Ownable {
     external
     returns (uint256)
   {
-    require(msg.sender == packSaleAddress, "Only the pack sale contract can mint Base Set cards.");
+    require(msg.sender == packSaleAddress, "Only the pack sale contract can mint cards.");
     return _mintCard(_checklistId, _saleId, _owner);
   }
 }

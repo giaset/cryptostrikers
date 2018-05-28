@@ -37,7 +37,12 @@ contract StrikersPackSale is PackSaleFactory {
     msg.sender.transfer(msg.value - packPrice);
   }
 
-  /// @dev Note: User needs to have given approval for this contract to transfer their cat.
+  /// @notice Magically transform a CryptoKitty into a free pack of cards!
+  /// @param _saleId The pack sale we want to buy from.
+  /// @param _kittyId The cat we are giving up.
+  /// @dev Note that the user must first give this contract approval by
+  ///   calling approve(address(this), _kittyId) on the CK contract.
+  ///   Otherwise, buyPackWithKitty() throws on transferFrom().
   function buyPackWithKitty(uint8 _saleId, uint256 _kittyId) external {
     require(sales[_saleId].packPrice == 0, "You are trying to use a Kitty to buy from an ETH Sale.");
 
@@ -66,7 +71,7 @@ contract StrikersPackSale is PackSaleFactory {
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
       uint8 shift = 32 - (i * 8);
       uint8 checklistId = uint8((_pack >> shift) & mask);
-      uint256 cardId = mintingContract.mintBaseCard(checklistId, _saleId, msg.sender);
+      uint256 cardId = mintingContract.mintCard(checklistId, _saleId, msg.sender);
       newCards[i-1] = cardId;
     }
 
