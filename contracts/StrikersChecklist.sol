@@ -130,7 +130,7 @@ contract StrikersChecklist is StrikersPlayerList {
   }
 
   /// @dev Returns how many Iconic checklist items we've added.
-  function iconicsCount() external view returns (uint256) {
+  function iconicsCount() public view returns (uint256) {
     return iconicChecklistItems.length;
   }
 
@@ -327,5 +327,23 @@ contract StrikersChecklist is StrikersPlayerList {
 
     // Mark the initial deploy as complete.
     deployStep = DeployStep.DoneInitialDeploy;
+  }
+
+  /// @dev Returns the mint limit for a given checklist item, based on its tier.
+  function limitForChecklistId(uint8 _checklistId) external view returns (uint16) {
+    RarityTier rarityTier;
+    uint8 index;
+    if (_checklistId < 100) { // Originals = #000 to #099
+      rarityTier = originalChecklistItems[_checklistId].tier;
+    } else if (_checklistId < 200) { // Iconics = #100 to #131
+      index = _checklistId - 100;
+      require(index < iconicsCount(), "This Iconics checklist item doesn't exist.");
+      rarityTier = iconicChecklistItems[index].tier;
+    } else { // Unreleased = #200 to max #255
+      index = _checklistId - 200;
+      require(index < unreleasedCount(), "This Unreleased checklist item doesn't exist.");
+      rarityTier = unreleasedChecklistItems[index].tier;
+    }
+    return tierLimits[uint8(rarityTier)];
   }
 }
