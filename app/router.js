@@ -24,6 +24,7 @@ Router.map(function() {
   this.route('kitty-sale');
   if (config.environment === 'development') {
     this.route('admin');
+    this.route('checklist-verification');
   }
   this.route('create-trade');
   this.route('trades', { path: '/trades/:trade_id' });

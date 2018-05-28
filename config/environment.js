@@ -43,6 +43,7 @@ module.exports = function(environment) {
       networkId: 5777, // localhost
       onlyShowLanding: false,
       contractJsonPrefix: '',
+      checklistContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
       coreContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
       kittiesContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
       saleContractAddress: '0xe67d0161db73d82fae928aca628b0c2c5c4424ca'
