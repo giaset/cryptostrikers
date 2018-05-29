@@ -1,8 +1,9 @@
 const admin = require('firebase-admin');
 const app = require('express')();
 const contractJson = require('./StrikersCore');
-const cors = require('cors')({origin: true});
+const cors = require('cors')({ origin: true });
 const functions = require('firebase-functions');
+const request = require('request');
 const serviceAccount = require(functions.config().strikers.service_account);
 const sigUtil = require('eth-sig-util');
 const Web3 = require('web3');
@@ -53,7 +54,7 @@ app.get('/:id', (req, res) => {
     payload.properties['Serial Number'] = serialNumber;
     return res.json(payload);
   })
-  .catch(error => res.status(500).json({error: error.toString()}));
+  .catch(error => res.status(500).json({ error: error.toString() }));
 });
 exports.cards = functions.https.onRequest(app);
 
@@ -66,14 +67,38 @@ exports.sign = functions.https.onRequest((req, res) => {
       const recovered = sigUtil.recoverPersonalSignature(msgParams);
       if (recovered === sigUtil.normalize(address)) {
         admin.auth().createCustomToken(address)
-          .then(customToken => res.json({token: customToken}))
-          .catch(error => res.status(500).json({error: error.toString()}));
+          .then(token => res.json({ token }))
+          .catch(error => res.status(500).json({ error: error.toString() }));
       } else {
         res.status(401).send('Wrong signature for address.');
       }
     } else {
       res.status(500).send('Invalid address and signature params.');
     }
+  });
+});
+
+exports.subscribe = functions.https.onRequest((req, res) => {
+  return cors(req, res, () => {
+    if (req.method !== 'POST') {
+      return res.status(405).send('Wrong request type!');
+    }
+
+    const emailAddress = req.body.email_address;
+    if (!emailAddress) {
+      return res.status(422).send('Missing email_address in body!');
+    }
+
+    const url = 'https://us12.api.mailchimp.com/3.0/lists/5f4a114f70/members';
+    const json = {
+      email_address: emailAddress,
+      status: 'subscribed'
+    };
+    const method = 'POST';
+    const options = { url, json, method };
+    return request(options, (_, response, body) => {
+      res.status(response.statusCode).json(body);
+    }).auth('anystring', functions.config().mailchimp.key);
   });
 });
 

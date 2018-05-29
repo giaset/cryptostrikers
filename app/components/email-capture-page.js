@@ -1,23 +1,29 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { isBadRequestError } from 'ember-ajax/errors';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['email-capture-page'],
-  store: service(),
+  ajax: service(),
   actions: {
     createLead(emailAddress) {
-      if (!this.get('leadCreated')) {
-        this.get('createLeadTask').perform(emailAddress);
+      if (!this.get('subscriptionSuccessful')) {
+        this.set('error', null);
+        this.get('subscribeTask').perform(emailAddress);
       }
     }
   },
 
-  createLeadTask: task(function * (emailAddress) {
-    const newLead = this.get('store').createRecord('lead', {
-      email: emailAddress
-    });
-    yield newLead.save();
-    this.set('leadCreated', true);
+  subscribeTask: task(function * (emailAddress) {
+    const data = { email_address: emailAddress };
+    try {
+      yield this.get('ajax').post('subscribe', { data });
+      this.set('subscriptionSuccessful', true);
+    } catch(error) {
+      if (isBadRequestError(error)) {
+        this.set('error', error.payload.title);
+      }
+    }
   }).drop()
 });

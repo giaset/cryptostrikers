@@ -13,10 +13,11 @@
     <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
     <form {{action "createLead" emailAddress on="submit"}} class="email-capture-form">
       {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
+      <span class="text-danger">{{error}}</span>
       <button type="submit" class="btn btn-success btn-lg email-submit-button">
-        {{#if leadCreated}}
+        {{#if subscriptionSuccessful}}
           THANK YOU!
-        {{else if createLeadTask.isRunning}}
+        {{else if subscribeTask.isRunning}}
           SUBMITTING...
         {{else}}
           GET UPDATES
