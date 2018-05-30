@@ -1,49 +1,51 @@
-<div class="text-center">
-  {{#if metamaskWatcher.currentAccount}}
-    <h2>Welcome to CryptoStrikers</h2>
-    <p>To get started, please select your flag, enter your email address, and choose a nickname.</p>
-    <form {{action (perform signIn) on="submit"}}>
-      <div class="form-group text-left">
-        <label for="walletAddressInput">Wallet address</label>
-        <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
-      </div>
-      {{#if model}}
-        <h1>Welcome back {{model.nickname}}!</h1>
-      {{else}}
+<div class="container">
+  <div class="text-center">
+    {{#if metamaskWatcher.currentAccount}}
+      <h2>Welcome to CryptoStrikers</h2>
+      <p>To get started, please select your flag, enter your email address, and choose a nickname.</p>
+      <form {{action (perform signIn) on="submit"}}>
         <div class="form-group text-left">
-          <label for="emailAddressInput">Email address</label>
-          {{input value=emailAddress class="form-control form-control-lg" type="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="walletAddressInput">Wallet address</label>
+          <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
         </div>
-        <div class="form-group text-left">
-          <label for="nicknameAddressInput">Nickname</label>
-          {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" required=true}}
-        </div>
-      {{/if}}
-      <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
-        {{#if getSignature.isRunning}}
-          Waiting for signature...
-        {{else if verifySignature.isRunning}}
-          Verifying signature...
-        {{else if openSession.isRunning}}
-          Signing in...
-        {{else if model}}
-          Log In
+        {{#if model}}
+          <h1>Welcome back {{model.nickname}}!</h1>
         {{else}}
-          Submit
+          <div class="form-group text-left">
+            <label for="emailAddressInput">Email address</label>
+            {{input value=emailAddress class="form-control form-control-lg" type="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group text-left">
+            <label for="nicknameAddressInput">Nickname</label>
+            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" required=true}}
+          </div>
         {{/if}}
-      </button>
-    </form>
-    {{if token token}}
-  {{else if web3.wrongNetwork}}
-    <!-- TODO: proper wrong network page -->
-    <h2>You're on the wrong network!</h2>
-    <h2>Please switch to the {{web3.networkToSwitchTo}}.</h2>
-  {{else if web3.metamaskDetected}}
-    <!-- TODO: proper locked MetaMask page -->
-    <h2>Please log in to your MetaMask account</h2>
-  {{else}}
-    <!-- TODO: proper install MetaMask page -->
-    <h2>Please install MetaMask</h2>
-  {{/if}}
+        <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
+          {{#if getSignature.isRunning}}
+            Waiting for signature...
+          {{else if verifySignature.isRunning}}
+            Verifying signature...
+          {{else if openSession.isRunning}}
+            Signing in...
+          {{else if model}}
+            Log In
+          {{else}}
+            Submit
+          {{/if}}
+        </button>
+      </form>
+      {{if token token}}
+    {{else if web3.wrongNetwork}}
+      <!-- TODO: proper wrong network page -->
+      <h2>You're on the wrong network!</h2>
+      <h2>Please switch to the {{web3.networkToSwitchTo}}.</h2>
+    {{else if web3.metamaskDetected}}
+      <!-- TODO: proper locked MetaMask page -->
+      <h2>Please log in to your MetaMask account</h2>
+    {{else}}
+      <!-- TODO: proper install MetaMask page -->
+      <h2>Please install MetaMask</h2>
+    {{/if}}
+  </div>
 </div>
