@@ -19,10 +19,6 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
     // The checklist item represented by this card. See the Checklist contract for more info.
     uint8 checklistId;
 
-    // The sale in which this card was sold
-    // TODO: does this really matter???
-    uint8 saleId;
-
     // Cards for a given player have a serial number, which gets
     // incremented in sequence. If we mint 1000 Messis, the third one
     // to be minted has serialNumber = 3 (out of 1000, for example).
@@ -34,7 +30,9 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   /// @dev All the cards that have been minted, indexed by cardId.
   Card[] public cards;
 
-  mapping (uint8 => uint16) cardCountForChecklistId;
+  /// @dev Keeps track of how many cards we have minted for a given checklist ID
+  ///   to make sure we don't go over the limit for that checklistItem.
+  mapping (uint8 => uint16) mintedCountForChecklistId;
 
   StrikersChecklist public strikersChecklist;
 
@@ -60,21 +58,20 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a CardMinted and a Transfer event.
   /// @param _checklistId The ID of the checklistItem represented by the card (see Checklist.sol)
-  /// @param _saleId The sale in which this card was sold
   /// @param _owner The card's first owner!
   function _mintCard(
     uint8 _checklistId,
-    uint8 _saleId,
     address _owner
   )
     internal
     returns (uint256)
   {
-    uint16 serialNumber = ++cardCountForChecklistId[_checklistId];
+    uint16 mintLimit = strikersChecklist.limitForChecklistId(_checklistId);
+    require(mintLimit == 0 || mintedCountForChecklistId[_checklistId] < mintLimit, "Can't mint any more of this card!");
+    uint16 serialNumber = ++mintedCountForChecklistId[_checklistId];
     Card memory newCard = Card({
       mintTime: uint64(now),
       checklistId: _checklistId,
-      saleId: _saleId,
       serialNumber: serialNumber
     });
     uint256 newCardId = cards.push(newCard) - 1;

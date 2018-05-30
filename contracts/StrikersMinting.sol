@@ -13,15 +13,13 @@ contract StrikersMinting is StrikersBase, Ownable {
     packSaleAddress = _address;
   }
 
-  function mintCard(
-    uint8 _checklistId,
-    uint8 _saleId,
-    address _owner
-  )
-    external
-    returns (uint256)
-  {
-    require(msg.sender == packSaleAddress, "Only the pack sale contract can mint cards.");
-    return _mintCard(_checklistId, _saleId, _owner);
+  function mintPackSaleCard(uint8 _checklistId, address _owner) external returns (uint256) {
+    require(msg.sender == packSaleAddress, "Only the pack sale contract can mint here.");
+    return _mintCard(_checklistId, _owner);
+  }
+
+  function mintUnreleasedCard(uint8 _checklistId, address _owner) external onlyOwner {
+    require(_checklistId >= 200, "You can only use this to mint unreleased cards.");
+    _mintCard(_checklistId, _owner);
   }
 }

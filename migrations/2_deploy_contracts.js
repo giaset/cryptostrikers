@@ -46,6 +46,8 @@ module.exports = function(deployer, network) {
   // kitties mainnet:
 
   let strikersChecklist;
+  let strikersCore;
+  let strikersPackSale;
   deployer.deploy(StrikersChecklist)
   .then(checklistInstance => {
     strikersChecklist = checklistInstance;
@@ -53,36 +55,15 @@ module.exports = function(deployer, network) {
   })
   .then(() => strikersChecklist.deployStepTwo())
   .then(() => strikersChecklist.deployStepThree())
-  .then(() => strikersChecklist.deployStepFour());
-  /*let strikersCore;
-  let strikersPackSale;
-  deployer.deploy(Checklist)
-  .then(checklistInstance => deployer.deploy(StrikersCore, checklistInstance.address))
+  .then(() => strikersChecklist.deployStepFour())
+  .then(() => deployer.deploy(StrikersCore, strikersChecklist.address))
   .then(coreInstance => {
     strikersCore = coreInstance;
     const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
-    return deployer.deploy(StrikersPackSale, kittiesAddress, strikersCore.address);
+    return deployer.deploy(StrikersPackSale, 26000000000000000, kittiesAddress, strikersCore.address);
   })
   .then(packSaleInstance => {
     strikersPackSale = packSaleInstance;
     return strikersCore.setPackSaleAddress(strikersPackSale.address);
-  })
-  .then(() => strikersPackSale.createSale(0, 15000000000000000))
-  .then(() => {
-    const baseSalePacks = generatePacks(BASE_SALE_PACK_COUNT);
-    return loadPacks(0, baseSalePacks, strikersPackSale);
-  })
-  .then(() => strikersPackSale.startSale(0))
-  .then(() => strikersPackSale.createSale(86400, 30000000000000000))
-  .then(() => {
-    const flashSalePacks = generatePacks(FLASH_SALE_PACK_COUNT);
-    return loadPacks(1, flashSalePacks, strikersPackSale);
-  })
-  .then(() => strikersPackSale.startSale(1))
-  .then(() => strikersPackSale.createSale(0, 0))
-  .then(() => {
-    const kittySalePacks = generatePacks(5);
-    return loadPacks(2, kittySalePacks, strikersPackSale);
-  })
-  .then(() => strikersPackSale.startSale(2));*/
+  });
 };
