@@ -89,16 +89,19 @@ exports.subscribe = functions.https.onRequest((req, res) => {
       return res.status(422).send('Missing email_address in body!');
     }
 
-    const url = 'https://us12.api.mailchimp.com/3.0/lists/5f4a114f70/members';
+    const baseUrl = 'https://api.constantcontact.com/v2/contacts';
+    const apiKey = 'esm9wkaye32fxy8ugej2nhm8';
+    const accessToken = '30f9c08c-ddfc-4d02-8f35-eef9404debd7';
+    const url = `${baseUrl}?api_key=${apiKey}&access_token=${accessToken}`;
     const json = {
-      email_address: emailAddress,
-      status: 'subscribed'
+      email_addresses: [{ email_address: emailAddress }],
+      lists: [{ id: '1228981848' }]
     };
     const method = 'POST';
     const options = { url, json, method };
     return request(options, (_, response, body) => {
       res.status(response.statusCode).json(body);
-    }).auth('anystring', functions.config().mailchimp.key);
+    });
   });
 });
 

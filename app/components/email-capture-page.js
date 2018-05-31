@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { isBadRequestError } from 'ember-ajax/errors';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
@@ -21,9 +20,7 @@ export default Component.extend({
       yield this.get('ajax').post('subscribe', { data });
       this.set('subscriptionSuccessful', true);
     } catch(error) {
-      if (isBadRequestError(error)) {
-        this.set('error', error.payload.title);
-      }
+      this.set('error', 'Email address already subscribed.');
     }
   }).drop()
 });
