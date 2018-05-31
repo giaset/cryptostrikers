@@ -6,9 +6,8 @@ import "./StrikersChecklist.sol";
 /// @title Base contract for CryptoStrikers. Defines what a card is and how to mint one.
 /// @author The CryptoStrikers Team
 contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
-  /// @dev Emit this event whenever we mint a new card
-  ///  For Base Set cards, this occurs when a pack is purchased.
-  ///  For Daily Challenge cards, this occurs when you claim your prize for a correct response.
+
+  /// @dev Emit this event whenever we mint a new card (see _mintCard below)
   event CardMinted(uint256 cardId);
 
   /// @dev The struct representing the game's main object, a sports trading card.
@@ -16,7 +15,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
     // The timestamp at which this card was minted.
     uint64 mintTime;
 
-    // The checklist item represented by this card. See the Checklist contract for more info.
+    // The checklist item represented by this card. See StrikersChecklist.sol for more info.
     uint8 checklistId;
 
     // Cards for a given player have a serial number, which gets
@@ -34,6 +33,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   ///   to make sure we don't go over the limit for that checklistItem.
   mapping (uint8 => uint16) mintedCountForChecklistId;
 
+  /// @dev A reference to our checklist contract, which contains all the minting limits.
   StrikersChecklist public strikersChecklist;
 
   /*** FUNCTIONS ***/

@@ -1,34 +1,28 @@
 pragma solidity ^0.4.24;
 
-import "./StrikersMinting.sol";
-import "./StrikersWhitelist.sol";
+import "./StrikersReferral.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol";
 
-contract StrikersPackSale is StrikersWhitelist {
-  /*** EVENTS ***/
+/// @title The main sale contract, allowing users to purchase packs of CryptoStrikers cards.
+/// @author The CryptoStrikers Team
+contract StrikersPackSale is StrikersReferral {
 
-  // TODO: maybe track packID with a counter?
-  event PackBought(address indexed buyer, uint256[] pack);
+  /// @dev The max number of kitties we are allowed to burn.
+  uint16 public constant KITTY_BURN_LIMIT = 1000;
 
-  /*** CONSTANTS ***/
-
-  /// @dev The number of cards in a pack.
-  uint8 public constant PACK_SIZE = 4;
-
-  /*** STORAGE ***/
-
-  /// @dev We use/increment this nonce when grabbing a random pack in _removeRandomPack()
-  uint256 randNonce;
-
-  uint256 totalWeiRaised;
+  /// @dev Emit this whenever someone sacrifices a cat for a free pack of cards.
+  event KittyBurned(address user, uint256 kittyId);
 
   /// @dev A reference to the CryptoKitties contract so we can transfer cats
   ERC721Basic public kittiesContract;
 
-  /// @dev A reference to the contract where the cards are actually minted
-  StrikersMinting public mintingContract;
+  /// @dev How many kitties we have burned so far. Think of the cats, make sure we don't go over KITTY_BURN_LIMIT!
+  uint16 public totalKittiesBurned;
 
-  /// @dev Constructor. Can't change mintingContract address once it's been initialized
+  /// @dev Keeps track of our sale volume, in wei.
+  uint256 public totalWeiRaised;
+
+  /// @dev Constructor. Can't change minting and kitties contracts once they've been initialized.
   constructor(
     uint256 _standardPackPrice,
     address _kittiesContractAddress,
@@ -41,20 +35,27 @@ contract StrikersPackSale is StrikersWhitelist {
     mintingContract = StrikersMinting(_mintingContractAddress);
   }
 
-  function buyStandardPackWithETH() external payable {
-    uint256 packPrice = standardSale.packPrice;
-    require(msg.value >= packPrice, "Insufficiet ETH sent to buy this pack.");
-    _buyPack(standardSale);
-    totalWeiRaised += packPrice;
-    // Return excess funds
-    msg.sender.transfer(msg.value - packPrice);
+  /// @dev For a user who was referred, use this function to buy your first back so we can attribute the referral.
+  /// @param _referrer The user who invited msg.sender to CryptoStrikers.
+  /// @param _premium True if we're buying from Premium sale, false if we're buying from Standard sale.
+  function buyFirstPackFromReferral(address _referrer, bool _premium) external payable {
+    require(packsBought[msg.sender] == 0, "Only attribute a referrer on a user's first purchase.");
+    referrers[msg.sender] = _referrer;
+    buyPackWithETH(_premium);
   }
 
-  function _buyPack(PackSale storage _sale) internal whenNotPaused {
-    uint32 pack = _removeRandomPack(_sale.packs);
-    uint256[] memory cards = _mintCards(pack);
-    _sale.packsSold++;
-    emit PackBought(msg.sender, cards);
+  /// @dev Allows a user to buy a pack of cards with enough ETH to cover the packPrice.
+  /// @param _premium True if we're buying from Premium sale, false if we're buying from Standard sale.
+  function buyPackWithETH(bool _premium) public payable {
+    PackSale storage sale = _premium ? currentPremiumSale : standardSale;
+    uint256 packPrice = sale.packPrice;
+    require(msg.value >= packPrice, "Insufficient ETH sent to buy this pack.");
+    _buyPack(sale);
+    packsBought[msg.sender]++;
+    totalWeiRaised += packPrice;
+    // Refund excess funds
+    msg.sender.transfer(msg.value - packPrice);
+    _attributeSale(msg.sender, packPrice);
   }
 
   /// @notice Magically transform a CryptoKitty into a free pack of cards!
@@ -62,41 +63,19 @@ contract StrikersPackSale is StrikersWhitelist {
   /// @dev Note that the user must first give this contract approval by
   ///   calling approve(address(this), _kittyId) on the CK contract.
   ///   Otherwise, buyPackWithKitty() throws on transferFrom().
-  function buyStandardPackWithKitty(uint256 _kittyId) external {
+  function buyPackWithKitty(uint256 _kittyId) external {
+    require(totalKittiesBurned < KITTY_BURN_LIMIT, "Stop! Think of the cats!");
+    totalKittiesBurned++;
     // Will throw/revert if this contract hasn't been given approval first.
     // Also, with no way of retrieving kitties from this contract,
     // transferring to "this" burns the cat! (desired behaviour)
     kittiesContract.transferFrom(msg.sender, this, _kittyId);
     _buyPack(standardSale);
+    emit KittyBurned(msg.sender, _kittyId);
   }
 
-  function _mintCards(uint32 _pack) internal returns (uint256[]) {
-    uint8 mask = 255;
-    uint256[] memory newCards = new uint256[](PACK_SIZE);
-
-    for (uint8 i = 1; i <= PACK_SIZE; i++) {
-      uint8 shift = 32 - (i * 8);
-      uint8 checklistId = uint8((_pack >> shift) & mask);
-      uint256 cardId = mintingContract.mintPackSaleCard(checklistId, msg.sender);
-      newCards[i-1] = cardId;
-    }
-
-    return newCards;
-  }
-
-  function _removeRandomPack(uint32[] storage _packs) internal returns (uint32) {
-    randNonce++;
-    bytes memory packed = abi.encodePacked(now, msg.sender, randNonce);
-    uint256 randomIndex = uint256(keccak256(packed)) % _packs.length;
-    return _removePackAtIndex(randomIndex, _packs);
-  }
-
-  function _removePackAtIndex(uint256 _index, uint32[] storage _packs) internal returns (uint32) {
-    uint256 lastIndex = _packs.length - 1;
-    require(_index <= lastIndex);
-    uint32 pack = _packs[_index];
-    _packs[_index] = _packs[lastIndex];
-    _packs.length--;
-    return pack;
+  /// @dev Allows the contract owner to withdraw the ETH raised from selling packs.
+  function withdrawBalance() external onlyOwner {
+    owner.transfer(address(this).balance);
   }
 }

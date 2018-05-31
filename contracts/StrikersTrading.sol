@@ -138,16 +138,9 @@ contract StrikersTrading is StrikersMinting, Pausable {
     view
     returns (bytes32)
   {
-    return keccak256(
-      // Hashing the contract address prevents a trade from being replayed
-      // on any new trade contract we deploy.
-      this,
-      _maker,
-      _makerCardId,
-      _taker,
-      _takerCardOrChecklistId,
-      _salt
-    );
+    // Hashing the contract address prevents a trade from being replayed on any new trade contract we deploy.
+    bytes memory packed = abi.encodePacked(this, _maker, _makerCardId, _taker, _takerCardOrChecklistId, _salt);
+    return keccak256(packed);
   }
 
   /// @dev Verifies that a signed trade is valid.
@@ -167,11 +160,7 @@ contract StrikersTrading is StrikersMinting, Pausable {
     pure
     returns (bool)
   {
-    return _signer == ecrecover(
-      keccak256("\x19Ethereum Signed Message:\n32", _tradeHash),
-      _v,
-      _r,
-      _s
-    );
+    bytes memory packed = abi.encodePacked("\x19Ethereum Signed Message:\n32", _tradeHash);
+    return _signer == ecrecover(keccak256(packed), _v, _r, _s);
   }
 }

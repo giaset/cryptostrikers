@@ -3,12 +3,14 @@ pragma solidity ^0.4.24;
 import "./StrikersMetadata.sol";
 import "./StrikersTrading.sol";
 
+/// @title The main, ERC721-compliant CryptoStrikers contract.
+/// @author The CryptoStrikers Team
 contract StrikersCore is StrikersTrading {
 
   /// @dev An external metadata contract that the owner can upgrade.
   StrikersMetadata public strikersMetadata;
 
-  /// @dev We initialize the CryptoStrikers game with a checklist that can't be changed.
+  /// @dev We initialize the CryptoStrikers game with an immutable checklist that oversees card rarity.
   constructor(address _checklistAddress) public {
     strikersChecklist = StrikersChecklist(_checklistAddress);
   }
