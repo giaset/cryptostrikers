@@ -76,6 +76,8 @@ contract StrikersPackSale is StrikersReferral {
 
   /// @dev Allows the contract owner to withdraw the ETH raised from selling packs.
   function withdrawBalance() external onlyOwner {
-    owner.transfer(address(this).balance);
+    uint256 totalBalance = address(this).balance;
+    require(totalBalance > totalCommissionOwed, "There is no ETH for the owner to claim.");
+    owner.transfer(totalBalance - totalCommissionOwed);
   }
 }
