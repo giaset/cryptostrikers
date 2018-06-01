@@ -2,7 +2,6 @@ const fs = require('fs');
 const shuffle = require('shuffle-array');
 
 const ORIGINALS_COUNT = 100;
-const PACK_SIZE = 4;
 
 const checklistIds = [];
 for (let i = 0; i < ORIGINALS_COUNT; i++) {
