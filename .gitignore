@@ -37,3 +37,7 @@ players.json
 checklist.json
 
 helpers/cryptostrikers-prod-leads-export.json
+
+packs.json
+
+helpers/push-packs.js
