@@ -5,7 +5,7 @@ pragma solidity ^0.4.24;
 contract StrikersMetadata {
   // TODO: make sure to switch to prod API before mainnet deploy!!!
   /// @dev The base url for our Firebase cloud function.
-  string constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
+  string public constant API_URL = "https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/";
 
   /// @dev Returns the API URL for a given token Id.
   ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22

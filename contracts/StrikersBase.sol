@@ -31,7 +31,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
 
   /// @dev Keeps track of how many cards we have minted for a given checklist ID
   ///   to make sure we don't go over the limit for that checklistItem.
-  mapping (uint8 => uint16) mintedCountForChecklistId;
+  mapping (uint8 => uint16) public mintedCountForChecklistId;
 
   /// @dev A reference to our checklist contract, which contains all the minting limits.
   StrikersChecklist public strikersChecklist;

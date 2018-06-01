@@ -132,7 +132,7 @@ contract StrikersPlayerList is Ownable {
     addPlayer("Zlatan Ibrahimović"); // 101
   }
 
-  /// @dev Fires an event, proving that we said a player corresponds to an ID.
+  /// @dev Fires an event, proving that we said a player corresponds to a given ID.
   /// @param _name The name of the player we are adding.
   function addPlayer(string _name) public onlyOwner {
     require(playerCount < 255, "You've already added the maximum amount of players.");

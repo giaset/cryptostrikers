@@ -6,6 +6,9 @@ import "./StrikersWhitelist.sol";
 /// @author The CryptoStrikers Team
 contract StrikersReferral is StrikersWhitelist {
 
+  /// @dev A cap for how many free referral packs we are giving away.
+  uint16 public constant MAX_FREE_REFERRAL_PACKS = 1000;
+
   /// @dev The percentage of each sale that gets paid out to the referrer as commission.
   uint256 public constant PERCENT_COMMISSION = 10;
 
@@ -29,6 +32,9 @@ contract StrikersReferral is StrikersWhitelist {
 
   /// @dev Use this to track whether or not a user has bought at least one pack, to avoid people gaming our referral program.
   mapping (address => uint16) public packsBought;
+
+  /// @dev Keep track of this to make sure we don't go over MAX_FREE_REFERRAL_PACKS.
+  uint16 public freeReferralPacksClaimed;
 
   /// @dev Tracks whether or not a user has already claimed their free referral pack.
   mapping (address => bool) public hasClaimedFreeReferralPack;
@@ -85,11 +91,13 @@ contract StrikersReferral is StrikersWhitelist {
   }
 
   /// @dev A user who was referred to CryptoStrikers can call this once to claim their free pack (must have bought a pack first).
-  function claimReferralPack() external {
+  function claimFreeReferralPack() external {
     address referrer = referrers[msg.sender];
     require(referrer != address(0), "You haven't attributed your referrer using buyFirstPackFromReferral().");
     require(packsBought[referrer] > 0, "To avoid abuse, the person who referred you must also have bought a pack.");
     require(!hasClaimedFreeReferralPack[msg.sender], "You have already claimed your free referral pack!");
+    require(freeReferralPacksClaimed < MAX_FREE_REFERRAL_PACKS, "We've already given away all the free referral packs...");
+    freeReferralPacksClaimed++;
     hasClaimedFreeReferralPack[msg.sender] = true;
     _buyPack(standardSale);
   }

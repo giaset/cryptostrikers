@@ -22,7 +22,7 @@ contract StrikersWhitelist is StrikersPackSaleInternal {
   uint16[2] public currentWhitelistCounts;
 
   /// @dev Index 0 is the Standard whitelist, index 1 is the Premium whitelist. Maps addresses to free pack allocation.
-  mapping (address => uint8)[2] whitelists;
+  mapping (address => uint8)[2] public whitelists;
 
   /// @dev Allows the owner to allocate free packs (either Standard or Premium) to a given address.
   /// @param _premium True for Premium whitelist, false for Standard whitelist.
@@ -50,6 +50,7 @@ contract StrikersWhitelist is StrikersPackSaleInternal {
   function claimWhitelistPack(bool _premium) external {
     uint8 listIndex = _premium ? 1 : 0;
     require(whitelists[listIndex][msg.sender] > 0, "You have no whitelist allocation.");
+    // Can't underflow because of require() check above.
     whitelists[listIndex][msg.sender]--;
     PackSale storage sale = _premium ? currentPremiumSale : standardSale;
     _buyPack(sale);

@@ -13,11 +13,12 @@ contract StrikersPackSaleInternal is StrikersPackFactory {
   uint8 public constant PACK_SIZE = 4;
 
   /// @dev We increment this nonce when grabbing a random pack in _removeRandomPack().
-  uint256 randNonce;
+  uint256 internal randNonce;
 
   /// @dev Function shared by all 3 ways of buying a pack (ETH, kitty burn, whitelist).
   /// @param _sale The sale we are buying from.
   function _buyPack(PackSale storage _sale) internal whenNotPaused {
+    require(_sale.packs.length > 0, "The sale has no packs available for sale.");
     uint32 pack = _removeRandomPack(_sale.packs);
     uint256[] memory cards = _mintCards(pack);
     _sale.packsSold++;
@@ -32,6 +33,7 @@ contract StrikersPackSaleInternal is StrikersPackFactory {
     uint256[] memory newCards = new uint256[](PACK_SIZE);
 
     for (uint8 i = 1; i <= PACK_SIZE; i++) {
+      // Can't underflow because PACK_SIZE is 4.
       uint8 shift = 32 - (i * 8);
       uint8 checklistId = uint8((_pack >> shift) & mask);
       uint256 cardId = mintingContract.mintPackSaleCard(checklistId, msg.sender);
@@ -56,6 +58,7 @@ contract StrikersPackSaleInternal is StrikersPackFactory {
   /// @param _packs The array of uint32s we will be mutating.
   /// @return The uint32 we removed from position _index.
   function _removePackAtIndex(uint256 _index, uint32[] storage _packs) internal returns (uint32) {
+    // Can't underflow because we do require(_sale.packs.length > 0) in _buyPack().
     uint256 lastIndex = _packs.length - 1;
     require(_index <= lastIndex);
     uint32 pack = _packs[_index];

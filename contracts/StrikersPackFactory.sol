@@ -83,7 +83,7 @@ contract StrikersPackFactory is Pausable {
 
   /*** STORAGE ***/
 
-  /// @dev A reference to the contract where the cards are actually minted
+  /// @dev A reference to the core contract, where the cards are actually minted.
   StrikersMinting public mintingContract;
 
   /// @dev Our one and only Standard sale, which runs all tournament long.
