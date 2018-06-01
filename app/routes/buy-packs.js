@@ -1,7 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Route.extend({
+  strikersContracts: service(),
   web3: service(),
 
   beforeModel() {
@@ -11,14 +13,17 @@ export default Route.extend({
   },
 
   model() {
-    return this.get('store').findAll('sale').then(sales => {
-      return sales.filter(sale => {
-        const endTime = sale.get('endTime');
-        if (!endTime) { return true; }
-        const now = new Date().getTime();
-        const diff = endTime.getTime() - now;
-        return diff > 0;
-      });
+    const contract = this.get('strikersContracts.StrikersPackSale.methods');
+    const store = this.get('store');
+    const isPaused = contract.paused().call();
+
+    const standardSale = store.queryRecord('pack-sale', 'standard');
+    const premiumSale = store.queryRecord('pack-sale', 'premium');
+
+    return RSVP.hash({
+      isPaused,
+      standardSale,
+      premiumSale
     });
   }
 });

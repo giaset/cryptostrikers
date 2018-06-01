@@ -1,15 +1,17 @@
 <div class="container">
-  <div class="row text-center mb-3">
-    <div class="col">
-      <h1>Card Packs</h1>
-      <p>Build your collection by buying packs.</p>
-      <p>Each pack contains 4 cards.</p>
-      <p>Cards must be bought with Ethereum. Click here (TODO: ETH buying guide) to learn how to fund your account.</p>
-      <p>Cards will be on sale until the final whistle blows for the July 15th final.</p>
+  {{#if model.isPaused}}
+    <div class="text-center">
+      SALE IS PAUSED
     </div>
-  </div>
-  {{#each model as |sale|}}
-    {{pack-sale-tile sale=sale action=(action "buyPackButtonClicked")}}
-  {{/each}}
-  {{gas-modal id="buyPackModal" confirmAction=(action "buyPack")}}
+  {{else}}
+    {{card-packs-header}}
+    <div class="row">
+      <div class="col-md">
+        {{pack-sale-column sale=model.standardSale}}
+      </div>
+      <div class="col-md">
+        {{pack-sale-column sale=model.premiumSale}}
+      </div>
+    </div>
+  {{/if}}
 </div>
