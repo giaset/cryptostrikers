@@ -45,10 +45,18 @@ module.exports = function(deployer, network) {
   // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
   // kitties mainnet:
 
+  let strikersChecklist;
   let strikersCore;
   let strikersPackSale;
   deployer.deploy(StrikersChecklist)
-  .then(checklistInstance => deployer.deploy(StrikersCore, checklistInstance.address))
+  .then(checklistInstance => {
+    strikersChecklist = checklistInstance;
+    return strikersChecklist.deployStepOne();
+  })
+  .then(() => strikersChecklist.deployStepTwo())
+  .then(() => strikersChecklist.deployStepThree())
+  .then(() => strikersChecklist.deployStepFour())
+  .then(() => deployer.deploy(StrikersCore, strikersChecklist.address))
   .then(coreInstance => {
     strikersCore = coreInstance;
     const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;

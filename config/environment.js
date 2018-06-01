@@ -44,9 +44,9 @@ module.exports = function(environment) {
       onlyShowLanding: false,
       contractJsonPrefix: '',
       checklistContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
-      coreContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
-      kittiesContractAddress: '0xc273b9bf2c4d83b58b690c99e732f99439a9e097',
-      saleContractAddress: '0xe67d0161db73d82fae928aca628b0c2c5c4424ca'
+      coreContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
+      kittiesContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
+      saleContractAddress: '0xa32d4da69c2cc405f98acc58481f9e0dd038f2fa'
     },
 
     torii: {

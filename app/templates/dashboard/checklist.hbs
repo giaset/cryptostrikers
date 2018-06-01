@@ -1,0 +1,16 @@
+<h1>StrikersChecklist</h1>
+<h5>Deploy Step: {{model.deployStep}}</h5>
+<br>
+<h5>Player Count: {{model.playerCount}}</h5>
+{{#each model.players as |player|}}
+  <p class="mb-0">{{player.id}} - {{player.name}} = {{player.storePlayer.name}} ({{player.storePlayer.country.name}})</p>
+{{/each}}
+<br>
+<h5>Originals Count: {{model.originalsCount}}</h5>
+{{#each model.originals as |checklistItem|}}
+  <p class="mb-0">playerId: {{checklistItem.playerId}}, tier: {{checklistItem.tier}}</p>
+{{/each}}
+<br>
+<h5>Iconics Count: {{model.iconicsCount}}</h5>
+<br>
+<h5>Unreleased Count: {{model.unreleasedCount}}</h5>
