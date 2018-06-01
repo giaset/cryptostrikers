@@ -14,16 +14,15 @@ export default DS.Model.extend({
     return this.get('id') === '0';
   }),
 
+  maxPacks: computed('isStandard', function() {
+    return this.get('isStandard') ? '75,616' : '500';
+  }),
+
   packPriceInEth: computed('packPrice', function() {
     return this.get('web3').weiToEther(this.get('packPrice'));
   }),
 
-  packsOffered: computed('isStandard', function() {
-    return this.get('isStandard') ? '75,616' : '500';
-  }),
-
-  percentComplete: computed('packsSold', 'packsOffered', function() {
-    const packsOffered = parseInt(this.get('packsOffered').replace(/,/g, ''));
-    return (this.get('packsSold') / packsOffered) * 100;
+  percentComplete: computed('packsSold', 'packsLoaded', function() {
+    return (this.get('packsSold') / this.get('packsLoaded')) * 100;
   })
 });
