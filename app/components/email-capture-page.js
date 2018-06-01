@@ -1,10 +1,13 @@
 import Component from '@ember/component';
+import ENV from 'cryptostrikers/config/environment';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['email-capture-page'],
   ajax: service(),
+  onlyShowLanding: ENV.strikers.onlyShowLanding,
+
   actions: {
     createLead(emailAddress) {
       if (!this.get('subscriptionSuccessful')) {

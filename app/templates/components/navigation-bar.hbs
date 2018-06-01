@@ -1,5 +1,5 @@
 {{link-to "CryptoStrikers" "index" class="navbar-brand font-weight-900" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-{{#if showSignIn}}Total users: {{stats.userCount}}{{/if}}
+Total users: {{stats.userCount}}
 {{#if session.isAuthenticated}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
     <span class="navbar-toggler-icon"></span>
@@ -31,14 +31,6 @@
             <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
           </div>
         </li>
-    </ul>
-  </nav>
-{{else if showSignIn}}
-  <nav class="ml-auto">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        {{link-to "Play Now" "sign-in" class="nav-link"}}
-      </li>
     </ul>
   </nav>
 {{/if}}

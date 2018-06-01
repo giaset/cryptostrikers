@@ -1,9 +1,7 @@
-{{#if onlyShowLanding}}
-  {{email-capture-page}}
-{{else}}
+{{#unless (eq currentRouteName "index")}}
   {{navigation-bar closeSession=(action "closeSession") stats=model.stats}}
-  <main role="main">
-    {{outlet}}
-  </main>
-  {{modal-container}}
-{{/if}}
+{{/unless}}
+<main role="main">
+  {{outlet}}
+</main>
+{{modal-container}}

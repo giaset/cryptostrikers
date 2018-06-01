@@ -1,4 +1,10 @@
-<div class="container-fluid top-banner py-2">Sign up below to get a <span class="gold-text">free pack</span> when we launch! <a class="gold-text" href="https://medium.com/cryptostrikers/why-were-putting-sports-cards-on-the-blockchain-c00112150033" target="_blank">Learn more.</a></div>
+<div class="container-fluid top-banner py-2">
+  {{#if onlyShowLanding}}
+    Sign up below to get a <span class="gold-text">free pack</span> when we launch! <a class="gold-text" href="https://medium.com/cryptostrikers/why-were-putting-sports-cards-on-the-blockchain-c00112150033" target="_blank">Learn more.</a>
+  {{else}}
+    Welcome to the <span class="gold-text">CryptoStrikers</span> public beta. <a class="gold-text" href="#">Learn more.</a>
+  {{/if}}
+</div>
 <div class="container d-flex py-5">
   <a href="https://twitter.com/CryptoStrikers" target="_blank" class="twitter-link">Twitter</a>
   <img class="shield-logo" src="assets/images/shield-logo.svg">
@@ -11,18 +17,22 @@
   <div class="email-capture-text">
     <h1 class="email-capture-title font-weight-900">CryptoStrikers</h1>
     <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
-    <form {{action "createLead" emailAddress on="submit"}} class="email-capture-form">
-      {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
-      <span class="text-danger">{{error}}</span>
-      <button type="submit" class="btn btn-success btn-lg email-submit-button">
-        {{#if subscriptionSuccessful}}
-          THANK YOU!
-        {{else if subscribeTask.isRunning}}
-          SUBMITTING...
-        {{else}}
-          GET UPDATES
-        {{/if}}
-      </button>
-    </form>
+    {{#if onlyShowLanding}}
+      <form {{action "createLead" emailAddress on="submit"}} class="email-capture-form">
+        {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
+        <span class="text-danger">{{error}}</span>
+        <button type="submit" class="btn btn-success btn-lg email-capture-button">
+          {{#if subscriptionSuccessful}}
+            THANK YOU!
+          {{else if subscribeTask.isRunning}}
+            SUBMITTING...
+          {{else}}
+            GET UPDATES
+          {{/if}}
+        </button>
+      </form>
+    {{else}}
+      {{link-to "PLAY NOW" "sign-in" class="btn btn-lg email-capture-button"}}
+    {{/if}}
   </div>
 </div>

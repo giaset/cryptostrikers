@@ -62,19 +62,21 @@
           font-size: 20px;
           letter-spacing: 0.1em;
         }
+      }
 
-        .email-submit-button {
-          background: #DBB66B;
-          border: 7px solid #000000;
-          border-radius: 7px;
-          box-sizing: border-box;
-          font-weight: 900;
-          letter-spacing: 0.1em;
-          font-size: 20px;
-          width: 271px;
-          height: 84px;
-          margin: 39px 0;
-        }
+      .email-capture-button {
+        background: #DBB66B;
+        color: white;
+        border: 7px solid #000000;
+        border-radius: 7px;
+        box-sizing: border-box;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        font-size: 20px;
+        width: 271px;
+        height: 84px;
+        line-height: 54px;
+        margin: 39px 0;
       }
     }
   }

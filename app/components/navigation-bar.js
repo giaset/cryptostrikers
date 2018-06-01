@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
-import ENV from 'cryptostrikers/config/environment';
 
 export default Component.extend({
   currentUser: service(),
@@ -10,7 +9,6 @@ export default Component.extend({
   web3: service(),
   classNames: ['navbar', 'navbar-expand-md', 'navbar-light'],
   tagName: 'header',
-  showSignIn: !ENV.strikers.onlyShowLanding,
 
   balance: computed('metamaskWatcher.currentBalance', function() {
     const weiBalance = this.get('metamaskWatcher.currentBalance');
