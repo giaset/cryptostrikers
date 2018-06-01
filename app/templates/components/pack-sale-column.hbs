@@ -1,5 +1,24 @@
 <div class="pack-sale-container">
-  <img class="pack-sale-image" src="/assets/images/{{if isStandard "standard" "premium"}}-pack.png">
-  <h5 class="pack-sale-title">{{if isStandard "Standard" "Premium"}} Pack</h5>
-  <div class="pack-sale-price">0.022 ETH</div>
+  <img class="pack-sale-image" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
+  <h5 class="pack-sale-title">{{if sale.isStandard "Standard" "Premium"}} Pack</h5>
+  <div class="pack-sale-price">{{sale.packPriceInEth}} ETH</div>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow={{sale.percentComplete}} aria-valuemin="0" aria-valuemax="100" style={{progressBarStyle}}></div>
+  </div>
+  <span class="sold-count">Sold {{sale.packsSold}} of {{sale.packsOffered}}</span>
+  <hr class="pack-sale-divider">
+  <h6 class="tier-distribution-title">Tier Distribution</h6>
+  <span class="tier-percentages">
+    {{#if sale.isStandard}}
+      Diamond: 0.72%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gold: 5.76%
+      <br>
+      Silver: 21.58%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bronze: 71.94%
+    {{else}}
+      Iconic: 5.00%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diamond: 3.80%
+      <br>
+      Gold: 19.20%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Silver: 72.00%
+    {{/if}}
+  </span>
+  {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link"}}
 </div>
+<button type="button" class="btn pack-sale-button" {{action buyPack}}>BUY {{if sale.isStandard "STANDARD" "PREMIUM"}} PACK</button>

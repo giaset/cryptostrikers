@@ -6,11 +6,11 @@
   {{else}}
     {{card-packs-header}}
     <div class="row">
-      <div class="col-md">
-        {{pack-sale-column sale=model.standardSale}}
+      <div class="col-md mb-5">
+        {{pack-sale-column sale=model.standardSale buyPack=(action "buyPack" model.standardSale)}}
       </div>
-      <div class="col-md">
-        {{pack-sale-column sale=model.premiumSale}}
+      <div class="col-md mb-5">
+        {{pack-sale-column sale=model.premiumSale buyPack=(action "buyPack" model.premiumSale)}}
       </div>
     </div>
   {{/if}}
