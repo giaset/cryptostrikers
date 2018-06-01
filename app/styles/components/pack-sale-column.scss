@@ -80,4 +80,25 @@
     font-weight: bold;
     font-size: 14px;
   }
+
+  .or-separator {
+    font-weight: bold;
+    font-size: 14px;
+    color: #828282;
+    margin: 20px 0;
+  }
+
+  .kitty-sale-button {
+    background: #FFD9FF;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+    line-height: 36px;
+    .kitty-button-image {
+      width: 36px;
+      height: 36px;
+    }
+  }
 }

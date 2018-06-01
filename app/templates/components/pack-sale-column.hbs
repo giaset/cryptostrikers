@@ -22,3 +22,12 @@
   {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link"}}
 </div>
 <button type="button" class="btn pack-sale-button" {{action buyPack}}>BUY {{if sale.isStandard "STANDARD" "PREMIUM"}} PACK</button>
+<!--
+{{#if sale.isStandard}}
+  <h6 class="or-separator">OR</h6>
+  {{#link-to "kitty-sale" class="btn kitty-sale-button"}}
+    <img class="kitty-button-image" src="/assets/images/ck-logo.svg">
+    BUY WITH CRYPTOKITTY
+  {{/link-to}}
+{{/if}}
+-->
