@@ -1,49 +1,13 @@
 const StrikersChecklist = artifacts.require('./StrikersChecklist.sol');
 const StrikersCore = artifacts.require('./StrikersCore.sol');
+const StrikersMetadata = artifacts.require('./StrikersMetadata.sol');
 const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
-
-const CARDS_PER_PACK = 4;
-const PACKS_PER_LOAD = 500;
-const BASE_SALE_PACK_COUNT = 1000;//20000;
-const FLASH_SALE_PACK_COUNT = 1000;
-const BASE_SET_COUNT = 25;
-
-function generatePacks(numberOfPacks) {
-  const packs = [];
-
-  for (let i = 0; i < numberOfPacks; i++) {
-    let pack = '';
-    for (let j = 0; j < CARDS_PER_PACK; j++) {
-      const checklistId = Math.floor(Math.random() * BASE_SET_COUNT);
-      const binaryChecklistId = checklistId.toString(2);
-      const paddedBinaryChecklistId = '00000000'.substr(binaryChecklistId.length) + binaryChecklistId;
-      pack += paddedBinaryChecklistId;
-    }
-    packs.push(parseInt(pack, 2));
-  }
-
-  return packs;
-}
-
-function loadPacks(saleId, packs, strikersPackSale) {
-  const numberOfTxns = packs.length / PACKS_PER_LOAD;
-  let promise = Promise.resolve();
-
-  for (let i = 0; i < numberOfTxns; i++) {
-    const startIndex = i * PACKS_PER_LOAD;
-    const batch = packs.slice(startIndex, startIndex + PACKS_PER_LOAD);
-    promise = promise.then(() => {
-      console.log(`Loading packs ${startIndex}-${startIndex+PACKS_PER_LOAD} (${i+1}/${numberOfTxns})`);
-      return strikersPackSale.addBatchToSale(saleId, batch);
-    });
-  }
-
-  return promise;
-}
 
 module.exports = function(deployer, network) {
   // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
   // kitties mainnet:
+
+  const apiUrl = 'https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/';
 
   let strikersChecklist;
   let strikersCore;
@@ -65,5 +29,7 @@ module.exports = function(deployer, network) {
   .then(packSaleInstance => {
     strikersPackSale = packSaleInstance;
     return strikersCore.setPackSaleAddress(strikersPackSale.address);
-  });
+  })
+  .then(() => deployer.deploy(StrikersMetadata, apiUrl))
+  .then(metadataInstance => strikersCore.setMetadataAddress(metadataInstance.address));
 };
