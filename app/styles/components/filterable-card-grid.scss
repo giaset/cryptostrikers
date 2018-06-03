@@ -19,8 +19,40 @@
 
     .card-count-badge {
       position: absolute;
-      top: -8px;
-      right: -8px;
+      background-color: white;
+      font-weight: 900;
+      border-radius: 50%;
+      border: 2px solid #DBB66A;
+      box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @include media-breakpoint-up(xs) {
+      .card-count-badge {
+        width: 26px;
+        line-height: 22px; // + 2px border on top and bottom
+        top: -13px;
+        right: -13px;
+        font-size: 12px;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      .card-count-badge {
+        width: 32px;
+        line-height: 28px; // + 2px border on top and bottom
+        top: -16px;
+        right: -16px;
+        font-size: 16px;
+      }
+    }
+
+    @include media-breakpoint-up(xl) {
+      .card-count-badge {
+        width: 38px;
+        line-height: 34px; // + 2px border on top and bottom
+        top: -19px;
+        right: -19px;
+      }
     }
 
     .card-count {

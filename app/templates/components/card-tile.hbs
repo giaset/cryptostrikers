@@ -3,7 +3,7 @@
     <img src={{checklistItem.filepath}} class="card-image img-fluid">
   </div>
   {{#if (gt ownedCount 1)}}
-    <h5><span class="card-count-badge badge badge-pill badge-primary">{{ownedCount}}</span></h5>
+    <span class="card-count-badge">{{ownedCount}}</span>
   {{/if}}
   {{checklist-item-info checklistItem=checklistItem}}
 {{/link-to}}
