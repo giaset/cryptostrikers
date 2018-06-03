@@ -32,17 +32,26 @@
         line-height: 22px; // + 2px border on top and bottom
         top: -13px;
         right: -13px;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(sm) {
+      .card-count-badge {
+        width: 36px;
+        line-height: 32px; // + 2px border on top and bottom
+        top: -18px;
+        right: -18px;
+        font-size: 16px;
+      }
+    }
+
+    @include media-breakpoint-up(md) {
       .card-count-badge {
         width: 32px;
         line-height: 28px; // + 2px border on top and bottom
         top: -16px;
         right: -16px;
-        font-size: 16px;
       }
     }
 
