@@ -12,6 +12,10 @@ export default DS.Adapter.extend({
       return contract.currentPremiumSale().call().then(sale => {
         return sale.id === '0' ? null : sale;
       });
+    } else if (query === 'next') {
+      return contract.nextPremiumSale().call().then(sale => {
+        return sale.id === '0' ? null : sale;
+      });
     }
   }
 });
