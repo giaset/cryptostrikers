@@ -1,0 +1,19 @@
+<h1>PackFactory</h1>
+<h5>Owner: {{model.owner}}</h5>
+<h5>Current address: {{model.currentUserAddress}}</h5>
+<h4>Next Premium Sale:</h4>
+{{#if model.nextSale}}
+  <h5>id: {{model.nextSale.id}}</h5>
+  <h5>featuredChecklistItem: {{model.nextSale.featuredChecklistItem.id}} - {{model.nextSale.featuredChecklistItem.player.name}}</h5>
+  <h5>packPrice: {{model.nextSale.packPrice}}</h5>
+  <span>packsLoaded: {{model.nextSale.packsLoaded}}</span>
+  <button {{action "loadPremiumPacks" model.nextSale.featuredChecklistItem.id}}>Load Packs</button>
+  {{#if (eq model.nextSale.packsLoaded 500)}}
+    <br><button {{action "startNextPremiumSale"}}>Start Sale</button>
+  {{/if}}
+{{else}}
+  There is no next sale.
+  {{input value=featuredChecklistItem placeholder="Featured checklist item"}}
+  {{input value=packPrice placeholder="Pack price (wei)"}}
+  <button {{action "createNextPremiumSale" featuredChecklistItem packPrice}}>Create</button>
+{{/if}}

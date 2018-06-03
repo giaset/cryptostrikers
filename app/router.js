@@ -30,6 +30,7 @@ Router.map(function() {
   this.route('dashboard', function() {
     this.route('checklist');
     this.route('core');
+    this.route('pack-factory');
   });
 });
 
