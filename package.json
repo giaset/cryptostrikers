@@ -21,6 +21,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.1.0-8",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
+    "ember-auto-import": "^0.1.0",
     "ember-browserify": "^1.2.2",
     "ember-cli": "~3.0.0",
     "ember-cli-app-version": "^3.0.0",
