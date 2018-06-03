@@ -4,39 +4,44 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   strikersContracts: service(),
 
+  beforeModel() {
+    return this.get('store').findAll('checklist-item');
+  },
+
   model(params) {
     const contract = this.get('strikersContracts.StrikersPackSale');
     const filter = { saleId: params.sale_id };
     return contract.getPastEvents('PacksLoaded', { filter, fromBlock: 0, toBlock: 'latest' }).then(events => {
-      const playerToCount = {};
+      const countForChecklistId = {};
       events.forEach(event => {
         event.returnValues.packs.forEach(pack => {
-          const players = this._packToPlayers(parseInt(pack));
-          players.forEach(player => {
-            if (playerToCount[player]) {
-              playerToCount[player]++;
+          const checklistIds = this._packToChecklistIds(parseInt(pack));
+          checklistIds.forEach(checklistId => {
+            const paddedChecklistId = checklistId.toString().padStart(3, '0');
+            if (countForChecklistId[paddedChecklistId]) {
+              countForChecklistId[paddedChecklistId]++;
             } else {
-              playerToCount[player] = 1;
+              countForChecklistId[paddedChecklistId] = 1;
             }
           });
         });
       });
 
-      return Object.keys(playerToCount).map(key => {
+      return Object.keys(countForChecklistId).sort().map(key => {
         return {
-          player: this.get('store').peekRecord('player', key),
-          count: playerToCount[key]
+          checklistItem: this.get('store').peekRecord('checklist-item', key),
+          count: countForChecklistId[key]
         };
       });
     });
   },
 
-  _packToPlayers(pack) {
-    const player1 = pack >> 24;
-    const player2 = (pack >> 16) & 255;
-    const player3 = (pack >> 8) & 255;
-    const player4 = pack & 255;
+  _packToChecklistIds(pack) {
+    const checklistId1 = pack >> 24;
+    const checklistId2 = (pack >> 16) & 255;
+    const checklistId3 = (pack >> 8) & 255;
+    const checklistId4 = pack & 255;
 
-    return [player1, player2, player3, player4];
+    return [checklistId1, checklistId2, checklistId3, checklistId4];
   }
 });
