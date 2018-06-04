@@ -1,0 +1,52 @@
+.referrals-header {
+  padding: 63px 0;
+  border-bottom: 1px solid #F4F4F4;
+
+  .referrals-header-title {
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .referrals-header-subtitle {
+    color: $strikers-gold;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .referrals-header-images {
+    display: flex;
+    margin: 84px auto;
+
+    .referrals-header-image {
+      width: 150px;
+      height: 150px;
+      background-color: #C4C4C4;
+      border-radius: 50%;
+    }
+
+    .header-image-left {
+      margin-left: auto;
+    }
+
+    .header-image-right {
+      margin-right: auto;
+    }
+
+    .referrals-header-plus {
+      margin: auto 24px;
+      font-weight: bold;
+      font-size: 35px;
+      color: #828282;
+    }
+  }
+
+  .referrals-header-text {
+    font-size: 20px;
+    line-height: 31px;
+    color: #4F4F4F;
+
+    a {
+      color: $strikers-gold;
+    }
+  }
+}

@@ -6,6 +6,7 @@ export default function(featuredChecklistItem) {
     cards = _unshuffledPremiumCards(featuredChecklistItem);
   }
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     shuffle(cards);
     const groupedCards = _groupIntoFours(cards);

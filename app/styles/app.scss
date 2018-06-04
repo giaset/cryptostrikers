@@ -2,6 +2,8 @@
 //$body-bg: white;
 //$primary: red;
 
+$strikers-gold: #DBB66A;
+
 // Bootstrap and its default variables
 @import "vendor/bootstrap/scss/bootstrap";
 @import "app/styles/components/card-attributes";
@@ -12,6 +14,7 @@
 @import "app/styles/components/filterable-card-grid";
 @import "app/styles/components/pack-sale-column";
 @import "app/styles/components/pack-sale-tile";
+@import "app/styles/components/referrals-header";
 @import "app/styles/components/revealable-card";
 @import "app/styles/components/trading-container";
 @import "app/styles/flags";

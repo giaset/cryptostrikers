@@ -32,6 +32,7 @@ Router.map(function() {
     this.route('core');
     this.route('pack-factory');
   });
+  this.route('referrals');
 });
 
 export default Router;
