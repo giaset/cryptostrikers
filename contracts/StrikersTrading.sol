@@ -1,11 +1,10 @@
 pragma solidity 0.4.24;
 
 import "./StrikersMinting.sol";
-import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /// @title StrikersTrading - Allows users to trustlessly trade cards.
 /// @author The CryptoStrikers Team
-contract StrikersTrading is StrikersMinting, Pausable {
+contract StrikersTrading is StrikersMinting {
 
   /// @dev Emitting this allows us to look up if a trade has been
   ///   successfully filled, by who, and with which card.

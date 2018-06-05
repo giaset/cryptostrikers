@@ -1,11 +1,11 @@
 pragma solidity 0.4.24;
 
 import "./StrikersBase.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /// @title The contract that exposes minting functions to the outside world and limits who can call them.
 /// @author The CryptoStrikers Team
-contract StrikersMinting is StrikersBase, Ownable {
+contract StrikersMinting is StrikersBase, Pausable {
 
   /// @dev Emit this when we decide to no longer mint a given checklist ID.
   event PulledFromCirculation(uint8 checklistId);
