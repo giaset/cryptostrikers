@@ -1,9 +1,12 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['flippable-card-scene', 'clickable'],
+  classNames: ['flippable-card-scene'],
+  classNameBindings: ['flippable:clickable'],
 
   click() {
-    this.toggleProperty('isFlipped');
+    if (this.get('flippable')) {
+      this.toggleProperty('isFlipped');
+    }
   }
 });
