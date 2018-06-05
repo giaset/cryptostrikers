@@ -1,0 +1,17 @@
+<div class="col">
+  <h2 class="referrals-link-title">Get the Word Out</h2>
+  {{#if (gt packsBought 0)}}
+    <form {{action "createReferralCode" referralCode on="submit"}}>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">cryptostrikers.com/invite/</span>
+        </div>
+        {{input class="form-control" value=referralCode placeholder="your-custom-code" required=true}}
+      </div>
+      <p class="referral-link-details">(Once you save your custom link, you cannot change it)</p>
+      <button type="submit" class="btn btn-strikers">SAVE</button>
+    </form>
+  {{else}}
+    <p class="no-packs-bought">To get your referral link, you must have {{link-to "purchased at least 1 pack" "buy-packs"}}.</p>
+  {{/if}}
+</div>
