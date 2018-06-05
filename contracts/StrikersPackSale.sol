@@ -13,6 +13,9 @@ contract StrikersPackSale is StrikersReferral {
   /// @dev Emit this whenever someone sacrifices a cat for a free pack of cards.
   event KittyBurned(address user, uint256 kittyId);
 
+  /// @dev Users are only allowed to burn 1 cat each, so keep track of that here.
+  mapping (address => bool) public hasBurnedKitty;
+
   /// @dev A reference to the CryptoKitties contract so we can transfer cats
   ERC721Basic public kittiesContract;
 
@@ -65,7 +68,9 @@ contract StrikersPackSale is StrikersReferral {
   ///   Otherwise, buyPackWithKitty() throws on transferFrom().
   function buyPackWithKitty(uint256 _kittyId) external {
     require(totalKittiesBurned < KITTY_BURN_LIMIT, "Stop! Think of the cats!");
+    require(!hasBurnedKitty[msg.sender], "You've already burned a kitty.");
     totalKittiesBurned++;
+    hasBurnedKitty[msg.sender] = true;
     // Will throw/revert if this contract hasn't been given approval first.
     // Also, with no way of retrieving kitties from this contract,
     // transferring to "this" burns the cat! (desired behaviour)
