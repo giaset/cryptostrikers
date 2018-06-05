@@ -1,0 +1,67 @@
+.card-tile {
+  position: relative;
+
+  a {
+    color: black;
+  }
+
+  .card-image-container {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-bottom: 140%;
+    box-shadow: -2.5px 10px 20px rgba(0, 0, 0, 0.25);
+
+    .card-image {
+      border-radius: 3px;
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  .card-count-badge {
+    position: absolute;
+    background-color: white;
+    font-weight: 900;
+    border-radius: 50%;
+    border: 2px solid #DBB66A;
+    box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  @include media-breakpoint-up(xs) {
+    .card-count-badge {
+      width: 26px;
+      line-height: 22px; // + 2px border on top and bottom
+      top: -13px;
+      right: -13px;
+      font-size: 14px;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    .card-count-badge {
+      width: 36px;
+      line-height: 32px; // + 2px border on top and bottom
+      top: -18px;
+      right: -18px;
+      font-size: 16px;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .card-count-badge {
+      width: 32px;
+      line-height: 28px; // + 2px border on top and bottom
+      top: -16px;
+      right: -16px;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    .card-count-badge {
+      width: 38px;
+      line-height: 34px; // + 2px border on top and bottom
+      top: -19px;
+      right: -19px;
+    }
+  }
+}
