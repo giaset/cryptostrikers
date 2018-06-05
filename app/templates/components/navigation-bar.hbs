@@ -25,9 +25,9 @@ Total users: {{stats.userCount}}
           {{link-to "Activity" "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
         </li>
         <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.metadata.nickname}}{{#if balance}}<span class="badge badge-pill badge-success ml-1">{{balance}} ETH</span>{{/if}}</a>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.metadata.nickname}}</a>
           <div class="dropdown-menu dropdown-menu-right">
-            {{link-to "Profile" "profile" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+            {{link-to "Earn Cards" "referrals" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
             <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
           </div>
         </li>

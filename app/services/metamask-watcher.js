@@ -26,9 +26,6 @@ export default Service.extend({
         yield this._forceLogout();
         return;
       }
-
-      const balance = yield web3.getBalance(currentAccount);
-      this.set('currentBalance', balance);
     }
 
     yield timeout(1000);
