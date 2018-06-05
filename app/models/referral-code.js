@@ -1,5 +1,5 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  user: DS.belongsTo('user', { inverse: null })
+  userMetadata: DS.belongsTo('user-metadata', { inverse: null })
 });

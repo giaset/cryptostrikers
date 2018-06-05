@@ -39,7 +39,8 @@ export default Component.extend({
   _createReferralCode(id) {
     const store = this.get('store');
     const user = this.get('currentUser.user');
-    const referralCode = store.createRecord('referral-code', { id, user });
+    const userMetadata = user.get('metadata');
+    const referralCode = store.createRecord('referral-code', { id, userMetadata });
     user.set('referralCode', referralCode);
     return referralCode.save()
     .then(() => user.save())
