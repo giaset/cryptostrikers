@@ -6,6 +6,7 @@ export default Controller.extend({
   ajax: service(),
   currentUser: service(),
   metamaskWatcher: service(),
+  queryParams: ['referral_code'],
   session: service(),
   web3: service(),
 

@@ -33,6 +33,7 @@ Router.map(function() {
     this.route('pack-factory');
   });
   this.route('referrals');
+  this.route('invite', { path: '/invite/:referral_code_id' });
 });
 
 export default Router;
