@@ -7,12 +7,14 @@ export default Route.extend({
   strikersContracts: service(),
 
   model() {
-    const address = this.get('currentUser.address');
+    const user = this.get('currentUser.user');
     const contract = this.get('strikersContracts.StrikersPackSale');
-    const packsBought = contract.methods.packsBought(address).call();
+    const packsBought = contract.methods.packsBought(user.get('id')).call();
+    const referralCode = user.get('referralCode');
 
     return RSVP.hash({
-      packsBought
+      packsBought,
+      referralCode
     });
   }
 });

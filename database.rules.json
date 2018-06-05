@@ -24,6 +24,12 @@
     "players": {
       ".read": true
     },
+    "referralCodes": {
+      "$uid": {
+        ".read": true,
+        ".write": "auth !== null && !data.exists() && newData.exists()"
+      }
+    },
     "stats": {
       ".read": true
     },

@@ -40,6 +40,7 @@ module.exports = function(environment) {
 
     strikers: {
       apiHost: 'https://us-central1-cryptostrikers-api.cloudfunctions.net',
+      baseUrl: 'http://localhost:4200/',
       networkId: 5777, // localhost
       onlyShowLanding: false,
       contractJsonPrefix: '',
@@ -80,6 +81,7 @@ module.exports = function(environment) {
 
   if (deployTarget === 'staging') {
     ENV.strikers.networkId = 4; // rinkeby
+    ENV.strikers.baseUrl = 'https://staging.cryptostrikers.com/',
     ENV.strikers.contractJsonPrefix = 'Staging/';
     ENV.strikers.checklistContractAddress = '0x77fd1480eb40cb1386aaf7dca0bed41d705256af';
     ENV.strikers.coreContractAddress = '0x453659562695ee39bd3bd9e2afd3db1bd9901db3';
@@ -91,6 +93,7 @@ module.exports = function(environment) {
   if (deployTarget === 'production') {
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
     ENV.strikers.networkId = 1; // mainnet
+    ENV.strikers.baseUrl = 'https://www.cryptostrikers.com/',
     ENV.strikers.contractJsonPrefix = 'Production/';
     ENV.strikers.onlyShowLanding = true;
     ENV.firebase = {
