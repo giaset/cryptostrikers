@@ -3,7 +3,6 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
 export default Route.extend({
-  clock: service(),
   currentUser: service(),
   metamaskWatcher: service(),
   strikersContracts: service(),
@@ -17,7 +16,6 @@ export default Route.extend({
 
   beforeModel(transition) {
     const jsonPrefix = this._jsonPrefix(transition);
-    this.get('clock').start();
     const web3 = this.get('web3');
     return web3.setup()
     .then(() => web3.checkNetwork())
