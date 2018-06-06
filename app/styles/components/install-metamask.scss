@@ -1,0 +1,23 @@
+.install-metamask {
+  padding: 63px 0;
+
+  .install-metamask-title {
+    font-weight: bold;
+    font-size: 35px;
+  }
+
+  .install-metamask-text {
+    font-size: 20px;
+    line-height: 31px;
+    color: #4F4F4F;
+  }
+
+  .install-metamask-link {
+    font-size: 20px;
+    color: $strikers-gold;
+  }
+
+  .btn-lg {
+    margin-top: 16px;
+  }
+}

@@ -6,7 +6,8 @@ export default Route.extend({
   web3: service(),
 
   beforeModel() {
-    if (this.get('session.isAuthenticated') && !this.get('web3.wrongNetwork')) {
+    const web3 = this.get('web3');
+    if (this.get('session.isAuthenticated') && web3.get('metamaskDetected') && !web3.get('wrongNetwork')) {
       this.transitionTo('my-album');
     } else {
       return this._super(...arguments);
