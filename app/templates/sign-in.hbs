@@ -2,15 +2,19 @@
   {{#if metamaskWatcher.currentAccount}}
   {{welcome-header}}
     <div class="sign-in-form">
-      <h2 class="sign-in-form-title">Account Details</h2>
+      <h2 class="sign-in-form-title">
+        {{#if model.nickname}}
+          Welcome back {{model.nickname}}!
+        {{else}}
+          Account Details
+        {{/if}}
+      </h2>
       <form {{action (perform signIn) on="submit"}}>
         <div class="form-group text-left">
           <label for="walletAddressInput">Wallet address</label>
           <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
         </div>
-        {{#if model}}
-          <h1>Welcome back {{model.nickname}}!</h1>
-        {{else}}
+        {{#unless model}}
           <div class="form-group text-left">
             <label for="emailAddressInput">Email address</label>
             {{input value=emailAddress class="form-control form-control-lg" type="email" autocomplete="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
@@ -36,7 +40,7 @@
               <label class="form-check-label" for="emailCheckbox">I wish to receive marketing updates (optional).</label>
             </div>
           </div>
-        {{/if}}
+        {{/unless}}
         <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
           {{#if getSignature.isRunning}}
             Waiting for signature...
