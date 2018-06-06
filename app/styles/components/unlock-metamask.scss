@@ -1,0 +1,25 @@
+.unlock-metamask {
+  padding: 63px 0;
+
+  .unlock-metamask-title {
+    font-weight: bold;
+    font-size: 35px;
+  }
+
+  .unlock-metamask-text {
+    font-size: 20px;
+    line-height: 31px;
+    color: #4F4F4F;
+  }
+
+  .unlock-metamask-link {
+    font-size: 20px;
+    color: $strikers-gold;
+  }
+
+  .unlock-metamask-img {
+    margin-top: 16px;
+    width: 300px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+}
