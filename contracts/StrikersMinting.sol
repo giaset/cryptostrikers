@@ -41,6 +41,8 @@ contract StrikersMinting is StrikersBase, Pausable {
     _mintCard(_checklistId, _owner);
   }
 
+  /// @dev Allows the owner or the pack sale contract to prevent an Iconic or Unreleased card from ever being minted again.
+  /// @param _checklistId The Iconic or Unreleased card we want to remove from circulation.
   function pullFromCirculation(uint8 _checklistId) external {
     bool ownerOrPackSale = (msg.sender == owner) || (msg.sender == packSaleAddress);
     require(ownerOrPackSale, "Only the owner or pack sale can take checklist items out of circulation.");
