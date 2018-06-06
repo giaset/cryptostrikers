@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="text-center">
-    {{#if metamaskWatcher.currentAccount}}
-      <h2>Welcome to CryptoStrikers</h2>
-      <p>To get started, enter your email address and choose a nickname.</p>
+<div class="container text-center">
+  {{#if metamaskWatcher.currentAccount}}
+  {{welcome-header}}
+    <div class="sign-in-form">
+      <h2 class="sign-in-form-title">Account Details</h2>
       <form {{action (perform signIn) on="submit"}}>
         <div class="form-group text-left">
           <label for="walletAddressInput">Wallet address</label>
@@ -13,12 +13,28 @@
         {{else}}
           <div class="form-group text-left">
             <label for="emailAddressInput">Email address</label>
-            {{input value=emailAddress class="form-control form-control-lg" type="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
+            {{input value=emailAddress class="form-control form-control-lg" type="email" autocomplete="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group text-left">
             <label for="nicknameAddressInput">Nickname</label>
-            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" required=true}}
+            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" aria-describedby="nicknameHelp" required=true}}
+            <small id="nicknameHelp" class="form-text text-muted">For display purposes only (we show it instead of your wallet address). It doesn't need to be unique.</small>
+          </div>
+          <div class="sign-in-checkboxes text-left">
+            <p class="terms-message">Please read our Terms of Use and Privacy Policy.</p>
+            <div class="form-check">
+              {{input id="termsCheckbox" type="checkbox" class="form-check-input" required=true}}
+              <label class="form-check-label" for="termsCheckbox">I have read and agree to the CryptoStrikers Terms of Use.</label>
+            </div>
+            <div class="form-check">
+              {{input id="privacyCheckbox" type="checkbox" class="form-check-input" required=true}}
+              <label class="form-check-label" for="privacyCheckbox">I have read and agree to the CryptoStrikers Privacy Policy.</label>
+            </div>
+            <div class="form-check">
+              {{input id="emailCheckbox" type="checkbox" checked=confirmedEmail class="form-check-input"}}
+              <label class="form-check-label" for="emailCheckbox">I wish to receive marketing updates (optional).</label>
+            </div>
           </div>
         {{/if}}
         <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
@@ -31,21 +47,16 @@
           {{else if model}}
             Log In
           {{else}}
-            Submit
+            Create Account
           {{/if}}
         </button>
       </form>
-      {{if token token}}
-    {{else if web3.wrongNetwork}}
-      <!-- TODO: proper wrong network page -->
-      <h2>You're on the wrong network!</h2>
-      <h2>Please switch to the {{web3.networkToSwitchTo}}.</h2>
-    {{else if web3.metamaskDetected}}
-      <!-- TODO: proper locked MetaMask page -->
-      <h2>Please log in to your MetaMask account</h2>
-    {{else}}
-      <!-- TODO: proper install MetaMask page -->
-      <h2>Please install MetaMask</h2>
-    {{/if}}
-  </div>
+    </div>
+  {{else if web3.wrongNetwork}}
+    {{wrong-network networkName=web3.networkToSwitchTo}}
+  {{else if web3.metamaskDetected}}
+    {{unlock-metamask}}
+  {{else}}
+    {{install-metamask}}
+  {{/if}}
 </div>

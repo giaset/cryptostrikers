@@ -5,11 +5,17 @@
     <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">Step-by-step Guide</a>
     <br>
     <a class="btn btn-primary btn-lg" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank" {{action (mut installMetamaskClicked) true preventDefault=false}}>INSTALL METAMASK</a>
+    <div class="alert alert-danger" role="alert">
+      Make sure to write down your MetaMask seed words on a piece of paper and store them somewhere safe! We can't help you regain access to your account if you lose them.
+    </div>
   {{else}}
     <h1 class="install-metamask-title">Installed It?</h1>
     <p class="install-metamask-text">Make sure you click the MetaMask icon in your browser's toolbar and follow the instructions there to finish the installation.</p>
     <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">Step-by-step Guide</a>
     <br>
     <button type="button" class="btn btn-primary btn-lg" {{action "forceRefresh"}}>Ya, I installed it.</button>
+    <div class="alert alert-danger" role="alert">
+      Make sure to write down your MetaMask seed words on a piece of paper and store them somewhere safe! We can't help you regain access to your account if you lose them.
+    </div>
   {{/unless}}
 </div>

@@ -11,12 +11,14 @@ export default Service.extend({
   address: alias('user.id'),
 
   load() {
-    const userId = this.get('session.currentUser.uid');
+    const session = this.get('session');
+    const userId = session.get('currentUser.uid');
     if (!isEmpty(userId)) {
       return this.get('store').findRecord('user', userId).then(user => {
         this.setUser(user);
         return user;
-      });
+      })
+      .catch(() => session.close());
     } else {
       return RSVP.resolve();
     }

@@ -4,6 +4,7 @@ import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   ajax: service(),
+  confirmedEmail: false,
   currentUser: service(),
   metamaskWatcher: service(),
   queryParams: ['referral_code'],
@@ -32,17 +33,18 @@ export default Controller.extend({
   openSession: task(function * (token) {
     const options = { provider: 'custom', token };
     const sessionData = yield this.get('session').open('firebase', options);
+    const confirmedEmail = this.get('confirmedEmail');
     const email = this.get('emailAddress');
     const nickname = this.get('nickname');
 
     if (email && nickname) {
-      yield this._createUser(sessionData, email, nickname);
+      yield this._createUser(sessionData, confirmedEmail, email, nickname);
     } else {
       yield this.get('currentUser').load();
     }
   }),
 
-  _createUser(sessionData, email, nickname) {
+  _createUser(sessionData, confirmedEmail, email, nickname) {
     const id = sessionData.uid;
     const store = this.get('store');
 
@@ -53,6 +55,7 @@ export default Controller.extend({
 
     const user = store.createRecord('user', {
       id,
+      confirmedEmail,
       email,
       metadata
     });
