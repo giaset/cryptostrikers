@@ -3,6 +3,7 @@
 
 $strikers-blue: #53C8EF;
 $strikers-gold: #DBB66A;
+$strikers-light: #F4F4F4;
 
 $primary: $strikers-blue;
 
@@ -17,6 +18,7 @@ $primary: $strikers-blue;
 @import "app/styles/components/filterable-card-grid";
 @import "app/styles/components/flippable-card";
 @import "app/styles/components/install-metamask";
+@import "app/styles/components/navigation-bar";
 @import "app/styles/components/pack-sale-column";
 @import "app/styles/components/pack-sale-tile";
 @import "app/styles/components/referrals-cards";

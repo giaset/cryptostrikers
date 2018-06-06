@@ -1,35 +1,48 @@
-{{link-to "CryptoStrikers" "index" class="navbar-brand font-weight-900" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+<div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse">
+  {{#if session.isAuthenticated}}
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        {{link-to "Buy Packs" "buy-packs" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+      <li class="nav-item">
+        {{link-to "Marketplace" "marketplace" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+      <li class="nav-item">
+        {{link-to "Trade" "create-trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+    </ul>
+  {{/if}}
+</div>
 {{#if session.isAuthenticated}}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent">
+  <div class="fake-toggler-button d-block d-md-none"></div>
+{{/if}}
+<div class="mx-auto order-0">
+  {{#link-to "index" class="navbar-brand"}}
+    <img class="navbar-wordmark d-none d-md-inline" src="/assets/images/wordmark.png">
+    <img class="navbar-badge d-md-none" src="/assets/images/shield-logo.svg">
+  {{/link-to}}
+</div>
+{{#if session.isAuthenticated}}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <nav class="collapse navbar-collapse" id="navContent">
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          {{link-to "Home" "index" class="nav-link d-block d-sm-none" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "Buy Packs" "buy-packs" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "Marketplace" "marketplace" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "Trade" "create-trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "My Album" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item">
-          {{link-to "Activity" "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.metadata.nickname}}</a>
-          <div class="dropdown-menu dropdown-menu-right">
-            {{link-to "Earn Cards" "referrals" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-            <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
-          </div>
-        </li>
-    </ul>
-  </nav>
 {{/if}}
+<div class="navbar-collapse collapse w-100 order-3 dual-collapse">
+  {{#if session.isAuthenticated}}
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        {{link-to "My Cards" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+      <li class="nav-item">
+        {{link-to "Activity" "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{currentUser.user.metadata.nickname}}</a>
+        <div class="dropdown-menu dropdown-menu-right">
+          {{link-to "Earn Cards" "referrals" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
+        </div>
+      </li>
+    </ul>
+  {{/if}}
+</div>
