@@ -102,6 +102,13 @@ contract StrikersReferral is StrikersWhitelist {
     _buyPack(standardSale);
   }
 
+  /// @dev Allows the contract owner to manually set the referrer for a given user, in case this wasn't properly attributed.
+  /// @param _for The user we want to set the referrer for.
+  /// @param _referrer The user who will now get credit for _for's future purchases.
+  function setReferrer(address _for, address _referrer) external onlyOwner {
+    referrers[_for] = _referrer;
+  }
+
   /// @dev Allows a user to withdraw the referral commission they are owed.
   function withdrawCommission() external {
     uint256 commission = referralCommissionEarned[msg.sender] - referralCommissionClaimed[msg.sender];
