@@ -1,0 +1,16 @@
+.welcome-header {
+  padding: 63px 0;
+  border-bottom: 1px solid $strikers-light;
+
+  .welcome-header-title {
+    font-weight: bold;
+    font-size: 35px;
+  }
+
+  .welcome-header-text {
+    font-size: 20px;
+    line-height: 31px;
+    color: #4F4F4F;
+    margin-bottom: 0;
+  }
+}
