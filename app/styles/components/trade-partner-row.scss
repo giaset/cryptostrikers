@@ -1,0 +1,36 @@
+.trade-partner-row {
+  padding: 42px 0;
+  border-top: 1px solid $strikers-light;
+
+  .trade-partner-row-title {
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .trade-partner-row-text {
+    font-size: 20px;
+    line-height: 31px;
+    color: $strikers-medium;
+  }
+
+  .form-control {
+    max-width: 362px;
+    margin: 0 auto;
+  }
+
+  .trade-partner-nickname {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 34px;
+  }
+
+  .trade-partner-address {
+    font-size: 15px;
+    color: $strikers-medium;
+  }
+
+  .remove-button {
+    font-size: 12px;
+    color: #BDBDBD;
+  }
+}
