@@ -29,6 +29,12 @@
     color: $strikers-medium;
   }
 
+  @include media-breakpoint-down(xs) {
+    .trade-partner-address {
+      font-size: 12px;
+    }
+  }
+
   .remove-button {
     font-size: 12px;
     color: #BDBDBD;
