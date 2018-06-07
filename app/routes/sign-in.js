@@ -28,7 +28,8 @@ export default Route.extend({
     const store = this.get('store');
     const currentAccount = this.get('metamaskWatcher.currentAccount');
     const existingUser = currentAccount ? store.findRecord('user-metadata', currentAccount).catch(() => {}) : null;
-    const referralPacksClaimed = this.get('strikersContracts.StrikersPackSale.methods').freeReferralPacksClaimed().call();
+    const contract = this.get('strikersContracts.StrikersPackSale.methods');
+    const referralPacksClaimed = contract ? contract.freeReferralPacksClaimed().call() : null;
     const referrer = referralCode ? store.findRecord('referral-code', referralCode).then(code => code.get('userMetadata')).catch(() => {}) : null;
 
     return RSVP.hash({
