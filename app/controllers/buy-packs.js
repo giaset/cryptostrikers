@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   currentUser: service(),
@@ -8,24 +9,32 @@ export default Controller.extend({
   actions: {
     buyPack(sale) {
       if (!sale) { return; }
-      const currentUser = this.get('currentUser');
-      const saleContract = this.get('strikersContracts.StrikersPackSale.methods');
-      const premium = !sale.get('isStandard');
-      saleContract.buyPackWithETH(premium).send({
-        from: currentUser.get('address'),
-        /*gas: 750000,*/
-        value: sale.get('packPrice')
-      })
-      .on('transactionHash', txnHash => {
-        const type = 'buy_pack';
-        const activity = { premium, txnHash, type };
-        currentUser.addActivity(activity).then(activityId => {
-          this.transitionToRoute('activity.show', activityId);
-        });
-      })
-      .on('error', () => {
-        // TODO: handle error
-      });
+      this.get('buyPackTask').perform(sale);
     }
-  }
+  },
+
+  buyPackTask: task(function * (sale) {
+    const contract = this.get('strikersContracts.StrikersPackSale.methods');
+    const currentUser = this.get('currentUser');
+    const from = currentUser.get('address');
+    const premium = !sale.get('isStandard');
+    const referrer = currentUser.get('user.referrer.id');
+    const value = sale.get('packPrice');
+
+    let shouldAttributeReferral = false;
+    if (referrer) {
+      const packsBought = yield contract.packsBought(from).call();
+      shouldAttributeReferral = parseInt(packsBought) === 0;
+    }
+
+    const contractFunction = shouldAttributeReferral ? contract.buyFirstPackFromReferral(referrer, premium) : contract.buyPackWithETH(premium);
+    contractFunction.send({ from, value })
+    .on('transactionHash', txnHash => {
+      const type = 'buy_pack';
+      const activity = { premium, txnHash, type };
+      currentUser.addActivity(activity).then(activityId => {
+        this.transitionToRoute('activity.show', activityId);
+      });
+    });
+  }).drop()
 });
