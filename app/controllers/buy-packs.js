@@ -10,6 +10,20 @@ export default Controller.extend({
     buyPack(sale) {
       if (!sale) { return; }
       this.get('buyPackTask').perform(sale);
+    },
+
+    claimWhitelistPack(premium) {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const currentUser = this.get('currentUser');
+      const from = currentUser.get('address');
+      contract.claimWhitelistPack(premium).send({ from })
+      .on('transactionHash', txnHash => {
+        const type = 'claim_whitelist_pack';
+        const activity = { premium, txnHash, type };
+        currentUser.addActivity(activity).then(activityId => {
+          this.transitionToRoute('activity.show', activityId);
+        });
+      });
     }
   },
 

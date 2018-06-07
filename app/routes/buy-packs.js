@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 
 export default Route.extend({
+  currentUser: service(),
   strikersContracts: service(),
   web3: service(),
 
@@ -20,10 +21,16 @@ export default Route.extend({
     const standardSale = store.queryRecord('pack-sale', 'standard');
     const premiumSale = store.queryRecord('pack-sale', 'premium');
 
+    const myAddress = this.get('currentUser.address');
+    const standardWhitelistAllocation = contract.whitelists(0, myAddress).call();
+    const premiumWhitelistAllocation = contract.whitelists(1, myAddress).call();
+
     return RSVP.hash({
       isPaused,
       standardSale,
-      premiumSale
+      premiumSale,
+      standardWhitelistAllocation,
+      premiumWhitelistAllocation
     });
   }
 });

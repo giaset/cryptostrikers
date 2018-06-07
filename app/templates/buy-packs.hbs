@@ -4,13 +4,13 @@
       SALE IS PAUSED
     </div>
   {{else}}
-    {{card-packs-header}}
+    {{card-packs-header standardWhitelistAllocation=model.standardWhitelistAllocation premiumWhitelistAllocation=model.premiumWhitelistAllocation}}
     <div class="row">
       <div class="col-md mb-5">
-        {{pack-sale-column sale=model.standardSale buyPack=(action "buyPack" model.standardSale)}}
+        {{pack-sale-column sale=model.standardSale buyPack=(action "buyPack" model.standardSale) claimWhitelistPack=(action "claimWhitelistPack" false) whitelistAllocation=model.standardWhitelistAllocation}}
       </div>
       <div class="col-md mb-5">
-        {{pack-sale-column sale=model.premiumSale buyPack=(action "buyPack" model.premiumSale)}}
+        {{pack-sale-column sale=model.premiumSale buyPack=(action "buyPack" model.premiumSale) claimWhitelistPack=(action "claimWhitelistPack" true) whitelistAllocation=model.premiumWhitelistAllocation}}
       </div>
     </div>
   {{/if}}
