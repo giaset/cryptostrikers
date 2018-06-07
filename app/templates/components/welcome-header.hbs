@@ -5,4 +5,15 @@
   <p class="welcome-header-text">When you hit Submit, you will be asked to sign a message identifying you as the owner of your wallet address. This will secure your account.</p>
   <br>
   <p class="welcome-header-text">Note: Your email address and nickname are stored on CryptoStrikers' servers and not on the blockchain. You can delete your account at any time.</p>
+  {{#if referrer}}
+    <div class="alert alert-primary" role="alert">
+      <h5 class="alert-heading">You have been invited by <span>{{referrer.nickname}}</span>.</h5>
+      <hr>
+      {{#if (lt referralPacksClaimed 5000)}}
+        <p class="mb-0">Sign up below, buy a pack, and your second one is on us!</p>
+        <p class="mb-0">Free packs remaining: <span>{{sub 5000 referralPacksClaimed}}/5000</span></p>
+      {{/if}}
+      <p class="mb-0">Once you buy a pack, you can join our Referral Program to start earning exclusive cards.</p>
+    </div>
+  {{/if}}
 </div>

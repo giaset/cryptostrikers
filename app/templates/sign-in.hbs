@@ -1,10 +1,10 @@
 <div class="container text-center">
   {{#if metamaskWatcher.currentAccount}}
-  {{welcome-header}}
+  {{welcome-header referralPacksClaimed=model.referralPacksClaimed referrer=(unless model.existingUser model.referrer)}}
     <div class="sign-in-form">
       <h2 class="sign-in-form-title">
-        {{#if model.nickname}}
-          Welcome back {{model.nickname}}!
+        {{#if model.existingUser.nickname}}
+          Welcome back {{model.existingUser.nickname}}!
         {{else}}
           Account Details
         {{/if}}
@@ -14,7 +14,7 @@
           <label for="walletAddressInput">Wallet address</label>
           <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
         </div>
-        {{#unless model}}
+        {{#unless model.existingUser}}
           <div class="form-group text-left">
             <label for="emailAddressInput">Email address</label>
             {{input value=emailAddress class="form-control form-control-lg" type="email" autocomplete="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
@@ -48,7 +48,7 @@
             Verifying signature...
           {{else if openSession.isRunning}}
             Signing in...
-          {{else if model}}
+          {{else if model.existingUser}}
             Log In
           {{else}}
             Create Account

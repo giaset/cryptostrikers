@@ -5,5 +5,6 @@ export default DS.Model.extend({
   confirmedEmail: DS.attr('boolean'),
   email: DS.attr('string'),
   metadata: DS.belongsTo('user-metadata', { inverse: null }),
-  referralCode: DS.belongsTo('referral-code', { inverse: null })
+  referralCode: DS.belongsTo('referral-code', { inverse: null }),
+  referrer: DS.belongsTo('user-metadata', { inverse: null })
 });

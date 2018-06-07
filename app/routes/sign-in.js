@@ -1,8 +1,10 @@
 import Route from '@ember/routing/route';
+import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
   metamaskWatcher: service(),
+  strikersContracts: service(),
   web3: service(),
 
   beforeModel() {
@@ -14,13 +16,25 @@ export default Route.extend({
     }
   },
 
-  // TODO: this needs to update if user changes account
-  model() {
-    const currentAccount = this.get('metamaskWatcher.currentAccount');
-    if (!currentAccount) {
-      return null;
+  // TODO: needs to update if user changes account?
+  model(params) {
+    let referralCode = params.referral_code;
+    if (referralCode) {
+      localStorage.setItem('referralCode', referralCode);
+    } else {
+      referralCode = localStorage.getItem('referralCode');
     }
 
-    return this.get('store').findRecord('user-metadata', currentAccount).catch(() => {});
+    const store = this.get('store');
+    const currentAccount = this.get('metamaskWatcher.currentAccount');
+    const existingUser = currentAccount ? store.findRecord('user-metadata', currentAccount).catch(() => {}) : null;
+    const referralPacksClaimed = this.get('strikersContracts.StrikersPackSale.methods').freeReferralPacksClaimed().call();
+    const referrer = referralCode ? store.findRecord('referral-code', referralCode).then(code => code.get('userMetadata')).catch(() => {}) : null;
+
+    return RSVP.hash({
+      existingUser,
+      referralPacksClaimed,
+      referrer
+    });
   }
 });

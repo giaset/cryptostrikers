@@ -36,15 +36,16 @@ export default Controller.extend({
     const confirmedEmail = this.get('confirmedEmail');
     const email = this.get('emailAddress');
     const nickname = this.get('nickname');
+    const referrer = this.get('model.referrer');
 
     if (email && nickname) {
-      yield this._createUser(sessionData, confirmedEmail, email, nickname);
+      yield this._createUser(sessionData, confirmedEmail, email, nickname, referrer);
     } else {
       yield this.get('currentUser').load();
     }
   }),
 
-  _createUser(sessionData, confirmedEmail, email, nickname) {
+  _createUser(sessionData, confirmedEmail, email, nickname, referrer) {
     const id = sessionData.uid;
     const store = this.get('store');
 
@@ -57,9 +58,11 @@ export default Controller.extend({
       id,
       confirmedEmail,
       email,
-      metadata
+      metadata,
+      referrer
     });
 
+    localStorage.removeItem('referralCode');
     this.get('currentUser').setUser(user);
 
     return metadata.save().then(() => user.save());
