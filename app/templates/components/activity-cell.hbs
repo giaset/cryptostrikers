@@ -3,6 +3,11 @@
     <p>You bought a {{if activity.premium "Premium" "Standard"}} Pack on {{moment-format activity.createdAt}}</p>
     <p>Transaction: {{activity.txnHash}}</p>
   {{/link-to}}
+{{else if (eq activity.type "claim_whitelist_pack")}}
+  {{#link-to "activity.show" activity.id}}
+    <p>You claimed a free {{if activity.premium "Premium" "Standard"}} Pack on {{moment-format activity.createdAt}}</p>
+    <p>Transaction: {{activity.txnHash}}</p>
+  {{/link-to}}
 {{else if (eq activity.type "buy_pack_with_kitty")}}
   {{#link-to "activity.show" activity.id}}
     <p>You traded in Kitty #{{activity.kittyId}} on {{moment-format activity.createdAt}}</p>
