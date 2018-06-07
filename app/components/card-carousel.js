@@ -26,10 +26,20 @@ export default Component.extend({
     this._super(...arguments);
   },
 
-  style: computed('checklistItem.player.country.mauAccent', function() {
-    const mauAccent = this.get('checklistItem.player.country.mauAccent');
-    if (!mauAccent) { return; }
-    const rgba = `rgba(${mauAccent.r}, ${mauAccent.g}, ${mauAccent.b}, ${BACKGROUND_APLHA})`;
+  accentColor: computed('checklistItem.checklistSet.id', 'country.{gilangAccent,mauAccent}', function() {
+    const country = this.get('country');
+    const setId = this.get('checklistItem.checklistSet.id');
+    return setId === '0' ? country.get('mauAccent') : country.get('gilangAccent');
+  }),
+
+  country: computed('checklistItem.player.country', function() {
+    return this.get('checklistItem.player.country');
+  }),
+
+  style: computed('accentColor', function() {
+    const accentColor = this.get('accentColor');
+    if (!accentColor) { return; }
+    const rgba = `rgba(${accentColor.r}, ${accentColor.g}, ${accentColor.b}, ${BACKGROUND_APLHA})`;
     return htmlSafe(`background-color: ${rgba};`);
   })
 });
