@@ -7,36 +7,18 @@
     font-weight: bold;
   }
 
-  .referrals-header-subtitle {
-    color: $strikers-gold;
-    font-weight: bold;
-    font-size: 22px;
-  }
-
-  .referrals-header-images {
-    display: flex;
+  .referrals-header-rewards {
     margin: 84px auto;
 
-    .referrals-header-image {
-      width: 150px;
-      height: 150px;
-      background-color: #C4C4C4;
-      border-radius: 50%;
+    h1 {
+      font-size: 100px;
+      color: $strikers-gold;
     }
 
-    .header-image-left {
-      margin-left: auto;
-    }
-
-    .header-image-right {
-      margin-right: auto;
-    }
-
-    .referrals-header-plus {
-      margin: auto 24px;
+    h2 {
       font-weight: bold;
-      font-size: 35px;
-      color: #828282;
+      font-size: 22px;
+      margin-top: -8px;
     }
   }
 
