@@ -31,6 +31,7 @@ Router.map(function() {
     this.route('core');
     this.route('pack-factory');
     this.route('pack-sale');
+    this.route('whitelist');
   });
   this.authenticatedRoute('referrals');
   this.route('invite', { path: '/invite/:referral_code_id' });

@@ -1,0 +1,5 @@
+<h1>Whitelist</h1>
+<h5>Standard whitelist count: {{model.standardWhitelistCount}}/1000</h5>
+{{input value=newStandardAddress placeholder="Add standard address"}}<button {{action "addAddress" false newStandardAddress}}>Add</button>
+<h5>Premium whitelist count: {{model.premiumWhitelistCount}}/500</h5>
+{{input value=newPremiumAddress placeholder="Add premium address"}}<button {{action "addAddress" true newPremiumAddress}}>Add</button>
