@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row top-row">
+    <div class="col">
+      <h1>{{unclaimedEarnings}}</h1>
+      <h2>Unclaimed Earnings (ETH)</h2>
+      {{#if (gt unclaimedEarnings 0)}}
+        <button type="button" class="btn">Click here to claim</button>
+      {{/if}}
+    </div>
+  </div>
+  <div class="row bottom-row">
+    <div class="col-sm">
+      <h1>{{attributedSales}}</h1>
+      <h2>Attributed Sales</h2>
+    </div>
+    <div class="col-sm">
+      <h1>{{bonusCardsClaimed}}/8</h1>
+      <h2>Bonus Cards Claimed</h2>
+    </div>
+    <div class="col-sm">
+      <h1>{{referralCommissionEarned}}</h1>
+      <h2>Total Earnings (ETH)</h2>
+    </div>
+  </div>
+</div>

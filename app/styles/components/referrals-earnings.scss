@@ -1,0 +1,43 @@
+.referrals-earnings {
+  background-color: $strikers-gold;
+
+  .top-row {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 300px;
+      font-weight: 300;
+    }
+
+    h2 {
+      margin-top: -50px;
+      font-weight: bold;
+      font-size: 35px;
+    }
+
+    .btn {
+      background: none;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+
+  .bottom-row {
+    padding-top: 50px;
+
+    .col-sm {
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: 100px;
+    }
+
+    h2 {
+      font-weight: bold;
+      font-size: 25px;
+    }
+  }
+}
