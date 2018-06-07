@@ -12,7 +12,6 @@ Router.map(function() {
     this.authenticatedRoute('my-album');
     this.route('marketplace');
     this.route('login');
-    this.authenticatedRoute('profile');
     this.route('activity', function() {
       this.route('show', { path: '/:activity_id' });
     });
