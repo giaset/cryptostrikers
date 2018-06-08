@@ -1,9 +1,17 @@
 <div class="col-12">
-  <h1 class="referrals-cards-title">Awards</h1>
+  <h1 class="referrals-cards-title">Bonus Cards</h1>
 </div>
 {{#each bonusChecklistItems as |checklistItem index|}}
   <div class="col-6 col-md-4 col-lg-3 mb-4">
-    {{flippable-card checklistItem=checklistItem}}
+    {{flippable-card checklistItem=checklistItem isFlipped=(lt index attributedSales)}}
     <span class="referrals-cards-subtitle">Award #{{add index 1}}</span>
+    <br>
+    <button type="button" class="btn btn-primary claim-button" disabled={{not-eq index firstUnclaimedCard}} {{action claimBonusCard checklistItem.player.name}}>
+      {{#if (lt index bonusCardsClaimed)}}
+        CLAIMED
+      {{else}}
+        CLAIM
+      {{/if}}
+    </button>
   </div>
 {{/each}}

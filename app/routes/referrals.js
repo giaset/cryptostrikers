@@ -22,15 +22,24 @@ export default Route.extend({
     const contract = this.get('strikersContracts.StrikersPackSale');
     const store = this.get('store');
     const user = this.get('currentUser.user');
+    const address = user.get('id');
 
+    const attributedSales = contract.methods.referralSaleCount(address).call().then(sales => parseInt(sales));
+    const bonusCardsClaimed = contract.methods.bonusCardsClaimed(address).call().then(cardsClaimed => parseInt(cardsClaimed));
     const bonusChecklistItems = BONUS_CHECKLIST_IDS.map(checklistId => store.findRecord('checklist-item', checklistId));
-    const packsBought = contract.methods.packsBought(user.get('id')).call();
+    const packsBought = contract.methods.packsBought(address).call();
     const referralCode = user.get('referralCode');
+    const referralCommissionClaimed = contract.methods.referralCommissionClaimed(address).call();
+    const referralCommissionEarned = contract.methods.referralCommissionEarned(address).call();
 
     return RSVP.hash({
+      attributedSales,
+      bonusCardsClaimed,
       bonusChecklistItems: RSVP.all(bonusChecklistItems),
       packsBought,
-      referralCode
+      referralCode,
+      referralCommissionClaimed,
+      referralCommissionEarned
     });
   }
 });

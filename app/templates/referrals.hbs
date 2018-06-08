@@ -1,5 +1,6 @@
+{{referrals-earnings attributedSales=model.attributedSales bonusCardsClaimed=model.bonusCardsClaimed referralCommissionClaimed=model.referralCommissionClaimed referralCommissionEarned=model.referralCommissionEarned}}
 <div class="container text-center">
   {{referrals-header}}
   {{referrals-link packsBought=model.packsBought referralCode=model.referralCode}}
-  {{referrals-cards bonusChecklistItems=model.bonusChecklistItems}}
+  {{referrals-cards attributedSales=model.attributedSales bonusCardsClaimed=model.bonusCardsClaimed bonusChecklistItems=model.bonusChecklistItems claimBonusCard=(action "claimBonusCard")}}
 </div>
