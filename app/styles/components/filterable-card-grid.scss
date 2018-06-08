@@ -1,5 +1,47 @@
 .filterable-card-grid {
-  .card-count {
-    font-size: 10px;
+  .form-control {
+    margin-bottom: 24px;
+    width: 200px;
+  }
+
+  .nav-pills {
+    .fake-nav-item {
+      flex: 1;
+      border-bottom: 2px solid $strikers-light;
+    }
+
+    .nav-link {
+      border-radius: 0;
+      color: black;
+      border-bottom: 2px solid $strikers-light;
+      padding-bottom: 12px;
+      font-size: 22px;
+
+      &.active {
+        background-color: white;
+        font-weight: 800;
+        border-bottom: 2px solid $strikers-blue;
+      }
+    }
+  }
+
+  .filterable-card-grid-sub {
+    display: flex;
+    padding: 24px 0;
+    border-bottom: 2px solid $strikers-light;
+    margin-bottom: 24px;
+
+    .form-check {
+      margin: auto 0;
+
+      .form-check-label {
+        color: $strikers-medium;
+      }
+    }
+
+    .card-count {
+      margin: auto 0 auto auto;
+      color: #BDBDBD;
+    }
   }
 }

@@ -1,13 +1,19 @@
-{{input value=searchQuery placeholder="Search Players" class="mb-4"}}
-Only Show Owned: {{input type="checkbox" checked=onlyShowOwned}}
+{{input value=searchQuery placeholder="Search Players" class="form-control"}}
 <ul class="nav nav-pills">
   {{#each checklistSets as |checklistSet|}}
     <li class="nav-item">
       <a class="nav-link {{if (eq checklistSet.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) checklistSet.id}}>{{checklistSet.name}}</a>
     </li>
   {{/each}}
+  <li class="nav-item fake-nav-item"></li>
 </ul>
-<h6 class="card-count my-4 opacity-30">{{filteredItems.length}} cards</h6>
+<div class="filterable-card-grid-sub">
+  <div class="form-check">
+    {{input id="ownedCheckbox" type="checkbox" checked=onlyShowOwned class="form-check-input"}}
+    <label class="form-check-label" for="ownedCheckbox">Only Show Owned</label>
+  </div>
+  <h6 class="card-count">{{filteredItems.length}} cards</h6>
+</div>
 <div class="row">
   {{#each filteredItems as |checklistItem|}}
     <div class="col-6 col-md-4 col-lg-3">
