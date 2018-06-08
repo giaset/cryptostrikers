@@ -8,7 +8,7 @@ export default DS.Model.extend({
 
   filepath: computed('id', 'checklistSet.id', function() {
     const path = '/assets/images/cards/';
-    const isGilang = this.get('checklistSet.id') === '1';
+    const isGilang = this.get('id') >= 100;
     const extension = isGilang ? 'png' : 'svg';
     const filename = `${this.get('id')}.${extension}`;
     return path + filename;

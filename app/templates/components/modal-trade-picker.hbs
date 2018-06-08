@@ -1,13 +1,28 @@
 <div class="strikers-modal-overlay" onclick={{action (ignore-children reject)}}>
   <div class="strikers-modal-dialog p-4">
+    <div class="strikers-modal-title">
+      <h1>
+        {{#if loadCards.isRunning}}
+          Loading...
+        {{else if cards}}
+          {{user.nickname}}'s cards
+        {{else}}
+          Select a card
+        {{/if}}
+      </h1>
+      <button type="button" class="close" aria-label="Close" {{action reject}}>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     {{#if loadCards.isRunning}}
       {{spinkit-cube-grid}}
     {{else if cards}}
-      <h5>{{user.nickname}}'s cards:</h5>
       <div class="row">
         {{#each cards as |card|}}
-          <div class="col-3 mb-2 text-center">
-            <img src={{card.checklistItem.filepath}} class="img-fluid clickable" {{action resolve card}}>
+          <div class="col-6 col-md-4 col-lg-3 mb-2 text-center">
+            <div class="modal-card-image-container">
+                <img src={{card.checklistItem.filepath}} class="clickable modal-card-image" {{action resolve card}}>
+            </div>
             <span>#{{card.serialNumber}}/{{card.checklistItem.totalIssuance}}</span>
           </div>
         {{/each}}
@@ -15,8 +30,10 @@
     {{else if checklistItems}}
       <div class="row">
         {{#each checklistItems as |checklistItem|}}
-          <div class="col-3 mb-2 text-center">
-            <img src={{checklistItem.filepath}} class="img-fluid clickable" {{action resolve checklistItem}}>
+          <div class="col-6 col-md-4 col-lg-3 text-center">
+            <div class="modal-card-image-container">
+              <img src={{checklistItem.filepath}} class="clickable modal-card-image" {{action resolve checklistItem}}>
+            </div>
             <span>Any</span>
           </div>
         {{/each}}
