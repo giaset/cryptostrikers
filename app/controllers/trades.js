@@ -6,7 +6,7 @@ export default Controller.extend({
   currentUser: service(),
   strikersContracts: service(),
   web3: service(),
-  trade: alias('model'),
+  trade: alias('model.trade'),
 
   actions: {
     acceptTrade(submittedCardId) {
@@ -31,8 +31,9 @@ export default Controller.extend({
         sigParams.s
       ).send({ from: currentUser.get('address') })
       .on('transactionHash', txnHash => {
+        const tradeString = trade.get('prettyString');
         const type = 'fill_trade';
-        const activity = { trade, txnHash, type };
+        const activity = { trade, tradeString, txnHash, type };
         currentUser.addActivity(activity).then(() => {
           this.transitionToRoute('activity.index');
         });
@@ -55,8 +56,9 @@ export default Controller.extend({
         salt
       ).send({ from: currentUser.get('address') })
       .on('transactionHash', txnHash => {
+        const tradeString = trade.get('prettyString');
         const type = 'cancel_trade';
-        const activity = { trade, txnHash, type };
+        const activity = { trade, tradeString, txnHash, type };
         currentUser.addActivity(activity).then(() => {
           this.transitionToRoute('activity.index');
         });

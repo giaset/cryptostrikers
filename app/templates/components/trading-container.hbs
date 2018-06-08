@@ -28,9 +28,21 @@
 <div class="row py-5">
   <div class="col">
     {{#if isMyTrade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}}>Cancel Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}} disabled={{cancelEvent}}>
+        {{#if cancelEvent}}
+          Already Cancelled
+        {{else}}
+          Cancel Trade
+        {{/if}}
+      </button>
     {{else if trade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}}>Accept Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}} disabled={{fillEvent}}>
+        {{#if fillEvent}}
+          Already Filled
+        {{else}}
+          Accept Trade
+        {{/if}}
+      </button>
     {{else}}
       <button type="button" class="btn btn-primary btn-lg" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
     {{/if}}

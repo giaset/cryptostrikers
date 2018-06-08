@@ -1,1 +1,8 @@
-{{trading-container trade=trade acceptTrade=(action "acceptTrade") cancelTrade=(action "cancelTrade" trade)}}
+{{
+  trading-container
+  trade=trade
+  acceptTrade=(action "acceptTrade")
+  cancelTrade=(action "cancelTrade" trade)
+  cancelEvent=model.cancelEvent
+  fillEvent=model.fillEvent
+}}
