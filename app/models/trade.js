@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import ENV from 'cryptostrikers/config/environment';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
@@ -40,6 +41,6 @@ export default DS.Model.extend({
   }),
 
   url: computed('id', function() {
-    return `https://staging.cryptostrikers.com/trades/${this.get('id')}`;
+    return `${ENV.strikers.baseUrl}trades/${this.get('id')}`;
   })
 });
