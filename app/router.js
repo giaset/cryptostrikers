@@ -35,6 +35,7 @@ Router.map(function() {
   });
   this.authenticatedRoute('referrals');
   this.route('invite', { path: '/invite/:referral_code_id' });
+  this.route('profile', { path: '/profile/:user_metadata_id' });
 });
 
 export default Router;
