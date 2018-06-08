@@ -18,6 +18,20 @@ export default Controller.extend({
           this.transitionToRoute('activity.index');
         });
       });
+    },
+
+    claimCommission(commissionAmount) {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const currentUser = this.get('currentUser');
+      const from = currentUser.get('address');
+      contract.withdrawCommission().send({ from })
+      .on('transactionHash', txnHash => {
+        const type = 'withdraw_commission';
+        const activity = { commissionAmount, txnHash, type };
+        currentUser.addActivity(activity).then(() => {
+          this.transitionToRoute('activity.index');
+        });
+      });
     }
   }
 });

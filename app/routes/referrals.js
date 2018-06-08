@@ -23,14 +23,15 @@ export default Route.extend({
     const store = this.get('store');
     const user = this.get('currentUser.user');
     const address = user.get('id');
+    const web3 = this.get('web3');
 
     const attributedSales = contract.methods.referralSaleCount(address).call().then(sales => parseInt(sales));
     const bonusCardsClaimed = contract.methods.bonusCardsClaimed(address).call().then(cardsClaimed => parseInt(cardsClaimed));
     const bonusChecklistItems = BONUS_CHECKLIST_IDS.map(checklistId => store.findRecord('checklist-item', checklistId));
     const packsBought = contract.methods.packsBought(address).call();
     const referralCode = user.get('referralCode');
-    const referralCommissionClaimed = contract.methods.referralCommissionClaimed(address).call();
-    const referralCommissionEarned = contract.methods.referralCommissionEarned(address).call();
+    const referralCommissionClaimed = contract.methods.referralCommissionClaimed(address).call().then(wei => web3.weiToEther(wei));
+    const referralCommissionEarned = contract.methods.referralCommissionEarned(address).call().then(wei => web3.weiToEther(wei));
 
     return RSVP.hash({
       attributedSales,

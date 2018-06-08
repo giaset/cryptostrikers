@@ -33,4 +33,7 @@
 {{else if (eq activity.type "claim_bonus_card")}}
   <p>You claimed your bonus {{activity.bonusPlayerName}} Iconic on {{moment-format activity.createdAt}}</p>
   <p>Transaction: {{activity.txnHash}}</p>
+{{else if (eq activity.type "withdraw_commission")}}
+  <p>You withdrew {{activity.commissionAmount}} ETH of referral earnings on {{moment-format activity.createdAt}}</p>
+  <p>Transaction: {{activity.txnHash}}</p>
 {{/if}}
