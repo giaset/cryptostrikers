@@ -25,11 +25,11 @@
 {{else if (eq activity.type "fill_trade")}}
   <p>You accepted a trade: {{activity.tradeString}}.</p>
   <p>The transaction can take a few minutes to mine, so hope nobody beats you to it!</p>
-  <p><a href="https://rinkeby.etherscan.io/tx/{{activity.txnHash}}" target="_blank">View Transaction Here</a></p>
+  <p><a href={{activity.etherscanUrl}} target="_blank">View Transaction Here</a></p>
 {{else if (eq activity.type "cancel_trade")}}
   <p>You canceled a trade: {{activity.tradeString}}.</p>
   <p>The transaction can take a few minutes to mine, so somebody may still fill the trade.</p>
-  <p><a href="https://rinkeby.etherscan.io/tx/{{activity.txnHash}}" target="_blank">View Transaction Here</a></p>
+  <p><a href={{activity.etherscanUrl}} target="_blank">View Transaction Here</a></p>
 {{else if (eq activity.type "claim_bonus_card")}}
   <p>You claimed your bonus {{activity.bonusPlayerName}} Iconic on {{moment-format activity.createdAt}}</p>
   <p>Transaction: {{activity.txnHash}}</p>

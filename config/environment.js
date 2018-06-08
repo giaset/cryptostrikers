@@ -46,6 +46,7 @@ module.exports = function(environment) {
       contractJsonPrefix: '',
       checklistContractAddress: '0x9414329bf6837db915b4d5e0e22ecc27a33129c5',
       coreContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
+      etherscanUrl: 'https://rinkeby.etherscan.io/',
       kittiesContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
       saleContractAddress: '0xa32d4da69c2cc405f98acc58481f9e0dd038f2fa'
     },
@@ -95,6 +96,7 @@ module.exports = function(environment) {
     ENV.strikers.networkId = 1; // mainnet
     ENV.strikers.baseUrl = 'https://www.cryptostrikers.com/',
     ENV.strikers.contractJsonPrefix = 'Production/';
+    ENV.strikers.etherscanUrl = 'https://etherscan.io/';
     ENV.strikers.onlyShowLanding = true;
     ENV.firebase = {
       apiKey: 'AIzaSyACrJK0KFti25MdwB400Rz-SuuTuzzG9r0',
