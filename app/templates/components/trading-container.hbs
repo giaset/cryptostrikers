@@ -25,14 +25,14 @@
   takerChecklistItem=takerChecklistItem
   selectedCardLeft=selectedCardLeft
 }}
-<div class="row mt-4">
-  <div class="col text-center">
+<div class="row py-5">
+  <div class="col">
     {{#if isMyTrade}}
-      <button type="button" class="btn btn-primary btn-lg mt-2" {{action cancelTrade}}>Cancel Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}}>Cancel Trade</button>
     {{else if trade}}
-      <button type="button" class="btn btn-success mt-2" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}}>Accept Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}}>Accept Trade</button>
     {{else}}
-      <button type="button" class="btn btn-primary btn-lg mt-2" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
     {{/if}}
   </div>
 </div>
