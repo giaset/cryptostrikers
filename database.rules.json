@@ -24,6 +24,9 @@
     "players": {
       ".read": true
     },
+    "rarityTiers": {
+      ".read": true
+    },
     "referralCodes": {
       "$uid": {
         ".read": true,

@@ -3,8 +3,8 @@ import { computed } from '@ember/object';
 
 export default DS.Model.extend({
   checklistSet: DS.belongsTo('checklist-set', { inverse: null }),
-  player: DS.belongsTo(),
-  totalIssuance: DS.attr('number'),
+  player: DS.belongsTo('player', { inverse: null }),
+  tier: DS.belongsTo('rarity-tier', { inverse: null }),
 
   filepath: computed('id', 'checklistSet.id', function() {
     const path = '/assets/images/cards/';
