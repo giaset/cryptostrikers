@@ -1,0 +1,43 @@
+<div class="card-container card-container-left">
+  <div class="card-container-info">
+    <h3 class="card-container-title">Card I'll Give</h3>
+    <h4 class="card-container-subtitle">
+      {{#if selectedCardLeft}}
+        {{selectedCardLeft.prettyString}}
+      {{else}}
+        Pick a card
+      {{/if}}
+    </h4>
+  </div>
+  {{#if selectedCardLeft}}
+    <img src={{selectedCardLeft.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
+  {{else}}
+    <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
+      <h5 class="placeholder-title">Click Here</h5>
+    </div>
+  {{/if}}
+</div>
+<div class="card-container card-container-right">
+  <div class="card-container-info order-2 order-sm-0">
+    <h3 class="card-container-title">Card I'll Get</h3>
+    <h4 class="card-container-subtitle">
+      {{#if counterpartyCard}}
+        {{counterpartyCard.prettyString}}
+      {{else if counterpartyChecklistItem}}
+        Any {{counterpartyChecklistItem.player.name}}
+      {{else}}
+        Pick a card
+      {{/if}}
+    </h4>
+  </div>
+  {{#if counterpartyCard}}
+    <img src={{counterpartyCard.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
+  {{else if counterpartyChecklistItem}}
+    <img src={{counterpartyChecklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
+  {{else}}
+    <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
+      <h5 class="placeholder-title">Click Here</h5>
+    </div>
+  {{/if}}
+</div>
+<img class="trade-icon" src="assets/images/trade-icon.svg">

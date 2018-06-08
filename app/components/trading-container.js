@@ -1,14 +1,12 @@
 import Component from '@ember/component';
-import DS from 'ember-data';
 import ENV from 'cryptostrikers/config/environment';
 import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 
 export default Component.extend({
-  classNames: ['trading-container', 'mx-auto'],
+  classNames: ['trading-container', 'container', 'text-center'],
   currentUser: service(),
-  modal: service(),
   store: service(),
   strikersContracts: service(),
   web3: service(),
@@ -39,24 +37,6 @@ export default Component.extend({
       };
 
       this.createTrade(trade);
-    },
-
-    placeholderClicked(leftSide) {
-      if (this.get('counterpartyAddressError')) { return; }
-      const owner = leftSide ? this.get('currentUser.address') : this.get('counterpartyAddress');
-      const modalOptions = { owner, checklistItem: this.get('makerChecklistItem') };
-      this.get('modal').open('trade-picker', modalOptions).then(cardOrChecklistItem => {
-        if (leftSide) {
-          this.set('selectedCardLeft', cardOrChecklistItem);
-        } else {
-          const isCard = cardOrChecklistItem.constructor.modelName === 'card';
-          const counterpartyCard = isCard ? cardOrChecklistItem : null;
-          const counterpartyChecklistItem = isCard ? null : cardOrChecklistItem;
-          this.set('counterpartyCard', counterpartyCard);
-          this.set('counterpartyChecklistItem', counterpartyChecklistItem);
-        }
-      })
-      .catch(() => {});
     }
   },
 
@@ -78,16 +58,6 @@ export default Component.extend({
     }
 
     return null;
-  }),
-
-  counterpartyUser: computed('counterpartyAddress', function() {
-    const address = this.get('counterpartyAddress');
-    if (isBlank(address)) { return null; }
-    if (!this.get('web3').isAddress(address)) { return null; }
-    const promise = this.get('store').findRecord('user-metadata', address).catch(() => {
-      return { nickname: 'unknown user' };
-    });
-    return DS.PromiseObject.create({ promise });
   }),
 
   isMyTrade: computed('currentUser.address', 'trade.maker', function() {

@@ -1,0 +1,86 @@
+.trade-cards {
+  display: flex;
+  position: relative;
+
+  .card-container-left {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+  .card-container-right {
+    margin-left: 10px;
+    margin-right: auto;
+  }
+
+  .trade-icon {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 193.5px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: column;
+
+    .card-container-info {
+      margin-bottom: 24px;
+
+      .card-container-title {
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .card-container-subtitle {
+        font-size: 16px;
+        color: $strikers-medium;
+      }
+    }
+
+    .card-container-image, .card-container-placeholder {
+      width: 245px;
+      height: 343px;
+      border-radius: 3px;
+    }
+
+    .card-container-placeholder {
+      display: flex;
+      border: 3px dashed #BDBDBD;
+
+      .placeholder-title {
+        margin: auto;
+        font-weight: bold;
+        font-size: 18px;
+        color: #828282;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .trade-cards {
+    flex-direction: column;
+
+    .card-container-left {
+      margin-right: auto;
+      margin-bottom: 10px;
+    }
+
+    .card-container-right {
+      margin-left: auto;
+      margin-top: 10px;
+
+      .card-container-info {
+        margin-top: 24px;
+        margin-bottom: 0;
+      }
+    }
+
+    .trade-icon {
+      top: 375px;
+      transform: rotate(90deg);
+    }
+  }
+}

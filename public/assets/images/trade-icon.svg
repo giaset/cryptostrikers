@@ -1,0 +1,10 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="28" cy="28" r="26.5" fill="#53C8EF" stroke="black" stroke-width="3"/>
+<path d="M0 0L4.15015 4.10518" transform="translate(36.8945 24.3994) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M4.15015 0L0 4.10518" transform="translate(36.8945 20.2493) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M0 0L4.15015 4.10518" transform="translate(36.8945 41) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M4.15015 0L0 4.10518" transform="translate(36.8945 36.8499) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M16.6006 0V1.80628C16.6046 2.93766 16.3249 4.05236 15.7865 5.05058C15.2482 6.0488 14.4679 6.89938 13.5157 7.52616L3.08499 14.3681C2.13276 14.9949 1.35254 15.8455 0.814159 16.8437C0.275783 17.8419 -0.0039377 18.9566 4.1876e-05 20.088V25.9995" transform="translate(15 36.8499) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M6.33263e-07 0C0.948319 0.624222 1.72611 1.47045 2.26428 2.46352C2.80246 3.45659 3.08436 4.56576 3.08495 5.69252V11.6313" transform="translate(29.3672 23.3348) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+<path d="M4.1876e-05 0V1.80628C-0.0039377 2.93766 0.275783 4.05236 0.814159 5.05058C1.35254 6.0488 2.13276 6.89938 3.08499 7.52616" transform="translate(15 36.8499) rotate(-90)" stroke="white" stroke-width="3" stroke-linecap="round"/>
+</svg>
