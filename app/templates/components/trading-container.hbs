@@ -20,40 +20,15 @@
   counterpartyAddressError=counterpartyAddressError
   counterpartyCard=counterpartyCard
   counterpartyChecklistItem=counterpartyChecklistItem
+  makerCard=makerCard
+  takerCard=takerCard
+  takerChecklistItem=takerChecklistItem
   selectedCardLeft=selectedCardLeft
 }}
-<div class="row{{if counterpartyAddressError " opacity-30"}}">
-
-
-
-  <div class="col">
-    {{#if makerCard}}
-      <img src={{makerCard.checklistItem.filepath}} class="img-fluid">
-      <p>{{makerCard.prettyString}}</p>
-    {{/if}}
-  </div>
-
-
-
-
-  <div class="col">
-    {{#if takerCard}}
-      <img src={{takerCard.checklistItem.filepath}} class="img-fluid">
-      <p>{{takerCard.prettyString}}</p>
-    {{else if takerChecklistItem}}
-      <img src={{takerChecklistItem.filepath}} class="img-fluid">
-      <p>Any {{takerChecklistItem.player.name}}</p>
-    {{/if}}
-  </div>
-
-
-
-
-</div>
 <div class="row mt-4">
   <div class="col text-center">
     {{#if isMyTrade}}
-      <button type="button" class="btn btn-success mt-2" {{action cancelTrade}}>Cancel Trade</button>
+      <button type="button" class="btn btn-primary btn-lg mt-2" {{action cancelTrade}}>Cancel Trade</button>
     {{else if trade}}
       <button type="button" class="btn btn-success mt-2" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}}>Accept Trade</button>
     {{else}}

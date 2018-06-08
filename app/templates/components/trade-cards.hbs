@@ -2,14 +2,18 @@
   <div class="card-container-info">
     <h3 class="card-container-title">Card I'll Give</h3>
     <h4 class="card-container-subtitle">
-      {{#if selectedCardLeft}}
+      {{#if makerCard}}
+        {{makerCard.prettyString}}
+      {{else if selectedCardLeft}}
         {{selectedCardLeft.prettyString}}
       {{else}}
         Pick a card
       {{/if}}
     </h4>
   </div>
-  {{#if selectedCardLeft}}
+  {{#if makerCard}}
+    <img src={{makerCard.checklistItem.filepath}} class="card-container-image">
+  {{else if selectedCardLeft}}
     <img src={{selectedCardLeft.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
   {{else}}
     <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
@@ -21,7 +25,11 @@
   <div class="card-container-info order-2 order-sm-0">
     <h3 class="card-container-title">Card I'll Get</h3>
     <h4 class="card-container-subtitle">
-      {{#if counterpartyCard}}
+      {{#if takerCard}}
+        {{takerCard.prettyString}}
+      {{else if takerChecklistItem}}
+        Any {{takerChecklistItem.player.name}}
+      {{else if counterpartyCard}}
         {{counterpartyCard.prettyString}}
       {{else if counterpartyChecklistItem}}
         Any {{counterpartyChecklistItem.player.name}}
@@ -30,7 +38,11 @@
       {{/if}}
     </h4>
   </div>
-  {{#if counterpartyCard}}
+  {{#if takerCard}}
+    <img src={{takerCard.checklistItem.filepath}} class="card-container-image">
+  {{else if takerChecklistItem}}
+    <img src={{takerChecklistItem.filepath}} class="card-container-image">
+  {{else if counterpartyCard}}
     <img src={{counterpartyCard.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
   {{else if counterpartyChecklistItem}}
     <img src={{counterpartyChecklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
