@@ -4,55 +4,80 @@ const contractJson = require('./StrikersCore');
 const cors = require('cors')({ origin: true });
 const functions = require('firebase-functions');
 const request = require('request');
-const serviceAccount = require(functions.config().strikers.service_account);
+const strikersConfig = functions.config().strikers;
+const serviceAccount = require(strikersConfig.service_account);
 const sigUtil = require('eth-sig-util');
 const Web3 = require('web3');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: functions.config().strikers.database_url
+  databaseURL: strikersConfig.database_url
 });
 
-// TODO: use config for mainnet infura and contract address
-// mainnet: https://mainnet.infura.io/b9XMoJFDxpzhBpEGzVaW
-const web3 = new Web3('https://rinkeby.infura.io/b9XMoJFDxpzhBpEGzVaW');
-const address = '0xcfd0ebf5100fdc1b3d2f460f65681d9287da467c';
-const strikersContract = new web3.eth.Contract(contractJson.abi, address);
+const web3 = new Web3(strikersConfig.infura_url);
+const strikersContract = new web3.eth.Contract(contractJson.abi, strikersConfig.contract_address);
+
+function _newAttribute(name, value, max, type) {
+  const attribute = { trait_type: name, value };
+
+  if (max) {
+    attribute.max_value = max;
+  }
+
+  if (type) {
+    attribute.display_type = type;
+  }
+
+  return attribute;
+}
 
 app.use(cors);
 app.get('/:id', (req, res) => {
   const cardId = req.params.id;
-  let card;
-  let playerId;
-  let player;
-  strikersContract.methods.cards(cardId).call().then(_card => {
-    card = _card;
-    playerId = card.playerId;
-    return admin.database().ref(`/players/${playerId}`).once('value');
+  const result = { attributes: [] };
+  let serialNumber;
+  strikersContract.methods.cards(cardId).call()
+  .then(contractCard => {
+    // Firebase doesn't support padStart...
+    const checklistId = ('000'+contractCard.checklistId).substring(contractCard.checklistId.length);
+    result.attributes.push(_newAttribute('checklist_ID', `#${checklistId}`));
+    const extension = contractCard.checklistId >= 100 ? 'png' : 'svg';
+    result.image = `https://www.cryptostrikers.com/assets/images/cards/${checklistId}.${extension}`;
+    result.external_url = `https://www.cryptostrikers.com/checklist/${checklistId}?card_id=${cardId}`;
+    serialNumber = parseInt(contractCard.serialNumber);
+    return admin.database().ref(`/checklistItems/${checklistId}`).once('value');
   })
   .then(snapshot => {
-    player = snapshot.val();
+    const checklistItem = snapshot.val();
+    const playerId = checklistItem.player;
+    const setId = checklistItem.checklistSet;
+    const tierId = checklistItem.tier;
+    const playerPromise = admin.database().ref(`/players/${playerId}`).once('value');
+    const setPromise = admin.database().ref(`/checklistSets/${setId}`).once('value');
+    const tierPromise = admin.database().ref(`/rarityTiers/${tierId}`).once('value');
+    return Promise.all([playerPromise, setPromise, tierPromise]);
+  })
+  .then(snapshots => {
+    const player = snapshots[0].val();
+    result.attributes.push(_newAttribute('player', player.name));
+    result.name = player.name;
+
+    const set = snapshots[1].val();
+    result.attributes.push(_newAttribute('set', set.name));
+
+    const tier = snapshots[2].val();
+    const limit = tier.limit;
+    result.attributes.push(_newAttribute('serial_number', serialNumber, limit, 'number'));
+    result.attributes.push(_newAttribute('tier', tier.name));
+    result.description = `${set.name} - #${serialNumber}/${tier.limit}`;
+
+
     return admin.database().ref(`/countries/${player.country}`).once('value');
   })
   .then(snapshot => {
     const country = snapshot.val();
-    const serialNumber = parseInt(card.serialNumber);
-    const setId = parseInt(card.setId);
-    const setName = (setId === 1) ? 'Base Set' : 'Daily Challenge Set';
-    const payload = {
-      imageUrl: `https://staging.cryptostrikers.com/assets/cards/s${setId}/${playerId}.svg`,
-      externalUrl: 'https://www.cryptostrikers.com/',
-      description: `${setName} - #${serialNumber}/TODO`,
-      name: player.name,
-      properties: {
-        country: country.name,
-        group: `Group ${country.group}`,
-        player: player.name,
-        setName
-      }
-    };
-    payload.properties['Serial Number'] = serialNumber;
-    return res.json(payload);
+    result.attributes.push(_newAttribute('country', country.name));
+    return res.json(result);
   })
   .catch(error => res.status(500).json({ error: error.toString() }));
 });
