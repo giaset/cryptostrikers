@@ -5,6 +5,7 @@ module.exports = {
   networks: {
     development: {
       host: "localhost",
+      gasPrice: 20000000000,
       port: 8545,
       network_id: "*" // Match any network id
     },
@@ -15,6 +16,15 @@ module.exports = {
       },
       network_id: 4,
       gas: 7000000
+    },
+
+    live: {
+      provider: function() {
+        return new HDWalletProvider('12 seed words', 'https://mainnet.infura.io/b9XMoJFDxpzhBpEGzVaW');
+      },
+      network_id: 1,
+      gas: 7500000,
+      gasPrice: 20000000000
     }
   }
 };

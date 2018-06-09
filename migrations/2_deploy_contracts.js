@@ -4,10 +4,7 @@ const StrikersMetadata = artifacts.require('./StrikersMetadata.sol');
 const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
 
 module.exports = function(deployer, network) {
-  // opensea mainnet: 0x1f52b87c3503e537853e160adbf7e330ea0be7c4
-  // kitties mainnet:
-
-  const apiUrl = 'https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/';
+  const apiUrl = network === 'live' ? 'https://us-central1-cryptostrikers-prod.cloudfunctions.net/cards/' : 'https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/';
 
   let strikersChecklist;
   let strikersCore;
@@ -23,8 +20,14 @@ module.exports = function(deployer, network) {
   .then(() => deployer.deploy(StrikersCore, strikersChecklist.address))
   .then(coreInstance => {
     strikersCore = coreInstance;
-    const kittiesAddress = (network === 'rinkeby') ? '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF' : strikersCore.address;
-    return deployer.deploy(StrikersPackSale, 26000000000000000, kittiesAddress, strikersCore.address);
+    let kittiesAddress = strikersCore.address;
+    if (network === 'rinkeby') {
+      kittiesAddress = '0x16baF0dE678E52367adC69fD067E5eDd1D33e3bF';
+    } else if (network === 'live') {
+      kittiesAddress = '0x06012c8cf97bead5deae237070f9587f8e7a266d';
+    }
+
+    return deployer.deploy(StrikersPackSale, 25000000000000000, kittiesAddress, strikersCore.address);
   })
   .then(packSaleInstance => {
     strikersPackSale = packSaleInstance;
