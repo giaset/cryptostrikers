@@ -15,6 +15,13 @@ export default Route.extend({
       contract.createNextPremiumSale(featuredChecklistItem, packPrice).send({ from });
     },
 
+    generateStandardPacks() {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const from = '0x11cb02e2A07A94542A367bFf7Ee847451a75fA37';
+      const packs = packGenerator();
+      contract.addPacksToStandardSale(packs).send({ from });
+    },
+
     loadPremiumPacks(featuredChecklistItem) {
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
       const from = this.get('currentUser.address');
@@ -22,10 +29,22 @@ export default Route.extend({
       contract.addPacksToNextPremiumSale(packs).send({ from });
     },
 
+    pause() {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const from = this.get('currentUser.address');
+      contract.pause().send({ from });
+    },
+
     startNextPremiumSale() {
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
       const from = this.get('currentUser.address');
       contract.startNextPremiumSale().send({ from });
+    },
+
+    unpause() {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const from = '0x11cb02e2A07A94542A367bFf7Ee847451a75fA37';
+      contract.unpause().send({ from });
     }
   },
 
@@ -35,12 +54,18 @@ export default Route.extend({
 
     const currentUserAddress = this.get('currentUser.address');
     const owner = contract.owner().call();
-    const nextSale = store.queryRecord('packSale', 'next');
+    const paused = contract.paused().call();
+    const currentSale = store.queryRecord('pack-sale', 'premium');
+    const nextSale = store.queryRecord('pack-sale', 'next');
+    const standardSale = store.queryRecord('pack-sale', 'standard');
 
     return RSVP.hash({
+      currentSale,
       currentUserAddress,
       owner,
-      nextSale
+      paused,
+      nextSale,
+      standardSale
     });
   }
 });

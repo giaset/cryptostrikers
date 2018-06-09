@@ -4,6 +4,8 @@ export default function(featuredChecklistItem) {
   let cards;
   if (featuredChecklistItem) {
     cards = _unshuffledPremiumCards(featuredChecklistItem);
+  } else {
+    cards = _unshuffledStandardCards();
   }
 
   // eslint-disable-next-line no-constant-condition
@@ -71,5 +73,29 @@ function _premiumCountForChecklistId(id) {
     return 24;
   } else if (id < 50) {
     return 48;
+  }
+}
+
+function _unshuffledStandardCards() {
+  const cards = [];
+  for (let i = 0; i < 100; i++) {
+    const count = _standardCountForChecklistId(i);
+    for (let j = 0; j < count; j++) {
+      cards.push(i);
+    }
+  }
+
+  return cards;
+}
+
+function _standardCountForChecklistId(id) {
+  if (id < 4) {
+    return 1;
+  } else if (id < 20) {
+    return 2;
+  } else if (id < 50) {
+    return 4;
+  } else {
+    return 8;
   }
 }

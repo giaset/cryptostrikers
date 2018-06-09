@@ -1,6 +1,18 @@
 <h1>PackFactory</h1>
 <h5>Owner: {{model.owner}}</h5>
 <h5>Current address: {{model.currentUserAddress}}</h5>
+<br>
+<h4>Standard Sale</h4>
+{{#if model.paused}}
+  <button {{action "unpause"}}>Unpause</button>
+{{else}}
+  <button {{action "pause"}}>Pause</button>
+{{/if}}
+<h5>Pack price: {{model.standardSale.packPrice}}</h5>
+<h5>Pack loaded: {{model.standardSale.packsLoaded}}</h5>
+<button {{action "generateStandardPacks"}}>Generate Packs</button>
+<br>
+<br>
 <h4>Next Premium Sale:</h4>
 {{#if model.nextSale}}
   <h5>id: {{model.nextSale.id}}</h5>
