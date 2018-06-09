@@ -37,11 +37,11 @@ export default Route.extend({
   },
 
   _packToChecklistIds(pack) {
-    const checklistId1 = pack >> 24;
-    const checklistId2 = (pack >> 16) & 255;
-    const checklistId3 = (pack >> 8) & 255;
-    const checklistId4 = pack & 255;
-
+    const binaryPack = pack.toString(2).padStart(32, '0');
+    const checklistId1 = parseInt(binaryPack.substring(0, 8), 2);
+    const checklistId2 = parseInt(binaryPack.substring(8, 16), 2);
+    const checklistId3 = parseInt(binaryPack.substring(16, 24), 2);
+    const checklistId4 = parseInt(binaryPack.substring(24, 32), 2);
     return [checklistId1, checklistId2, checklistId3, checklistId4];
   }
 });
