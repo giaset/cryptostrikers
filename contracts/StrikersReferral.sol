@@ -111,7 +111,7 @@ contract StrikersReferral is StrikersWhitelist {
     bool referrerHasBoughtPack = packsBought[referrer] > 0;
 
     // Lastly, check to make sure _addr hasn't already claimed a free pack.
-    return referrerHasBoughtPack && !hasClaimedFreeReferralPack(_addr);
+    return referrerHasBoughtPack && !hasClaimedFreeReferralPack[_addr];
   }
 
   /// @dev Allows the contract owner to manually set the referrer for a given user, in case this wasn't properly attributed.
