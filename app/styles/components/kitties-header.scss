@@ -1,0 +1,23 @@
+.kitties-header {
+  display: flex;
+  text-align: center;
+  list-style-type: none;
+  font-weight: 600;
+  font-size: 22px;
+
+  li {
+    padding: 32px 0;
+    flex: 1;
+    border-bottom: 2px solid #FF9AFF;
+
+    &.inactive {
+      border-bottom: 2px solid $strikers-light;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .inactive {
+      display: none;
+    }
+  }
+}
