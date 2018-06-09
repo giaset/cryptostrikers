@@ -92,6 +92,11 @@ module.exports = function(environment) {
   }
 
   if (deployTarget === 'production') {
+    ENV.strikers.checklistContractAddress = '0xDBc260a05F81629FfA062Df3d1668A43133AbbA4';
+    ENV.strikers.coreContractAddress = '0xdCAad9Fd9a74144d226DbF94ce6162ca9f09ED7e';
+    ENV.strikers.saleContractAddress = '0xEB5405E21d07fa5e3B6644d0aE7f391B47F17E27';
+    ENV.strikers.kittiesContractAddress = '0x06012c8cf97bead5deae237070f9587f8e7a266d';
+
     ENV.strikers.apiHost = 'https://us-central1-cryptostrikers-prod.cloudfunctions.net';
     ENV.strikers.networkId = 1; // mainnet
     ENV.strikers.baseUrl = 'https://www.cryptostrikers.com/',

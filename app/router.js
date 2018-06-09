@@ -7,16 +7,14 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  if (!config.strikers.onlyShowLanding) {
-    this.authenticatedRoute('buy-packs');
-    this.authenticatedRoute('my-album');
-    this.route('marketplace');
-    this.route('login');
-    this.route('activity', function() {
-      this.route('show', { path: '/:activity_id' });
-    });
-    this.route('sign-in');
-  }
+  this.authenticatedRoute('buy-packs');
+  this.authenticatedRoute('my-album');
+  this.route('marketplace');
+  this.route('login');
+  this.route('activity', function() {
+    this.route('show', { path: '/:activity_id' });
+  });
+  this.route('sign-in');
   this.route('404', { path: '/*path' });
   this.route('checklist', { path: '/checklist/:checklist_item_id' });
   this.route('sales', { path: '/sales/:sale_id' });
