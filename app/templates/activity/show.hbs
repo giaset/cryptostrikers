@@ -1,32 +1,25 @@
 <div class="container">
-  {{#if firstCheckDone}}
-    <div class='text-center'>
+  {{#if cards}}
+    {{#strikers-row title="Flip Your Cards!"}}
+      <p>Click the cards to reveal your new players.</p>
+      <p>When you're done, {{link-to "click here" "my-album" class="text-gold"}} to go see how they look with the rest of your squad.</p>
+    {{/strikers-row}}
+    <div class="row">
+      {{#each cards as |card|}}
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+          {{flippable-card checklistItem=card.checklistItem flippable=true}}
+        </div>
+      {{/each}}
+    </div>
+  {{else if firstCheckDone}}
+    {{#strikers-row title="Transaction Submitted"}}
       <p>Hang tight, this transaction hasn't been mined yet...</p>
       <p>While you wait, why don't you watch {{model.video.description}}.</p>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{model.video.videoId}}?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-    </div>
-  {{else if getCardsFromTransaction.isRunning}}
-    <div class="text-center">
-      {{spinkit-cube-grid}}
-    </div>
-  {{/if}}
-  {{#if cards}}
-    {{#unless openPackClicked}}
-      <div class="text-center">
-        <p>Click the button below to open your pack</p>
-        <button type="button" class="btn btn-success" {{action (mut openPackClicked) true}}>Open Pack</button>
+      <div class="youtube-container-container">
+        <div class="youtube-container">
+          <iframe src="https://www.youtube.com/embed/{{model.video.videoId}}?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
       </div>
-    {{else}}
-      <div class="text-center">
-        <p>Click the cards to reveal your new players</p>
-      </div>
-      <div class="row">
-        {{#each cards as |card|}}
-          <div class="col-6 col-sm-4 col-lg-3">
-            {{revealable-card card=card class="mb-4"}}
-          </div>
-        {{/each}}
-      </div>
-    {{/unless}}
+    {{/strikers-row}}
   {{/if}}
 </div>
