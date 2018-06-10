@@ -6,10 +6,12 @@ $strikers-gold: #DBB66A;
 $strikers-light: #F4F4F4;
 $strikers-medium: #4F4F4F;
 
+$dark: black;
 $primary: $strikers-blue;
 
 // Bootstrap and its default variables
 @import "vendor/bootstrap/scss/bootstrap";
+@import "app/styles/components/activity-cell";
 @import "app/styles/components/card-attributes";
 @import "app/styles/components/card-carousel";
 @import "app/styles/components/card-packs-header";

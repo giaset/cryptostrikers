@@ -1,5 +1,10 @@
 <div class="container">
-  <h1>Activity</h1>
+  {{#strikers-row title="Activity"}}
+    <p class="activity-header-text">Activity history is stored on the CryptoStrikers servers so that you can access it from any device.</p>
+  {{/strikers-row}}
+</div>
+<hr class="activity-divider">
+<div class="container">
   {{#each sortedActivities as |activity|}}
     {{activity-cell activity=activity}}
   {{else}}
