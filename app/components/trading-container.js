@@ -40,6 +40,10 @@ export default Component.extend({
     }
   },
 
+  acceptButtonDisabled: computed('makerCard.id', 'selectedCardLeft.id', function() {
+    return !this.get('makerCard.id') && !this.get('selectedCardLeft.id');
+  }),
+
   createButtonDisabled: computed('selectedCardLeft.id', 'counterpartyCard.id', 'counterpartyChecklistItem.id', function() {
     const leftCardId = this.get('selectedCardLeft.id');
     const takerCardOrChecklistId = this.get('counterpartyCard.id') || this.get('counterpartyChecklistItem.id');
@@ -79,6 +83,15 @@ export default Component.extend({
     if (trade && !this.get('isMyTrade')) {
       return trade.get('takerChecklistItem');
     }
+  }),
+
+  notOpenToMe: computed('isMyTrade', 'trade', function() {
+    const trade = this.get('trade');
+    if (!trade || this.get('isMyTrade')) { return false; }
+    const taker = trade.get('taker');
+    if (taker === '0x0000000000000000000000000000000000000000') { return false; }
+    const myAddress = this.get('currentUser.address');
+    return myAddress !== taker;
   }),
 
   takerCard: computed('isMyTrade', 'trade.{makerCard,takerCard}', function() {

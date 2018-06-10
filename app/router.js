@@ -29,8 +29,8 @@ Router.map(function() {
       this.route('whitelist');
     });
   }
-  this.route('create-trade');
-  this.route('trades', { path: '/trades/:trade_id' });
+  this.authenticatedRoute('create-trade');
+  this.authenticatedRoute('trades', { path: '/trades/:trade_id' });
   this.authenticatedRoute('referrals');
   this.route('invite', { path: '/invite/:referral_code_id' });
   this.route('profile', { path: '/profile/:user_metadata_id' });

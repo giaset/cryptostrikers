@@ -122,6 +122,10 @@ body {
         font-size: 22px;
         font-weight: bold;
         margin-bottom: 12px;
+
+        span {
+          color: $strikers-blue;
+        }
       }
 
       .close {
@@ -145,6 +149,12 @@ body {
         height: 100%;
       }
     }
+
+    .modal-card-subtitle {
+      padding: 12px 0 24px 0;
+      font-size: 14px;
+      color: #828282;
+    }
   }
 
   @include media-breakpoint-down(xs) {
@@ -154,6 +164,10 @@ body {
       max-width: none;
       max-height: none;
       border-radius: 0;
+
+      .strikers-modal-title h1 {
+        text-align: center;
+      }
     }
   }
 }

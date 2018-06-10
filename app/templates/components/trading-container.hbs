@@ -1,16 +1,20 @@
-{{trade-partner-row counterpartyAddress=counterpartyAddress counterpartyAddressError=counterpartyAddressError}}
-<div class="row mb-4">
-  <div class="col">
-    {{#if trade}}
-      <p>Trade created by: {{if isMyTrade "you" trade.maker}}</p>
-      <p>Trade open to: {{trade.takerString}}</p>
-    {{/if}}
-  </div>
-</div>
+{{#if isMyTrade}}
+  {{trade-partner-row counterpartyAddress=trade.taker hideRemove=true}}
+{{else if trade}}
+  {{trade-partner-row counterpartyAddress=trade.maker hideRemove=true}}
+{{else}}
+  {{trade-partner-row counterpartyAddress=counterpartyAddress counterpartyAddressError=counterpartyAddressError}}
+{{/if}}
 {{#if makerChecklistItem}}
   <div class="row mb-4">
-    <div class="col text-center">
+    <div class="col">
       <h5>To fill this trade, you must give a {{makerChecklistItem.player.name}}.</h5>
+    </div>
+  </div>
+{{else if notOpenToMe}}
+  <div class="row mb-4">
+    <div class="col">
+      <h5 class="text-danger">This trade is not open to you.</h5>
     </div>
   </div>
 {{/if}}
@@ -21,28 +25,23 @@
   counterpartyCard=counterpartyCard
   counterpartyChecklistItem=counterpartyChecklistItem
   makerCard=makerCard
+  makerChecklistItem=makerChecklistItem
   takerCard=takerCard
   takerChecklistItem=takerChecklistItem
   selectedCardLeft=selectedCardLeft
 }}
 <div class="row py-5">
   <div class="col">
-    {{#if isMyTrade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}} disabled={{cancelEvent}}>
-        {{#if cancelEvent}}
-          Already Cancelled
-        {{else}}
-          Cancel Trade
-        {{/if}}
-      </button>
+    {{#if notOpenToMe}}
+      <button type="button" class="btn btn-primary btn-lg" disabled>NOT OPEN TO YOU</button>
+    {{else if cancelEvent}}
+      <button type="button" class="btn btn-primary btn-lg" disabled>Already Cancelled</button>
+    {{else if fillEvent}}
+      <button type="button" class="btn btn-primary btn-lg" disabled>Already Filled</button>
+    {{else if isMyTrade}}
+      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}}>Cancel Trade</button>
     {{else if trade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}} disabled={{fillEvent}}>
-        {{#if fillEvent}}
-          Already Filled
-        {{else}}
-          Accept Trade
-        {{/if}}
-      </button>
+      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}} disabled={{acceptButtonDisabled}}>Accept Trade</button>
     {{else}}
       <button type="button" class="btn btn-primary btn-lg" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
     {{/if}}

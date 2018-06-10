@@ -19,11 +19,11 @@
     {{else if cards}}
       <div class="row">
         {{#each cards as |card|}}
-          <div class="col-6 col-md-4 col-lg-3 mb-2 text-center">
+          <div class="col-6 col-md-4 col-lg-3 text-center">
             <div class="modal-card-image-container">
                 <img src={{card.checklistItem.filepath}} class="clickable modal-card-image" {{action resolve card}}>
             </div>
-            <span>#{{card.serialNumber}}/{{card.checklistItem.totalIssuance}}</span>
+            <div class="modal-card-subtitle">{{card.serialNumberString}}</div>
           </div>
         {{/each}}
       </div>
@@ -34,7 +34,7 @@
             <div class="modal-card-image-container">
               <img src={{checklistItem.filepath}} class="clickable modal-card-image" {{action resolve checklistItem}}>
             </div>
-            <span>Any</span>
+            <div class="modal-card-subtitle">Any</div>
           </div>
         {{/each}}
       </div>

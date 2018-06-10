@@ -7,11 +7,15 @@ export default DS.Model.extend({
   sale: DS.belongsTo(),
   serialNumber: DS.attr('number'),
 
-  prettyString: computed('checklistItem.{player.name,totalIssuance}', 'serialNumber', function() {
-    const checklistItem = this.get('checklistItem');
-    const playerName = checklistItem.get('player.name');
+  prettyString: computed('checklistItem.player.name', 'serialNumberString', function() {
+    const playerName = this.get('checklistItem.player.name');
+    const serialNumberString = this.get('serialNumberString');
+    return `${playerName} (${serialNumberString})`;
+  }),
+
+  serialNumberString: computed('checklistItem.tier.limit', 'serialNumber', function() {
+    const limit = this.get('checklistItem.tier.limit');
     const serialNumber = this.get('serialNumber');
-    const totalIssuance = checklistItem.get('totalIssuance');
-    return `${playerName} (#${serialNumber}/${totalIssuance})`;
+    return `#${serialNumber}/${limit === 0 ? 'Unlimited' : limit}`;
   })
 });

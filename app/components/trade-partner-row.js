@@ -14,6 +14,10 @@ export default Component.extend({
     const address = this.get('counterpartyAddress');
     if (isBlank(address)) { return null; }
     if (!this.get('web3').isAddress(address)) { return null; }
+    if (address === '0x0000000000000000000000000000000000000000') {
+      return { nickname: 'Anybody' };
+    }
+
     const promise = this.get('store').findRecord('user-metadata', address).catch(() => {
       return { nickname: 'unknown user' };
     });

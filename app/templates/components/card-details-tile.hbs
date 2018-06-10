@@ -1,4 +1,4 @@
-<span>#{{card.serialNumber}}/{{card.checklistItem.totalIssuance}} (CryptoStrikers ID: {{card.id}}, minted {{moment-format card.mintTime}})</span>
+<span>{{card.serialNumberString}} (CryptoStrikers ID: {{card.id}}, minted {{moment-format card.mintTime}})</span>
 <form {{action sellAction card salePrice on="submit"}}>
   Sell for: ETH {{input type="number" value=salePrice min=0.001 step=0.001}}
   <button type="submit">Submit</button>
