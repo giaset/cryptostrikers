@@ -20,13 +20,6 @@
       You accepted a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to mine, so hope nobody beats you to it!
     {{else if (eq activity.type "create_trade")}}
       You created a <span>{{activity.tradeString}}</span> trade.
-  {{link-to activity.trade.url "trades" activity.trade.id}}
-  {{#copy-button
-    class="ml-2"
-    clipboardText=activity.trade.url
-  }}
-    {{fa-icon "copy"}}
-  {{/copy-button}}
     {{/if}}
   </div>
 </div>
@@ -36,5 +29,9 @@
   {{/if}}
   {{#if activity.txnHash}}
     <a href={{activity.etherscanUrl}} class="btn btn-outline-dark activity-cell-button" target="_blank">Track</a>
+  {{/if}}
+  {{#if (eq activity.type "create_trade")}}
+    {{link-to "View Trade" "trades" activity.trade.id class="view-cards-link"}}
+    {{#copy-button class="btn btn-outline-dark activity-cell-button" clipboardText=activity.trade.url}}Copy Link{{/copy-button}}
   {{/if}}
 </div>
