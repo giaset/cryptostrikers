@@ -21,16 +21,16 @@ Router.map(function() {
   this.route('kitty-sale');
   if (config.environment === 'development') {
     this.route('admin');
+    this.route('dashboard', function() {
+      this.route('checklist');
+      this.route('core');
+      this.route('pack-factory');
+      this.route('pack-sale');
+      this.route('whitelist');
+    });
   }
   this.route('create-trade');
   this.route('trades', { path: '/trades/:trade_id' });
-  this.route('dashboard', function() {
-    this.route('checklist');
-    this.route('core');
-    this.route('pack-factory');
-    this.route('pack-sale');
-    this.route('whitelist');
-  });
   this.authenticatedRoute('referrals');
   this.route('invite', { path: '/invite/:referral_code_id' });
   this.route('profile', { path: '/profile/:user_metadata_id' });
