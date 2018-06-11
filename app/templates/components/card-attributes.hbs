@@ -11,13 +11,15 @@
       <div class="attribute-cell-title">Set</div>
     </div>
   </div>
-  <div class="col-6">
-    <div class="attribute-cell">
-      <img class="attribute-cell-img" src="/assets/images/{{checklistItem.tier.name}}.svg">
-      <div class="attribute-cell-value">{{checklistItem.tier.name}}</div>
-      <div class="attribute-cell-title">Rarity</div>
+  {{#if (eq checklistItem.checklistSet.name "Originals")}}
+    <div class="col-6">
+      <div class="attribute-cell">
+        <img class="attribute-cell-img" src="/assets/images/{{checklistItem.tier.name}}.svg">
+        <div class="attribute-cell-value">{{checklistItem.tier.name}}</div>
+        <div class="attribute-cell-title">Rarity</div>
+      </div>
     </div>
-  </div>
+  {{/if}}
   {{#if card}}
     <div class="col-6">
       <div class="attribute-cell">
