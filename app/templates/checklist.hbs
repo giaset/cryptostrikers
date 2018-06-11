@@ -1,5 +1,10 @@
 {{card-carousel cards=cards checklistItem=checklistItem slideDidChange=(action 'slideDidChange')}}
 <section class="container text-center">
   {{checklist-item-info checklistItem=checklistItem class="checklist-item-info-lg"}}
+  {{#strikers-row title="Bio"}}
+    <p>{{{checklistItem.player.bio}}}</p>
+    <p>More at <a href={{checklistItem.player.wiki}} target="_blank">Wikipedia</a>.</p>
+    <p><strong>World Cup 2018:</strong> {{checklistItem.player.wcInfo}}</p>
+  {{/strikers-row}}
   {{card-attributes card=card checklistItem=checklistItem}}
 </section>
