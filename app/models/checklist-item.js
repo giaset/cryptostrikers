@@ -16,7 +16,7 @@ export default DS.Model.extend({
 
   tierImage: computed('tier.id', function() {
     const tierId = this.get('tier.id');
-    let filename = 'iconic';
+    let filename;
 
     if (tierId === '2') {
       filename = 'diamond-small';
@@ -26,6 +26,8 @@ export default DS.Model.extend({
       filename = 'silver-small';
     } else if (tierId === '5') {
       filename = 'bronze-small';
+    } else {
+      return null;
     }
 
     return `/assets/images/${filename}.svg`;

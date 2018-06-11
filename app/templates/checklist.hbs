@@ -1,7 +1,5 @@
 {{card-carousel cards=cards checklistItem=checklistItem slideDidChange=(action 'slideDidChange')}}
 <section class="container text-center">
   {{checklist-item-info checklistItem=checklistItem class="checklist-item-info-lg"}}
-  {{#if card}}
-    {{card-attributes card=card}}
-  {{/if}}
+  {{card-attributes card=card checklistItem=checklistItem}}
 </section>

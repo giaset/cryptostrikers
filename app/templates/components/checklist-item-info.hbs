@@ -1,2 +1,7 @@
-<div class="checklist-info-title"><img class="checklist-info-image" src={{checklistItem.tierImage}}><span class="checklist-info-name">{{checklistItem.player.name}}</span></div>
+<div class="checklist-info-title">
+  <img class="checklist-info-image" src={{checklistItem.tierImage}} class={{if checklistItem.tierImage "has-tier-image"}}>
+  <span class="checklist-info-name">
+    {{checklistItem.player.name}}
+  </span>
+</div>
 <span class="checklist-info-subtitle">{{checklistItem.checklistSet.name}} · #{{checklistItem.id}}</span>

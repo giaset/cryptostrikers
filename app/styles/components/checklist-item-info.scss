@@ -9,7 +9,11 @@
 
     .checklist-info-image {
       height: 20px;
-      margin: auto 8px auto auto;
+      margin: auto 0 auto auto;
+
+      &.has-tier-image {
+        margin-right: 8px;
+      }
     }
 
     .checklist-info-name {
@@ -25,15 +29,22 @@
   }
 
   &.checklist-item-info-lg {
-    margin-top: 85px;
-    margin-bottom: 85px;
+    margin: 32px 0;
 
     .checklist-info-title {
-      font-size: 45px;
+      font-size: 32px;
+
+      .checklist-info-image {
+        height: 32px;
+
+        &.has-tier-image {
+          margin-right: 12px;
+        }
+      }
     }
 
     .checklist-info-subtitle {
-      font-size: 35px;
+      font-size: 28px;
     }
   }
 }

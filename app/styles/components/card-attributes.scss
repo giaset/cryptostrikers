@@ -1,39 +1,30 @@
 .card-attributes {
+  border-top: 2px solid $strikers-light;
+
   .card-attributes-header {
-    font-size: 35px;
+    font-size: 32px;
     font-weight: bold;
-    margin-bottom: 59px;
+    margin: 32px 0;
   }
 
   .attribute-cell {
-    display: flex;
-    text-align: left;
-    margin-bottom: 68px;
+    text-align: center;
+    margin-bottom: 32px;
 
     .attribute-cell-img {
       width: 51px;
       height: 51px;
-      background-color: #C4C4C4;
-      border-radius: 50%;
-      margin-right: 23px;
-    }
-
-    .attribute-cell-info {
-      display: flex;
-      flex-direction: column;
+      margin: 0 auto 8px auto;
     }
 
     .attribute-cell-value {
       font-size: 25px;
       font-weight: bold;
-      margin-bottom: 0;
-      margin-top: auto;
     }
 
     .attribute-cell-title {
       font-size: 15px;
       color: #828282;
-      margin-bottom: auto;
     }
   }
 }
