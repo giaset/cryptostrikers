@@ -7,6 +7,11 @@ export default Route.extend({
   currentUser: service(),
   strikersContracts: service(),
   web3: service(),
+  queryParams: {
+    card_id: {
+      replace: true
+    }
+  },
 
   actions: {
     error() {
@@ -24,27 +29,38 @@ export default Route.extend({
   },
 
   model(params) {
+    const cardId = params.card_id;
     const checklistId = params.checklist_item_id;
+
     const contract = this.get('strikersContracts.StrikersCore.methods');
-    const owner = this.get('currentUser.user.id');
     const store = this.get('store');
 
-    const myCards = contract.cardAndChecklistIdsForOwner(owner).call().then(arrays => {
-      const cardIds = arrays[0];
-      const checklistIds = arrays[1];
-      const cardIdsForThisChecklistId = [];
-      checklistIds.forEach((id, index) => {
-        if (id.padStart(3, '0') === checklistId) {
-          cardIdsForThisChecklistId.push(cardIds[index]);
-        }
+    let cards;
+    let owner;
+    if (cardId) {
+      cards = RSVP.all([store.findRecord('card', cardId)]);
+      owner = contract.ownerOf(cardId).call().then(address => store.findRecord('user-metadata', address));
+    } else {
+      const myAddress = this.get('currentUser.address');
+      cards = contract.cardAndChecklistIdsForOwner(myAddress).call().then(arrays => {
+        const cardIds = arrays[0];
+        const checklistIds = arrays[1];
+        const cardIdsForThisChecklistId = [];
+        checklistIds.forEach((id, index) => {
+          if (id.padStart(3, '0') === checklistId) {
+            cardIdsForThisChecklistId.push(cardIds[index]);
+          }
+        });
+        const promises = cardIdsForThisChecklistId.map(cardId => store.findRecord('card', cardId));
+        return RSVP.all(promises);
       });
-      const promises = cardIdsForThisChecklistId.map(cardId => store.findRecord('card', cardId));
-      return RSVP.all(promises);
-    });
+      owner = store.findRecord('user-metadata', myAddress);
+    }
 
     return RSVP.hash({
+      cards,
       checklistItem: store.findRecord('checklist-item', checklistId),
-      myCards
+      owner
     });
   },
 
@@ -52,7 +68,7 @@ export default Route.extend({
     this._super(controller, model);
     // https://github.com/emberjs/ember.js/issues/5465
     next(this, () => {
-      controller.set('card_id', model.myCards.get('firstObject.id'));
+      controller.set('card_id', model.cards.get('firstObject.id'));
     });
   }
 });
