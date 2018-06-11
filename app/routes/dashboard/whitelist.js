@@ -12,6 +12,14 @@ export default Route.extend({
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
       const from = this.get('currentUser.address');
       contract.addToWhitelistAllocation(premium, address, 1).send({ from });
+    },
+
+    addBulkStandardAddresses(addresses) {
+      const addressesArray = addresses.split('\n');
+      //debugger;
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const from = this.get('currentUser.address');
+      contract.addAddressesToWhitelist(false, addressesArray).send({ from });
     }
   },
 
