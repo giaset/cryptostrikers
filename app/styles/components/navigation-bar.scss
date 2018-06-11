@@ -25,5 +25,11 @@
 
   .nav-link {
     font-size: 14px;
+    color: #333333 !important;
+
+    &.username-link {
+      color: black !important;
+      font-weight: bold;
+    }
   }
 }
