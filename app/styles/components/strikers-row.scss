@@ -29,6 +29,15 @@
     margin: 0 auto;
   }
 
+  .browser-image {
+    width: 250px;
+    margin: 32px 0;
+
+    &.cipher {
+      border-radius: 5px;
+    }
+  }
+
   .youtube-container {
     position: relative;
     padding-bottom: 56.25%;
