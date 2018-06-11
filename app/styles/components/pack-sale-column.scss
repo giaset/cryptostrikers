@@ -11,6 +11,10 @@
       width: 65%;
       max-width: 295px;
       margin: 0 auto;
+
+      &.pre-launch {
+        opacity: 0.5;
+      }
     }
 
     .pack-sale-title {
