@@ -9,19 +9,21 @@ module.exports = function(deployTarget) {
     // include other plugin configuration that applies to all deploy targets here
   };
 
+  ENV.bugsnag = { apiKey: '41f92a3b854d3fb8f1fc326ee853c20f' };
+
   if (deployTarget === 'development') {
     ENV.build.environment = 'development';
     // configure other plugins for development deploy target here
   }
 
   if (deployTarget === 'staging') {
+    ENV.bugsnag.publicUrl = 'https://staging.cryptostrikers.com';
     ENV.build.environment = 'production';
-    // configure other plugins for staging deploy target here
   }
 
   if (deployTarget === 'production') {
+    ENV.bugsnag.publicUrl = 'https://www.cryptostrikers.com';
     ENV.build.environment = 'production';
-    // configure other plugins for production deploy target here
   }
 
   // Note: if you need to build some configuration asynchronously, you can return

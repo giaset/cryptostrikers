@@ -11,6 +11,10 @@ module.exports = function(defaults) {
       includePaths: [
         'vendor/bootstrap/scss'
       ]
+    },
+    sourcemaps: {
+      enabled: true,
+      extensions: ['js']
     }
   });
 
