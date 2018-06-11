@@ -1,8 +1,20 @@
 .checklist-item-info {
+  margin-top: 16px;
+
   .checklist-info-title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 0;
+    display: flex;
+
+    .checklist-info-image {
+      height: 20px;
+      margin: auto 8px auto auto;
+    }
+
+    .checklist-info-name {
+      margin: auto auto auto 0;
+    }
   }
 
   .checklist-info-subtitle {
