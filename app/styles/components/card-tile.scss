@@ -55,13 +55,4 @@
       right: -16px;
     }
   }
-
-  @include media-breakpoint-up(xl) {
-    .card-count-badge {
-      width: 38px;
-      line-height: 34px; // + 2px border on top and bottom
-      top: -19px;
-      right: -19px;
-    }
-  }
 }

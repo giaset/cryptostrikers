@@ -1,6 +1,8 @@
 .trade-partner-row {
   padding: 42px 0;
   border-top: 1px solid $strikers-light;
+  max-width: 600px;
+  margin: 0 auto;
 
   .trade-partner-row-title {
     font-weight: bold;

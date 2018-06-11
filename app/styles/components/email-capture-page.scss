@@ -19,6 +19,10 @@
     }
   }
 
+  .twitter-logo-discord-row {
+    align-items: flex-start;
+  }
+
   .twitter-link, .discord-link {
     color: black;
     font-size: 22px;
@@ -27,6 +31,12 @@
 
   .twitter-link {
     margin-right: auto;
+  }
+
+  @include media-breakpoint-down(xs) {
+    .shield-logo {
+      width: 100px;
+    }
   }
 
   .discord-link {

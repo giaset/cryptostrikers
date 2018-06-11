@@ -6,6 +6,13 @@ $strikers-gold: #DBB66A;
 $strikers-light: #F4F4F4;
 $strikers-medium: #4F4F4F;
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 960px
+);
+
 $dark: black;
 $primary: $strikers-blue;
 
