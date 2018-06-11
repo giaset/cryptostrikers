@@ -4,7 +4,20 @@
       SALE IS PAUSED
     </div>
   {{else}}
-    {{card-packs-header standardWhitelistAllocation=model.standardWhitelistAllocation premiumWhitelistAllocation=model.premiumWhitelistAllocation}}
+    {{#strikers-row title="Buy Packs"}}
+      <p>
+        Build your collection by buying packs of cards.<br>
+        Each pack contains 4 cards.<br>
+        Cards must be bought with ether.<br>
+        To fund your account, send ETH to your wallet address.<br>
+        Cards will be on sale until the final whistle blows for the July 15th final.
+      </p>
+      {{#if shouldShowAlert}}
+        <div class="alert alert-primary" role="alert">
+          You have {{alertText}} waiting for you. Look for the <strong>GET MY FREE PACK</strong> button below!
+        </div>
+      {{/if}}
+    {{/strikers-row}}
     <div class="row">
       <div class="col-md mb-5">
         {{pack-sale-column sale=model.standardSale buyPack=(action "buyPack" model.standardSale) claimWhitelistPack=(action "claimWhitelistPack" false) whitelistAllocation=model.standardWhitelistAllocation}}

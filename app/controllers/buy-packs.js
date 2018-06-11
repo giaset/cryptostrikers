@@ -1,10 +1,15 @@
 import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
 export default Controller.extend({
   currentUser: service(),
   strikersContracts: service(),
+
+  standardWhitelistAllocation: alias('model.standardWhitelistAllocation'),
+  premiumWhitelistAllocation: alias('model.premiumWhitelistAllocation'),
 
   actions: {
     buyPack(sale) {
@@ -50,5 +55,34 @@ export default Controller.extend({
         this.transitionToRoute('activity.show', activityId);
       });
     });
-  }).drop()
+  }).drop(),
+
+  alertText: computed('standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
+    let str = '';
+
+    const standardWhitelistAllocation = parseInt(this.get('standardWhitelistAllocation'));
+    if (standardWhitelistAllocation > 0) {
+      str += `${standardWhitelistAllocation} Standard Pack`;
+    }
+    if (standardWhitelistAllocation > 1) {
+      str += 's';
+    }
+
+    const premiumWhitelistAllocation = parseInt(this.get('premiumWhitelistAllocation'));
+    if (premiumWhitelistAllocation > 0) {
+      str = str.length > 0 ? `${str} and ` : str;
+      str += `${premiumWhitelistAllocation} Premium Pack`;
+    }
+    if (premiumWhitelistAllocation > 1) {
+      str += 's';
+    }
+
+    return str;
+  }),
+
+  shouldShowAlert: computed('standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
+    const hasStandardWhitelistAllocation = this.get('standardWhitelistAllocation') > 0;
+    const hasPremiumWhitelistAllocation = this.get('premiumWhitelistAllocation') > 0;
+    return hasStandardWhitelistAllocation || hasPremiumWhitelistAllocation;
+  })
 });
