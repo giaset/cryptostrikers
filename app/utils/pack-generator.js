@@ -21,11 +21,13 @@ export default function(featuredChecklistItem) {
 }
 
 function _checkForDuplicates(groups) {
-  groups.forEach(group => {
+  for (let i = 0; i < groups.length; i++) {
+    const group = groups[i];
     if (new Set(group).size < group.length) {
       return true;
     }
-  });
+  }
+
   return false;
 }
 

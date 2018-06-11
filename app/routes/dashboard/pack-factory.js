@@ -19,6 +19,7 @@ export default Route.extend({
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
       const from = '0x11cb02e2A07A94542A367bFf7Ee847451a75fA37';
       const packs = packGenerator();
+      //debugger;
       contract.addPacksToStandardSale(packs).send({ from });
     },
 
