@@ -1,12 +1,14 @@
 {{#unless (eq currentRouteName "index")}}
   {{navigation-bar closeSession=(action "closeSession")}}
 {{/unless}}
-<main role="main">
+<main role="main" class={{unless (eq currentRouteName "index") "padded-main"}}>
   {{outlet}}
 </main>
-<footer class="footer">
-  <div class="container">
-    <span class="footer-text">CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) is both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nore the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro).</span>
-  </div>
-</footer>
+{{#unless (eq currentRouteName "index")}}
+  <footer class="footer">
+    <div class="container">
+      <span class="footer-text">CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) is both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nore the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro).</span>
+    </div>
+  </footer>
+{{/unless}}
 {{modal-container}}

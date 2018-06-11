@@ -60,18 +60,18 @@ body {
   letter-spacing: 0.04em;
 }
 
-main {
+.padded-main {
   padding-bottom: 126px;
 }
 
 @include media-breakpoint-down(sm) {
-  main {
+  .padded-main {
     padding-bottom: 150px;
   }
 }
 
 @include media-breakpoint-down(xs) {
-  main {
+  .padded-main {
     padding-bottom: 200px;
   }
 }
