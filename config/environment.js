@@ -23,6 +23,12 @@ module.exports = function(environment) {
       // when it is created
     },
 
+    bugsnag: {
+      apiKey: '41f92a3b854d3fb8f1fc326ee853c20f',
+      notifyReleaseStages: ['staging', 'production'],
+      releaseStage: deployTarget ? deployTarget : 'development'
+    },
+
     emberGtm: { deployTarget },
 
     firebase: {
