@@ -16,6 +16,16 @@ export default Component.extend({
 
     createReferralCode(referralCode) {
       this.set('errorMessage', null);
+
+      const invalidCharacters = ['.', '#', '$', '[', ']'];
+      for (let i = 0; i < invalidCharacters.length; i++) {
+        const character = invalidCharacters[i];
+        if (referralCode.includes(character)) {
+          this.set('errorMessage', `Invalid character: "${character}"`);
+          return;
+        }
+      }
+
       this.get('store').findRecord('referral-code', referralCode)
       .then(() => {
         this.set('errorMessage', 'This referral code is already in use.');
