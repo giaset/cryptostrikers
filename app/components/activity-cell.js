@@ -30,6 +30,6 @@ export default Component.extend({
 
   showViewCards: computed('activity.type', function() {
     const type = this.get('activity.type');
-    return BUY_TYPES[type];
+    return BUY_TYPES[type] || type === 'claim_whitelist_pack' || type === 'claim_referral_pack';
   })
 });

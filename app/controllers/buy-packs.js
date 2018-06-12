@@ -8,6 +8,7 @@ export default Controller.extend({
   currentUser: service(),
   strikersContracts: service(),
 
+  isOwedFreeReferralPack: alias('model.isOwedFreeReferralPack'),
   standardWhitelistAllocation: alias('model.standardWhitelistAllocation'),
   premiumWhitelistAllocation: alias('model.premiumWhitelistAllocation'),
 
@@ -15,6 +16,20 @@ export default Controller.extend({
     buyPack(sale) {
       if (!sale) { return; }
       this.get('buyPackTask').perform(sale);
+    },
+
+    claimReferralPack() {
+      const contract = this.get('strikersContracts.StrikersPackSale.methods');
+      const currentUser = this.get('currentUser');
+      const from = currentUser.get('address');
+      contract.claimFreeReferralPack().send({ from })
+      .on('transactionHash', txnHash => {
+        const type = 'claim_referral_pack';
+        const activity = { txnHash, type };
+        currentUser.addActivity(activity).then(activityId => {
+          this.transitionToRoute('activity.show', activityId);
+        });
+      });
     },
 
     claimWhitelistPack(premium) {
@@ -57,10 +72,14 @@ export default Controller.extend({
     });
   }).drop(),
 
-  alertText: computed('standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
+  alertText: computed('isOwedFreeReferralPack', 'standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
     let str = '';
 
-    const standardWhitelistAllocation = parseInt(this.get('standardWhitelistAllocation'));
+    let standardWhitelistAllocation = parseInt(this.get('standardWhitelistAllocation'));
+    if (this.get('isOwedFreeReferralPack')) {
+      standardWhitelistAllocation++;
+    }
+
     if (standardWhitelistAllocation > 0) {
       str += `${standardWhitelistAllocation} Standard Pack`;
     }
@@ -80,9 +99,10 @@ export default Controller.extend({
     return str;
   }),
 
-  shouldShowAlert: computed('standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
+  shouldShowAlert: computed('isOwedFreeReferralPack', 'standardWhitelistAllocation', 'premiumWhitelistAllocation', function() {
+    const isOwedFreeReferralPack = this.get('isOwedFreeReferralPack');
     const hasStandardWhitelistAllocation = this.get('standardWhitelistAllocation') > 0;
     const hasPremiumWhitelistAllocation = this.get('premiumWhitelistAllocation') > 0;
-    return hasStandardWhitelistAllocation || hasPremiumWhitelistAllocation;
+    return isOwedFreeReferralPack || hasStandardWhitelistAllocation || hasPremiumWhitelistAllocation;
   })
 });

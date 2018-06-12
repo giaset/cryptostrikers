@@ -14,6 +14,8 @@
       You canceled a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to mine, so somebody may still fill it.
     {{else if (eq activity.type "claim_whitelist_pack")}}
       You used your whitelist allocation for a free <span>{{if activity.premium "Premium" "Standard"}}</span> Pack.
+    {{else if (eq activity.type "claim_referral_pack")}}
+      You claimed your free <span>Standard</span> Pack for signing up through a referral link.
     {{else if (eq activity.type "buy_pack_with_kitty")}}
       You traded in Kitty <span>#{{activity.kittyId}}</span> for a free pack of cards.
     {{else if (eq activity.type "fill_trade")}}

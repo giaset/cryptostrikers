@@ -33,7 +33,9 @@
   </span>
   {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link" disabled=isPreLaunch}}
 </div>
-{{#if (gt whitelistAllocation 0)}}
+{{#if isOwedFreeReferralPack}}
+  <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>GET MY FREE PACK</button>
+{{else if (gt whitelistAllocation 0)}}
   <button type="button" class="btn btn-primary btn-lg" {{action claimWhitelistPack}}>GET MY FREE PACK</button>
 {{else if isPreLaunch}}
   <button type="button" class="btn pack-sale-button" disabled>AVAILABLE JUNE 14</button>
