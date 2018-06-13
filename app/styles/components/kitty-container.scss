@@ -1,0 +1,33 @@
+.kitty-container {
+  text-align: center;
+
+  .kitty-text {
+    max-width: 600px;
+    margin: 0 auto;
+
+    .kitty-image {
+      width: 80%;
+      max-width: 333px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+    }
+
+    .kitty-name {
+      font-weight: bold;
+      color: #FF9AFF;
+    }
+
+    .form-control {
+      margin: 32px auto;
+    }
+
+    .btn-lg {
+      margin-bottom: 32px;
+    }
+  }
+
+  .form-control {
+    width: 275px;
+    margin: 0 auto 16px auto;
+  }
+}

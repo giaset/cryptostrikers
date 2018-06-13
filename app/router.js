@@ -18,7 +18,6 @@ Router.map(function() {
   this.route('404', { path: '/*path' });
   this.authenticatedRoute('checklist', { path: '/checklist/:checklist_item_id' });
   this.route('sales', { path: '/sales/:sale_id' });
-  this.route('kitty-sale');
   if (config.environment === 'development') {
     this.route('admin');
     this.route('dashboard', function() {
@@ -34,6 +33,12 @@ Router.map(function() {
   this.authenticatedRoute('referrals');
   this.route('invite', { path: '/invite/:referral_code_id' });
   this.route('profile', { path: '/profile/:user_metadata_id' });
+
+  this.authenticatedRoute('kitty-exchange', function() {
+    this.authenticatedRoute('1');
+    this.authenticatedRoute('2');
+    this.authenticatedRoute('3');
+  });
 });
 
 export default Router;

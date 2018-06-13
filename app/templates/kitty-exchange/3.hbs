@@ -1,0 +1,9 @@
+<div class="container kitty-container">
+  {{kitties-header step=3}}
+  <div class="kitty-text">
+    <img class="kitty-image" src={{model.imageUrl}} style={{model.bgStyle}}>
+    <p>As a last step, hit the button below to finalize the swap and to claim your pack.</p>
+    <p>So long <span class="kitty-name">{{model.name}}</span>, my dear friend. Nothing against you, I just really wanted the cards more...</p>
+    <button type="button" class="btn btn-primary btn-lg" {{action "transferKittyClicked" model.id}}>Transfer Kitty</button>
+  </div>
+</div>

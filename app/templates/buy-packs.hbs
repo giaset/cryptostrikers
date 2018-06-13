@@ -20,7 +20,16 @@
     {{/strikers-row}}
     <div class="row">
       <div class="col-md mb-5">
-        {{pack-sale-column sale=model.standardSale buyPack=(action "buyPack" model.standardSale) claimReferralPack=(action "claimReferralPack") claimWhitelistPack=(action "claimWhitelistPack" false) isOwedFreeReferralPack=isOwedFreeReferralPack whitelistAllocation=model.standardWhitelistAllocation}}
+        {{
+          pack-sale-column
+          sale=model.standardSale
+          buyPack=(action "buyPack" model.standardSale)
+          claimReferralPack=(action "claimReferralPack")
+          claimWhitelistPack=(action "claimWhitelistPack" false)
+          hasBurnedKitty=model.hasBurnedKitty
+          isOwedFreeReferralPack=isOwedFreeReferralPack
+          whitelistAllocation=model.standardWhitelistAllocation
+        }}
       </div>
       <div class="col-md mb-5">
         {{pack-sale-column sale=model.premiumSale buyPack=(action "buyPack" model.premiumSale) claimWhitelistPack=(action "claimWhitelistPack" true) whitelistAllocation=model.premiumWhitelistAllocation isPreLaunch=true}}
