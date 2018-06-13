@@ -12,8 +12,9 @@
       {{/each}}
     </div>
   {{else if firstCheckDone}}
-    {{#strikers-row title="Transaction Submitted"}}
-      <p>Hang tight, this transaction hasn't been mined yet...</p>
+    {{#strikers-row title="Your Cards Are Being Minted!"}}
+      <p>Hang tight, we're securely transferring the cards to you on the blockchain. This could take a few minutes.</p>
+      <p>When your cards are ready, they will appear on this screen. You can also keep using the site and check on your cards from the {{link-to "Activity" "activity.index"}} screen.</p>
       <p>While you wait, why don't you watch {{model.video.description}}.</p>
       <div class="youtube-container-container">
         <div class="youtube-container">
