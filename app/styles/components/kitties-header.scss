@@ -2,16 +2,18 @@
   display: flex;
   text-align: center;
   list-style-type: none;
-  font-weight: 600;
   font-size: 22px;
+  padding-left: 0;
+  color: #828282;
+  margin-bottom: 32px;
 
   li {
     padding: 32px 0;
     flex: 1;
-    border-bottom: 2px solid #FF9AFF;
+    border-bottom: 4px solid #FF9AFF;
 
     &.inactive {
-      border-bottom: 2px solid $strikers-light;
+      border-bottom: 4px solid $strikers-light;
     }
   }
 
