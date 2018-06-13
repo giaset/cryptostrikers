@@ -9,7 +9,7 @@ module.exports = function(deployTarget) {
     // include other plugin configuration that applies to all deploy targets here
   };
 
-  ENV.bugsnag = { apiKey: '41f92a3b854d3fb8f1fc326ee853c20f' };
+  ENV.bugsnag = { apiKey: '41f92a3b854d3fb8f1fc326ee853c20f', distDir: 'dist' };
 
   if (deployTarget === 'development') {
     ENV.build.environment = 'development';
