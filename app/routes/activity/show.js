@@ -26,8 +26,14 @@ export default Route.extend({
 
   setupController(controller, model) {
     this._super(controller, model);
-    controller.set('cards', null);
-    controller.set('firstCheckDone', false);
     controller.get('getCardsFromTransaction').perform();
+  },
+
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      controller.get('getCardsFromTransaction').cancelAll();
+      controller.set('cards', null);
+      controller.set('firstCheckDone', false);
+    }
   }
 });

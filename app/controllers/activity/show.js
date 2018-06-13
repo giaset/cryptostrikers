@@ -4,14 +4,18 @@ import RSVP from 'rsvp';
 import { task, timeout } from 'ember-concurrency';
 
 export default Controller.extend({
+  currentUser: service(),
   strikersContracts: service(),
   web3: service(),
 
   getCardsFromTransaction: task(function * () {
+    const contract = this.get('strikersContracts.StrikersPackSale');
+    const filter = { buyer: this.get('currentUser.address') };
+    const events = yield contract.getPastEvents('PackBought', { filter, fromBlock: 0 });
     const hash = this.get('model.activity.txnHash');
-    const receipt = yield this.get('web3').getTransactionReceipt(hash);
-    if (receipt) {
-      const cardIds = this.get('strikersContracts').getCardIdsFromPackBoughtReceipt(receipt);
+    const event = events.findBy('transactionHash', hash);
+    if (event) {
+      const cardIds = event.returnValues.pack;
       const cards = yield this._loadCards(cardIds);
       this.set('cards', cards);
     } else {
