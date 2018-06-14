@@ -1,12 +1,8 @@
 <div class="pack-sale-container">
-  <img class="pack-sale-image {{if isPreLaunch "pre-launch"}} {{if sale.soldOut "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
+  <img class="pack-sale-image {{if sale.soldOut "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
   <h5 class="pack-sale-title">{{if sale.isStandard "Standard" "Premium"}} Pack</h5>
   <div class="pack-sale-price">
-    {{#if isPreLaunch}}
-      0.050 ETH
-    {{else}}
-      {{sale.packPriceInEth}} ETH
-    {{/if}}
+    {{sale.packPriceInEth}} ETH
   </div>
   {{#if sale.isStandard}}
     <div class="standard-sale-message">
@@ -18,11 +14,7 @@
       <div class="progress-bar" role="progressbar" aria-valuenow={{sale.percentComplete}} aria-valuemin="0" aria-valuemax="100" style={{progressBarStyle}}></div>
     </div>
     <span class="sold-count">
-      {{#if isPreLaunch}}
-        Sold 0 of 500
-      {{else}}
-        Sold {{sale.packsSold}} of {{sale.maxPacks}}
-      {{/if}}
+      Sold {{sale.packsSold}} of {{sale.maxPacks}}
     </span>
   {{/if}}
   <hr class="pack-sale-divider">
@@ -38,12 +30,10 @@
       Gold: 19.20%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Silver: 72.00%
     {{/if}}
   </span>
-  {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link" disabled=isPreLaunch}}
+  {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link"}}
 </div>
 {{#if sale.soldOut}}
   <button type="button" class="btn pack-sale-button" disabled>{{if sale.isStandard "TEMPORARILY UNAVAILABLE" "SOLD OUT"}}</button>
-{{else if isPreLaunch}}
-  <button type="button" class="btn pack-sale-button" disabled>AVAILABLE JUNE 14</button>
 {{else if isOwedFreeReferralPack}}
   <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>GET MY FREE PACK</button>
 {{else if (gt whitelistAllocation 0)}}
