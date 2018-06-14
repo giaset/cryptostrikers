@@ -24,5 +24,9 @@ export default DS.Model.extend({
 
   percentComplete: computed('packsSold', 'maxPacks', function() {
     return (this.get('packsSold') / this.get('maxPacks')) * 100;
+  }),
+
+  soldOut: computed('packsLoaded', 'packsSold', function() {
+    return this.get('packsSold') >= this.get('packsLoaded');
   })
 });

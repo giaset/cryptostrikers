@@ -1,5 +1,5 @@
 <div class="pack-sale-container">
-  <img class="pack-sale-image {{if isPreLaunch "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
+  <img class="pack-sale-image {{if isPreLaunch "pre-launch"}} {{if sale.soldOut "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
   <h5 class="pack-sale-title">{{if sale.isStandard "Standard" "Premium"}} Pack</h5>
   <div class="pack-sale-price">
     {{#if isPreLaunch}}
@@ -11,7 +11,7 @@
   {{#if sale.isStandard}}
     <div class="standard-sale-message">
       Available through July 15th<br>
-      Sold {{sale.packsSold}} of 75,616
+      {{sale.packsSold}} packs sold
     </div>
   {{else}}
     <div class="progress">
@@ -44,6 +44,8 @@
   <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>GET MY FREE PACK</button>
 {{else if (gt whitelistAllocation 0)}}
   <button type="button" class="btn btn-primary btn-lg" {{action claimWhitelistPack}}>GET MY FREE PACK</button>
+{{else if sale.soldOut}}
+  <button type="button" class="btn pack-sale-button" disabled>{{if sale.isStandard "TEMPORARILY UNAVAILABLE" "SOLD OUT"}}</button>
 {{else if isPreLaunch}}
   <button type="button" class="btn pack-sale-button" disabled>AVAILABLE JUNE 14</button>
 {{else}}
@@ -52,7 +54,7 @@
 {{#if sale.isStandard}}
   {{#unless hasBurnedKitty}}
     <h6 class="or-separator">OR</h6>
-    {{#link-to "kitty-exchange.1" class="btn kitty-sale-button"}}
+    {{#link-to "kitty-exchange.1" class="btn kitty-sale-button" disabledWhen=sale.soldOut}}
       <img class="kitty-button-image" src="/assets/images/ck-logo.svg">
       BUY WITH CRYPTOKITTY
     {{/link-to}}

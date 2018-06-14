@@ -11,5 +11,5 @@ export default Component.extend({
 
   progressBarStyle: computed('sale.percentComplete', function() {
     return htmlSafe(`width: ${this.get('sale.percentComplete')}%;`);
-  }),
+  })
 });
