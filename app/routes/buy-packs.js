@@ -22,12 +22,14 @@ export default Route.extend({
     const premiumSale = store.queryRecord('pack-sale', 'premium');
 
     const myAddress = this.get('currentUser.address');
+    const globals = store.findRecord('globals', 'globals');
     const hasBurnedKitty = contract.hasBurnedKitty(myAddress).call();
     const isOwedFreeReferralPack = contract.isOwedFreeReferralPack(myAddress).call();
     const standardWhitelistAllocation = contract.whitelists(0, myAddress).call();
     const premiumWhitelistAllocation = contract.whitelists(1, myAddress).call();
 
     return RSVP.hash({
+      globals,
       hasBurnedKitty,
       isOwedFreeReferralPack,
       isPaused,

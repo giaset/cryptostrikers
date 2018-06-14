@@ -4,7 +4,7 @@
       SALE IS PAUSED
     </div>
   {{else}}
-    {{#strikers-row title="Buy Packs"}}
+    {{#strikers-row title="Buy Packs" class="buy-packs-header"}}
       <p>
         Build your collection by buying packs of cards.<br>
         Each pack contains 4 cards.<br>
@@ -18,6 +18,7 @@
         </div>
       {{/if}}
     {{/strikers-row}}
+    {{card-of-the-day-header checklistItem=model.globals.checklistItemOfTheDay}}
     <div class="row">
       <div class="col-md mb-5">
         {{
