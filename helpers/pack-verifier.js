@@ -1,9 +1,10 @@
 const packs = require('./packs.json');
 const countForChecklistId = {};
+let duplicatesCount = 0;
 packs.forEach(pack => {
   const checklistIds = _packToChecklistIds(parseInt(pack));
   if (new Set(checklistIds).size !== 4) {
-    console.log('DUPLICATES FOUND');
+    duplicatesCount++;
   }
   checklistIds.forEach(checklistId => {
     if (countForChecklistId[checklistId]) {
@@ -13,6 +14,7 @@ packs.forEach(pack => {
     }
   });
 });
+console.log('Duplicates count:', duplicatesCount);
 console.log(countForChecklistId);
 
 function _packToChecklistIds(pack) {
