@@ -44,34 +44,14 @@
   }
 
   .email-capture-body {
-    margin-top: auto;
-
-    .email-capture-player {
-      flex: 1;
-    }
+    flex: 1;
 
     .email-capture-text {
-      flex: 1;
+      margin: auto;
 
       .email-capture-title, .email-capture-subtitle {
         color: white;
         font-size: 75px;
-      }
-
-      .email-capture-form {
-        width: 350px;
-
-        .email-form-input {
-          height: 62px;
-          border-radius: 7px;
-          margin-top: 39px;
-        }
-
-        .email-form-input::placeholder {
-          color: #BDBDBD;
-          font-size: 20px;
-          letter-spacing: 0.1em;
-        }
       }
 
       .email-capture-button {
@@ -87,24 +67,6 @@
         height: 84px;
         line-height: 54px;
         margin: 39px 0;
-      }
-    }
-  }
-
-  @include media-breakpoint-down(lg) {
-    .email-capture-body {
-      flex-direction: column;
-
-      .email-capture-text {
-        text-align: center;
-
-        .email-capture-form {
-          margin: 0 auto;
-        }
-      }
-
-      .email-capture-player {
-        order: 2;
       }
     }
   }

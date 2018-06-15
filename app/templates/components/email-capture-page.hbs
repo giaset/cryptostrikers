@@ -1,34 +1,15 @@
 <div class="container-fluid top-banner py-2">
   <span class="gold-text">CryptoStrikers is now live!</span> Learn more about the project <a class="gold-text" href="https://medium.com/cryptostrikers/why-were-putting-sports-cards-on-the-blockchain-c00112150033" target="_blank">here.</a>
 </div>
-<div class="container d-flex py-5 twitter-logo-discord-row">
+<div class="container d-flex pt-5 twitter-logo-discord-row">
   <a href="https://twitter.com/CryptoStrikers" target="_blank" class="twitter-link">Twitter</a>
   <img class="shield-logo" src="/assets/images/shield-logo.svg">
   <a href="https://discord.gg/6jE8hMV" target="_blank" class="discord-link">Discord</a>
 </div>
-<div class="email-capture-body d-flex">
-  <div class="email-capture-player">
-    <img class="big-messi img-fluid" src="/assets/images/big-messi.svg">
-  </div>
+<div class="email-capture-body d-flex text-center">
   <div class="email-capture-text">
     <h1 class="email-capture-title font-weight-900">CryptoStrikers</h1>
     <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
-    {{#if onlyShowLanding}}
-      <form {{action "createLead" emailAddress on="submit"}} class="email-capture-form">
-        {{input value=emailAddress type="email" class="form-control form-control-lg email-form-input" placeholder="you@email.com" required=true}}
-        <span class="text-danger">{{error}}</span>
-        <button type="submit" class="btn btn-success btn-lg email-capture-button">
-          {{#if subscriptionSuccessful}}
-            THANK YOU!
-          {{else if subscribeTask.isRunning}}
-            SUBMITTING...
-          {{else}}
-            GET UPDATES
-          {{/if}}
-        </button>
-      </form>
-    {{else}}
-      {{link-to "PLAY NOW" "my-album" class="btn btn-lg email-capture-button"}}
-    {{/if}}
+    {{link-to "PLAY NOW" "my-album" class="btn btn-lg email-capture-button"}}
   </div>
 </div>
