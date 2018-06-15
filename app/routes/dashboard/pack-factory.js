@@ -27,6 +27,7 @@ export default Route.extend({
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
       const from = this.get('currentUser.address');
       const packs = packGenerator(parseInt(featuredChecklistItem));
+      //debugger;
       contract.addPacksToNextPremiumSale(packs).send({ from });
     },
 
