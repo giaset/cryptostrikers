@@ -96,7 +96,7 @@ module.exports = function(environment) {
     ENV.strikers.openSeaApi = `https://etherbay-api-1.herokuapp.com/assets/?asset_contract_address=${ENV.strikers.coreContractAddress}`;
   }
 
-  if (deployTarget === 'production') {
+  if (deployTarget === 'production' || environment === 'development') {
     ENV.strikers.checklistContractAddress = '0xDBc260a05F81629FfA062Df3d1668A43133AbbA4';
     ENV.strikers.coreContractAddress = '0xdCAad9Fd9a74144d226DbF94ce6162ca9f09ED7e';
     ENV.strikers.saleContractAddress = '0xEB5405E21d07fa5e3B6644d0aE7f391B47F17E27';
