@@ -5,6 +5,7 @@ import { task } from 'ember-concurrency';
 export default ModalComponent.extend({
   classNames: ['modal-trade-picker'],
   store: service(),
+  web3: service(),
 
   didInsertElement() {
     this._super(...arguments);
@@ -35,7 +36,8 @@ export default ModalComponent.extend({
   }),
 
   loadUser: task(function * (userId) {
-    const user = yield this.get('store').findRecord('user-metadata', userId);
+    const checksummedAddress = this.get('web3').toChecksumAddress(userId);
+    const user = yield this.get('store').findRecord('user-metadata', checksummedAddress);
     this.set('user', user);
   })
 });

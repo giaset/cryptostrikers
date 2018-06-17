@@ -154,5 +154,9 @@ export default Service.extend({
 
   hexToNumber(hex) {
     return this._instance.utils.hexToNumber(hex);
+  },
+
+  toChecksumAddress(address) {
+    return this._instance.utils.toChecksumAddress(address);
   }
 });
