@@ -88,7 +88,7 @@ export default Component.extend({
   notOpenToMe: computed('isMyTrade', 'trade', function() {
     const trade = this.get('trade');
     if (!trade || this.get('isMyTrade')) { return false; }
-    const taker = trade.get('taker');
+    const taker = this.get('web3').toChecksumAddress(trade.get('taker'));
     if (taker === '0x0000000000000000000000000000000000000000') { return false; }
     const myAddress = this.get('currentUser.address');
     return myAddress !== taker;
