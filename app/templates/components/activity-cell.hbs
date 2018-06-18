@@ -11,7 +11,7 @@
     {{else if (eq activity.type "claim_bonus_card")}}
       You claimed your bonus <span>{{activity.bonusPlayerName}}</span> Iconic.
     {{else if (eq activity.type "cancel_trade")}}
-      You canceled a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to mine, so somebody may still fill it.
+      You canceled a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to process, so somebody may still fill it.
     {{else if (eq activity.type "claim_whitelist_pack")}}
       You used your whitelist allocation for a free <span>{{if activity.premium "Premium" "Standard"}}</span> Pack.
     {{else if (eq activity.type "claim_referral_pack")}}
@@ -19,7 +19,7 @@
     {{else if (eq activity.type "buy_pack_with_kitty")}}
       You traded in Kitty <span>#{{activity.kittyId}}</span> for a free pack of cards.
     {{else if (eq activity.type "fill_trade")}}
-      You accepted a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to mine, hope nobody beats you to it!
+      You accepted a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to process, {{if activity.trade.isOpenTrade "hope nobody beats you to it!" "so it could still be cancelled by the creator."}}
     {{else if (eq activity.type "create_trade")}}
       You created a <span>{{activity.tradeString}}</span> trade.
     {{/if}}

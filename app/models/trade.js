@@ -13,6 +13,11 @@ export default DS.Model.extend({
   salt: DS.attr('number'),
   signedHash: DS.attr('string'),
 
+  isOpenTrade: computed('taker', function() {
+    const taker = this.get('taker');
+    return taker === '0x0000000000000000000000000000000000000000';
+  }),
+
   makerCardString: computed('makerCard.prettyString', function() {
     return this.get('makerCard.prettyString');
   }),
@@ -32,12 +37,6 @@ export default DS.Model.extend({
       takerCardString = `any ${takerPlayerName}`;
     }
     return takerCardString;
-  }),
-
-  takerString: computed('taker', function() {
-    const taker = this.get('taker');
-    const isZero = taker === '0x0000000000000000000000000000000000000000';
-    return isZero ? 'anybody' : taker;
   }),
 
   url: computed('id', function() {
