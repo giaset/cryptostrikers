@@ -36,7 +36,19 @@ export default Controller.extend({
     const confirmedEmail = this.get('confirmedEmail');
     const email = this.get('emailAddress');
     const nickname = this.get('nickname');
-    const referrer = this.get('model.referrer');
+    let referrer = this.get('model.referrer');
+
+    const promoCode = this.get('promoCode');
+    let promoCodeObject;
+    if (promoCode) {
+      const store = this.get('store');
+      promoCodeObject = yield store.findRecord('referral-code', promoCode).catch(() => {});
+    }
+
+    if (promoCodeObject) {
+      referrer = yield promoCodeObject.get('userMetadata');
+    }
+
 
     if (email && nickname) {
       yield this._createUser(sessionData, confirmedEmail, email, nickname, referrer);

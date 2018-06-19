@@ -21,10 +21,16 @@
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group text-left">
-            <label for="nicknameAddressInput">Nickname</label>
-            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameAddressInput" aria-describedby="nicknameHelp" required=true}}
+            <label for="nicknameInput">Nickname</label>
+            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameInput" aria-describedby="nicknameHelp" required=true}}
             <small id="nicknameHelp" class="form-text text-muted">For display purposes only (we show it instead of your wallet address). It doesn't need to be unique.</small>
           </div>
+          {{#unless model.referrer}}
+            <div class="form-group text-left">
+              <label for="promoCodeInput">Promo code</label>
+              {{input value=promoCode class="form-control form-control-lg" type="text" placeholder="CODE" id="promoCodeInput"}}
+            </div>
+          {{/unless}}
           <div class="sign-in-checkboxes text-left">
             <p class="terms-message">Please read our <a href="https://github.com/CryptoStrikers/operations-docs/blob/master/terms.md" target="_blank">Terms of Use</a> and <a href="https://github.com/CryptoStrikers/operations-docs/blob/master/privacy.md" target="_blank">Privacy Policy</a>.</p>
             <div class="form-check">
