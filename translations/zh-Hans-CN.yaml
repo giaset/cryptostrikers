@@ -1,0 +1,20 @@
+landing:
+  slogan: "加密球星 - 最美的足球卡牌游戏！"
+  play-now: "开始游戏！"
+  banner-text: "<span class=\"gold-text\">CryptoStrikers</span>加密球星正式上线！"
+
+navbar:
+  buy-packs: "购买卡包"
+  marketplace: "市场"
+  trade: "交易"
+  other-language: "English"
+  my-cards: "我的卡牌"
+  activity: "活动"
+  earn-cards: "获取卡牌"
+  logout: "注销"
+
+product:
+  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
+  title: 'Hello world!'
+  html:
+    info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'

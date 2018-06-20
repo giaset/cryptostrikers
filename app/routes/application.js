@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 
 export default Route.extend({
   currentUser: service(),
+  intl: service(),
   metamaskWatcher: service(),
   strikersContracts: service(),
   web3: service(),
@@ -15,15 +16,19 @@ export default Route.extend({
   },
 
   beforeModel(transition) {
+    const intlSetup = this.get('intl').setLocale('en-us');
+
     const jsonPrefix = this._jsonPrefix(transition);
     const web3 = this.get('web3');
-    return web3.setup()
+    const web3Setup = web3.setup()
     .then(() => web3.checkNetwork())
     .then(() => this.get('strikersContracts').loadAll(jsonPrefix))
     .then(() => {
       this.get('metamaskWatcher.startWatching').perform();
     })
     .catch(() => {});
+
+    return RSVP.all([intlSetup, web3Setup]);
   },
 
   model() {

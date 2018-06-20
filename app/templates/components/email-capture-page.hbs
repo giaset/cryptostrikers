@@ -1,15 +1,15 @@
 <div class="container-fluid top-banner py-2">
-  <span class="gold-text">CryptoStrikers is now live!</span> Learn more about the project <a class="gold-text" href="https://medium.com/cryptostrikers/why-were-putting-sports-cards-on-the-blockchain-c00112150033" target="_blank">here.</a>
+  {{t "landing.banner-text" htmlSafe=true}}
 </div>
 <div class="container d-flex pt-5 twitter-logo-discord-row">
-  <a href="https://twitter.com/CryptoStrikers" target="_blank" class="twitter-link">Twitter</a>
-  <img class="shield-logo" src="/assets/images/shield-logo.svg">
   <a href="https://discord.gg/6jE8hMV" target="_blank" class="discord-link">Discord</a>
+  <img class="shield-logo" src="/assets/images/shield-logo.svg">
+  <a href="#" class="language-link" {{action "toggleLocale"}}>{{t "navbar.other-language"}}</a>
 </div>
 <div class="email-capture-body d-flex text-center">
   <div class="email-capture-text">
     <h1 class="email-capture-title font-weight-900">CryptoStrikers</h1>
-    <h2 class="email-capture-subtitle">The Beautiful<br>(Card) Game.</h2>
-    {{link-to "PLAY NOW" "my-album" class="btn btn-lg email-capture-button"}}
+    <h2 class="email-capture-subtitle">{{t "landing.slogan"}}</h2>
+    {{link-to (t "landing.play-now") "my-album" class="btn btn-lg email-capture-button"}}
   </div>
 </div>

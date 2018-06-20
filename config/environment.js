@@ -40,6 +40,10 @@ module.exports = function(environment) {
       messagingSenderId: '138250042052'
     },
 
+    intl: {
+      locales: ['en-us', 'zh-Hans-CN']
+    },
+
     moment: {
       outputFormat: 'dddd, MMMM Do YYYY, h:mm:ss a'
     },

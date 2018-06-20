@@ -2,13 +2,13 @@
   {{#if session.isAuthenticated}}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        {{link-to "Buy Packs" "buy-packs" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        {{link-to (t "navbar.buy-packs") "buy-packs" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
       </li>
       <li class="nav-item">
-        {{link-to "Marketplace" "marketplace" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        {{link-to (t "navbar.marketplace") "marketplace" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
       </li>
       <li class="nav-item">
-        {{link-to "Trade" "create-trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        {{link-to (t "navbar.trade") "create-trade" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
       </li>
     </ul>
   {{/if}}
@@ -31,16 +31,19 @@
   {{#if session.isAuthenticated}}
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        {{link-to "My Cards" "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        <a href="#" class="nav-link" {{action "toggleLocale"}}>{{t "navbar.other-language"}}</a>
       </li>
       <li class="nav-item">
-        {{link-to "Activity" "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+        {{link-to (t "navbar.my-cards") "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+      </li>
+      <li class="nav-item">
+        {{link-to (t "navbar.activity") "activity" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
       </li>
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle username-link" data-toggle="dropdown">{{currentUser.user.metadata.nickname}}</a>
         <div class="dropdown-menu dropdown-menu-right">
-          {{link-to "Earn Cards" "referrals" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
-          <a href="#" class="dropdown-item" {{action closeSession}}>Logout</a>
+          {{link-to (t "navbar.earn-cards") "referrals" class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show"}}
+          <a href="#" class="dropdown-item" {{action closeSession}}>{{t "navbar.logout"}}</a>
         </div>
       </li>
     </ul>
