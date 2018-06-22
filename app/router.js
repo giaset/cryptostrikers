@@ -27,6 +27,7 @@ Router.map(function() {
       this.route('pack-sale');
       this.route('whitelist');
       this.route('video-tester');
+      this.route('key-metrics');
     });
   }
   this.authenticatedRoute('create-trade');
