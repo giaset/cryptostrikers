@@ -1,7 +1,36 @@
+buy-packs:
+  header:
+    title: "Buy Packs"
+    line1: "Build your collection by buying packs of cards."
+    line2: "Each pack contains 4 cards."
+    line3: "Cards must be bought with ether."
+    line4: "To fund your account, send ETH to your wallet address."
+    line5: "Cards will be on sale until the final whistle blows for the July 15th final."
+
+  card-of-the-day:
+    title: "Iconic Card of the Day"
+    line1: "Available in Premium Packs - today only!"
+    line2: "Limited to 100 cards (found in 1 in 5 packs)."
+    line3: "Card of the Day switches over daily at 11:00 AM EST."
+
+  columns:
+    tier-distribution: "Tier Distribution"
+
+footer:
+  disclaimer: "CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) are both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nor the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro)."
+
+global:
+  premium-pack: "Premium Pack"
+  standard-pack: "Standard Pack"
+
 landing:
   slogan: "The Beautiful (Card) Game."
   play-now: "Play Now"
   banner-text: "<span class=\"gold-text\">CryptoStrikers is now live!</span> Learn more about the project <a class=\"gold-text\" href=\"https://medium.com/cryptostrikers/why-were-putting-sports-cards-on-the-blockchain-c00112150033\" target=\"_blank\">here.</a>"
+
+marketplace:
+  title: "Under Construction"
+  subtitle: "In the meantime, you can buy & sell individual cards on OpenSea, our official marketplace partner."
 
 navbar:
   buy-packs: "Buy Packs"

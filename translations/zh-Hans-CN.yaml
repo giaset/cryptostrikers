@@ -1,7 +1,35 @@
+buy-packs:
+  header:
+    title: "购买卡包"
+    line1: "购买卡包以完成卡牌套装收集。"
+    line2: "Each pack contains 4 cards."
+    line3: "需使用以太币购买卡牌"
+    line4: "往你的钱包地址中转入以太币完成账号充值。"
+    line5: "卡牌出售截至7月15日决赛"
+
+  card-of-the-day:
+    title: "今日标志性卡牌"
+    line1: "高级卡包获得 - 仅限今日！"
+    line2: "限量100张 （每5个卡包可能出1张）。"
+
+  columns:
+    tier-distribution: "品质分布"
+
+footer:
+  disclaimer: "加密球星卡牌和加密球星卡牌游戏（统称“加密球星”）是一款块效仿国际足球世界，为玩家提供资讯和娱乐的游戏。加密球星并未获得国际足球联合会（FIFA）或国际足球运动员协会（FIFPro）的授权。"
+
+global:
+  premium-pack: "高级卡包"
+  standard-pack: "标准卡包"
+
 landing:
   slogan: "加密球星 - 最美的足球卡牌游戏！"
   play-now: "开始游戏！"
   banner-text: "<span class=\"gold-text\">CryptoStrikers</span>加密球星正式上线！"
+
+marketplace:
+  title: "正在搭建中"
+  subtitle: "现阶段你可以在OpenSea上购买或出售卡牌。OpenSea是我们官方交易市场伙伴。"
 
 navbar:
   buy-packs: "购买卡包"

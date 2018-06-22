@@ -4,13 +4,13 @@
       SALE IS PAUSED
     </div>
   {{else}}
-    {{#strikers-row title="Buy Packs" class="buy-packs-header"}}
+    {{#strikers-row title=(t "buy-packs.header.title") class="buy-packs-header"}}
       <p>
-        Build your collection by buying packs of cards.<br>
-        Each pack contains 4 cards.<br>
-        Cards must be bought with ether.<br>
-        To fund your account, send ETH to your wallet address.<br>
-        Cards will be on sale until the final whistle blows for the July 15th final.
+        {{t "buy-packs.header.line1"}}<br>
+        {{t "buy-packs.header.line2"}}<br>
+        {{t "buy-packs.header.line3"}}<br>
+        {{t "buy-packs.header.line4"}}<br>
+        {{t "buy-packs.header.line5"}}
       </p>
       {{#if shouldShowAlert}}
         <div class="alert alert-primary" role="alert">

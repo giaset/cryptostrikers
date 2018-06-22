@@ -1,6 +1,6 @@
 <div class="pack-sale-container">
   <img class="pack-sale-image {{if sale.soldOut "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
-  <h5 class="pack-sale-title">{{if sale.isStandard "Standard" "Premium"}} Pack</h5>
+  <h5 class="pack-sale-title">{{if sale.isStandard (t "global.standard-pack") (t "global.premium-pack")}}</h5>
   <div class="pack-sale-price">
     {{sale.packPriceInEth}} ETH
   </div>
@@ -18,7 +18,7 @@
     </span>
   {{/if}}
   <hr class="pack-sale-divider">
-  <h6 class="tier-distribution-title">Tier Distribution</h6>
+  <h6 class="tier-distribution-title">{{t "buy-packs.columns.tier-distribution"}}</h6>
   <span class="tier-percentages">
     {{#if sale.isStandard}}
       Diamond: 0.72%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gold: 5.76%
