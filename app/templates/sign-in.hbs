@@ -6,24 +6,24 @@
         {{#if model.existingUser.nickname}}
           Welcome back {{model.existingUser.nickname}}!
         {{else}}
-          Account Details
+          {{t "sign-in.account-details"}}
         {{/if}}
       </h2>
       <form {{action (perform signIn) on="submit"}}>
         <div class="form-group text-left">
-          <label for="walletAddressInput">Wallet address</label>
+          <label for="walletAddressInput">{{t "sign-in.wallet-address"}}</label>
           <input class="form-control form-control-lg" type="text" placeholder={{metamaskWatcher.currentAccount}} id="walletAddressInput" readonly>
         </div>
         {{#unless model.existingUser}}
           <div class="form-group text-left">
-            <label for="emailAddressInput">Email address</label>
-            {{input value=emailAddress class="form-control form-control-lg" type="email" autocomplete="email" placeholder="example@cryptostrikers.com" id="emailAddressInput" aria-describedby="emailHelp" required=true}}
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="emailAddressInput">{{t "sign-in.email-address"}}</label>
+            {{input value=emailAddress class="form-control form-control-lg" type="email" autocomplete="email" placeholder=(t "sign-in.placeholder-email") id="emailAddressInput" aria-describedby="emailHelp" required=true}}
+            <small id="emailHelp" class="form-text text-muted">{{t "sign-in.never-share"}}</small>
           </div>
           <div class="form-group text-left">
-            <label for="nicknameInput">Nickname</label>
-            {{input value=nickname class="form-control form-control-lg" type="text" placeholder="Rare Striker" id="nicknameInput" aria-describedby="nicknameHelp" required=true}}
-            <small id="nicknameHelp" class="form-text text-muted">For display purposes only (we show it instead of your wallet address). It doesn't need to be unique.</small>
+            <label for="nicknameInput">{{t "sign-in.nickname"}}</label>
+            {{input value=nickname class="form-control form-control-lg" type="text" placeholder=(t "sign-in.placeholder-nickname") id="nicknameInput" aria-describedby="nicknameHelp" required=true}}
+            <small id="nicknameHelp" class="form-text text-muted">{{t "sign-in.nickname-subtitle"}}</small>
           </div>
           {{#unless model.referrer}}
             <div class="form-group text-left">
@@ -32,32 +32,32 @@
             </div>
           {{/unless}}
           <div class="sign-in-checkboxes text-left">
-            <p class="terms-message">Please read our <a href="https://github.com/CryptoStrikers/operations-docs/blob/master/terms.md" target="_blank">Terms of Use</a> and <a href="https://github.com/CryptoStrikers/operations-docs/blob/master/privacy.md" target="_blank">Privacy Policy</a>.</p>
+            <p class="terms-message">{{t "sign-in.terms-message" htmlSafe=true}}</p>
             <div class="form-check">
               {{input id="termsCheckbox" type="checkbox" class="form-check-input" required=true}}
-              <label class="form-check-label" for="termsCheckbox">I have read and agree to the CryptoStrikers Terms of Use.</label>
+              <label class="form-check-label" for="termsCheckbox">{{t "sign-in.terms-checkbox"}}</label>
             </div>
             <div class="form-check">
               {{input id="privacyCheckbox" type="checkbox" class="form-check-input" required=true}}
-              <label class="form-check-label" for="privacyCheckbox">I have read and agree to the CryptoStrikers Privacy Policy.</label>
+              <label class="form-check-label" for="privacyCheckbox">{{t "sign-in.privacy-checkbox"}}</label>
             </div>
             <div class="form-check">
               {{input id="emailCheckbox" type="checkbox" checked=confirmedEmail class="form-check-input"}}
-              <label class="form-check-label" for="emailCheckbox">I wish to receive marketing updates (optional).</label>
+              <label class="form-check-label" for="emailCheckbox">{{t "sign-in.email-checkbox"}}</label>
             </div>
           </div>
         {{/unless}}
         <button type="submit" class="btn btn-lg btn-primary" disabled={{signIn.isRunning}}>
           {{#if getSignature.isRunning}}
-            Waiting for signature...
+            {{t "sign-in.waiting-signature"}}
           {{else if verifySignature.isRunning}}
-            Verifying signature...
+            {{t "sign-in.verifying-signature"}}
           {{else if openSession.isRunning}}
-            Signing in...
+            {{t "sign-in.signing-in"}}
           {{else if model.existingUser}}
             Log In
           {{else}}
-            Create Account
+            {{t "sign-in.create-account"}}
           {{/if}}
         </button>
       </form>

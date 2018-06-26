@@ -23,6 +23,16 @@ global:
   premium-pack: "Premium Pack"
   standard-pack: "Standard Pack"
 
+install-metamask:
+  title: "You Need MetaMask!"
+  subtitle: "MetaMask is a popular digital wallet that is guaranteed to work with CryptoStrikers. It acts as your login to our application and securely holds your cards. You need it to buy packs, to make trades, and to use the marketplace."
+  guide-link: "Step-by-step Guide"
+  button-text: "INSTALL METAMASK"
+  alert-text: "Make sure to write down your MetaMask seed words on a piece of paper and store them somewhere safe! We can't help you regain access to your account if you lose them."
+  title2: "Installed It?"
+  subtitle2: "Make sure you click the MetaMask icon in your browser's toolbar and follow the instructions there to finish the installation."
+  button-text2: "Ya, I installed it."
+
 landing:
   slogan: "The Beautiful (Card) Game."
   play-now: "Play Now"
@@ -43,7 +53,39 @@ navbar:
   logout: "Logout"
 
 product:
-  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
-  title: 'Hello world!'
   html:
     info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
+
+sign-in:
+  title: "Welcome to CryptoStrikers!"
+  subtitle1: "To get started, please enter your email address and choose a nickname."
+  subtitle2: "When you hit Submit, you will be asked to sign a message identifying you as the owner of your wallet address. This will secure your account."
+  subtitle3: "Note: Your email address and nickname are stored on CryptoStrikers' servers and not on the blockchain. You can delete your account at any time."
+  invited-by: "You have been invited by <span>{nickname}</span>."
+  invited-line1: "Sign up below, buy a pack, and your second one is on us!"
+  free-packs-remaining: "Free packs remaining: "
+  invited-line2: "Once you buy a pack, you can join our Referral Program to start earning exclusive cards."
+  account-details: "Account Details"
+  wallet-address: "Wallet address"
+  email-address: "Email address"
+  placeholder-email: "example@cryptostrikers.com"
+  never-share: "We'll never share your email with anyone else."
+  nickname: "Nickname"
+  placeholder-nickname: "RareStriker1"
+  nickname-subtitle: "For display purposes only (we show it instead of your wallet address). It doesn't need to be unique."
+  terms-message: "Please read our <a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/terms.md\" target=\"_blank\">Terms of Use</a> and <a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/privacy.md\" target=\"_blank\">Privacy Policy</a>."
+  terms-checkbox: "I have read and agree to the CryptoStrikers Terms of Use."
+  privacy-checkbox: "I have read and agree to the CryptoStrikers Privacy Policy."
+  email-checkbox: "I wish to receive marketing updates (optional)."
+  waiting-signature: "Waiting for signature..."
+  verifying-signature: "Verifying signature..."
+  signing-in: "Signing in..."
+  create-account: "Create Account"
+
+unlock-metamask:
+  title: "Please Unlock MetaMask"
+  subtitle: "Click the MetaMask icon in your browser's toolbar and follow the instructions there to unlock it."
+
+wrong-network:
+  title: "You're on the Wrong Network"
+  subtitle: "Click the MetaMask icon in your browser's toolbar and switch over to the <span class=\"wrong-network-emphasis\">{networkName}</span>."

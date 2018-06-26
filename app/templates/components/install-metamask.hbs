@@ -1,21 +1,21 @@
 <div class="col">
   {{#unless installMetamaskClicked}}
-    <h1 class="install-metamask-title">You Need MetaMask!</h1>
-    <p class="install-metamask-text">MetaMask is a popular digital wallet that is guaranteed to work with CryptoStrikers. It acts as your login to our application and securely holds your cards. You need it to buy packs, to make trades, and to use the marketplace.</p>
-    <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">Step-by-step Guide</a>
+    <h1 class="install-metamask-title">{{t "install-metamask.title"}}</h1>
+    <p class="install-metamask-text">{{t "install-metamask.subtitle"}}</p>
+    <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">{{t "install-metamask.guide-link"}}</a>
     <br>
-    <a class="btn btn-primary btn-lg" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank" {{action (mut installMetamaskClicked) true preventDefault=false}}>INSTALL METAMASK</a>
+    <a class="btn btn-primary btn-lg" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank" {{action (mut installMetamaskClicked) true preventDefault=false}}>{{t "install-metamask.button-text"}}</a>
     <div class="alert alert-danger" role="alert">
-      Make sure to write down your MetaMask seed words on a piece of paper and store them somewhere safe! We can't help you regain access to your account if you lose them.
+      {{t "install-metamask.alert-text"}}
     </div>
   {{else}}
-    <h1 class="install-metamask-title">Installed It?</h1>
-    <p class="install-metamask-text">Make sure you click the MetaMask icon in your browser's toolbar and follow the instructions there to finish the installation.</p>
-    <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">Step-by-step Guide</a>
+    <h1 class="install-metamask-title">{{t "install-metamask.title2"}}</h1>
+    <p class="install-metamask-text">{{t "install-metamask.subtitle2"}}</p>
+    <a class="install-metamask-link" href="https://medium.com/cryptostrikers/getting-started-how-to-install-metamask-4a2d9c18b4cc" target="_blank">{{t "install-metamask.guide-link"}}</a>
     <br>
-    <button type="button" class="btn btn-primary btn-lg" {{action "forceRefresh"}}>Ya, I installed it.</button>
+    <button type="button" class="btn btn-primary btn-lg" {{action "forceRefresh"}}>{{t "install-metamask.button-text2"}}</button>
     <div class="alert alert-danger" role="alert">
-      Make sure to write down your MetaMask seed words on a piece of paper and store them somewhere safe! We can't help you regain access to your account if you lose them.
+      {{t "install-metamask.alert-text"}}
     </div>
   {{/unless}}
 </div>

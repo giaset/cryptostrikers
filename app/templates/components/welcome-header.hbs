@@ -1,19 +1,19 @@
 <div class="col">
-  <h1 class="welcome-header-title">Welcome to CryptoStrikers!</h1>
-  <p class="welcome-header-text">To get started, please enter your email address and choose a nickname.</p>
+  <h1 class="welcome-header-title">{{t "sign-in.title"}}</h1>
+  <p class="welcome-header-text">{{t "sign-in.subtitle1"}}</p>
   <br>
-  <p class="welcome-header-text">When you hit Submit, you will be asked to sign a message identifying you as the owner of your wallet address. This will secure your account.</p>
+  <p class="welcome-header-text">{{t "sign-in.subtitle2"}}</p>
   <br>
-  <p class="welcome-header-text">Note: Your email address and nickname are stored on CryptoStrikers' servers and not on the blockchain. You can delete your account at any time.</p>
+  <p class="welcome-header-text">{{t "sign-in.subtitle3"}}</p>
   {{#if referrer}}
     <div class="alert alert-primary" role="alert">
-      <h5 class="alert-heading">You have been invited by <span>{{referrer.nickname}}</span>.</h5>
+      <h5 class="alert-heading">{{t "sign-in.invited-by" nickname=referrer.nickname htmlSafe=true}}</h5>
       <hr>
       {{#if (lt referralPacksClaimed 5000)}}
-        <p class="mb-0">Sign up below, buy a pack, and your second one is on us!</p>
-        <p class="mb-0">Free packs remaining: <span>{{sub 5000 referralPacksClaimed}}/5000</span></p>
+        <p class="mb-0">{{t "sign-in.invited-line1"}}</p>
+        <p class="mb-0">{{t "sign-in.free-packs-remaining"}}<span>{{sub 5000 referralPacksClaimed}}/5000</span></p>
       {{/if}}
-      <p class="mb-0">Once you buy a pack, you can join our Referral Program to start earning exclusive cards.</p>
+      <p class="mb-0">{{t "sign-in.invited-line2"}}</p>
     </div>
   {{/if}}
 </div>

@@ -22,6 +22,16 @@ global:
   premium-pack: "高级卡包"
   standard-pack: "标准卡包"
 
+install-metamask:
+  title: "你需要安装MetaMask钱包"
+  subtitle: "MetaMask是一款大众化数字钱包，能确保与加密球星配合使用。它会用作我们游戏应用的登录方式，并确保你卡牌的安全。你需要使用它购买卡包，进行交易以及进入市场。"
+  guide-link: "教程"
+  button-text: "安装MetaMask"
+  alert-text: "请确保你已在纸上记下MetaMask助记词，并已保存在安全位置！一旦丢失，我们无法帮你找回账号"
+  title2: "如何安装？"
+  subtitle2: "点击浏览器工具栏的MetaMask图标，并按照以下步骤完成安装。"
+  button-text2: "如何安装"
+
 landing:
   slogan: "加密球星 - 最美的足球卡牌游戏！"
   play-now: "开始游戏！"
@@ -41,8 +51,36 @@ navbar:
   earn-cards: "获取卡牌"
   logout: "注销"
 
-product:
-  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
-  title: 'Hello world!'
-  html:
-    info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
+sign-in:
+  title: "欢迎来到加密球星"
+  subtitle1: "开始游戏之前，请输入您的邮箱地址和昵称。"
+  subtitle2: "点击提交后，你需要签署以验证钱包地址。这一操作能确保账户安全。"
+  subtitle3: "注：你的邮箱地址和昵称会存储在加密球星的服务器中而不是在区块链上。你可以随时删除账号。"
+  invited-by:  "你来自<span>{nickname}</span>的邀请。"
+  invited-line1: "点击下方按钮注册，够买一个卡包后即可免费领取一个卡包！"
+  free-packs-remaining: "剩余免费卡包："
+  invited-line2: "购买卡包之后，你可以加入邀请返利获得专属卡牌。"
+  account-details: "账号详情"
+  wallet-address: "钱包地址"
+  email-address: "邮箱地址"
+  placeholder-email: "示例@cryptostrikers.com"
+  never-share: "我们不会将你的邮箱信息分享出去。"
+  nickname: "昵称"
+  placeholder-nickname: "稀有前锋1"
+  nickname-subtitle: "仅为展示目的（游戏中会显示昵称而不是钱包地址）昵称不需要独一无二"
+  terms-message: "<a href=\"https://github.com/CryptoStrikers/operations-docs-chinese\" target=\"_blank\">请阅读我们的使用条款和隐私条款</a>"
+  terms-checkbox: "我已阅读并同意加密球星的使用条款"
+  privacy-checkbox: "我已阅读并同意加密球星的隐私条款"
+  email-checkbox: "我希望收到营销信息（可选）"
+  waiting-signature: "验证签名"
+  verifying-signature: "验证签名"
+  signing-in: "正在注册..."
+  create-account: "创建账号"
+
+unlock-metamask:
+  title: "请解锁你的MetaMask钱包"
+  subtitle: "点击浏览器工具栏的MetaMask图标，并按照以下步骤完成安装。"
+
+wrong-network:
+  title: "网络不正确"
+  subtitle: "点击浏览器工具栏的MetaMask图标切换至主网络。"

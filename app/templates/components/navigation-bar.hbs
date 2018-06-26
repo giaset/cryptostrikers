@@ -13,26 +13,22 @@
     </ul>
   {{/if}}
 </div>
-{{#if session.isAuthenticated}}
-  <div class="fake-toggler-button d-block d-md-none"></div>
-{{/if}}
+<div class="fake-toggler-button d-block d-md-none"></div>
 <div class="mx-auto order-0">
   {{#link-to "my-album" class="navbar-brand" data-toggle="collapse" data-target=".navbar-collapse.show"}}
     <img class="navbar-wordmark d-none d-md-inline" src="/assets/images/wordmark.png">
     <img class="navbar-badge d-md-none" src="/assets/images/shield-logo.svg">
   {{/link-to}}
 </div>
-{{#if session.isAuthenticated}}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-{{/if}}
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse">
+  <span class="navbar-toggler-icon"></span>
+</button>
 <div class="navbar-collapse collapse w-100 order-3 dual-collapse">
-  {{#if session.isAuthenticated}}
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link" {{action "toggleLocale"}}>{{t "navbar.other-language"}}</a>
-      </li>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a href="#" class="nav-link" {{action "toggleLocale"}} data-toggle="collapse" data-target=".navbar-collapse.show">{{t "navbar.other-language"}}</a>
+    </li>
+    {{#if session.isAuthenticated}}
       <li class="nav-item">
         {{link-to (t "navbar.my-cards") "my-album" class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show"}}
       </li>
@@ -46,6 +42,6 @@
           <a href="#" class="dropdown-item" {{action closeSession}}>{{t "navbar.logout"}}</a>
         </div>
       </li>
-    </ul>
-  {{/if}}
+    {{/if}}
+  </ul>
 </div>
