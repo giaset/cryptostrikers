@@ -28,6 +28,7 @@ Router.map(function() {
       this.route('whitelist');
       this.route('video-tester');
       this.route('key-metrics');
+      this.route('trading');
     });
   }
   this.authenticatedRoute('create-trade');

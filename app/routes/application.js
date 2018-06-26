@@ -46,7 +46,7 @@ export default Route.extend({
       'dashboard.index', 'dashboard.checklist', 'dashboard.pack-factory',
       'invite', 'dashboard.pack-sale', 'dashboard.whitelist', 'profile',
       'kitty-exchange.1', 'kitty-exchange.2', 'kitty-exchange.3',
-      'dashboard.key-metrics'
+      'dashboard.key-metrics', 'dashboard.trading'
     ];
     const isNestedRoute = nestedRoutes.includes(transition.targetName);
     return isNestedRoute ? '../' : '';
