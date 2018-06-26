@@ -6,6 +6,7 @@ buy-packs:
     line3: "Cards must be bought with ether."
     line4: "To fund your account, send ETH to your wallet address."
     line5: "Cards will be on sale until the final whistle blows for the July 15th final."
+    free-pack-alert: "You have {alertText} waiting for you. Look for the <strong>GET MY FREE PACK</strong> button below!"
 
   card-of-the-day:
     title: "Iconic Card of the Day"
@@ -14,7 +15,14 @@ buy-packs:
     line3: "Card of the Day switches over daily at 11:00 AM EST."
 
   columns:
+    available-through: "Available through July 15th"
+    packs-sold: "{packsSold} packs sold"
+    sold-of-max: "Sold {packsSold} of {maxPacks}"
     tier-distribution: "Tier Distribution"
+    player-distribution: "Player Distribution"
+    get-free-pack: "GET MY FREE PACK"
+    buy-standard-pack: "BUY STANDARD PACK"
+    buy-premium-pack: "BUY PREMIUM PACK"
 
 footer:
   disclaimer: "CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) are both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nor the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro)."
@@ -22,6 +30,11 @@ footer:
 global:
   premium-pack: "Premium Pack"
   standard-pack: "Standard Pack"
+  diamond: "Diamond"
+  gold: "Gold"
+  silver: "Silver"
+  bronze: "Bronze"
+  iconic: "Iconic"
 
 install-metamask:
   title: "You Need MetaMask!"

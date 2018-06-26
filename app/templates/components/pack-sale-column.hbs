@@ -6,40 +6,46 @@
   </div>
   {{#if sale.isStandard}}
     <div class="standard-sale-message">
-      Available through July 15th<br>
-      {{sale.packsSold}} packs sold
+      {{t "buy-packs.columns.available-through"}}<br>
+      {{t "buy-packs.columns.packs-sold" packsSold=sale.packsSold}}
     </div>
   {{else}}
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{sale.percentComplete}} aria-valuemin="0" aria-valuemax="100" style={{progressBarStyle}}></div>
     </div>
     <span class="sold-count">
-      Sold {{sale.packsSold}} of {{sale.maxPacks}}
+      {{t "buy-packs.columns.sold-of-max" packsSold=sale.packsSold maxPacks=sale.maxPacks}}
     </span>
   {{/if}}
   <hr class="pack-sale-divider">
   <h6 class="tier-distribution-title">{{t "buy-packs.columns.tier-distribution"}}</h6>
   <span class="tier-percentages">
     {{#if sale.isStandard}}
-      Diamond: 0.72%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gold: 5.76%
+      {{t "global.diamond"}}: 0.72%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{t "global.gold"}}: 5.76%
       <br>
-      Silver: 21.58%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bronze: 71.94%
+      {{t "global.silver"}}: 21.58%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{t "global.bronze"}}: 71.94%
     {{else}}
-      Iconic: 5.00%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diamond: 3.80%
+      {{t "global.iconic"}}: 5.00%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{t "global.diamond"}}: 3.80%
       <br>
-      Gold: 19.20%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Silver: 72.00%
+      {{t "global.gold"}}: 19.20%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{t "global.silver"}}: 72.00%
     {{/if}}
   </span>
-  {{link-to "Player Distribution" "sales" sale.id class="full-distribution-link"}}
+  {{link-to (t "buy-packs.columns.player-distribution") "sales" sale.id class="full-distribution-link"}}
 </div>
 {{#if sale.soldOut}}
   <button type="button" class="btn pack-sale-button" disabled>{{if sale.isStandard "TEMPORARILY UNAVAILABLE" "SOLD OUT"}}</button>
 {{else if isOwedFreeReferralPack}}
-  <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>GET MY FREE PACK</button>
+  <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>{{t "buy-packs.columns.get-free-pack"}}</button>
 {{else if (gt whitelistAllocation 0)}}
-  <button type="button" class="btn btn-primary btn-lg" {{action claimWhitelistPack}}>GET MY FREE PACK</button>
+  <button type="button" class="btn btn-primary btn-lg" {{action claimWhitelistPack}}>{{t "buy-packs.columns.get-free-pack"}}</button>
 {{else}}
-  <button type="button" class="btn pack-sale-button" {{action buyPack}}>BUY {{if sale.isStandard "STANDARD" "PREMIUM"}} PACK</button>
+  <button type="button" class="btn pack-sale-button" {{action buyPack}}>
+    {{#if sale.isStandard}}
+      {{t "buy-packs.columns.buy-standard-pack"}}
+    {{else}}
+      {{t "buy-packs.columns.buy-premium-pack"}}
+    {{/if}}
+  </button>
 {{/if}}
 {{#if sale.isStandard}}
   {{#unless hasBurnedKitty}}

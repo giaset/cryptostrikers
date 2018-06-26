@@ -2,18 +2,27 @@ buy-packs:
   header:
     title: "购买卡包"
     line1: "购买卡包以完成卡牌套装收集。"
-    line2: "Each pack contains 4 cards."
+    line2: "每个卡包含有4张卡牌。"
     line3: "需使用以太币购买卡牌"
     line4: "往你的钱包地址中转入以太币完成账号充值。"
     line5: "卡牌出售截至7月15日决赛"
+    free-pack-alert: "你有 {alertText} 在等着你,找到下方<strong>领取免费卡包</strong>按钮！"
 
   card-of-the-day:
     title: "今日标志性卡牌"
     line1: "高级卡包获得 - 仅限今日！"
     line2: "限量100张 （每5个卡包可能出1张）。"
+    line3: "今日卡牌每天3pm UTC更换。"
 
   columns:
+    available-through: "截止7月15日"
+    packs-sold: "{packsSold}已售"
+    sold-of-max: "已售 {packsSold} / {maxPacks}"
     tier-distribution: "品质分布"
+    player-distribution: "球员分布"
+    get-free-pack: "获得免费卡包"
+    buy-standard-pack: "购买标准卡包"
+    buy-premium-pack: "购买高级卡包"
 
 footer:
   disclaimer: "加密球星卡牌和加密球星卡牌游戏（统称“加密球星”）是一款块效仿国际足球世界，为玩家提供资讯和娱乐的游戏。加密球星并未获得国际足球联合会（FIFA）或国际足球运动员协会（FIFPro）的授权。"
@@ -21,6 +30,11 @@ footer:
 global:
   premium-pack: "高级卡包"
   standard-pack: "标准卡包"
+  diamond: "钻石"
+  gold: "黄金"
+  silver: "白银"
+  bronze: "青铜"
+  iconic: "标志"
 
 install-metamask:
   title: "你需要安装MetaMask钱包"

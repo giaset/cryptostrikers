@@ -14,7 +14,7 @@
       </p>
       {{#if shouldShowAlert}}
         <div class="alert alert-primary" role="alert">
-          You have {{alertText}} waiting for you. Look for the <strong>GET MY FREE PACK</strong> button below!
+          {{t "buy-packs.header.free-pack-alert" alertText=alertText htmlSafe=true}}
         </div>
       {{/if}}
     {{/strikers-row}}
