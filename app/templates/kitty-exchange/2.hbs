@@ -2,9 +2,9 @@
   {{kitties-header step=2}}
   <div class="kitty-text">
     <img class="kitty-image" src={{model.imageUrl}} style={{model.bgStyle}}>
-    <p>Hey! <span class="kitty-name">{{model.name}}</span> is a cute cat. Promise we'll take good care of it.</p>
-    <p>Before we can move forward, you need to give our smart contract approval so it can perform the kitty-for-pack swap.</p>
-    <p>Please click the button below and accept the MetaMask prompt to give us approval.</p>
-    <button type="button" class="btn btn-primary btn-lg" {{action "approveClicked" model.id}}>Approve</button>
+    <p>{{t "kitty-exchange.2-line1" kittyName=model.name htmlSafe=true}}</p>
+    <p>{{t "kitty-exchange.2-line2"}}</p>
+    <p>{{t "kitty-exchange.2-line3"}}</p>
+    <button type="button" class="btn btn-primary btn-lg" {{action "approveClicked" model.id}}>{{t "kitty-exchange.2-button"}}</button>
   </div>
 </div>

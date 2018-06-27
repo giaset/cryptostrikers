@@ -49,10 +49,10 @@
 {{/if}}
 {{#if sale.isStandard}}
   {{#unless hasBurnedKitty}}
-    <h6 class="or-separator">OR</h6>
+    <h6 class="or-separator">{{t "buy-packs.columns.or"}}</h6>
     {{#link-to "kitty-exchange.1" class="btn kitty-sale-button" disabledWhen=sale.soldOut}}
       <img class="kitty-button-image" src="/assets/images/ck-logo.svg">
-      BUY WITH CRYPTOKITTY
+      {{t "buy-packs.columns.buy-with-cryptokitty"}}
     {{/link-to}}
   {{/unless}}
 {{/if}}

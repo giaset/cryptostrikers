@@ -1,3 +1,7 @@
+404:
+  uh-oh: "Uh Oh..."
+  message: "The page you're looking for couldn't be found."
+
 buy-packs:
   header:
     title: "Buy Packs"
@@ -23,6 +27,20 @@ buy-packs:
     get-free-pack: "GET MY FREE PACK"
     buy-standard-pack: "BUY STANDARD PACK"
     buy-premium-pack: "BUY PREMIUM PACK"
+    or: "OR"
+    buy-with-cryptokitty: "BUY WITH CRYPTOKITTY"
+
+card-flip:
+  title: "Flip Your Cards!"
+  subtitle1: "Click the cards to reveal your new players."
+  subtitle2: "When you're done, click here to see how they look with the rest of your squad."
+
+create-trade:
+  title: "Trade Center"
+  subtitle1: "Create a trade by selecting a card you want to give up and the card you expect in return."
+  subtitle2: "Once you've created the trade, you'll receive an offer link. Share this link any way you want -- email, text, or social media!"
+  subtitle3: "Find trade partners in our <a href=\"https://discord.gg/VHFQUvV\" target=\"_blank\">Discord</a> or on our <a href=\"https://www.reddit.com/r/cryptostrikerstrading\" target=\"_blank\">subreddit</a>."
+  alert: "Looking to accept a trade offer? Please navigate to the URL sent to you by your trade partner."
 
 footer:
   disclaimer: "CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) are both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nor the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro)."
@@ -46,6 +64,24 @@ install-metamask:
   subtitle2: "Make sure you click the MetaMask icon in your browser's toolbar and follow the instructions there to finish the installation."
   button-text2: "Ya, I installed it."
 
+kitty-exchange:
+  choose-kitty: "Choose Kitty"
+  give-approval: "Give Approval"
+  say-goodbye: "Say Goodbye"
+  1-line1: "For a limited time, we're welcoming unwanted CryptoKitties to our special sanctuary -- a place where they can roam free, surrounded by feline friends, international soccer superstars and the awesome CryptoStrikers team. (Sounds like heaven right?)"
+  1-line2: "In return, the first 1,000 users to lock a cat in our smart contract will be rewarded with a free Standard Pack. We've already collected {kittyCount} kitties, so hurry up before we reach capacity!"
+  1-line3: "<strong>Note:</strong> Limit of 1 cat exchange per user."
+  1-line4: "To begin, you need to find the ID of the kitty you want to give up. To see your collection, <a href=\"https://www.cryptokitties.co/my-kitties\" target=\"_blank\">go here</a>, then click into your chosen cat and grab its ID from the URL."
+  1-placeholder: "Kitty ID"
+  1-button: "Submit"
+  2-line1: "Hey! <span class=\"kitty-name\">{kittyName}</span> is a cute cat. Promise we'll take good care of it."
+  2-line2: "Before we can move forward, you need to give our smart contract approval so it can perform the kitty-for-pack swap."
+  2-line3: "Please click the button below and accept the MetaMask prompt to give us approval."
+  2-button: "Approve"
+  3-line1: "As a last step, hit the button below to finalize the swap and to claim your pack."
+  3-line2: "So long <span class=\"kitty-name\">{kittyName}</span>, my dear friend. Nothing against you, I just really wanted the cards more..."
+  3-button: "Transfer Kitty"
+
 landing:
   slogan: "The Beautiful (Card) Game."
   play-now: "Play Now"
@@ -54,6 +90,18 @@ landing:
 marketplace:
   title: "Under Construction"
   subtitle: "In the meantime, you can buy & sell individual cards on OpenSea, our official marketplace partner."
+
+minting-video:
+  title: "Your Cards Are Being Minted!"
+  subtitle-1: "Hang tight, we're securely transferring the cards to you on the blockchain. This could take a few minutes."
+  subtitle-2a: "When your cards are ready, they will appear on this screen."
+  subtitle-2b: "You can also keep using the site and check on your cards from the Activity screen."
+  subtitle-3: "While you wait, why don't you watch {videoDescription}."
+
+mobile:
+  uh-oh: "Uh Oh!"
+  message: "To play CryptoStrikers on mobile, you need a special Ethereum browser like <span class=\"text-gold\">Cipher</span>, <span class=\"text-gold\">Toshi</span>, or <span class=\"text-gold\">Trust Wallet</span>. All three browsers are available for both iOS and Android. Click one of the buttons below to find out more."
+
 
 navbar:
   buy-packs: "Buy Packs"
@@ -86,6 +134,7 @@ sign-in:
   nickname: "Nickname"
   placeholder-nickname: "RareStriker1"
   nickname-subtitle: "For display purposes only (we show it instead of your wallet address). It doesn't need to be unique."
+  promo-code: "Promo code"
   terms-message: "Please read our <a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/terms.md\" target=\"_blank\">Terms of Use</a> and <a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/privacy.md\" target=\"_blank\">Privacy Policy</a>."
   terms-checkbox: "I have read and agree to the CryptoStrikers Terms of Use."
   privacy-checkbox: "I have read and agree to the CryptoStrikers Privacy Policy."
@@ -94,6 +143,15 @@ sign-in:
   verifying-signature: "Verifying signature..."
   signing-in: "Signing in..."
   create-account: "Create Account"
+  welcome-back: "Welcome back {nickname}!"
+  log-in: "Log In"
+
+trade-partner-row:
+  title: "Trade Partner"
+  line1: "Want to trade only with a specific user? Enter their address below and pick from their available cards."
+  line2: "Leaving this blank will create an Open Trade which can be matched by anyone who has the card you're looking for."
+  placeholder: "Trade partner's Ethereum address"
+  remove: "Remove"
 
 unlock-metamask:
   title: "Please Unlock MetaMask"

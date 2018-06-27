@@ -1,10 +1,10 @@
 <div class="container">
-  {{#strikers-row title="Trade Center"}}
-    <p>Create a trade by selecting a card you want to give up and the card you expect in return.</p>
-    <p>Once you've created the trade, you'll receive an offer link. Share this link any way you want -- email, text, or social media!</p>
-    <p>Find trade partners in our <a href="https://discord.gg/VHFQUvV" target="_blank">Discord</a> or on our <a href="https://www.reddit.com/r/cryptostrikerstrading" target="_blank">subreddit</a>.</p>
+  {{#strikers-row title=(t "create-trade.title")}}
+    <p>{{t "create-trade.subtitle1"}}</p>
+    <p>{{t "create-trade.subtitle2"}}</p>
+    <p>{{t "create-trade.subtitle3" htmlSafe=true}}</p>
     <div class="alert alert-primary" role="alert">
-      Looking to accept a trade offer? Please navigate to the URL sent to you by your trade partner.
+      {{t "create-trade.alert"}}
     </div>
   {{/strikers-row}}
 </div>

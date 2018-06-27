@@ -1,3 +1,7 @@
+404:
+  uh-oh: "糟了..."
+  message: "无法找到请求页面"
+
 buy-packs:
   header:
     title: "购买卡包"
@@ -23,6 +27,20 @@ buy-packs:
     get-free-pack: "获得免费卡包"
     buy-standard-pack: "购买标准卡包"
     buy-premium-pack: "购买高级卡包"
+    or: "或者"
+    buy-with-cryptokitty: "使用猫咪购买"
+
+card-flip:
+  title: "翻看你的卡牌！"
+  subtitle1: "点击卡牌翻开你的新球员吧。"
+  subtitle2: "完成后，点击这里前往球员阵容"
+
+create-trade:
+  title: "交换中心"
+  subtitle1: "通过选定你希望送出的卡牌和希望得到的卡牌，创建交易。"
+  subtitle2: "当交换创建完成，你会收到一条交换链接。可以通过任何方式将链接分享出去 - 邮件，短信或者其他社交媒体！"
+  subtitle3: "可以在我们的<a href=\"https://discord.gg/VHFQUvV\" target=\"_blank\">Discord</a>或者<a href=\"https://www.reddit.com/r/cryptostrikerstrading\" target=\"_blank\">Subreddit</a>中找到交换伙伴"
+  alert: "想要接受交换请求？请打开你收到的交换请求链接。"
 
 footer:
   disclaimer: "加密球星卡牌和加密球星卡牌游戏（统称“加密球星”）是一款块效仿国际足球世界，为玩家提供资讯和娱乐的游戏。加密球星并未获得国际足球联合会（FIFA）或国际足球运动员协会（FIFPro）的授权。"
@@ -44,7 +62,25 @@ install-metamask:
   alert-text: "请确保你已在纸上记下MetaMask助记词，并已保存在安全位置！一旦丢失，我们无法帮你找回账号"
   title2: "如何安装？"
   subtitle2: "点击浏览器工具栏的MetaMask图标，并按照以下步骤完成安装。"
-  button-text2: "如何安装"
+  button-text2: "是的，我已经安装好了"
+
+kitty-exchange:
+  choose-kitty: "选择猫咪"
+  give-approval: "确认"
+  say-goodbye: "放弃"
+  1-line1: "有限时间内，我们欢迎加密猫的玩家将自己的猫咪送养给我们。在这里它们可以和其它猫咪伙伴以及加密球星们共同生活。（听起来很棒对不对？）"
+  1-line2: "作为回报，对于前1000名将自己的猫咪锁在我们智能合约中的玩家，我们将会送出一个标准卡包。我们已经领养了 {kittyCount} 只猫咪，在到达限量前，要赶快了喔。"
+  1-line3: "<strong>注</strong>：每人限领一次。"
+  1-line4: "首先你需要找到你想要送养的猫咪的ID。<a href=\"https://www.cryptokitties.co/my-kitties\" target=\"_blank\">前往这里，点击选中的猫咪，然后从链接中抓取其ID。</a>"
+  1-placeholder: "猫咪ID"
+  1-button: "提交"
+  2-line1: "嗨！<span class=\"kitty-name\">{kittyName}</span> 是一只可爱的猫咪。我们保证会照顾好它的。"
+  2-line2: "继续下一步之前，你需要授权我们智能合约来执行兑换。"
+  2-line3: "请点击以下，确认MetaMask弹窗提示以进行授权。"
+  2-button: "授权"
+  3-line1: "最后一步，点击下面的按钮完成兑换并领取卡包。"
+  3-line2: "再见<span class=\"kitty-name\">{kittyName}</span>，我会想你的。不是你不好，只是，我真的太想要更多的球星卡牌了..."
+  3-button: "兑换猫咪"
 
 landing:
   slogan: "加密球星 - 最美的足球卡牌游戏！"
@@ -54,6 +90,17 @@ landing:
 marketplace:
   title: "正在搭建中"
   subtitle: "现阶段你可以在OpenSea上购买或出售卡牌。OpenSea是我们官方交易市场伙伴。"
+
+minting-video:
+  title: "卡牌正在生成！"
+  subtitle-1: "请耐心等待，我们正通过区块链向你发送卡牌。这一过程可能会需要几分钟。"
+  subtitle-2a: "当交易完成时，卡牌会出现在屏幕上。"
+  subtitle-2b: "你可以继续其他操作或在活动界面查看相关记录"
+  subtitle-3: "要不，来段视频，边看边等吧。"
+
+mobile:
+  uh-oh: "糟了！"
+  message: "手机上玩加密球星，你需要安装Cipher,Toshi浏览器或者Trust 钱包。以上APP在iOS和安卓设备上均可使用。点击下面的按钮查看更多。"
 
 navbar:
   buy-packs: "购买卡包"
@@ -82,6 +129,7 @@ sign-in:
   nickname: "昵称"
   placeholder-nickname: "稀有前锋1"
   nickname-subtitle: "仅为展示目的（游戏中会显示昵称而不是钱包地址）昵称不需要独一无二"
+  promo-code: "邀请码"
   terms-message: "<a href=\"https://github.com/CryptoStrikers/operations-docs-chinese\" target=\"_blank\">请阅读我们的使用条款和隐私条款</a>"
   terms-checkbox: "我已阅读并同意加密球星的使用条款"
   privacy-checkbox: "我已阅读并同意加密球星的隐私条款"
@@ -90,6 +138,15 @@ sign-in:
   verifying-signature: "验证签名"
   signing-in: "正在注册..."
   create-account: "创建账号"
+  welcome-back: "欢迎回来 {nickname}"
+  log-in: "登陆"
+
+trade-partner-row:
+  title: "交换伙伴"
+  line1: "希望跟特定的用户交换？输入用户地址并选择卡牌"
+  line2: "如此项留空，则创建公开交易，会匹配到任何符合条件的玩家。"
+  placeholder: "交换伙伴的以太坊地址"
+  remove: "移除"
 
 unlock-metamask:
   title: "请解锁你的MetaMask钱包"

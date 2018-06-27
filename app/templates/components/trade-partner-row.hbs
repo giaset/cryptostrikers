@@ -1,15 +1,15 @@
 <div class="col">
-  <h3 class="trade-partner-row-title">Trade Partner</h3>
+  <h3 class="trade-partner-row-title">{{t "trade-partner-row.title"}}</h3>
   {{#if counterpartyUser}}
     <h2 class="trade-partner-nickname">{{counterpartyUser.nickname}}</h2>
     <h5 class="trade-partner-address">{{counterpartyUser.id}}</h5>
     {{#unless hideRemove}}
-      <button type="button" class="btn remove-button" {{action (mut counterpartyAddress) null}}>Remove</button>
+      <button type="button" class="btn remove-button" {{action (mut counterpartyAddress) null}}>{{t "trade-partner-row.remove"}}</button>
     {{/unless}}
   {{else}}
-    <p class="trade-partner-row-text">Want to trade only with a specific user? Enter their address below and pick from their available cards.</p>
-    <p class="trade-partner-row-text">Leaving this blank will create an Open Trade which can be matched by anyone who has the card you're looking for.</p>
-    {{input value=counterpartyAddress class="form-control form-control-lg" placeholder="Trade partner's Ethereum address"}}
+    <p class="trade-partner-row-text">{{t "trade-partner-row.line1"}}</p>
+    <p class="trade-partner-row-text">{{t "trade-partner-row.line2"}}</p>
+    {{input value=counterpartyAddress class="form-control form-control-lg" placeholder=(t "trade-partner-row.placeholder")}}
     <span class="text-danger">{{counterpartyAddressError}}</span>
   {{/if}}
 </div>

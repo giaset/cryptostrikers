@@ -1,8 +1,8 @@
 <div class="container">
   {{#if cards}}
-    {{#strikers-row title="Flip Your Cards!"}}
-      <p>Click the cards to reveal your new players.</p>
-      <p>When you're done, {{link-to "click here" "my-album" class="text-gold"}} to go see how they look with the rest of your squad.</p>
+    {{#strikers-row title=(t "card-flip.title")}}
+      <p>{{t "card-flip.subtitle1"}}</p>
+      <p>{{link-to (t "card-flip.subtitle2") "my-album" class="text-gold"}}</p>
     {{/strikers-row}}
     <div class="row">
       {{#each cards as |card|}}
@@ -12,10 +12,10 @@
       {{/each}}
     </div>
   {{else if firstCheckDone}}
-    {{#strikers-row title="Your Cards Are Being Minted!"}}
-      <p>Hang tight, we're securely transferring the cards to you on the blockchain. This could take a few minutes.</p>
-      <p>When your cards are ready, they will appear on this screen. You can also keep using the site and check on your cards from the {{link-to "Activity" "activity.index"}} screen.</p>
-      <p>While you wait, why don't you watch {{model.video.description}}.</p>
+    {{#strikers-row title=(t "minting-video.title")}}
+      <p>{{t "minting-video.subtitle-1"}}</p>
+      <p>{{t "minting-video.subtitle-2a"}} {{#link-to "activity.index"}}{{t "minting-video.subtitle-2b"}}{{/link-to}}</p>
+      <p>{{t "minting-video.subtitle-3" videoDescription=model.video.description}}</p>
       <div class="youtube-container-container">
         <div class="youtube-container">
           <iframe src="https://www.youtube.com/embed/{{model.video.videoId}}?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

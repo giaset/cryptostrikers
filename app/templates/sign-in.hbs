@@ -4,7 +4,7 @@
     <div class="sign-in-form">
       <h2 class="sign-in-form-title">
         {{#if model.existingUser.nickname}}
-          Welcome back {{model.existingUser.nickname}}!
+          {{t "sign-in.welcome-back" nickname=model.existingUser.nickname}}
         {{else}}
           {{t "sign-in.account-details"}}
         {{/if}}
@@ -27,7 +27,7 @@
           </div>
           {{#unless model.referrer}}
             <div class="form-group text-left">
-              <label for="promoCodeInput">Promo code</label>
+              <label for="promoCodeInput">{{t "sign-in.promo-code"}}</label>
               {{input value=promoCode class="form-control form-control-lg" type="text" placeholder="CODE" id="promoCodeInput"}}
             </div>
           {{/unless}}
@@ -55,7 +55,7 @@
           {{else if openSession.isRunning}}
             {{t "sign-in.signing-in"}}
           {{else if model.existingUser}}
-            Log In
+            {{t "sign-in.log-in"}}
           {{else}}
             {{t "sign-in.create-account"}}
           {{/if}}
@@ -68,8 +68,8 @@
     {{unlock-metamask}}
   {{else}}
     {{install-metamask class="d-none d-sm-flex"}}
-    {{#strikers-row title="Uh Oh!" class="d-sm-none"}}
-      <p>To play CryptoStrikers on mobile, you need a special Ethereum browser like <span class="text-gold">Cipher</span>, <span class="text-gold">Toshi</span>, or <span class="text-gold">Trust Wallet</span>. All three browsers are available for both iOS and Android. Click one of the buttons below to find out more.</p>
+    {{#strikers-row title=(t "mobile.uh-oh") class="d-sm-none"}}
+      <p>{{t "mobile.message" htmlSafe=true}}</p>
       <a href="https://www.cipherbrowser.com/" target="_blank"><img class="browser-image cipher" src="/assets/images/cipher.png"></a><br>
       <a href="https://www.toshi.org/" target="_blank"><img class="browser-image" src="/assets/images/toshi.png"></a><br>
       <a href="https://trustwalletapp.com/" target="_blank"><img class="browser-image" src="/assets/images/trust-wallet.png"></a>

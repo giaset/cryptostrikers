@@ -1,13 +1,13 @@
 <div class="container kitty-container">
   {{kitties-header step=1}}
   <div class="kitty-text">
-    <p>For a limited time, we're welcoming unwanted CryptoKitties to our special sanctuary -- a place where they can roam free, surrounded by feline friends, international soccer superstars and the awesome CryptoStrikers team. (Sounds like heaven right?)</p>
-    <p>In return, the first 1,000 users to lock a cat in our smart contract will be rewarded with a free Standard Pack. We've already collected {{model}} kitties, so hurry up before we reach capacity!</p>
-    <p><strong>Note:</strong> Limit of 1 cat exchange per user.</p>
-    <p>To begin, you need to find the ID of the kitty you want to give up. To see your collection, <a href="https://www.cryptokitties.co/my-kitties" target="_blank">go here</a>, then click into your chosen cat and grab its ID from the URL.</p>
+    <p>{{t "kitty-exchange.1-line1"}}</p>
+    <p>{{t "kitty-exchange.1-line2" kittyCount=model}}</p>
+    <p>{{t "kitty-exchange.1-line3" htmlSafe=true}}</p>
+    <p>{{t "kitty-exchange.1-line4" htmlSafe=true}}</p>
     <form {{action "checkOwnership" kittyId on="submit"}}>
-      {{input value=kittyId type="text" placeholder="Kitty ID" class="form-control" required=true}}
-      <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+      {{input value=kittyId type="text" placeholder=(t "kitty-exchange.1-placeholder") class="form-control" required=true}}
+      <button type="submit" class="btn btn-primary btn-lg">{{t "kitty-exchange.1-button"}}</button>
       {{#if errorMessage}}
         <br>
         <span class="text-danger">{{errorMessage}}</span>
