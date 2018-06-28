@@ -1,13 +1,13 @@
 <div class="card-container card-container-left">
   <div class="card-container-info">
-    <h3 class="card-container-title">Card I'll Give</h3>
+    <h3 class="card-container-title">{{t "trade-cards.card-ill-give"}}</h3>
     <h4 class="card-container-subtitle">
       {{#if makerCard}}
         {{makerCard.prettyString}}
       {{else if selectedCardLeft}}
         {{selectedCardLeft.prettyString}}
       {{else}}
-        Pick a card
+        {{t "trade-cards.pick-a-card"}}
       {{/if}}
     </h4>
   </div>
@@ -17,13 +17,13 @@
     <img src={{selectedCardLeft.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
   {{else}}
     <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
-      <h5 class="placeholder-title">Click Here</h5>
+      <h5 class="placeholder-title">{{t "trade-cards.click-here"}}</h5>
     </div>
   {{/if}}
 </div>
 <div class="card-container card-container-right">
   <div class="card-container-info order-2 order-sm-0">
-    <h3 class="card-container-title">Card I'll Get</h3>
+    <h3 class="card-container-title">{{t "trade-cards.card-ill-get"}}</h3>
     <h4 class="card-container-subtitle">
       {{#if takerCard}}
         {{takerCard.prettyString}}
@@ -34,7 +34,7 @@
       {{else if counterpartyChecklistItem}}
         Any {{counterpartyChecklistItem.player.name}}
       {{else}}
-        Pick a card
+        {{t "trade-cards.pick-a-card"}}
       {{/if}}
     </h4>
   </div>
@@ -48,7 +48,7 @@
     <img src={{counterpartyChecklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
   {{else}}
     <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
-      <h5 class="placeholder-title">Click Here</h5>
+      <h5 class="placeholder-title">{{t "trade-cards.click-here"}}</h5>
     </div>
   {{/if}}
 </div>

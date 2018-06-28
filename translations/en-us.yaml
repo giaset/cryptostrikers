@@ -102,6 +102,8 @@ mobile:
   uh-oh: "Uh Oh!"
   message: "To play CryptoStrikers on mobile, you need a special Ethereum browser like <span class=\"text-gold\">Cipher</span>, <span class=\"text-gold\">Toshi</span>, or <span class=\"text-gold\">Trust Wallet</span>. All three browsers are available for both iOS and Android. Click one of the buttons below to find out more."
 
+modal-trade-picker:
+  any: "Any"
 
 navbar:
   buy-packs: "Buy Packs"
@@ -146,12 +148,30 @@ sign-in:
   welcome-back: "Welcome back {nickname}!"
   log-in: "Log In"
 
+trade-cards:
+  card-ill-give: "Card I'll Give"
+  card-ill-get: "Card I'll Get"
+  pick-a-card: "Pick a card"
+  click-here: "Click Here"
+
 trade-partner-row:
   title: "Trade Partner"
   line1: "Want to trade only with a specific user? Enter their address below and pick from their available cards."
   line2: "Leaving this blank will create an Open Trade which can be matched by anyone who has the card you're looking for."
   placeholder: "Trade partner's Ethereum address"
   remove: "Remove"
+
+trading-container:
+  accept-trade: "Accept Trade"
+  already-cancelled: "Already Cancelled"
+  already-filled: "Already Filled"
+  cancel-trade: "Cancel Trade"
+  create-trade: "Create Trade"
+  invalid-address: "Either leave this empty, or enter a valid Ethereum address."
+  not-open-long: "This trade is not open to you."
+  not-open-short: "NOT OPEN TO YOU"
+  required-player: "To fill this trade, you must give a {playerName}."
+  self-trade: "You can't trade cards with yourself."
 
 unlock-metamask:
   title: "Please Unlock MetaMask"

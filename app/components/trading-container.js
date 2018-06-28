@@ -7,6 +7,7 @@ import { isBlank } from '@ember/utils';
 export default Component.extend({
   classNames: ['trading-container', 'container', 'text-center'],
   currentUser: service(),
+  intl: service(),
   store: service(),
   strikersContracts: service(),
   web3: service(),
@@ -53,12 +54,13 @@ export default Component.extend({
   counterpartyAddressError: computed('counterpartyAddress', function() {
     const address = this.get('counterpartyAddress');
     if (isBlank(address)) { return null; }
+    const intl = this.get('intl');
     if (!this.get('web3').isAddress(address)) {
-      return 'Either leave this empty, or enter a valid Ethereum address.';
+      return intl.t('trading-container.invalid-address');
     }
 
     if (address === this.get('currentUser.address')) {
-      return 'You can\'t trade cards with yourself.';
+      return intl.t('trading-container.self-trade');
     }
 
     return null;

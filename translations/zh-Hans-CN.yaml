@@ -102,6 +102,9 @@ mobile:
   uh-oh: "糟了！"
   message: "手机上玩加密球星，你需要安装Cipher,Toshi浏览器或者Trust 钱包。以上APP在iOS和安卓设备上均可使用。点击下面的按钮查看更多。"
 
+modal-trade-picker:
+  any: "任意"
+
 navbar:
   buy-packs: "购买卡包"
   marketplace: "市场"
@@ -141,12 +144,30 @@ sign-in:
   welcome-back: "欢迎回来 {nickname}"
   log-in: "登陆"
 
+trade-cards:
+  card-ill-give: "交换卡牌"
+  card-ill-get: "目标卡牌"
+  pick-a-card: "选择一张卡牌"
+  click-here: "点击这里"
+
 trade-partner-row:
   title: "交换伙伴"
   line1: "希望跟特定的用户交换？输入用户地址并选择卡牌"
   line2: "如此项留空，则创建公开交易，会匹配到任何符合条件的玩家。"
   placeholder: "交换伙伴的以太坊地址"
   remove: "移除"
+
+trading-container:
+  accept-trade: "接受交换"
+  already-cancelled: "已取消"
+  already-filled: "已填充"
+  cancel-trade: "取消交换"
+  create-trade: "创建交换"
+  invalid-address: "留空或输入一个有效的以太坊地址。"
+  not-open-long: "该交换为特定交换。"
+  not-open-short: "特定交换"
+  required-player: "你必须出让 {playerName}来填充此次交换。"
+  self-trade: "你不能和自己进行交换"
 
 unlock-metamask:
   title: "请解锁你的MetaMask钱包"

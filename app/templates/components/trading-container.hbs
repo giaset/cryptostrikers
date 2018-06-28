@@ -8,13 +8,13 @@
 {{#if makerChecklistItem}}
   <div class="row mb-4">
     <div class="col">
-      <h5>To fill this trade, you must give a {{makerChecklistItem.player.name}}.</h5>
+      <h5>{{t "trading-container.required-player" playerName=makerChecklistItem.player.name}}</h5>
     </div>
   </div>
 {{else if notOpenToMe}}
   <div class="row mb-4">
     <div class="col">
-      <h5 class="text-danger">This trade is not open to you.</h5>
+      <h5 class="text-danger">{{t "trading-container.not-open-long"}}</h5>
     </div>
   </div>
 {{/if}}
@@ -33,17 +33,17 @@
 <div class="row py-5">
   <div class="col">
     {{#if notOpenToMe}}
-      <button type="button" class="btn btn-primary btn-lg" disabled>NOT OPEN TO YOU</button>
+      <button type="button" class="btn btn-primary btn-lg" disabled>{{t "trading-container.not-open-short"}}</button>
     {{else if cancelEvent}}
-      <button type="button" class="btn btn-primary btn-lg" disabled>Already Cancelled</button>
+      <button type="button" class="btn btn-primary btn-lg" disabled>{{t "trading-container.already-cancelled"}}</button>
     {{else if fillEvent}}
-      <button type="button" class="btn btn-primary btn-lg" disabled>Already Filled</button>
+      <button type="button" class="btn btn-primary btn-lg" disabled>{{t "trading-container.already-filled"}}</button>
     {{else if isMyTrade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}}>Cancel Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action cancelTrade}}>{{t "trading-container.cancel-trade"}}</button>
     {{else if trade}}
-      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}} disabled={{acceptButtonDisabled}}>Accept Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action acceptTrade (if makerCard makerCard.id selectedCardLeft.id)}} disabled={{acceptButtonDisabled}}>{{t "trading-container.accept-trade"}}</button>
     {{else}}
-      <button type="button" class="btn btn-primary btn-lg" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>Create Trade</button>
+      <button type="button" class="btn btn-primary btn-lg" {{action "createTradeClicked"}} disabled={{createButtonDisabled}}>{{t "trading-container.create-trade"}}</button>
     {{/if}}
   </div>
 </div>
