@@ -18,7 +18,9 @@
         </div>
       {{/if}}
     {{/strikers-row}}
-    {{card-of-the-day-header checklistItem=model.globals.checklistItemOfTheDay}}
+    {{#if model.globals.checklistItemOfTheDay}}
+      {{card-of-the-day-header checklistItem=model.globals.checklistItemOfTheDay}}
+    {{/if}}
     <div class="row">
       <div class="col-md mb-5">
         {{
@@ -33,7 +35,14 @@
         }}
       </div>
       <div class="col-md mb-5">
-        {{pack-sale-column sale=model.premiumSale buyPack=(action "buyPack" model.premiumSale) claimWhitelistPack=(action "claimWhitelistPack" true) whitelistAllocation=model.premiumWhitelistAllocation}}
+        {{
+          pack-sale-column
+          sale=model.premiumSale
+          buyPack=(action "buyPack" model.premiumSale)
+          claimWhitelistPack=(action "claimWhitelistPack" true)
+          whitelistAllocation=model.premiumWhitelistAllocation
+          noPremiumSaleToday=(not model.globals.checklistItemOfTheDay)
+        }}
       </div>
     </div>
   {{/if}}

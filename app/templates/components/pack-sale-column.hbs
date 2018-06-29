@@ -1,5 +1,5 @@
 <div class="pack-sale-container">
-  <img class="pack-sale-image {{if sale.soldOut "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
+  <img class="pack-sale-image {{if sale.soldOut "pre-launch"}}{{if noPremiumSaleToday "pre-launch"}}" src="/assets/images/{{if sale.isStandard "standard" "premium"}}-pack.png">
   <h5 class="pack-sale-title">{{if sale.isStandard (t "global.standard-pack") (t "global.premium-pack")}}</h5>
   <div class="pack-sale-price">
     {{sale.packPriceInEth}} ETH
@@ -9,6 +9,13 @@
       {{t "buy-packs.columns.available-through"}}<br>
       {{t "buy-packs.columns.packs-sold" packsSold=sale.packsSold}}
     </div>
+  {{else if noPremiumSaleToday}}
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow=0 aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <span class="sold-count">
+      {{t "buy-packs.columns.sold-of-max" packsSold=0 maxPacks=sale.maxPacks}}
+    </span>
   {{else}}
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow={{sale.percentComplete}} aria-valuemin="0" aria-valuemax="100" style={{progressBarStyle}}></div>
@@ -30,9 +37,11 @@
       {{t "global.gold"}}: 19.20%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{t "global.silver"}}: 72.00%
     {{/if}}
   </span>
-  {{link-to (t "buy-packs.columns.player-distribution") "sales" sale.id class="full-distribution-link"}}
+  {{link-to (t "buy-packs.columns.player-distribution") "sales" sale.id class="full-distribution-link" disabledWhen=noPremiumSaleToday}}
 </div>
-{{#if sale.soldOut}}
+{{#if noPremiumSaleToday}}
+  <button type="button" class="btn pack-sale-button" disabled>NO SALE TODAY</button>
+{{else if sale.soldOut}}
   <button type="button" class="btn pack-sale-button" disabled>{{if sale.isStandard "TEMPORARILY UNAVAILABLE" "SOLD OUT"}}</button>
 {{else if isOwedFreeReferralPack}}
   <button type="button" class="btn btn-primary btn-lg" {{action claimReferralPack}}>{{t "buy-packs.columns.get-free-pack"}}</button>
