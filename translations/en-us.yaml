@@ -30,6 +30,14 @@ buy-packs:
     or: "OR"
     buy-with-cryptokitty: "BUY WITH CRYPTOKITTY"
 
+card-attributes:
+  attributes: "Attributes"
+  bio: "Bio"
+  mint-date: "Mint Date"
+  rarity: "Rarity"
+  set: "Set"
+  serial-number: "Serial Number"
+
 card-flip:
   title: "Flip Your Cards!"
   subtitle1: "Click the cards to reveal your new players."
@@ -41,6 +49,13 @@ create-trade:
   subtitle2: "Once you've created the trade, you'll receive an offer link. Share this link any way you want -- email, text, or social media!"
   subtitle3: "Find trade partners in our <a href=\"https://discord.gg/VHFQUvV\" target=\"_blank\">Discord</a> or on our <a href=\"https://www.reddit.com/r/cryptostrikerstrading\" target=\"_blank\">subreddit</a>."
   alert: "Looking to accept a trade offer? Please navigate to the URL sent to you by your trade partner."
+
+filterable-card-grid:
+  buy-a-pack: "You can get started by buying a pack."
+  card-count: "{cardCount} cards"
+  no-cards-yet: "You have no cards yet."
+  only-show-owned: "Only Show Owned"
+  search-players: "Search Players"
 
 footer:
   disclaimer: "CryptoStrikers cards and the CryptoStrikers card game (collectively “CryptoStrikers”) are both a parody and a provider of news and entertainment regarding the world of international soccer. CryptoStrikers is NOT licensed by the Fédération Internationale de Football Association (FIFA) nor the Fédération Internationale des Associations de Footballeurs Professionnels (FIFPro)."

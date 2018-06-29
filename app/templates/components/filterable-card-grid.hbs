@@ -1,4 +1,4 @@
-{{input value=searchQuery placeholder="Search Players" class="form-control"}}
+{{input value=searchQuery placeholder=(t "filterable-card-grid.search-players") class="form-control"}}
 <ul class="nav nav-pills">
   {{#each checklistSets as |checklistSet|}}
     <li class="nav-item">
@@ -10,9 +10,9 @@
 <div class="filterable-card-grid-sub">
   <div class="form-check">
     {{input id="ownedCheckbox" type="checkbox" checked=onlyShowOwned class="form-check-input"}}
-    <label class="form-check-label" for="ownedCheckbox">Only Show Owned</label>
+    <label class="form-check-label" for="ownedCheckbox">{{t "filterable-card-grid.only-show-owned"}}</label>
   </div>
-  <h6 class="card-count">{{filteredItems.length}} cards</h6>
+  <h6 class="card-count">{{t "filterable-card-grid.card-count" cardCount=filteredItems.length}}</h6>
 </div>
 <div class="row">
   {{#each filteredItems as |checklistItem|}}
@@ -23,8 +23,8 @@
     <div class="col text-center">
       <h5>
         {{#if ownsZeroCards}}
-          <p>You have no cards yet.</p>
-          <p>You can get started by {{link-to "buying a pack" "buy-packs"}}.</p>
+          <p>{{t "filterable-card-grid.no-cards-yet"}}</p>
+          <p>{{#link-to "buy-packs"}}{{t "filterable-card-grid.buy-a-pack"}}{{/link-to}}</p>
         {{else}}
           <p>No cards matching those filters.</p>
         {{/if}}

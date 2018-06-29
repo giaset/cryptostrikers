@@ -1,4 +1,4 @@
-<h2 class="card-attributes-header">Attributes</h2>
+<h2 class="card-attributes-header">{{t "card-attributes.attributes"}}</h2>
 <div class="row">
   <div class="col-6">
     <div class="attribute-cell">
@@ -7,16 +7,16 @@
       {{else}}
         <img class="attribute-cell-img" src="/assets/images/iconic.svg">
       {{/if}}
-      <div class="attribute-cell-value">{{checklistItem.checklistSet.name}}</div>
-      <div class="attribute-cell-title">Set</div>
+      <div class="attribute-cell-value">{{checklistItem.checklistSet.localizedName}}</div>
+      <div class="attribute-cell-title">{{t "card-attributes.set"}}</div>
     </div>
   </div>
   {{#if (eq checklistItem.checklistSet.name "Originals")}}
     <div class="col-6">
       <div class="attribute-cell">
         <img class="attribute-cell-img" src="/assets/images/{{checklistItem.tier.name}}.svg">
-        <div class="attribute-cell-value">{{checklistItem.tier.name}}</div>
-        <div class="attribute-cell-title">Rarity</div>
+        <div class="attribute-cell-value">{{checklistItem.tier.localizedName}}</div>
+        <div class="attribute-cell-title">{{t "card-attributes.rarity"}}</div>
       </div>
     </div>
   {{/if}}
@@ -25,14 +25,14 @@
       <div class="attribute-cell">
         <img class="attribute-cell-img" src="/assets/images/serial-number.svg">
         <div class="attribute-cell-value">{{card.serialNumberString}}</div>
-        <div class="attribute-cell-title">Serial Number</div>
+        <div class="attribute-cell-title">{{t "card-attributes.serial-number"}}</div>
       </div>
     </div>
     <div class="col-6">
       <div class="attribute-cell">
         <img class="attribute-cell-img" src="/assets/images/calendar.svg">
         <div class="attribute-cell-value">{{moment-format card.mintTime "MMM D YYYY"}}</div>
-        <div class="attribute-cell-title">Mint Date</div>
+        <div class="attribute-cell-title">{{t "card-attributes.mint-date"}}</div>
       </div>
     </div>
   {{/if}}

@@ -30,6 +30,14 @@ buy-packs:
     or: "或者"
     buy-with-cryptokitty: "使用猫咪购买"
 
+card-attributes:
+  attributes: "属性"
+  bio: "生物"
+  mint-date: "生成日期"
+  rarity: "品质"
+  set: "套装"
+  serial-number: "系列号"
+
 card-flip:
   title: "翻看你的卡牌！"
   subtitle1: "点击卡牌翻开你的新球员吧。"
@@ -41,6 +49,13 @@ create-trade:
   subtitle2: "当交换创建完成，你会收到一条交换链接。可以通过任何方式将链接分享出去 - 邮件，短信或者其他社交媒体！"
   subtitle3: "可以在我们的<a href=\"https://discord.gg/VHFQUvV\" target=\"_blank\">Discord</a>或者<a href=\"https://www.reddit.com/r/cryptostrikerstrading\" target=\"_blank\">Subreddit</a>中找到交换伙伴"
   alert: "想要接受交换请求？请打开你收到的交换请求链接。"
+
+filterable-card-grid:
+  buy-a-pack: "先从购买一张卡牌开始"
+  card-count: "{cardCount}张卡牌"
+  no-cards-yet: "你还没有卡牌。"
+  only-show-owned: "仅显示已拥有"
+  search-players: "寻找球员"
 
 footer:
   disclaimer: "加密球星卡牌和加密球星卡牌游戏（统称“加密球星”）是一款块效仿国际足球世界，为玩家提供资讯和娱乐的游戏。加密球星并未获得国际足球联合会（FIFA）或国际足球运动员协会（FIFPro）的授权。"
