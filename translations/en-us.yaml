@@ -159,6 +159,32 @@ product:
 profile:
   subtitle: "All of these cards are stored in your digital wallet, and not on CryptoStrikers' servers. They are 100% yours, all we do is display them."
 
+referrals-cards:
+  award: "Award"
+  claim: "CLAIM"
+
+referrals-earnings:
+  attributed-sales: "Attributed Sales"
+  bonus-cards-claimed: "Bonus Cards Claimed"
+  total-earnings: "Total Earnings (ETH)"
+  unclaimed-earnings: "Unclaimed Earnings (ETH)"
+
+referrals-link:
+  cant-change-link: "(Once you save your custom link, you cannot change it)"
+  copy: "COPY"
+  must-buy-one: "To get your referral link, you must have purchased at least 1 pack."
+  save: "SAVE"
+  title: "Get the Word Out"
+
+referrals-header:
+  title: "Refer Friends, Earn Rewards"
+  bonus-cards: "Bonus Cards"
+  commission: "Commission"
+  line1: "When a friend you invited to CryptoStrikers buys a pack, you unlock 1 of 8 exclusive Iconic cards. These cards are not available through the pack sale."
+  line2: "Once you've unlocked all 8 cards, every time someone you referred buys a pack, you get 10% of that sale."
+  line3a: "To join the program, you must have purchased at least 1 pack."
+  line3b: "Your referral purchases will be tracked once you set up your invite link. See the <a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/referral-program.md\" target=\"_blank\">Referral Program Terms</a>."
+
 sign-in:
   title: "Welcome to CryptoStrikers!"
   subtitle1: "To get started, please enter your email address and choose a nickname."

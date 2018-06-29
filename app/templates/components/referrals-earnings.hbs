@@ -2,7 +2,7 @@
   <div class="row top-row">
     <div class="col">
       <h1>{{unclaimedEarnings}}</h1>
-      <h2>Unclaimed Earnings (ETH)</h2>
+      <h2>{{t "referrals-earnings.unclaimed-earnings"}}</h2>
       {{#if (gt unclaimedEarnings 0)}}
         <button type="button" class="btn" {{action claimCommission unclaimedEarnings}}>Click here to claim</button>
       {{/if}}
@@ -11,15 +11,15 @@
   <div class="row bottom-row">
     <div class="col-sm">
       <h1>{{attributedSales}}</h1>
-      <h2>Attributed Sales</h2>
+      <h2>{{t "referrals-earnings.attributed-sales"}}</h2>
     </div>
     <div class="col-sm">
       <h1>{{bonusCardsClaimed}}/8</h1>
-      <h2>Bonus Cards Claimed</h2>
+      <h2>{{t "referrals-earnings.bonus-cards-claimed"}}</h2>
     </div>
     <div class="col-sm">
       <h1>{{referralCommissionEarned}}</h1>
-      <h2>Total Earnings (ETH)</h2>
+      <h2>{{t "referrals-earnings.total-earnings"}}</h2>
     </div>
   </div>
 </div>

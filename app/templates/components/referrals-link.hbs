@@ -1,16 +1,16 @@
 <div class="col">
-  <h2 class="referrals-link-title">Get the Word Out</h2>
+  <h2 class="referrals-link-title">{{t "referrals-link.title"}}</h2>
   {{#if (gt packsBought 0)}}
     {{#if referralCode}}
       <div class="input-group">
         {{input class="form-control" value=referralUrl readonly=true}}
         <div class="input-group-append">
           {{#copy-button clipboardText=referralUrl success=(action "copySuccess") class="btn btn-outline-dark"}}
-            {{if flashText "COPIED!" "COPY"}}
+            {{if flashText "COPIED!" (t "referrals-link.copy")}}
           {{/copy-button}}
         </div>
       </div>
-      <p class="referral-link-details">(Once you save your custom link, you cannot change it)</p>
+      <p class="referral-link-details">{{t "referrals-link.cant-change-link"}}</p>
     {{else}}
       <form {{action "createReferralCode" newReferralCode on="submit"}}>
         <div class="input-group">
@@ -20,11 +20,11 @@
           {{input class="form-control" value=newReferralCode placeholder="your-custom-code" required=true}}
         </div>
         <p class="referral-link-details text-danger">{{errorMessage}}</p>
-        <p class="referral-link-details">(Once you save your custom link, you cannot change it)</p>
-        <button type="submit" class="btn btn-strikers">SAVE</button>
+        <p class="referral-link-details">{{t "referrals-link.cant-change-link"}}</p>
+        <button type="submit" class="btn btn-strikers">{{t "referrals-link.save"}}</button>
       </form>
     {{/if}}
   {{else}}
-    <p class="no-packs-bought">To get your referral link, you must have {{link-to "purchased at least 1 pack" "buy-packs"}}.</p>
+    <p class="no-packs-bought">{{#link-to "buy-packs"}}{{t "referrals-link.must-buy-one"}}{{/link-to}}</p>
   {{/if}}
 </div>

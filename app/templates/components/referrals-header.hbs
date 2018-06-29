@@ -1,16 +1,16 @@
 <div class="col">
-  <h1 class="referrals-header-title">Refer Friends, Earn Rewards</h1>
+  <h1 class="referrals-header-title">{{t "referrals-header.title"}}</h1>
   <div class="row referrals-header-rewards">
     <div class="col-sm mb-5 mb-sm-0">
       <h1>8</h1>
-      <h2>Bonus Cards</h2>
+      <h2>{{t "referrals-header.bonus-cards"}}</h2>
     </div>
     <div class="col-sm">
       <h1>10%</h1>
-      <h2>Commission</h2>
+      <h2>{{t "referrals-header.commission"}}</h2>
     </div>
   </div>
-  <p class="referrals-header-text">When a friend you invited to CryptoStrikers buys a pack, you unlock 1 of 8 exclusive Iconic cards. These cards are not available through the pack sale.</p>
-  <p class="referrals-header-text">Once you've unlocked all 8 cards, every time someone you referred buys a pack, you get 10% of that sale.</p>
-  <p class="referrals-header-text">To join the program, you must have {{link-to "purchased at least 1 pack" "buy-packs"}}. Your referral purchases will be tracked once you set up your invite link. See the <a href="https://github.com/CryptoStrikers/operations-docs/blob/master/referral-program.md" target="_blank">Referral Program Terms</a>.</p>
+  <p class="referrals-header-text">{{t "referrals-header.line1"}}</p>
+  <p class="referrals-header-text">{{t "referrals-header.line2"}}</p>
+  <p class="referrals-header-text">{{#link-to "buy-packs"}}{{t "referrals-header.line3a"}}{{/link-to}} {{t "referrals-header.line3b" htmlSafe=true}}</p>
 </div>

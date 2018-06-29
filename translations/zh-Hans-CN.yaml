@@ -155,6 +155,32 @@ navbar:
 profile:
   subtitle: "全部卡牌都存储在你的数字钱包中，而不在加密球星的服务器上。它们100%归你所有。我们只是将它们展示出来。"
 
+referrals-cards:
+  award: "奖励"
+  claim: "领取"
+
+referrals-earnings:
+  attributed-sales: "贡献销售额"
+  bonus-cards-claimed: "已领取红利卡牌"
+  total-earnings: "总收益（ETH）"
+  unclaimed-earnings: "未领取收益（ETH）"
+
+referrals-link:
+  cant-change-link: "(一旦保存链接，你将无法更改)"
+  copy: "复制"
+  must-buy-one: "To get your referral link, you must have purchased at least 1 pack."
+  save: "保存"
+  title: "帮助宣传"
+
+referrals-header:
+  title: "邀请好友，获取返利"
+  bonus-cards: "红利卡牌"
+  commission: "返利比例"
+  line1: "当你邀请的朋友购买卡包时，你就能获得一张专属标志性卡牌，共8张。这些卡牌无法通过卡包获得。"
+  line2: "当你全部解锁这8张卡牌后，每当你邀请的好友购买卡包时，你都能获得10%的返利。"
+  line3a: "参与此项邀请计划，你必须至少购买一个卡包。"
+  line3b: "当邀请链接创建后，你的邀请销售额将会被记录。<a href=\"https://github.com/CryptoStrikers/operations-docs/blob/master/referral-program.md\" target=\"_blank\">查看好友邀请条款</a>"
+
 sign-in:
   title: "欢迎来到加密球星"
   subtitle1: "开始游戏之前，请输入您的邮箱地址和昵称。"
