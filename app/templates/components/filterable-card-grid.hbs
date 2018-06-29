@@ -2,7 +2,7 @@
 <ul class="nav nav-pills">
   {{#each checklistSets as |checklistSet|}}
     <li class="nav-item">
-      <a class="nav-link {{if (eq checklistSet.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) checklistSet.id}}>{{checklistSet.name}}</a>
+      <a class="nav-link {{if (eq checklistSet.id selectedSetId) "active"}}" href="#" {{action (mut selectedSetId) checklistSet.id}}>{{checklistSet.localizedName}}</a>
     </li>
   {{/each}}
   <li class="nav-item fake-nav-item"></li>

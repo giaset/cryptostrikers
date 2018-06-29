@@ -119,6 +119,9 @@ product:
   html:
     info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
 
+profile:
+  subtitle: "All of these cards are stored in your digital wallet, and not on CryptoStrikers' servers. They are 100% yours, all we do is display them."
+
 sign-in:
   title: "Welcome to CryptoStrikers!"
   subtitle1: "To get started, please enter your email address and choose a nickname."
