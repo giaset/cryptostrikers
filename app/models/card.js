@@ -7,8 +7,8 @@ export default DS.Model.extend({
   sale: DS.belongsTo(),
   serialNumber: DS.attr('number'),
 
-  prettyString: computed('checklistItem.player.name', 'serialNumberString', function() {
-    const playerName = this.get('checklistItem.player.name');
+  prettyString: computed('checklistItem.player.localizedName', 'serialNumberString', function() {
+    const playerName = this.get('checklistItem.player.localizedName');
     const serialNumberString = this.get('serialNumberString');
     return `${playerName} (${serialNumberString})`;
   }),

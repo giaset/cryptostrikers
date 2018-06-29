@@ -5,35 +5,39 @@
   </div>
   <div class="activity-cell-description">
     {{#if (eq activity.type "buy_pack")}}
-      You bought a <span>{{if activity.premium "Premium" "Standard"}}</span> Pack.
+      {{#if activity.premium}}
+        {{t "activity-cell.bought-premium" htmlSafe=true}}
+      {{else}}
+        {{t "activity-cell.bought-standard" htmlSafe=true}}
+      {{/if}}
     {{else if (eq activity.type "withdraw_commission")}}
-      You withdrew <span>{{activity.commissionAmount}} ETH</span> of referral earnings.
+      {{t "activity-cell.withdraw-commission" commissionAmount=activity.commissionAmount htmlSafe=true}}
     {{else if (eq activity.type "claim_bonus_card")}}
-      You claimed your bonus <span>{{activity.bonusPlayerName}}</span> Iconic.
+      {{t "activity-cell.claim-bonus-card" bonusPlayerName=activity.bonusPlayerName htmlSafe=true}}
     {{else if (eq activity.type "cancel_trade")}}
-      You canceled a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to process, so somebody may still fill it.
+      {{t "activity-cell.cancel-trade" tradeString=activity.tradeString htmlSafe=true}}
     {{else if (eq activity.type "claim_whitelist_pack")}}
-      You used your whitelist allocation for a free <span>{{if activity.premium "Premium" "Standard"}}</span> Pack.
+      {{t "activity-cell.claim-whitelist-pack" packString=(if activity.premium "Premium" "Standard") htmlSafe=true}}
     {{else if (eq activity.type "claim_referral_pack")}}
-      You claimed your free <span>Standard</span> Pack for signing up through a referral link.
+      {{t "activity-cell.claim-referral-pack" htmlSafe=true}}
     {{else if (eq activity.type "buy_pack_with_kitty")}}
-      You traded in Kitty <span>#{{activity.kittyId}}</span> for a free pack of cards.
+      {{t "activity-cell.buy-pack-with-kitty" kittyId=activity.kittyId htmlSafe=true}}
     {{else if (eq activity.type "fill_trade")}}
-      You accepted a <span>{{activity.tradeString}}</span> trade. The transaction can take a few minutes to process, {{if activity.trade.isOpenTrade "hope nobody beats you to it!" "so it could still be cancelled by the creator."}}
+      {{t "activity-cell.fill-trade" tradeString=activity.tradeString warning=(if activity.trade.isOpenTrade "hope nobody beats you to it!" "so it could still be cancelled by the creator.") htmlSafe=true}}
     {{else if (eq activity.type "create_trade")}}
-      You created a <span>{{activity.tradeString}}</span> trade.
+      {{t "activity-cell.create-trade" tradeString=activity.tradeString htmlSafe=true}}
     {{/if}}
   </div>
 </div>
 <div class="activity-cell-buttons">
   {{#if showViewCards}}
-    {{link-to "View Cards" "activity.show" activity.id class="view-cards-link"}}
+    {{link-to (t "activity-cell.view-cards") "activity.show" activity.id class="view-cards-link"}}
   {{/if}}
   {{#if activity.txnHash}}
-    <a href={{activity.etherscanUrl}} class="btn btn-outline-dark activity-cell-button" target="_blank">Track</a>
+    <a href={{activity.etherscanUrl}} class="btn btn-outline-dark activity-cell-button" target="_blank">{{t "activity-cell.track"}}</a>
   {{/if}}
   {{#if (eq activity.type "create_trade")}}
-    {{link-to "View Trade" "trades" activity.trade.id class="view-cards-link"}}
-    {{#copy-button class="btn btn-outline-dark activity-cell-button" clipboardText=activity.trade.url}}Copy Link{{/copy-button}}
+    {{link-to (t "activity-cell.view-trade") "trades" activity.trade.id class="view-cards-link"}}
+    {{#copy-button class="btn btn-outline-dark activity-cell-button" clipboardText=activity.trade.url}}{{t "activity-cell.copy-link"}}{{/copy-button}}
   {{/if}}
 </div>

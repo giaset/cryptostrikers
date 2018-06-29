@@ -2,6 +2,28 @@
   uh-oh: "Uh Oh..."
   message: "The page you're looking for couldn't be found."
 
+activity:
+  title: "Activity"
+  subtitle: "Activity history is stored on the CryptoStrikers servers so that you can access it from any device."
+  no-activity: "You have no activity yet."
+  buy-a-pack: "You can get started by buying a pack."
+
+activity-cell:
+  bought-premium: "You bought a <span>Premium</span> Pack."
+  bought-standard: "You bought a <span>Standard</span> Pack."
+  buy-pack-with-kitty: "You traded in Kitty <span>#{kittyId}</span> for a free pack of cards."
+  cancel-trade: "You canceled a <span>{tradeString}</span> trade. The transaction can take a few minutes to process, so somebody may still fill it."
+  claim-bonus-card: "You claimed your bonus <span>{bonusPlayerName}</span> Iconic."
+  claim-referral-pack: "You claimed your free <span>Standard</span> Pack for signing up through a referral link."
+  claim-whitelist-pack: "You used your whitelist allocation for a free <span>{packString}</span> Pack."
+  copy-link: "Copy Link"
+  create-trade: "You created a <span>{tradeString}</span> trade."
+  fill-trade: "You accepted a <span>{tradeString}</span> trade. The transaction can take a few minutes to process, {warning}"
+  track: "Track"
+  view-cards: "View Cards"
+  view-trade: "View Trade"
+  withdraw-commission: "You withdrew <span>{commissionAmount} ETH</span> of referral earnings."
+
 buy-packs:
   header:
     title: "Buy Packs"

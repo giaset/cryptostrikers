@@ -1,6 +1,6 @@
 <div class="container">
-  {{#strikers-row title="Activity"}}
-    <p class="activity-header-text">Activity history is stored on the CryptoStrikers servers so that you can access it from any device.</p>
+  {{#strikers-row title=(t "activity.title")}}
+    <p class="activity-header-text">{{t "activity.subtitle"}}</p>
   {{/strikers-row}}
 </div>
 <hr class="activity-divider">
@@ -9,8 +9,8 @@
     {{activity-cell activity=activity}}
   {{else}}
     <div class="text-center">
-      <p>You have no activity yet.</p>
-      <p>You can get started by {{link-to "buying a pack" "buy-packs"}}.</p>
+      <p>{{t "activity.no-activity"}}</p>
+      <p>{{#link-to "buy-packs"}}{{t "activity.buy-a-pack"}}{{/link-to}}</p>
     </div>
   {{/each}}
 </div>

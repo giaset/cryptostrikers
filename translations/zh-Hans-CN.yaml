@@ -2,6 +2,28 @@
   uh-oh: "糟了..."
   message: "无法找到请求页面"
 
+activity:
+  title: "活动"
+  subtitle: "活动记录存储在加密球星的服务器上。因此你可以随时随地的在任何设备上访问。"
+  no-activity: "你还没有操作记录"
+  buy-a-pack: "你可以通过购买一个卡包开始"
+
+activity-cell:
+  bought-premium: "你购买了一个高级卡包。"
+  bought-standard: "你购买了一个标准卡包。"
+  buy-pack-with-kitty: "你通过兑换猫咪 <span>#{kittyId}</span> 获得一个卡包。"
+  cancel-trade: "你取消了<span>{tradeString}</span>的交换。等待交易完成，过程中，其他人可能抢先完成交易。"
+  claim-bonus-card: "你领取了<span>{bonusPlayerName}</span>红利卡牌。"
+  claim-referral-pack: "你领取了一个标准卡包。该卡包通过接受邀请获得。"
+  claim-whitelist-pack: "你使用白名单配置获得一个免费的<span>{packString}</span> 卡包。"
+  copy-link: "复制链接"
+  create-trade: "你创建了用<span>{tradeString}</span>的交换请求。"
+  fill-trade: "你接受了用<span>{tradeString}</span>的交换请求。交易需要等待几分钟确认。"
+  track: "追踪"
+  view-cards: "查看卡牌"
+  view-trade: "查看交换"
+  withdraw-commission: "你领取了<span>{commissionAmount}</span>ETH邀请收入。"
+
 buy-packs:
   header:
     title: "购买卡包"
