@@ -20,17 +20,17 @@ Router.map(function() {
   this.route('sales', { path: '/sales/:sale_id' });
   if (config.environment === 'development') {
     this.route('admin');
-    this.route('dashboard', function() {
-      this.route('checklist');
-      this.route('core');
-      this.route('pack-factory');
-      this.route('pack-sale');
-      this.route('whitelist');
-      this.route('video-tester');
-      this.route('key-metrics');
-      this.route('trading');
-    });
   }
+  this.route('dashboard', function() {
+    this.route('checklist');
+    this.route('core');
+    this.route('pack-factory');
+    this.route('pack-sale');
+    this.route('whitelist');
+    this.route('video-tester');
+    this.route('key-metrics');
+    this.route('trading');
+  });
   this.authenticatedRoute('create-trade');
   this.authenticatedRoute('trades', { path: '/trades/:trade_id' });
   this.authenticatedRoute('referrals');
