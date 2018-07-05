@@ -8,7 +8,7 @@ export default DS.Adapter.extend({
   findAll() {
     const contract = this.get('strikersContracts.StrikersUpdate.methods');
     const promises = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 8; i++) {
       promises.push(contract.getGame(i).call());
     }
     return RSVP.all(promises).then(games => {
