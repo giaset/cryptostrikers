@@ -57,7 +57,8 @@ module.exports = function(environment) {
       coreContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
       etherscanUrl: 'https://rinkeby.etherscan.io/',
       kittiesContractAddress: '0xd115fa87b4b98073f6754c5bbed1c9afd2ecabe7',
-      saleContractAddress: '0xa32d4da69c2cc405f98acc58481f9e0dd038f2fa'
+      saleContractAddress: '0xa32d4da69c2cc405f98acc58481f9e0dd038f2fa',
+      updateContractAddress: '0xd396d75373942cd6e0665cede9b5e989fed4f870'
     },
 
     torii: {
@@ -100,7 +101,7 @@ module.exports = function(environment) {
     ENV.strikers.openSeaApi = `https://etherbay-api-1.herokuapp.com/assets/?asset_contract_address=${ENV.strikers.coreContractAddress}`;
   }
 
-  if (deployTarget === 'production' || environment === 'development') {
+  if (deployTarget === 'production') {
     ENV.strikers.checklistContractAddress = '0xDBc260a05F81629FfA062Df3d1668A43133AbbA4';
     ENV.strikers.coreContractAddress = '0xdCAad9Fd9a74144d226DbF94ce6162ca9f09ED7e';
     ENV.strikers.saleContractAddress = '0xEB5405E21d07fa5e3B6644d0aE7f391B47F17E27';

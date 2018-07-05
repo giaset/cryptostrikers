@@ -151,6 +151,7 @@ navbar:
   activity: "Activity"
   earn-cards: "Earn Cards"
   logout: "Logout"
+  play: "Play"
 
 product:
   html:

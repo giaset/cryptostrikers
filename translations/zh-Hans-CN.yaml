@@ -151,6 +151,7 @@ navbar:
   activity: "活动"
   earn-cards: "获取卡牌"
   logout: "注销"
+  play: "Play"
 
 profile:
   subtitle: "全部卡牌都存储在你的数字钱包中，而不在加密球星的服务器上。它们100%归你所有。我们只是将它们展示出来。"

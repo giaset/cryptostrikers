@@ -31,11 +31,17 @@ export default Service.extend({
       ENV.strikers.saleContractAddress
     );
 
+    const updateContractPromise = this._loadContract(
+      'StrikersUpdate',
+      ENV.strikers.updateContractAddress
+    );
+
     return RSVP.all([
       checklistContractPromise,
       coreContractPromise,
       kittiesContractPromise,
-      saleContractPromise
+      saleContractPromise,
+      updateContractPromise
     ]);
   },
 

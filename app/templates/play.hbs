@@ -1,0 +1,14 @@
+<div class="container">
+  {{#strikers-row title="Predict & Win"}}
+    <p>Upgrade the cards you own by predicting some of the top performers from the 8 remaining matches.</p>
+    <p>If you pick a forward or a midfielder, your card gets upgraded if your player scores a goal.</p>
+    <p>If you pick a defender or a keeper, your card gets upgraded if your player keeps a clean sheet.</p>
+    <p>Every time a card gets upgraded, it receives a star. The same card can be upgraded up to 3 times.</p>
+  {{/strikers-row}}
+  {{#each model as |game|}}
+    <p>{{moment-format game.startTime "MMM D YYYY, h:mm a"}} - {{game.homeTeam.name}} vs {{game.awayTeam.name}}</p>
+    {{#each game.acceptedPlayers as |player|}}
+      <p>{{player.name}}</p>
+    {{/each}}
+  {{/each}}
+</div>

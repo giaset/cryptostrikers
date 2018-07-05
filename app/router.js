@@ -42,6 +42,7 @@ Router.map(function() {
     this.authenticatedRoute('2');
     this.authenticatedRoute('3');
   });
+  this.route('play');
 });
 
 export default Router;

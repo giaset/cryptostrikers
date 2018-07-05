@@ -17,7 +17,7 @@ export default Route.extend({
 
     generateStandardPacks() {
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
-      const from = '0x11cb02e2A07A94542A367bFf7Ee847451a75fA37';
+      const from = this.get('currentUser.address');
       const packs = packGenerator();
       //debugger;
       contract.addPacksToStandardSale(packs).send({ from });
@@ -45,7 +45,7 @@ export default Route.extend({
 
     unpause() {
       const contract = this.get('strikersContracts.StrikersPackSale.methods');
-      const from = '0x11cb02e2A07A94542A367bFf7Ee847451a75fA37';
+      const from = this.get('currentUser.address');
       contract.unpause().send({ from });
     }
   },

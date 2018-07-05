@@ -2,6 +2,7 @@ const StrikersChecklist = artifacts.require('./StrikersChecklist.sol');
 const StrikersCore = artifacts.require('./StrikersCore.sol');
 const StrikersMetadata = artifacts.require('./StrikersMetadata.sol');
 const StrikersPackSale = artifacts.require('./StrikersPackSale.sol');
+const StrikersUpdate = artifacts.require('./StrikersUpdate.sol');
 
 module.exports = function(deployer, network) {
   const apiUrl = network === 'live' ? 'https://us-central1-cryptostrikers-prod.cloudfunctions.net/cards/' : 'https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/';
@@ -33,6 +34,8 @@ module.exports = function(deployer, network) {
     strikersPackSale = packSaleInstance;
     return strikersCore.setPackSaleAddress(strikersPackSale.address);
   })
+  .then(() => strikersPackSale.unpause())
   .then(() => deployer.deploy(StrikersMetadata, apiUrl))
-  .then(metadataInstance => strikersCore.setMetadataAddress(metadataInstance.address));
+  .then(metadataInstance => strikersCore.setMetadataAddress(metadataInstance.address))
+  .then(() => deployer.deploy(StrikersUpdate, strikersCore.address));
 };
