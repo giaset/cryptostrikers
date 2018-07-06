@@ -36,6 +36,9 @@
         ".write": "auth !== null && !data.exists() && newData.exists()"
       }
     },
+    "starCounts": {
+      ".read": true
+    },
     "stats": {
       ".read": true
     },

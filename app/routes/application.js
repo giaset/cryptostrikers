@@ -28,7 +28,9 @@ export default Route.extend({
     })
     .catch(() => {});
 
-    return RSVP.all([intlSetup, web3Setup]);
+    const starCounts = this.get('store').findRecord('starCounts', 'starCounts');
+
+    return RSVP.all([intlSetup, web3Setup, starCounts]);
   },
 
   model() {

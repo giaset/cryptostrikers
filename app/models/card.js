@@ -7,6 +7,23 @@ export default DS.Model.extend({
   sale: DS.belongsTo(),
   serialNumber: DS.attr('number'),
 
+  filepath: computed('checklistItem.filepath', function() {
+    const filepath = this.get('checklistItem.filepath');
+    const starCounts = this.get('store').peekRecord('starCounts', 'starCounts').get('starCounts');
+    const starCount = starCounts[this.get('id')] || 0;
+
+    if (starCount > 0) {
+      const components = filepath.split('.');
+      // TODO: replace 1 with starCount
+      for (let i = 0; i < 1; i++) {
+        components[0] += '*';
+      }
+      return components.join('.');
+    } else {
+      return filepath;
+    }
+  }),
+
   prettyString: computed('checklistItem.player.localizedName', 'serialNumberString', function() {
     const playerName = this.get('checklistItem.player.localizedName');
     const serialNumberString = this.get('serialNumberString');
