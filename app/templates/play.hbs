@@ -1,14 +1,14 @@
 <div class="container">
   {{#strikers-row title="Predict & Win"}}
-    <p>Upgrade the cards you own by predicting the top performers from the 8 remaining matches.</p>
+    <p>Upgrade the cards you own by predicting a top performer from each of the 8 remaining matches.</p>
     <p>If you pick a forward or a midfielder, your card gets upgraded if your player scores a goal.</p>
     <p>If you pick a defender or a keeper, your card gets upgraded if your player keeps a clean sheet.</p>
     <p>Every time a card gets upgraded, it receives a star. The same card can be upgraded up to 3 times.</p>
   {{/strikers-row}}
   <div class="row">
-    {{#each model as |game index|}}
+    {{#each model.games as |game index|}}
       <div class="col-6 col-md-4 col-lg-3">
-        {{clickable-card-placeholder game=game index=index}}
+        {{clickable-card-placeholder game=game index=index myCards=model.myCards}}
       </div>
     {{/each}}
   </div>

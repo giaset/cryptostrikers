@@ -1,0 +1,27 @@
+<div class="strikers-modal-overlay" onclick={{action (ignore-children reject)}}>
+  <div class="strikers-modal-dialog p-4">
+    <div class="strikers-modal-title">
+      <h1>
+        Please select one of your cards.<br>
+        <span class="subtitle"><strong>Accepted players:</strong> {{acceptedPlayersString}}.</span>
+      </h1>
+      <button type="button" class="close" aria-label="Close" {{action reject}}>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {{#if noCards}}
+      <h5>You have no cards that are accepted for this game.</h5>
+    {{else if cards}}
+      <div class="row">
+        {{#each cards as |card|}}
+          <div class="col-6 col-md-4 col-lg-3 text-center">
+            <div class="modal-card-image-container">
+                <img src={{card.checklistItem.filepath}} class="clickable modal-card-image" {{action resolve card}}>
+            </div>
+            <div class="modal-card-subtitle">{{card.serialNumberString}}</div>
+          </div>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</div>

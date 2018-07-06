@@ -163,6 +163,11 @@ footer {
 
         span {
           color: $strikers-blue;
+
+          &.subtitle {
+            font-size: 18px;
+            font-weight: normal;
+          }
         }
       }
 

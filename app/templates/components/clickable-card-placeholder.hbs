@@ -21,9 +21,17 @@
     Teams TBD
   </div>
 {{/if}}
-<div class="clickable-card-placeholder-empty clickable">
-  <div class="click-here-container">
-    Click Here
+{{#if (lt index 4)}}
+  <div class="clickable-card-placeholder-empty clickable" {{action "placeholderClicked" game.acceptedPlayers myCards}}>
+    <div class="click-here-container">
+      Click Here
+    </div>
   </div>
-</div>
+{{else}}
+  <div class="clickable-card-placeholder-empty">
+    <div class="click-here-container">
+      Coming Soon
+    </div>
+  </div>
+{{/if}}
 <button type="button" class="btn btn-primary clickable-card-placeholder-button" disabled>SUBMIT</button>
