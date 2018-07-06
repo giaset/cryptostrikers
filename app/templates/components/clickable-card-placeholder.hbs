@@ -22,7 +22,7 @@
   </div>
 {{/if}}
 {{#if card}}
-  <img class={{unless matchStarted "clickable"}} src={{card.checklistItem.filepath}} class="card-image img-fluid" onclick={{unless matchStarted (action "placeholderClicked" game.acceptedChecklistItems myCards)}}>
+  <img class={{unless matchStarted "clickable"}} src={{card.filepath}} class="card-image img-fluid" onclick={{unless matchStarted (action "placeholderClicked" game.acceptedChecklistItems myCards)}}>
 {{else if (lt game.id 4)}}
   {{#if matchStarted}}
     <div class="clickable-card-placeholder-empty">

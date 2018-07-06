@@ -12,9 +12,9 @@
     </h4>
   </div>
   {{#if makerCard}}
-    <img src={{makerCard.checklistItem.filepath}} class="card-container-image">
+    <img src={{makerCard.filepath}} class="card-container-image">
   {{else if selectedCardLeft}}
-    <img src={{selectedCardLeft.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
+    <img src={{selectedCardLeft.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
   {{else}}
     <div class="card-container-placeholder {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" true}}>
       <h5 class="placeholder-title">{{t "trade-cards.click-here"}}</h5>
@@ -39,11 +39,11 @@
     </h4>
   </div>
   {{#if takerCard}}
-    <img src={{takerCard.checklistItem.filepath}} class="card-container-image">
+    <img src={{takerCard.filepath}} class="card-container-image">
   {{else if takerChecklistItem}}
     <img src={{takerChecklistItem.filepath}} class="card-container-image">
   {{else if counterpartyCard}}
-    <img src={{counterpartyCard.checklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
+    <img src={{counterpartyCard.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
   {{else if counterpartyChecklistItem}}
     <img src={{counterpartyChecklistItem.filepath}} class="card-container-image {{unless counterpartyAddressError "clickable"}}" {{action "placeholderClicked" false}}>
   {{else}}
