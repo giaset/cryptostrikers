@@ -14,6 +14,7 @@ export default DS.Adapter.extend({
     return RSVP.all(promises).then(games => {
       games.forEach((game, index) => {
         game.id = index;
+        game.acceptedChecklistItems = game.acceptedChecklistIds.map(id => id.padStart(3, '0'));
         game.startTime *= 1000;
       });
       return games;

@@ -11,11 +11,11 @@ contract StrikersUpdate is Ownable {
   uint8 constant CHECKLIST_ITEM_COUNT = 132;
   uint8 constant GAME_COUNT = 8;
 
-  mapping (uint256 => uint8) starCountForCard;
+  mapping (uint256 => uint8) public starCountForCard;
   mapping (address => uint256[GAME_COUNT]) public picksForUser;
 
   struct Game {
-    uint8[] acceptedPlayers;
+    uint8[] acceptedChecklistIds;
     uint32 startTime;
     uint8 homeTeam;
     uint8 awayTeam;
@@ -36,7 +36,7 @@ contract StrikersUpdate is Ownable {
     game57.homeTeam = 31;
     game57.awayTeam = 10;
     games.push(game57);
-    games[0].acceptedPlayers = [10, 13, 16, 17, 18, 19, 37, 41, 51];
+    games[0].acceptedChecklistIds = [10, 13, 16, 17, 18, 19, 37, 41, 51];
 
     // 58 - FRIDAY JULY 6 2018 02:00 PM ET (BRAZIL / BELGIUM)
     Game memory game58;
@@ -44,7 +44,7 @@ contract StrikersUpdate is Ownable {
     game58.homeTeam = 3;
     game58.awayTeam = 2;
     games.push(game58);
-    games[1].acceptedPlayers = [2, 5, 7, 21, 23, 28, 30, 31, 33, 34, 45, 50, 60, 62];
+    games[1].acceptedChecklistIds = [2, 5, 7, 21, 23, 28, 30, 31, 33, 34, 45, 50, 60, 62];
 
     // 60 - SATURDAY JULY 7 2018 10:00 AM ET (SWEDEN / ENGLAND)
     Game memory game60;
@@ -52,7 +52,7 @@ contract StrikersUpdate is Ownable {
     game60.homeTeam = 28;
     game60.awayTeam = 9;
     games.push(game60);
-    games[2].acceptedPlayers = [11, 40, 48, 63, 72, 79];
+    games[2].acceptedChecklistIds = [11, 40, 48, 63, 72, 79];
 
     // 59 - SATURDAY JULY 7 2018 02:00 PM ET (RUSSIA / CROATIA)
     Game memory game59;
@@ -60,7 +60,7 @@ contract StrikersUpdate is Ownable {
     game59.homeTeam = 22;
     game59.awayTeam = 6;
     games.push(game59);
-    games[3].acceptedPlayers = [6, 43, 64, 70, 81];
+    games[3].acceptedChecklistIds = [6, 43, 64, 70, 81];
 
     /*** SEMI-FINALS ***/
 
@@ -89,9 +89,9 @@ contract StrikersUpdate is Ownable {
     games.push(game64);
   }
 
-  function updateGame(uint8 _game, uint8[] _acceptedPlayers, uint32 _startTime, uint8 _homeTeam, uint8 _awayTeam) external onlyOwner {
+  function updateGame(uint8 _game, uint8[] _acceptedChecklistIds, uint32 _startTime, uint8 _homeTeam, uint8 _awayTeam) external onlyOwner {
     Game storage game = games[_game];
-    game.acceptedPlayers = _acceptedPlayers;
+    game.acceptedChecklistIds = _acceptedChecklistIds;
     game.startTime = _startTime;
     game.homeTeam = _homeTeam;
     game.awayTeam = _awayTeam;
@@ -101,35 +101,47 @@ contract StrikersUpdate is Ownable {
     external
     view
     returns (
-    uint8[] acceptedPlayers,
+    uint8[] acceptedChecklistIds,
     uint32 startTime,
     uint8 homeTeam,
     uint8 awayTeam
   ) {
     Game memory game = games[_game];
-    acceptedPlayers = game.acceptedPlayers;
+    acceptedChecklistIds = game.acceptedChecklistIds;
     startTime = game.startTime;
     homeTeam = game.homeTeam;
     awayTeam = game.awayTeam;
   }
 
-  // There's actually no way for us to check that the submitted card features
-  // an acceptedPlayer, but because there's 0 upside or downside to submitting
-  // a card featuring an invalid player, it doesn't really matter...
   function makePick(uint8 _game, uint256 _cardId) external {
     Game memory game = games[_game];
     require(now < game.startTime, "This game has already started.");
     require(strikersBaseContract.ownerOf(_cardId) == msg.sender, "You don't own this card.");
+    uint8 checklistId;
+    (,checklistId,) = strikersBaseContract.cards(_cardId);
+    require(_arrayContains(game.acceptedChecklistIds, checklistId), "This card is invalid for this game.");
     picksForUser[msg.sender][_game] = _cardId;
     emit PickMade(msg.sender, _game, _cardId);
+  }
+
+  function _arrayContains(uint8[] _array, uint8 _element) internal pure returns (bool) {
+    for (uint i = 0; i < _array.length; i++) {
+      if (_array[i] == _element) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   function updateCards(uint8 _game, uint256[] _cardIds) external onlyOwner {
     for (uint256 i = 0; i < _cardIds.length; i++) {
       uint256 cardId = _cardIds[i];
-      starCountForCard[cardId]++;
       address owner = strikersBaseContract.ownerOf(cardId);
-      emit CardUpgraded(owner, _game, cardId);
+      if (picksForUser[owner][_game] == cardId) {
+        starCountForCard[cardId]++;
+        emit CardUpgraded(owner, _game, cardId);
+      }
     }
   }
 

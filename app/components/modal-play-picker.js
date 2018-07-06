@@ -7,14 +7,14 @@ export default ModalComponent.extend({
   didInsertElement() {
     this._super(...arguments);
     const options = this.get('model.options');
-    const acceptedPlayerIds = options.acceptedPlayers.mapBy('id');
+    const acceptedChecklistIds = options.acceptedChecklistItems.mapBy('id');
     const cards = options.myCards.filter(card => {
-      if (parseInt(card.get('checklistItem.id')) >= 100) {
+      const checklistId = card.get('checklistItem.id');
+      if (parseInt(checklistId) >= 100) {
         return false;
       }
 
-      const playerId = card.get('checklistItem.player.id');
-      return acceptedPlayerIds.includes(playerId);
+      return acceptedChecklistIds.includes(checklistId);
     });
 
     if (cards.length > 0) {
@@ -24,7 +24,8 @@ export default ModalComponent.extend({
     }
   },
 
-  acceptedPlayersString: computed('model.options.acceptedPlayers', function() {
-    return this.get('model.options.acceptedPlayers').mapBy('name').join(', ');
+  acceptedPlayersString: computed('model.options.acceptedChecklistItems', function() {
+    const playerNames = this.get('model.options.acceptedChecklistItems').mapBy('player.name');
+    return playerNames.uniq().join(', ');
   })
 });

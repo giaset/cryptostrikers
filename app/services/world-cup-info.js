@@ -16,6 +16,7 @@ export default Service.extend({
     });
     return RSVP.all([
       playersPromise,
+      store.findAll('checklist-item'),
       store.findAll('country')
     ]);
   }

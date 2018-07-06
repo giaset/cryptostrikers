@@ -8,8 +8,8 @@ export default Component.extend({
   modal: service(),
 
   actions: {
-    placeholderClicked(acceptedPlayers, myCards) {
-      this.get('modal').open('play-picker', { acceptedPlayers, myCards }).then(card => {
+    placeholderClicked(acceptedChecklistItems, myCards) {
+      this.get('modal').open('play-picker', { acceptedChecklistItems, myCards }).then(card => {
         this.set('selectedCard', card);
       }).catch(() => {});
     }
