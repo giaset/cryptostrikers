@@ -28,8 +28,8 @@ export default Component.extend({
   submittedCard: computed('game.id', 'myPicks', function() {
     const index = this.get('game.id');
     const pick = this.get('myPicks').objectAt(index);
-
-    if (pick.get('id') !== '0') {
+    const pickId = pick.get('id');
+    if (pickId && pickId !== '0') {
       return pick;
     }
   }),
