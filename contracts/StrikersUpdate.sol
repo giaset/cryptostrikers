@@ -5,20 +5,17 @@ import "./StrikersBase.sol";
 
 contract StrikersUpdate is Ownable {
 
-  event PickMade(address user, uint8 game, uint256 card);
+  event PickMade(address indexed user, uint8 indexed game, uint256 cardId);
+  event CardUpgraded(address indexed user, uint8 indexed game, uint256 cardId);
 
-  uint8 public constant GAME_COUNT = 8;
+  uint8 constant CHECKLIST_ITEM_COUNT = 132;
+  uint8 constant GAME_COUNT = 8;
 
-  // array of all gold cards
-  // array of all gold cards per owner
-
-  mapping (uint256 => uint8) starCount;
-
-  mapping (address => uint256[GAME_COUNT]) userPicks;
+  mapping (uint256 => uint8) starCountForCard;
+  mapping (address => uint256[GAME_COUNT]) public picksForUser;
 
   struct Game {
     uint8[] acceptedPlayers;
-    uint8[] winningPlayers;
     uint32 startTime;
     uint8 homeTeam;
     uint8 awayTeam;
@@ -92,18 +89,12 @@ contract StrikersUpdate is Ownable {
     games.push(game64);
   }
 
-  // get all user submissions
-
-  function updateGame(uint8 _game, uint8[] _acceptedPlayers, uint32 _startTime) external onlyOwner {
+  function updateGame(uint8 _game, uint8[] _acceptedPlayers, uint32 _startTime, uint8 _homeTeam, uint8 _awayTeam) external onlyOwner {
     Game storage game = games[_game];
     game.acceptedPlayers = _acceptedPlayers;
     game.startTime = _startTime;
-  }
-
-  function declareWinningPlayers(uint8 _game, uint8[] _winningPlayers) external onlyOwner {
-    // require after startTime
-    // this could be changd
-    games[_game].winningPlayers = _winningPlayers;
+    game.homeTeam = _homeTeam;
+    game.awayTeam = _awayTeam;
   }
 
   function getGame(uint8 _game)
@@ -111,35 +102,62 @@ contract StrikersUpdate is Ownable {
     view
     returns (
     uint8[] acceptedPlayers,
-    uint8[] winningPlayers,
     uint32 startTime,
     uint8 homeTeam,
     uint8 awayTeam
   ) {
     Game memory game = games[_game];
     acceptedPlayers = game.acceptedPlayers;
-    winningPlayers = game.winningPlayers;
     startTime = game.startTime;
     homeTeam = game.homeTeam;
     awayTeam = game.awayTeam;
   }
 
-  /*function makePick(uint8 _game, uint256 _cardId) external {
-    // require before startTime
-    require(strikersBaseContract.ownerOf(_cardId) == msg.sender, "");
-    // require accepted player
-  }*/
-
-  /*function claimPrize(uint8 _game) external {
-
-  }*/
-
-  // only card or checklist ids?
-  /*function updatedCardAndChecklistIdsForOwner(address _owner) {
-
+  // There's actually no way for us to check that the submitted card features
+  // an acceptedPlayer, but because there's 0 upside or downside to submitting
+  // a card featuring an invalid player, it doesn't really matter...
+  function makePick(uint8 _game, uint256 _cardId) external {
+    Game memory game = games[_game];
+    require(now < game.startTime, "This game has already started.");
+    require(strikersBaseContract.ownerOf(_cardId) == msg.sender, "You don't own this card.");
+    picksForUser[msg.sender][_game] = _cardId;
+    emit PickMade(msg.sender, _game, _cardId);
   }
 
-  function mintedCounts() external view {
+  function updateCards(uint8 _game, uint256[] _cardIds) external onlyOwner {
+    for (uint256 i = 0; i < _cardIds.length; i++) {
+      uint256 cardId = _cardIds[i];
+      starCountForCard[cardId]++;
+      address owner = strikersBaseContract.ownerOf(cardId);
+      emit CardUpgraded(owner, _game, cardId);
+    }
+  }
 
-  }*/
+  function getPicksForUser(address _user) external view returns (uint256[GAME_COUNT]) {
+    return picksForUser[_user];
+  }
+
+  function starCountsForOwner(address _owner) external view returns (uint8[]) {
+    uint256[] memory cardIds;
+    (cardIds,) = strikersBaseContract.cardAndChecklistIdsForOwner(_owner);
+    uint256 cardCount = cardIds.length;
+    uint8[] memory starCounts = new uint8[](cardCount);
+
+    for (uint256 i = 0; i < cardCount; i++) {
+      uint256 cardId = cardIds[i];
+      starCounts[i] = starCountForCard[cardId];
+    }
+
+    return starCounts;
+  }
+
+  function getMintedCounts() external view returns (uint16[CHECKLIST_ITEM_COUNT]) {
+    uint16[CHECKLIST_ITEM_COUNT] memory mintedCounts;
+
+    for (uint8 i = 0; i < CHECKLIST_ITEM_COUNT; i++) {
+      mintedCounts[i] = strikersBaseContract.mintedCountForChecklistId(i);
+    }
+
+    return mintedCounts;
+  }
 }

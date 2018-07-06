@@ -1,14 +1,15 @@
 <div class="container">
   {{#strikers-row title="Predict & Win"}}
-    <p>Upgrade the cards you own by predicting a top performer from each of the 8 remaining matches.</p>
-    <p>If you pick a forward or a midfielder, your card gets upgraded if your player scores a goal.</p>
-    <p>If you pick a defender or a keeper, your card gets upgraded if your player keeps a clean sheet.</p>
+    <p>Upgrade your Originals cards by predicting a top performer from each of the 8 remaining matches.</p>
+    <p>If you pick a forward or a midfielder, your card gets upgraded if your player scores one or more goals.</p>
+    <p>If you pick a defender or a keeper, your card gets upgraded if his team keeps a clean sheet (min. 60 minutes played, excluding injury time).</p>
     <p>Every time a card gets upgraded, it receives a star. The same card can be upgraded up to 3 times.</p>
+    <p>Your pick for a game can be modified until kickoff. Cards will be upgraded shortly after the match's conclusion.</p>
   {{/strikers-row}}
   <div class="row">
-    {{#each model.games as |game index|}}
+    {{#each model.games as |game|}}
       <div class="col-6 col-md-4 col-lg-3">
-        {{clickable-card-placeholder game=game index=index myCards=model.myCards}}
+        {{clickable-card-placeholder game=game myCards=model.myCards myPicks=model.myPicks submitClicked=(action "submitClicked")}}
       </div>
     {{/each}}
   </div>

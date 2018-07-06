@@ -9,6 +9,10 @@ export default ModalComponent.extend({
     const options = this.get('model.options');
     const acceptedPlayerIds = options.acceptedPlayers.mapBy('id');
     const cards = options.myCards.filter(card => {
+      if (parseInt(card.get('checklistItem.id')) >= 100) {
+        return false;
+      }
+
       const playerId = card.get('checklistItem.player.id');
       return acceptedPlayerIds.includes(playerId);
     });

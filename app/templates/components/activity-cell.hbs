@@ -26,6 +26,8 @@
       {{t "activity-cell.fill-trade" tradeString=activity.tradeString warning=(if activity.trade.isOpenTrade "hope nobody beats you to it!" "so it could still be cancelled by the creator.") htmlSafe=true}}
     {{else if (eq activity.type "create_trade")}}
       {{t "activity-cell.create-trade" tradeString=activity.tradeString htmlSafe=true}}
+    {{else if (eq activity.type "make_pick")}}
+      You submitted <span>{{activity.submittedCard.checklistItem.player.name}}</span> as your pick for game <span>#{{activity.gameNumber}}</span>. This pick will only be valid if the transaction is processed before match kickoff. Your selected card will only appear on the <span>{{link-to "Play" "play"}}</span> page once this transaction is processed.
     {{/if}}
   </div>
 </div>

@@ -24,6 +24,12 @@
     color: #828282;
   }
 
+  .card-image {
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+    margin: 8px 0 16px 0;
+    border-radius: 3px;
+  }
+
   .clickable-card-placeholder-empty {
     position: relative;
     padding-bottom: 140%;

@@ -19,7 +19,7 @@ export default Component.extend({
     const type = this.get('activity.type');
     let image = 'sell';
 
-    if (BUY_TYPES[type]) {
+    if (BUY_TYPES[type] || type === 'make_pick') {
       image = 'buy';
     } else if (TRADE_TYPES[type]) {
       image = 'trade';
