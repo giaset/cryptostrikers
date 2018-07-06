@@ -1,0 +1,4 @@
+<h1>Predictions</h1>
+{{#each model as |event|}}
+  <p>{{event.returnValues.user}} - {{event.returnValues.game}} - {{event.returnValues.cardId}}</p>
+{{/each}}

@@ -30,6 +30,7 @@ Router.map(function() {
     this.route('video-tester');
     this.route('key-metrics');
     this.route('trading');
+    this.route('predictions');
   });
   this.authenticatedRoute('create-trade');
   this.authenticatedRoute('trades', { path: '/trades/:trade_id' });
