@@ -23,7 +23,8 @@ export default Route.extend({
       myChecklistIds: contract.cardAndChecklistIdsForOwner(owner).call().then(arrays => {
         const checklistIds = arrays[1];
         return checklistIds.map(checklistId => checklistId.padStart(3, '0'));
-      })
+      }),
+      starCounts: this.get('strikersContracts.StrikersUpdate.methods').starCountsForOwner(owner).call()
     });
   },
 });

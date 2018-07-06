@@ -1,6 +1,6 @@
 {{#link-to "checklist" checklistItem.id (query-params card_id=null owner=null)}}
   <div class="card-image-container mb-2">
-    <img src={{checklistItem.filepath}} class="card-image img-fluid">
+    <img src={{starredFilepath}} class="card-image img-fluid">
   </div>
   {{#if (gt ownedCount 1)}}
     <span class="card-count-badge">{{ownedCount}}</span>

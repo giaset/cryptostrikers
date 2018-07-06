@@ -44,5 +44,18 @@ export default Component.extend({
       ownedMap[checklistId] = (ownedMap[checklistId] + 1) || 1;
     });
     return ownedMap;
+  }),
+
+  checklistItemToStarCount: computed('myChecklistIds', 'starCounts', function() {
+    const starCounts = this.get('starCounts').map(count => parseInt(count));
+    const starMap = {};
+    this.get('myChecklistIds').forEach((checklistId, index) => {
+      const count = starCounts[index];
+      if (count > 0) {
+        const oldValue = starMap[checklistId] || 0;
+        starMap[checklistId] = Math.max(oldValue, count);
+      }
+    });
+    return starMap;
   })
 });
