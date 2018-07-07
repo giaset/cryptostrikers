@@ -36,13 +36,27 @@ app.get('/:id', (req, res) => {
   const cardId = req.params.id;
   const result = { attributes: [] };
   let serialNumber;
-  strikersContract.methods.cards(cardId).call()
+  let starCounts = {};
+  admin.database().ref('/starCounts/starCounts/starCounts').once('value')
+  .then(snapshot => {
+    starCounts = snapshot.val();
+    return strikersContract.methods.cards(cardId).call();
+  })
   .then(contractCard => {
     // Firebase doesn't support padStart...
     const checklistId = ('000'+contractCard.checklistId).substring(contractCard.checklistId.length);
     result.attributes.push(_newAttribute('checklist_ID', `#${checklistId}`));
     const extension = contractCard.checklistId >= 100 ? 'png' : 'svg';
-    result.image = `https://www.cryptostrikers.com/assets/images/cards/${checklistId}.${extension}`;
+
+    let starCountString = '';
+    const starCount = starCounts[cardId];
+    if (starCount > 0) {
+      for (let i = 0; i < starCount; i++) {
+        starCountString += '*';
+      }
+    }
+
+    result.image = `https://www.cryptostrikers.com/assets/images/cards/${checklistId}${starCountString}.${extension}`;
     result.external_url = `https://www.cryptostrikers.com/checklist/${checklistId}?card_id=${cardId}`;
     serialNumber = parseInt(contractCard.serialNumber);
     return admin.database().ref(`/checklistItems/${checklistId}`).once('value');
