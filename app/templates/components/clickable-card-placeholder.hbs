@@ -12,7 +12,7 @@
 <div class="clickable-card-placeholder-date">
   {{moment-format game.startTime "DD MMM - h:mma"}}
 </div>
-{{#if (lt game.id 4)}}
+{{#if (lt game.id 6)}}
   <div class="clickable-card-placeholder-teams">
     <img class="emoji-flag" src="/assets/images/flags/{{game.homeTeam.name}}.png"> vs <img class="emoji-flag" src="/assets/images/flags/{{game.awayTeam.name}}.png">
   </div>
@@ -23,7 +23,7 @@
 {{/if}}
 {{#if card}}
   <img class={{unless matchStarted "clickable"}} src={{card.filepath}} class="card-image img-fluid" onclick={{unless matchStarted (action "placeholderClicked" game.acceptedChecklistItems myCards)}}>
-{{else if (lt game.id 4)}}
+{{else if (lt game.id 6)}}
   {{#if matchStarted}}
     <div class="clickable-card-placeholder-empty">
       <div class="click-here-container">
