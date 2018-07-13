@@ -12,35 +12,21 @@
 <div class="clickable-card-placeholder-date">
   {{moment-format game.startTime "DD MMM - h:mma"}}
 </div>
-{{#if (lt game.id 6)}}
-  <div class="clickable-card-placeholder-teams">
-    <img class="emoji-flag" src="/assets/images/flags/{{game.homeTeam.name}}.png"> vs <img class="emoji-flag" src="/assets/images/flags/{{game.awayTeam.name}}.png">
-  </div>
-{{else}}
-  <div class="clickable-card-placeholder-teams">
-    Teams TBD
-  </div>
-{{/if}}
+<div class="clickable-card-placeholder-teams">
+  <img class="emoji-flag" src="/assets/images/flags/{{game.homeTeam.name}}.png"> vs <img class="emoji-flag" src="/assets/images/flags/{{game.awayTeam.name}}.png">
+</div>
 {{#if card}}
   <img class={{unless matchStarted "clickable"}} src={{card.filepath}} class="card-image img-fluid" onclick={{unless matchStarted (action "placeholderClicked" game.acceptedChecklistItems myCards)}}>
-{{else if (lt game.id 6)}}
-  {{#if matchStarted}}
-    <div class="clickable-card-placeholder-empty">
-      <div class="click-here-container">
-        Match Started
-      </div>
-    </div>
-  {{else}}
-    <div class="clickable-card-placeholder-empty clickable" {{action "placeholderClicked" game.acceptedChecklistItems myCards}}>
-      <div class="click-here-container">
-        Click Here
-      </div>
-    </div>
-  {{/if}}
-{{else}}
+{{else if matchStarted}}
   <div class="clickable-card-placeholder-empty">
     <div class="click-here-container">
-      Coming Soon
+      Match Started
+    </div>
+  </div>
+{{else}}
+  <div class="clickable-card-placeholder-empty clickable" {{action "placeholderClicked" game.acceptedChecklistItems myCards}}>
+    <div class="click-here-container">
+      Click Here
     </div>
   </div>
 {{/if}}
