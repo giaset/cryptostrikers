@@ -29,8 +29,7 @@ export default Component.extend({
 
     if (starCount > 0) {
       const components = filepath.split('.');
-      // TODO: replace 1 with starCount
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < starCount; i++) {
         components[0] += '*';
       }
       return components.join('.');
