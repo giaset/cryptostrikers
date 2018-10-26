@@ -1,8 +1,16 @@
 <div class="container">
   {{#if model.isPaused}}
-    <div class="text-center">
-      SALE IS PAUSED
-    </div>
+    {{#strikers-row title="The Pack Sale Has Ended"}}
+      <p>
+        As planned, the CryptoStrikers pack sale came to an end on completion of the 24th Iconic sale.
+      </p>
+      <p>
+        We want to thank all of you for making v1 of CryptoStrikers a great success -- expect an announcement in the next few days detailing our plans for future versions of the app!
+      </p>
+      <p>
+        In the meantime, you can still buy/sell individual cards on marketplaces like <a href="" target="_blank">OpenSeas</a>, as well as make trades using the {{link-to "CryptoStrikers website" create-trade}} and external services such as Atomic Bazaar.
+      </p>
+    {{/strikers-row}}
   {{else}}
     {{#strikers-row title=(t "buy-packs.header.title") class="buy-packs-header"}}
       <p>

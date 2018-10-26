@@ -15,7 +15,13 @@ request(url, (error, response, body) => {
   const payload = JSON.parse(body);
   console.log(payload.result.length);
   const errorCounts = { 0: 0, 1: 0 };
-  const saleCounts = { 0: 0, 25000000000000000: 0, 50000000000000000: 0 };
+  const saleCounts = {
+    0: 0,
+    1: 0,
+    12500000000000000: 0,
+    25000000000000000: 0,
+    50000000000000000: 0
+  };
   const uniqueAddresses = new Set();
   const dailySales = {};
   payload.result.forEach(transaction => {
